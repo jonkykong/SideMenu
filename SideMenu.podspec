@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
   s.version          = "0.1.0"
-  s.summary          = "A short description of SideMenu."
+  s.summary          = "SideMenu is a simple and versatile side menu control."
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,13 +17,14 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
+  SideMenu is a simple and versatile side menu control. It's highly customizable, but can also be implemented in storyboard without a single line of code. The are three standard animation styles to choose from along with several other options for further customization if desired.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/SideMenu"
+  s.homepage         = "https://github.com/jonkykong/SideMenu"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "jonkykong" => "jpkent@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/SideMenu.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/jonkykong/SideMenu.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
