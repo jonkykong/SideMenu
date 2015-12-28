@@ -102,83 +102,83 @@ private func menuPushViewController(navigationController: UINavigationController
     }
 }
 
-class UILeftSideMenuNavigationController: UINavigationController {
+public class UILeftSideMenuNavigationController: UINavigationController {
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         SideMenuManager.menuLeftNavigationController = self
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         menuViewDidAppear(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override public func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         menuViewWillDisappear(self)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
         menuViewDidDisappear(self)
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         menuViewWillTransitionToSize(self, size: size, coordinator: coordinator)
     }
     
-    override func pushViewController(viewController: UIViewController, animated: Bool) {
+    override public func pushViewController(viewController: UIViewController, animated: Bool) {
         menuPushViewController(self, viewController: viewController, animated: animated)
     }
 }
 
-class UIRightSideMenuNavigationController: UINavigationController {
+public class UIRightSideMenuNavigationController: UINavigationController {
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         SideMenuManager.menuRightNavigationController = self
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         menuViewDidAppear(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override public func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         menuViewWillDisappear(self)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
         menuViewDidDisappear(self)
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         menuViewWillTransitionToSize(self, size: size, coordinator: coordinator)
     }
     
-    override func pushViewController(viewController: UIViewController, animated: Bool) {
+    override public func pushViewController(viewController: UIViewController, animated: Bool) {
         menuPushViewController(self, viewController: viewController, animated: animated)
     }
 }
 
-class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
     
-    enum MenuPresentMode {
+    public enum MenuPresentMode {
         case MenuSlideIn
         case ViewSlideOut
         case MenuDissolveIn
@@ -193,24 +193,24 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
     private static var originalLeftMenuBackgroundColor:UIColor?
     private static var originalRightMenuBackgroundColor:UIColor?
     
-    static var menuPresentMode:MenuPresentMode = .ViewSlideOut
-    static var menuAllowPushOfSameClassTwice = true
-    static var menuAllowPopIfPossible = false
-    static var menuWidth: CGFloat = max(round(min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height) * 0.75), 240)
-    static var menuAnimationPresentDuration = 0.35
-    static var menuAnimationDismissDuration = 0.35
-    static var menuAnimationFadeStrength: CGFloat = 0
-    static var menuAnimationShrinkStrength: CGFloat = 1
-    static var menuAnimationShrinkBackgroundColor: UIColor?
-    static var menuShadowOpacity:Float = 0.5
-    static var menuShadowColor = UIColor.blackColor()
-    static var menuShadowRadius: CGFloat = 5
-    static weak var menuLeftSwipeToDismissGesture:UIPanGestureRecognizer?
-    static weak var menuRightSwipeToDismissGesture:UIPanGestureRecognizer?
-    static var menuParallaxStrength:Int = 0
-    static var menuFadeStatusBar = true
+    public static var menuPresentMode:MenuPresentMode = .ViewSlideOut
+    public static var menuAllowPushOfSameClassTwice = true
+    public static var menuAllowPopIfPossible = false
+    public static var menuWidth: CGFloat = max(round(min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height) * 0.75), 240)
+    public static var menuAnimationPresentDuration = 0.35
+    public static var menuAnimationDismissDuration = 0.35
+    public static var menuAnimationFadeStrength: CGFloat = 0
+    public static var menuAnimationShrinkStrength: CGFloat = 1
+    public static var menuAnimationShrinkBackgroundColor: UIColor?
+    public static var menuShadowOpacity:Float = 0.5
+    public static var menuShadowColor = UIColor.blackColor()
+    public static var menuShadowRadius: CGFloat = 5
+    public static weak var menuLeftSwipeToDismissGesture:UIPanGestureRecognizer?
+    public static weak var menuRightSwipeToDismissGesture:UIPanGestureRecognizer?
+    public static var menuParallaxStrength:Int = 0
+    public static var menuFadeStatusBar = true
     
-    static var menuBlurEffectStyle: UIBlurEffectStyle? {
+    public static var menuBlurEffectStyle: UIBlurEffectStyle? {
         didSet {
             updateMenuBlurIfNecessary()
         }
@@ -219,7 +219,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
     // prevent instantiation
     private override init() {}
     
-    static var menuLeftNavigationController: UILeftSideMenuNavigationController? {
+    public static var menuLeftNavigationController: UILeftSideMenuNavigationController? {
         willSet {
             if menuLeftNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -240,7 +240,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
         }
     }
     
-    static var menuRightNavigationController: UIRightSideMenuNavigationController? {
+    public static var menuRightNavigationController: UIRightSideMenuNavigationController? {
         willSet {
             if menuRightNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -327,7 +327,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
         }
     }
     
-    class func menuAddScreenEdgePanGesturesToPresent(toView toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer] {
+    public class func menuAddScreenEdgePanGesturesToPresent(toView toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer] {
         
         var array = [UIScreenEdgePanGestureRecognizer]()
         
@@ -352,7 +352,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
         return array
     }
     
-    class func menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer {
+    public class func menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action:"handlePresentMenuPan:")
         toView.addGestureRecognizer(panGestureRecognizer)
@@ -573,7 +573,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
     
     // animate a change from one viewcontroller to another
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()!
@@ -677,7 +677,7 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
     }
     
     // return how many seconds the transiton animation will take
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return SideMenuManager.presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
@@ -685,25 +685,25 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
     
     // return the animataor when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         SideMenuManager.presenting = true
         SideMenuManager.presentDirection = presented == SideMenuManager.menuLeftNavigationController ? .Left : .Right
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         SideMenuManager.presenting = false
         return self
     }
     
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         // if our interactive flag is true, return the transition manager object
         // otherwise return nil
         return SideMenuManager.interactive ? SideMenuManager.singleton : nil
     }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return SideMenuManager.interactive ? SideMenuManager.singleton : nil
     }
     
@@ -717,13 +717,13 @@ class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewControllerAni
 
 }
 
-class VibrantCell: UITableViewCell {
+public class VibrantCell: UITableViewCell {
     
     private var vibrancyView:UIVisualEffectView = UIVisualEffectView()
     private var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()
     private var defaultSelectedBackgroundView:UIView?
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         vibrancyView.frame = bounds
@@ -738,7 +738,7 @@ class VibrantCell: UITableViewCell {
         defaultSelectedBackgroundView = selectedBackgroundView
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         if !UIAccessibilityIsReduceTransparencyEnabled() && SideMenuManager.menuBlurEffectStyle != nil {

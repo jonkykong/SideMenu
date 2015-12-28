@@ -1,15 +1,15 @@
 {
   "name": "SideMenu",
   "version": "0.1.0",
-  "summary": "A short description of SideMenu.",
-  "description": "",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/SideMenu",
+  "summary": "SideMenu is a simple and versatile side menu control.",
+  "description": "SideMenu is a simple and versatile side menu control. It's highly customizable, but can also be implemented in storyboard without a single line of code. The are three standard animation styles to choose from along with several other options for further customization if desired.",
+  "homepage": "https://github.com/jonkykong/SideMenu",
   "license": "MIT",
   "authors": {
-    "jonkykong": "jpkent@gmail.com"
+    "jonkykong": "jonk@jonked.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/SideMenu.git",
+    "git": "https://github.com/jonkykong/SideMenu.git",
     "tag": "0.1.0"
   },
   "platforms": {
