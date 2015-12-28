@@ -717,7 +717,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
 
 }
 
-public class VibrantCell: UITableViewCell {
+public class UITableViewVibrantCell: UITableViewCell {
     
     private var vibrancyView:UIVisualEffectView = UIVisualEffectView()
     private var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()

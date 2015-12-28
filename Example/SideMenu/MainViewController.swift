@@ -1,5 +1,5 @@
 //
-//  MainVC.swift
+//  MainViewController.swift
 //
 //  Created by Jon Kent on 11/12/15.
 //  Copyright © 2015 Jon Kent. All rights reserved.
@@ -8,7 +8,7 @@
 import UIKit
 import SideMenu
 
-class MainVC: UIViewController {
+class MainViewController: UIViewController {
     
     @IBOutlet private weak var presentModeSegmentedControl:UISegmentedControl!
     @IBOutlet private weak var blurSegmentControl:UISegmentedControl!

@@ -29,7 +29,7 @@
         <!--Swipe Here-->
         <scene sceneID="XZh-dw-B7D">
             <objects>
-                <viewController id="QHN-nZ-kbB" customClass="MainVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QHN-nZ-kbB" customClass="MainViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rm7-bv-OCN"/>
                         <viewControllerLayoutGuide type="bottom" id="LW0-9z-RHu"/>
@@ -246,7 +246,7 @@
         <!--Left Side Menu Navigation Controller-->
         <scene sceneID="Zbc-0f-8nT">
             <objects>
-                <navigationController storyboardIdentifier="UILeftSideMenuNavigationController" navigationBarHidden="YES" id="DuX-EW-0mP" customClass="UILeftSideMenuNavigationController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UILeftSideMenuNavigationController" navigationBarHidden="YES" id="DuX-EW-0mP" customClass="UILeftSideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ipz-Lx-Wgf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="35F-wh-r6h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -278,7 +278,7 @@
                         <sections>
                             <tableViewSection id="gP8-eA-dcW">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4WI-Ed-3Gr" style="IBUITableViewCellStyleDefault" id="7tx-O6-zAs" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4WI-Ed-3Gr" style="IBUITableViewCellStyleDefault" id="7tx-O6-zAs" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7tx-O6-zAs" id="K0u-J2-Ab7">
@@ -299,7 +299,7 @@
                                             <segue destination="b5t-IX-0yu" kind="show" id="MFJ-wv-me5"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="DpJ-hV-lmw" style="IBUITableViewCellStyleDefault" id="f9Q-QP-TZ6" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="DpJ-hV-lmw" style="IBUITableViewCellStyleDefault" id="f9Q-QP-TZ6" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f9Q-QP-TZ6" id="i3p-Ya-AvO">
@@ -320,7 +320,7 @@
                                             <segue destination="u7M-mb-V6o" kind="show" id="J8Y-NG-KVd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="mAf-mx-C48" style="IBUITableViewCellStyleDefault" id="dc6-l8-0cu" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="mAf-mx-C48" style="IBUITableViewCellStyleDefault" id="dc6-l8-0cu" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dc6-l8-0cu" id="gyo-JQ-fx5">
@@ -358,7 +358,7 @@
         <!--You Can Still Swipe!-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bCi-eF-6hb"/>
                         <viewControllerLayoutGuide type="bottom" id="WdI-PK-HMg"/>
@@ -379,7 +379,7 @@
         <!--Right Side Menu Navigation Controller-->
         <scene sceneID="kei-0w-mFw">
             <objects>
-                <navigationController storyboardIdentifier="UIRightSideMenuNavigationController" navigationBarHidden="YES" id="z7k-fk-pfc" customClass="UIRightSideMenuNavigationController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UIRightSideMenuNavigationController" navigationBarHidden="YES" id="z7k-fk-pfc" customClass="UIRightSideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qOd-yQ-2i8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -409,7 +409,7 @@
                         <sections>
                             <tableViewSection id="xTE-WH-UeX">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="NLA-8t-ufi" style="IBUITableViewCellStyleDefault" id="8Ng-b4-4hH" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="NLA-8t-ufi" style="IBUITableViewCellStyleDefault" id="8Ng-b4-4hH" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ng-b4-4hH" id="U5K-l9-XWv">
@@ -430,7 +430,7 @@
                                             <segue destination="uMV-sw-TbB" kind="presentation" id="7VM-K4-IQ0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IdU-2D-zHb" style="IBUITableViewCellStyleDefault" id="Eok-gX-LwQ" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IdU-2D-zHb" style="IBUITableViewCellStyleDefault" id="Eok-gX-LwQ" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eok-gX-LwQ" id="IOJ-bC-bNt">
@@ -451,7 +451,7 @@
                                             <segue destination="Upx-FH-Mbv" kind="presentation" id="Ept-Rq-S24"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6x7-O7-DkG" style="IBUITableViewCellStyleDefault" id="41i-KK-YM3" customClass="VibrantCell" customModule="SideMenu_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6x7-O7-DkG" style="IBUITableViewCellStyleDefault" id="41i-KK-YM3" customClass="UITableViewVibrantCell" customModule="SideMenu">
                                         <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="41i-KK-YM3" id="629-G3-Agl">
@@ -486,10 +486,10 @@
             </objects>
             <point key="canvasLocation" x="1691.25" y="698.23943661971828"/>
         </scene>
-        <!--PresentedVC-->
+        <!--Presented View Controller-->
         <scene sceneID="1Bw-F8-wcb">
             <objects>
-                <viewController id="uMV-sw-TbB" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uMV-sw-TbB" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CUv-pn-QnG"/>
                         <viewControllerLayoutGuide type="bottom" id="Y6o-PP-5OP"/>
@@ -504,7 +504,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="close" destination="uMV-sw-TbB" eventType="touchUpInside" id="ClC-ka-YRL"/>
+                                    <action selector="close" destination="uMV-sw-TbB" eventType="touchUpInside" id="shP-5Z-AyH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -528,10 +528,10 @@
             </objects>
             <point key="canvasLocation" x="3896.25" y="698.23943661971828"/>
         </scene>
-        <!--PresentedVC-->
+        <!--Presented View Controller-->
         <scene sceneID="afw-j1-hgm">
             <objects>
-                <viewController id="Upx-FH-Mbv" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Upx-FH-Mbv" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o4B-82-huU"/>
                         <viewControllerLayoutGuide type="bottom" id="Cg1-5G-fVh"/>
@@ -546,7 +546,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="close" destination="Upx-FH-Mbv" eventType="touchUpInside" id="ktQ-o3-VZn"/>
+                                    <action selector="close" destination="Upx-FH-Mbv" eventType="touchUpInside" id="jJv-p6-94y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -570,10 +570,10 @@
             </objects>
             <point key="canvasLocation" x="3206.25" y="1080.6338028169014"/>
         </scene>
-        <!--PresentedVC-->
+        <!--Presented View Controller-->
         <scene sceneID="lxj-KK-fq7">
             <objects>
-                <viewController id="EG7-2X-5hP" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EG7-2X-5hP" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hJH-tK-XeV"/>
                         <viewControllerLayoutGuide type="bottom" id="e3Y-bn-25N"/>
@@ -588,7 +588,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="close" destination="EG7-2X-5hP" eventType="touchUpInside" id="f8T-c7-Una"/>
+                                    <action selector="close" destination="EG7-2X-5hP" eventType="touchUpInside" id="XLS-Dh-Izx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -615,7 +615,7 @@
         <!--You Can Still Swipe!-->
         <scene sceneID="6GP-Jo-SOW">
             <objects>
-                <viewController id="u7M-mb-V6o" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u7M-mb-V6o" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RTd-LU-QPL"/>
                         <viewControllerLayoutGuide type="bottom" id="MN7-Vy-BNb"/>
@@ -636,7 +636,7 @@
         <!--You Can Still Swipe!-->
         <scene sceneID="ZQL-2c-L6r">
             <objects>
-                <viewController id="b5t-IX-0yu" customClass="PresentedVC" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="b5t-IX-0yu" customClass="PresentedViewController" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rfX-xz-c0N"/>
                         <viewControllerLayoutGuide type="bottom" id="Iuo-on-rwS"/>
