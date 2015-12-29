@@ -72,7 +72,7 @@ menuLeftSwipeToDismissGesture: UIPanGestureRecognizer?
 menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
 menuParallaxStrength: Int = 0
 menuFadeStatusBar = true
-menuBlurEffectStyle: UIBlurEffectStyle? = nil
+menuBlurEffectStyle: UIBlurEffectStyle? = nil // Note: if you want cells in a UITableViewController menu to look good, make them a subclass of UITableViewVibrantCell!
 menuLeftNavigationController: UILeftMenuNavigationController? = nil
 menuRightNavigationController: UIRightMenuNavigationController? = nil
 menuAddScreenEdgePanGesturesToPresent(toView toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer]
