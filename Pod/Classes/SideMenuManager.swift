@@ -6,8 +6,8 @@
 //
 
 /* Example usage:
-    SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UILeftSideMenuNavigationController") as? UILeftSideMenuNavigationController
-    SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UIRightSideMenuNavigationController") as? UIRightSideMenuNavigationController
+    SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UILeftMenuNavigationController") as? UILeftMenuNavigationController
+    SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UIRightMenuNavigationController") as? UIRightMenuNavigationController
     SideMenuManager.menuAddPanToPresentGesture(toView: self.navigationController!.navigationBar)
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
@@ -100,7 +100,7 @@ private func menuPushViewController(navigationController: UINavigationController
     }
 }
 
-public class UILeftSideMenuNavigationController: UINavigationController {
+public class UILeftMenuNavigationController: UINavigationController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +137,7 @@ public class UILeftSideMenuNavigationController: UINavigationController {
     }
 }
 
-public class UIRightSideMenuNavigationController: UINavigationController {
+public class UIRightMenuNavigationController: UINavigationController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -188,8 +188,8 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     private static weak var tapView: UIView!
     private static weak var statusBarView: UIView?
     private static let singleton = SideMenuManager()
-    private static var originalLeftMenuBackgroundColor:UIColor?
-    private static var originalRightMenuBackgroundColor:UIColor?
+    private static var originalLeftMenuBackgroundColor: UIColor?
+    private static var originalRightMenuBackgroundColor: UIColor?
     
     public static var menuPresentMode:MenuPresentMode = .ViewSlideOut
     public static var menuAllowPushOfSameClassTwice = true
@@ -199,13 +199,13 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     public static var menuAnimationDismissDuration = 0.35
     public static var menuAnimationFadeStrength: CGFloat = 0
     public static var menuAnimationShrinkStrength: CGFloat = 1
-    public static var menuAnimationShrinkBackgroundColor: UIColor?
-    public static var menuShadowOpacity:Float = 0.5
+    public static var menuAnimationBackgroundColor: UIColor?
+    public static var menuShadowOpacity: Float = 0.5
     public static var menuShadowColor = UIColor.blackColor()
     public static var menuShadowRadius: CGFloat = 5
-    public static weak var menuLeftSwipeToDismissGesture:UIPanGestureRecognizer?
-    public static weak var menuRightSwipeToDismissGesture:UIPanGestureRecognizer?
-    public static var menuParallaxStrength:Int = 0
+    public static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer?
+    public static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
+    public static var menuParallaxStrength: Int = 0
     public static var menuFadeStatusBar = true
     
     public static var menuBlurEffectStyle: UIBlurEffectStyle? {
@@ -217,7 +217,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     // prevent instantiation
     private override init() {}
     
-    public static var menuLeftNavigationController: UILeftSideMenuNavigationController? {
+    public static var menuLeftNavigationController: UILeftMenuNavigationController? {
         willSet {
             if menuLeftNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -238,7 +238,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-    public static var menuRightNavigationController: UIRightSideMenuNavigationController? {
+    public static var menuRightNavigationController: UIRightMenuNavigationController? {
         willSet {
             if menuRightNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -575,8 +575,8 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()!
-        if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationShrinkBackgroundColor {
-            container.backgroundColor = menuShrinkBackgroundColor
+        if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
+            container.backgroundColor = menuBackgroundColor
         }
         
         // create a tuple of our screens
@@ -615,7 +615,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
             
             if SideMenuManager.menuFadeStatusBar {
                 let blackBar = UIView()
-                if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationShrinkBackgroundColor {
+                if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
                     blackBar.backgroundColor = menuShrinkBackgroundColor
                 } else {
                     blackBar.backgroundColor = UIColor.blackColor()

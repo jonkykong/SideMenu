@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yAA-s6-Bam">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -243,10 +242,10 @@
             </objects>
             <point key="canvasLocation" x="142" y="336"/>
         </scene>
-        <!--Left Side Menu Navigation Controller-->
+        <!--Left Menu Navigation Controller-->
         <scene sceneID="Zbc-0f-8nT">
             <objects>
-                <navigationController storyboardIdentifier="UILeftSideMenuNavigationController" navigationBarHidden="YES" id="DuX-EW-0mP" customClass="UILeftSideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UILeftMenuNavigationController" navigationBarHidden="YES" id="DuX-EW-0mP" customClass="UILeftMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ipz-Lx-Wgf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="35F-wh-r6h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -376,10 +375,10 @@
             </objects>
             <point key="canvasLocation" x="3896.25" y="0.0"/>
         </scene>
-        <!--Right Side Menu Navigation Controller-->
+        <!--Right Menu Navigation Controller-->
         <scene sceneID="kei-0w-mFw">
             <objects>
-                <navigationController storyboardIdentifier="UIRightSideMenuNavigationController" navigationBarHidden="YES" id="z7k-fk-pfc" customClass="UIRightSideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UIRightMenuNavigationController" navigationBarHidden="YES" id="z7k-fk-pfc" customClass="UIRightMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qOd-yQ-2i8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

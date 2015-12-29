@@ -25,11 +25,17 @@ class MainViewController: UIViewController {
     }
     
     private func setupSideMenu() {
-        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UILeftSideMenuNavigationController") as? UILeftSideMenuNavigationController
-        SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UIRightSideMenuNavigationController") as? UIRightSideMenuNavigationController
+        // Define the menus
+        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UILeftMenuNavigationController") as? UILeftMenuNavigationController
+        SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UIRightMenuNavigationController") as? UIRightMenuNavigationController
+        
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        SideMenuManager.menuAnimationShrinkBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        
+        // Set up a cool background image for demo purposes
+        SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
     
     private func setDefaults() {
@@ -51,6 +57,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction private func changeSegment(segmentControl: UISegmentedControl) {
+        presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
         switch segmentControl {
         case presentModeSegmentedControl:
             let modes:[SideMenuManager.MenuPresentMode] = [.MenuSlideIn, .ViewSlideOut, .MenuDissolveIn]
