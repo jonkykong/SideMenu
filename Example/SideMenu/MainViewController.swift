@@ -5,7 +5,6 @@
 //  Copyright © 2015 Jon Kent. All rights reserved.
 //
 
-import UIKit
 import SideMenu
 
 class MainViewController: UIViewController {

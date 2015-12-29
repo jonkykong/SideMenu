@@ -5,8 +5,6 @@
 //  Copyright © 2015 Jon Kent. All rights reserved.
 //
 
-import UIKit
-
 /* Example usage:
     SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UILeftSideMenuNavigationController") as? UILeftSideMenuNavigationController
     SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("UIRightSideMenuNavigationController") as? UIRightSideMenuNavigationController
