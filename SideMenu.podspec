@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-  SideMenu is a simple and versatile side menu control. It's highly customizable, but can also be implemented in storyboard without a single line of code. The are three standard animation styles to choose from along with several other options for further customization if desired.
+  SideMenu is a simple and versatile side menu control. It's highly customizable, but can also be implemented in storyboard without a single line of code. The are three standard animation styles to choose from along with several other options for further customization if desired. Just type SideMenuManager.menu... and code completion will show you everything you can customize.
                        DESC
 
   s.homepage         = "https://github.com/jonkykong/SideMenu"
