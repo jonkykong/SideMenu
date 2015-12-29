@@ -208,6 +208,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     public static var menuParallaxStrength: Int = 0
     public static var menuFadeStatusBar = true
     
+    // Note: if you want cells in a UITableViewController menu to look good, make them a subclass of UITableViewVibrantCell!
     public static var menuBlurEffectStyle: UIBlurEffectStyle? {
         didSet {
             updateMenuBlurIfNecessary()
