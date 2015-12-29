@@ -78,6 +78,9 @@ menuAddScreenEdgePanGesturesToPresent(toView toView: UIView, forMenu:UIRectEdge?
 menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer
 ```
 
+## Known Issues
+Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks up the UI. See [radar 21961293](http://www.openradar.me/21961293) for more information.
+
 ## License
 
 SideMenu is available under the MIT license. See the LICENSE file for more info.
