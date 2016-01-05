@@ -12,165 +12,140 @@
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
-private func menuViewDidAppear(navigationController: UINavigationController) {
-    // we had presented a view before, so lets dismiss ourselves as already acted upon
-    if navigationController.view.hidden {
-        SideMenuManager.hideMenuComplete()
-        navigationController.dismissViewControllerAnimated(false, completion: { () -> Void in
-            navigationController.view.hidden = false
-        })
-    }
-}
-
-private func menuViewWillDisappear(navigationController: UINavigationController) {
-    // when presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
-    // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
-    if !navigationController.isBeingDismissed() {
-        if let mainView = navigationController.presentingViewController?.view {
-            switch SideMenuManager.menuPresentMode {
-            case .ViewSlideOut:
-                mainView.superview?.insertSubview(navigationController.view, belowSubview: mainView)
-            case .MenuSlideIn, .MenuDissolveIn:
-                mainView.superview?.insertSubview(navigationController.view, aboveSubview: SideMenuManager.tapView)
+public class UIMenuNavigationController: UINavigationController {
+    
+    @IBInspectable public var leftSide:Bool = false {
+        didSet {
+            if isViewLoaded() { // suppress warnings
+                didSetSide()
             }
         }
     }
-}
-
-private func menuViewDidDisappear(navigationController: UINavigationController) {
-    // we're presenting a view controller from the menu, so we need to hide the menu so it isn't  g when the presented view is dismissed.
-    if !navigationController.isBeingDismissed() {
-        navigationController.view.hidden = true
-        SideMenuManager.hideMenuAppearance()
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        didSetSide()
     }
-}
 
-private func menuViewWillTransitionToSize(navigationController: UINavigationController, size: CGSize, coordinator: UIViewControllerTransitionCoordinator) {
-    // don't bother resizing if the view isn't visible
-    if navigationController.view.hidden {
-        return
+    private func didSetSide() {
+        if leftSide {
+            SideMenuManager.menuLeftNavigationController = self
+        } else {
+            SideMenuManager.menuRightNavigationController = self
+        }
     }
     
-    SideMenuManager.statusBarView?.hidden = true
-    coordinator.animateAlongsideTransition({ (context) -> Void in
-        SideMenuManager.presentMenuAppearance(forSize: size)
-        }) { (context) -> Void in
-            SideMenuManager.statusBarView?.hidden = false
+    override public func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // we had presented a view before, so lets dismiss ourselves as already acted upon
+        if view.hidden {
+            SideMenuManager.hideMenuComplete()
+            dismissViewControllerAnimated(false, completion: { () -> Void in
+                self.view.hidden = false
+            })
+        }
     }
-}
-
-private func menuPushViewController(navigationController: UINavigationController, viewController: UIViewController, animated: Bool) {
-    if let menuViewController: UINavigationController = SideMenuManager.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController {
-        if let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-            
-            // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
-            // is dismissed after showing the appropriate screen
-            CATransaction.begin()
-            CATransaction.setCompletionBlock( { () -> Void in
-                navigationController.dismissViewControllerAnimated(true, completion: nil)
-                navigationController.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
-            })
-            
-            UIView.animateWithDuration(SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
-                SideMenuManager.hideMenuAppearance()
-            })
-            
-            if SideMenuManager.menuAllowPopIfPossible {
-                for subViewController in presentingViewController.viewControllers {
-                    if subViewController.dynamicType == viewController.dynamicType {
-                        presentingViewController.popToViewController(subViewController, animated: animated)
+    
+    override public func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // when presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
+        // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
+        if !isBeingDismissed() {
+            if let mainView = presentingViewController?.view {
+                switch SideMenuManager.menuPresentMode {
+                case .ViewSlideOut:
+                    mainView.superview?.insertSubview(view, belowSubview: mainView)
+                case .MenuSlideIn, .MenuDissolveIn:
+                    mainView.superview?.insertSubview(view, aboveSubview: SideMenuManager.tapView)
+                }
+            }
+        }
+    }
+    
+    override public func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // we're presenting a view controller from the menu, so we need to hide the menu so it isn't  g when the presented view is dismissed.
+        if !isBeingDismissed() {
+            view.hidden = true
+            SideMenuManager.hideMenuStart()
+        }
+    }
+    
+    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        // don't bother resizing if the view isn't visible
+        if view.hidden {
+            return
+        }
+        
+        SideMenuManager.statusBarView?.hidden = true
+        coordinator.animateAlongsideTransition({ (context) -> Void in
+            SideMenuManager.presentMenuStart(forSize: size)
+            }) { (context) -> Void in
+                SideMenuManager.statusBarView?.hidden = false
+        }
+    }
+    
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let menuViewController: UINavigationController = SideMenuManager.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
+            presentingViewController = menuViewController.presentingViewController as? UINavigationController {
+                presentingViewController.prepareForSegue(segue, sender: sender)
+        }
+    }
+    
+    override public func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if let menuViewController: UINavigationController = SideMenuManager.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
+            presentingViewController = menuViewController.presentingViewController as? UINavigationController {
+                return presentingViewController.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+        }
+        
+        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+    }
+    
+    override public func pushViewController(viewController: UIViewController, animated: Bool) {
+        if let menuViewController: UINavigationController = SideMenuManager.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController {
+            if let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
+                
+                // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
+                // is dismissed after showing the appropriate screen
+                CATransaction.begin()
+                CATransaction.setCompletionBlock( { () -> Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
+                })
+                
+                UIView.animateWithDuration(SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
+                    SideMenuManager.hideMenuStart()
+                })
+                
+                if SideMenuManager.menuAllowPopIfPossible {
+                    for subViewController in presentingViewController.viewControllers {
+                        if subViewController.dynamicType == viewController.dynamicType {
+                            presentingViewController.popToViewController(subViewController, animated: animated)
+                            CATransaction.commit()
+                            return
+                        }
+                    }
+                }
+                if !SideMenuManager.menuAllowPushOfSameClassTwice {
+                    if presentingViewController.viewControllers.last?.dynamicType == viewController.dynamicType {
                         CATransaction.commit()
                         return
                     }
                 }
+                
+                presentingViewController.pushViewController(viewController, animated: animated)
+                CATransaction.commit()
+            } else {
+                menuViewController.presentViewController(viewController, animated: animated, completion: nil)
+                print("Warning: attempted to push a ViewController from a ViewController that doesn't have a NavigationController. It will be presented it instead.")
             }
-            if !SideMenuManager.menuAllowPushOfSameClassTwice {
-                if presentingViewController.viewControllers.last?.dynamicType == viewController.dynamicType {
-                    CATransaction.commit()
-                    return
-                }
-            }
-            
-            presentingViewController.pushViewController(viewController, animated: animated)
-            CATransaction.commit()
-        } else {
-            menuViewController.presentViewController(viewController, animated: animated, completion: nil)
-            print("Warning: attempted to push a ViewController from a ViewController that doesn't have a NavigationController. It will be presented it instead.")
         }
-    }
-}
-
-public class UILeftMenuNavigationController: UINavigationController {
-    
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        
-        SideMenuManager.menuLeftNavigationController = self
-    }
-    
-    override public func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        menuViewDidAppear(self)
-    }
-    
-    override public func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        menuViewWillDisappear(self)
-    }
-    
-    override public func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        menuViewDidDisappear(self)
-    }
-    
-    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        menuViewWillTransitionToSize(self, size: size, coordinator: coordinator)
-    }
-    
-    override public func pushViewController(viewController: UIViewController, animated: Bool) {
-        menuPushViewController(self, viewController: viewController, animated: animated)
-    }
-}
-
-public class UIRightMenuNavigationController: UINavigationController {
-    
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        
-        SideMenuManager.menuRightNavigationController = self
-    }
-    
-    override public func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        menuViewDidAppear(self)
-    }
-    
-    override public func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        menuViewWillDisappear(self)
-    }
-    
-    override public func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        menuViewDidDisappear(self)
-    }
-    
-    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        menuViewWillTransitionToSize(self, size: size, coordinator: coordinator)
-    }
-    
-    override public func pushViewController(viewController: UIViewController, animated: Bool) {
-        menuPushViewController(self, viewController: viewController, animated: animated)
     }
 }
 
@@ -218,7 +193,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     // prevent instantiation
     private override init() {}
     
-    public static var menuLeftNavigationController: UILeftMenuNavigationController? {
+    public static var menuLeftNavigationController: UIMenuNavigationController? {
         willSet {
             if menuLeftNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -239,7 +214,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-    public static var menuRightNavigationController: UIRightMenuNavigationController? {
+    public static var menuRightNavigationController: UIMenuNavigationController? {
         willSet {
             if menuRightNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -464,7 +439,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         return viewController
     }
     
-    private class func hideMenuAppearance() {
+    private class func hideMenuStart() {
         let mainViewController = viewControllerForPresentedMenu!
         let menuView = presentDirection == .Left ? menuLeftNavigationController!.view : menuRightNavigationController!.view
         menuView.transform = CGAffineTransformIdentity
@@ -510,7 +485,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-    private class func presentMenuAppearance(forSize size: CGSize = UIScreen.mainScreen().bounds.size) {
+    private class func presentMenuStart(forSize size: CGSize = UIScreen.mainScreen().bounds.size) {
         let mainViewController = viewControllerForPresentedMenu!
         if let menuView = presentDirection == .Left ? menuLeftNavigationController?.view : menuRightNavigationController?.view {
             menuView.transform = CGAffineTransformIdentity
@@ -574,6 +549,8 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     // animate a change from one viewcontroller to another
     public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
+        let statusBarStyle = SideMenuManager.visibleViewController()?.preferredStatusBarStyle()
+        
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()!
         if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
@@ -627,7 +604,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
             }
             SideMenuManager.tapView = tapView
             
-            SideMenuManager.hideMenuAppearance() // offstage for interactive
+            SideMenuManager.hideMenuStart() // offstage for interactive
             
             NSNotificationCenter.defaultCenter().addObserver(SideMenuManager.singleton, selector:"applicationDidEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         }
@@ -637,16 +614,15 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         let options: UIViewAnimationOptions = SideMenuManager.interactive ? .CurveLinear : .CurveEaseInOut
         UIView.animateWithDuration(duration, delay: 0, options: options, animations: { () -> Void in
             if SideMenuManager.presenting {
-                SideMenuManager.presentMenuAppearance() // onstage items: slide in
+                SideMenuManager.presentMenuStart() // onstage items: slide in
             }
             else {
-                SideMenuManager.hideMenuAppearance()
+                SideMenuManager.hideMenuStart()
             }
             }) { (finished) -> Void in
-//                if UIApplication.sharedApplication().visibleViewController!.preferredStatusBarStyle() != statusBarStyle {
-//                    // See http://www.openradar.me/21961293
-//                    print("Warning: do not change the status bar style while using interactive transitions or you risk transitions not properly completing.")
-//                }
+                if SideMenuManager.visibleViewController()?.preferredStatusBarStyle() != statusBarStyle {
+                    print("Warning: do not change the status bar style while using custom transitions or you risk transitions not properly completing and locking up the UI. See http://www.openradar.me/21961293")
+                }
                 // tell our transitionContext object that we've finished animating
                 if transitionContext.transitionWasCancelled() {
                     if SideMenuManager.presenting {
@@ -708,7 +684,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     
     func applicationDidEnterBackgroundNotification() {
         if let menuViewController: UINavigationController = SideMenuManager.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController {
-            SideMenuManager.hideMenuAppearance()
+            SideMenuManager.hideMenuStart()
             SideMenuManager.hideMenuComplete()
             menuViewController.dismissViewControllerAnimated(false, completion: nil)
         }

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "SideMenu is a simple and versatile side menu control."
 
 # This description is used to generate tags and improve search results.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/jonkykong/SideMenu"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshot       = "https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Preview.gif"
   s.license          = 'MIT'
   s.author           = { "jonkykong" => "jonk@jonked.com" }
   s.source           = { :git => "https://github.com/jonkykong/SideMenu.git", :tag => s.version.to_s }
