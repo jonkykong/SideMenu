@@ -57,7 +57,6 @@ class MainViewController: UIViewController {
     }
     
     @IBAction private func changeSegment(segmentControl: UISegmentedControl) {
-        presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
         switch segmentControl {
         case presentModeSegmentedControl:
             let modes:[SideMenuManager.MenuPresentMode] = [.MenuSlideIn, .ViewSlideOut, .MenuDissolveIn]
