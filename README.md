@@ -25,9 +25,9 @@ pod "SideMenu"
 SideMenu is highly customizable, but can also be implemented in storyboard without a single line of code. Check out the example project to see it in action.
 
 ### Storyboard
-1. Create a Navigation Controller. Set the custom class of the Navigation Controller to be `UILeftMenuNavigationController` or `UIRightMenuNavigationController` (whichever you prefer) in the **Identity Inspector**.
+1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UILeftMenuNavigationController` or `UIRightMenuNavigationController` (whichever you prefer) in the **Identity Inspector**.
 2. Create a root View Controller for the Navigation Controller in step 1. Set up any Triggered Segues you want in that View Controller.
-3. From any View Controller, add a UIButton or UIBarButton. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
+3. From a View Controller you want to display the side menu from, add a UIButton or UIBarButton. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
 
 *Note: you can only enable gestures with code.*
 
