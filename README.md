@@ -25,7 +25,9 @@ pod "SideMenu"
 SideMenu is highly customizable, but can also be implemented in storyboard without a single line of code. Check out the example project to see it in action.
 
 ### Storyboard
-1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UILeftMenuNavigationController` or `UIRightMenuNavigationController` (whichever you prefer) in the **Identity Inspector**.
+![](etc/Screenshot.png)
+
+1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UIMenuNavigationController` in the **Identity Inspector**. Set its `Left Side` property to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
 2. Create a root View Controller for the Navigation Controller in step 1. Set up any Triggered Segues you want in that View Controller.
 3. From a View Controller you want to display the side menu from, add a UIButton or UIBarButton. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
 
@@ -35,10 +37,11 @@ SideMenu is highly customizable, but can also be implemented in storyboard witho
 In your View Controller's `viewDidLoad` event, do something like this:
 ``` swift
 // Define the menus
-let leftMenuNavigationController = UILeftMenuNavigationController()
+let leftMenuNavigationController = UIMenuNavigationController()
+leftMenuNavigationController.leftSide = true
 // UILeftMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here
 SideMenuManager.menuLeftNavigationController = leftMenuNavigationController
-let rightMenuNavigationController = UIRightMenuNavigationController()
+let rightMenuNavigationController = UIMenuNavigationController()
 // UIRightMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here
 SideMenuManager.menuRightNavigationController = rightMenuNavigationController
 
