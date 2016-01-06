@@ -12,7 +12,7 @@
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
-public class UIMenuNavigationController: UINavigationController {
+public class UISideMenuNavigationController: UINavigationController {
     
     @IBInspectable public var leftSide:Bool = false {
         didSet {
@@ -193,7 +193,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
     // prevent instantiation
     private override init() {}
     
-    public static var menuLeftNavigationController: UIMenuNavigationController? {
+    public static var menuLeftNavigationController: UISideMenuNavigationController? {
         willSet {
             if menuLeftNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
@@ -214,7 +214,7 @@ public class SideMenuManager: UIPercentDrivenInteractiveTransition, UIViewContro
         }
     }
     
-    public static var menuRightNavigationController: UIMenuNavigationController? {
+    public static var menuRightNavigationController: UISideMenuNavigationController? {
         willSet {
             if menuRightNavigationController != nil {
                 let originalBlurEffectStyle = menuBlurEffectStyle
