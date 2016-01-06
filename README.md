@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-SideMenu is a simple and versatile side menu control written in Swift. The are three standard animation styles to choose from along with several other options for further customization if desired.
+SideMenu is a simple and versatile side menu control written in Swift. The are three standard animation styles to choose from along with several other options for further customization if desired. It's highly customizable without needing to write tons of custom code, and **can be implemented in storyboard without a single line of code**. Check out the example project to see it in action.
 
 ![](etc/Preview.gif)
 
@@ -22,16 +22,17 @@ pod "SideMenu"
 ```
 
 ## Usage
-SideMenu is highly customizable, but can also be implemented in storyboard without a single line of code. Check out the example project to see it in action.
-
 ### Storyboard
-![](etc/Screenshot.png)
-
-1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UIMenuNavigationController` in the **Identity Inspector**. Set its `Left Side` property to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
-2. Create a root View Controller for the Navigation Controller in step 1. Set up any Triggered Segues you want in that View Controller.
-3. From a View Controller you want to display the side menu from, add a UIButton or UIBarButton. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
-
 *Note: you can only enable gestures with code.*
+
+1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that View Controller.
+![](etc/Screenshot1.png)
+
+2. Set the `Left Side` property of the `UISideMenuNavigationController` to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
+![](etc/Screenshot2.png)
+
+3. Add a UIButton or UIBarButton to a View Controller that you want to display the menu from. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
+![](etc/Screenshot3.png)
 
 ### Code
 In your View Controller's `viewDidLoad` event, do something like this:
