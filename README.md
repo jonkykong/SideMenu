@@ -5,6 +5,8 @@
 
 SideMenu is a simple and versatile side menu control written in Swift. The are three standard animation styles to choose from along with several other options for further customization if desired. It's highly customizable without needing to write tons of custom code, and **can be implemented in storyboard without a single line of code**. Check out the example project to see it in action.
 
+PS: It makes me happy when you ★ this repo.
+
 ![](etc/Preview.gif)
 
 ## Requirements
