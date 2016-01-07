@@ -5,6 +5,8 @@
 
 SideMenu is a simple and versatile side menu control written in Swift. The are three standard animation styles to choose from along with several other options for further customization if desired. It's highly customizable without needing to write tons of custom code, and **can be implemented in storyboard without a single line of code**. Check out the example project to see it in action.
 
+PS: It makes me happy when you ★ this repo.
+
 ![](etc/Preview.gif)
 
 ## Requirements
@@ -22,9 +24,7 @@ pod "SideMenu"
 ```
 
 ## Usage
-### Storyboard
-*Note: you can only enable gestures with code.*
-
+### Storyboard Implementation
 1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that View Controller.
 ![](etc/Screenshot1.png)
 
@@ -34,16 +34,17 @@ pod "SideMenu"
 3. Add a UIButton or UIBarButton to a View Controller that you want to display the menu from. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
 ![](etc/Screenshot3.png)
 
-### Code
+That's it. *Note: you can only enable gestures in code.*
+### Code Implementation
 In your View Controller's `viewDidLoad` event, do something like this:
 ``` swift
 // Define the menus
 let leftMenuNavigationController = UIMenuNavigationController()
 leftMenuNavigationController.leftSide = true
-// UILeftMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here
+// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting it's viewControllers.
 SideMenuManager.menuLeftNavigationController = leftMenuNavigationController
 let rightMenuNavigationController = UIMenuNavigationController()
-// UIRightMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here
+// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting it's viewControllers.
 SideMenuManager.menuRightNavigationController = rightMenuNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
@@ -55,7 +56,7 @@ Then from a button, do something like this:
 ``` swift
 presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
 ```
-
+That's it.
 ### Customization
 Just type `SideMenuManager.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
 ``` swift
@@ -83,7 +84,7 @@ menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer
 ```
 
 ## Known Issues
-Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks up the UI. See [radar 21961293](http://www.openradar.me/21961293) for more information.
+Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks the UI. See [radar 21961293](http://www.openradar.me/21961293) for more information.
 
 ## License
 
