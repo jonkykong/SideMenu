@@ -3,7 +3,13 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-SideMenu is a simple and versatile side menu control written in Swift. The are three standard animation styles to choose from along with several other options for further customization if desired. It's highly customizable without needing to write tons of custom code, and **can be implemented in storyboard without a single line of code**. Check out the example project to see it in action.
+SideMenu is a simple and versatile side menu control written in Swift.
+* There are three standard animation styles to choose from.
+* It's highly customizable without needing to write tons of custom code.
+* It supports continuous swiping between each side menu in a single gesture.
+* Since it uses custom transitions, it can be presented and dismissed the same as any other View Controller. This means it **can be implemented in storyboard without a single line of code**.
+
+Check out the example project to see it in action.
 
 PS: It makes me happy when you ★ this repo.
 
