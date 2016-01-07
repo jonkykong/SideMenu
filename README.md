@@ -7,6 +7,8 @@ SideMenu is a simple and versatile side menu control written in Swift. The are t
 
 PS: It makes me happy when you ★ this repo.
 
+[Demo via Appetizer](https://appetize.io/app/682u2wn33p1mgpzrtwyrxxz1w4)
+
 ![](etc/Preview.gif)
 
 ## Requirements
