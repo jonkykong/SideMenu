@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
-  s.version          = "0.1.4"
-  s.summary          = "SideMenu is a simple and versatile side menu control."
+  s.version          = "0.1.5"
+  s.summary          = "Simple side menu control in Swift inspired by Facebook. Right and Left sides. No coding required."
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
