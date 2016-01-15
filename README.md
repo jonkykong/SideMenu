@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-### If you like SideMenu, give it a ★ at the top right of [this](https://github.com/jonkykong/SideMenu) page.
+### If you like SideMenu, give it a ★ at the top right of this page.
 
 SideMenu is a simple and versatile side menu control written in Swift.
 - [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
