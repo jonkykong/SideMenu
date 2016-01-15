@@ -3,36 +3,50 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
+### If you like SideMenu, give it a ★ at the top right of this page.
+
 SideMenu is a simple and versatile side menu control written in Swift.
-* There are three standard animation styles to choose from.
-* It's highly customizable without needing to write tons of custom code.
-* It supports continuous swiping between each side menu in a single gesture.
-* Since it uses custom transitions it can be presented and dismissed the same as any other View Controller. This means **it can be implemented in storyboard without a single line of code**.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+- [x] Three standard animation styles to choose from.
+- [x] Highly customizable without needing to write tons of custom code.
+- [x] Supports continuous swiping between each side menu in a single gesture.
+- [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
-Check out the example project to see it in action.
-
-PS: It makes me happy when you ★ this repo.
-
-[Demo via Appetizer](https://appetize.io/app/682u2wn33p1mgpzrtwyrxxz1w4)
+Check out the example project or this [interactive demo](https://appetize.io/app/42d6b8teuaej2wcday76jqwrcc) to see it in action!
 
 ![](etc/Preview.gif)
 
 ## Requirements
-* Xcode 7 or higher
-* iOS 8 or higher
-* ARC
+- [x] iOS 8 or higher
 
 ## Installation
 
-SideMenu is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To integrate SideMenu into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod "SideMenu"
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'SideMenu'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
 ```
 
 ## Usage
-### Storyboard Implementation
+### Code-less Storyboard Implementation
 1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that View Controller.
 ![](etc/Screenshot1.png)
 
@@ -49,10 +63,10 @@ In your View Controller's `viewDidLoad` event, do something like this:
 // Define the menus
 let leftMenuNavigationController = UIMenuNavigationController()
 leftMenuNavigationController.leftSide = true
-// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting it's viewControllers.
+// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
 SideMenuManager.menuLeftNavigationController = leftMenuNavigationController
 let rightMenuNavigationController = UIMenuNavigationController()
-// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting it's viewControllers.
+// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
 SideMenuManager.menuRightNavigationController = rightMenuNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
