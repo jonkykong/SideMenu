@@ -219,7 +219,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="FVG-mn-9HX"/>
                         <barButtonItem key="leftBarButtonItem" title="Left Menu" id="hjJ-My-xDQ">
                             <connections>
-                                <segue destination="DuX-EW-0mP" kind="presentation" id="yoa-B2-xG5"/>
+                                <segue destination="DuX-EW-0mP" kind="presentation" identifier="Test" id="yoa-B2-xG5"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Right Menu" id="ckn-oO-hhX">
@@ -270,7 +270,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dqh-bs-m2M">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.25134698280000001" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="8" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="vVB-ag-TnU">
@@ -402,7 +402,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="49z-eA-JB7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.25134698275862066" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="UXT-t2-k90">
                             <rect key="frame" x="0.0" y="132" width="320" height="0.0"/>

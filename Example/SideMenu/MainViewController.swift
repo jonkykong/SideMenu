@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         // Define the menus
         SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("LeftMenuNavigationController") as? UISideMenuNavigationController
         SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("RightMenuNavigationController") as? UISideMenuNavigationController
-        
+
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)

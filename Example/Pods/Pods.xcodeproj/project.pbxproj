@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		136BF9383BF2527B070BA5717DBA9D7F /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA288F42456ACA5ACB2CF80A5ADB09A /* SideMenuManager.swift */; };
+		3876451029D26E27CF659DA08BDBA909 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16A7DD7BD7A0F908B6D5D9660270A9 /* UISideMenuNavigationController.swift */; };
 		38E7197A7FA54FE6EA9474F7C71E9F16 /* SideMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 80BEBB037771664BE7EDD19D9FA27CF9 /* SideMenu.bundle */; };
 		654B24B050E549972B44628F3D457134 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		65CAFD32BFFE0B95AC0AD095EE320645 /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 065251241095423AD65BFAC01FD1EFC6 /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6B68286B3E7B0CB2FE5C392902281CE1 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B967E268029BFFB818450080E0070B3 /* SideMenu-dummy.m */; };
 		8AA9CBD72AFC76A9039A8CF9CE6AC1B1 /* Pods-SideMenu_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 66BE2CB4DECBCC7820640717CC54B8B6 /* Pods-SideMenu_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AFB3DFF4F1A5C3F872B5980F29340A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		92A9FE9F77CE2BA2AB924DB02E446C76 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5455C690C42784185F70B2287AEA03 /* SideMenuManager.swift */; };
-		BBA8C724C31EBC571ED008721DC191C7 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B967E268029BFFB818450080E0070B3 /* SideMenu-dummy.m */; };
+		92E1730BB52E7F211ABDEA6120B3CBC0 /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F27B28C13E47CE793DCD786ABE0EBA0 /* UITableViewVibrantCell.swift */; };
+		B7BAC40F47999790437216BD070E4B0B /* SideMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C2BD310402418B97E451D4C32129D /* SideMenuTransition.swift */; };
 		D15E623D3EA1175C6ECE8E7F96F03F1B /* Pods-SideMenu_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BE17EC6C115709ADE0336BED36620B /* Pods-SideMenu_Example-dummy.m */; };
 		E8F227DB44F0E28D22866613E7466FE8 /* Pods-SideMenu_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6442E0432AE7807F49351AA4A2662BA0 /* Pods-SideMenu_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E93EFE2668CC8435D5DE5C232FA073A2 /* Pods-SideMenu_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8894543047CFB1B0AD661193D079E3AF /* Pods-SideMenu_Tests-dummy.m */; };
@@ -49,12 +52,12 @@
 		02386539B907565FEF643C0A13DFD87A /* Pods-SideMenu_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SideMenu_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		065251241095423AD65BFAC01FD1EFC6 /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
 		080DBC3EDE1B586D2C363264990812F4 /* Pods_SideMenu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B5455C690C42784185F70B2287AEA03 /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SideMenuManager.swift; sourceTree = "<group>"; };
 		167CC8746E153424CD7BBFBEB1FCC761 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18CAD0A610A9A596A337B81EA6C75E82 /* SideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.xcconfig; sourceTree = "<group>"; };
 		1B967E268029BFFB818450080E0070B3 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
 		27F802E03D96716FDA4B8EB2F79D3442 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		283B837F6AEE40BE625A3B7BF3D629C4 /* Pods-SideMenu_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		2F27B28C13E47CE793DCD786ABE0EBA0 /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UITableViewVibrantCell.swift; sourceTree = "<group>"; };
 		365023FDA9AABF541F5F2BB4897DBC3D /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		43082750426B0601530DDE0E513C028D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,9 +74,12 @@
 		9BD9EE073A93C4FF5537C83246116880 /* Pods_SideMenu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF8186F4C9E56B047D9FD1A6E197E35 /* Pods-SideMenu_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SideMenu_Tests-resources.sh"; sourceTree = "<group>"; };
 		A108300E5F9E66CC5B80C6D158F1A2B4 /* Pods-SideMenu_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SideMenu_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		B89C2BD310402418B97E451D4C32129D /* SideMenuTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SideMenuTransition.swift; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CCFF9BC0A5E0AEB1B572E08B7BEB5179 /* Pods-SideMenu_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		CE16A7DD7BD7A0F908B6D5D9660270A9 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UISideMenuNavigationController.swift; sourceTree = "<group>"; };
 		DB5D86340A731D1EBAB66BA453409E3B /* Pods-SideMenu_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SideMenu_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		DBA288F42456ACA5ACB2CF80A5ADB09A /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SideMenuManager.swift; sourceTree = "<group>"; };
 		DDF7D1E1EB67D0EE22B89DBA15B34455 /* Pods-SideMenu_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		DE75E648D267654445B52C8280543EFD /* Pods-SideMenu_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SideMenu_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F3BE17EC6C115709ADE0336BED36620B /* Pods-SideMenu_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SideMenu_Example-dummy.m"; sourceTree = "<group>"; };
@@ -126,17 +132,20 @@
 		34BEDB4240BF71B8086595F752B69042 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				CB203E0872A2E52C8E99D04334ED5A9D /* Pod */,
+				A332AD7F12D36E82A15A055F8C320B9B /* Pod */,
 				E193E81FDAC4759729D7C787A23DAA84 /* Support Files */,
 			);
 			name = SideMenu;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		42F4169C1135EF13A1D0421D270BD2F4 /* Classes */ = {
+		46BA4BFCFF15B4CAA79C17449E551388 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0B5455C690C42784185F70B2287AEA03 /* SideMenuManager.swift */,
+				DBA288F42456ACA5ACB2CF80A5ADB09A /* SideMenuManager.swift */,
+				B89C2BD310402418B97E451D4C32129D /* SideMenuTransition.swift */,
+				CE16A7DD7BD7A0F908B6D5D9660270A9 /* UISideMenuNavigationController.swift */,
+				2F27B28C13E47CE793DCD786ABE0EBA0 /* UITableViewVibrantCell.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -190,6 +199,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A332AD7F12D36E82A15A055F8C320B9B /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				46BA4BFCFF15B4CAA79C17449E551388 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
 		A94B9130D4AB3D2F2C9607150B2ADFB6 /* Pods-SideMenu_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,14 +239,6 @@
 				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		CB203E0872A2E52C8E99D04334ED5A9D /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				42F4169C1135EF13A1D0421D270BD2F4 /* Classes */,
-			);
-			path = Pod;
 			sourceTree = "<group>";
 		};
 		E193E81FDAC4759729D7C787A23DAA84 /* Support Files */ = {
@@ -298,7 +307,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9057029D293AD6EDC6335C1F302EE42B /* Build configuration list for PBXNativeTarget "SideMenu" */;
 			buildPhases = (
-				CA771114E7DB1C9C7E995AE8242C4F19 /* Sources */,
+				CE5E64CE3BE1AEA0E67C995DC80DB5F0 /* Sources */,
 				CD3D74524BB0D7B632CB6C81160DEEE1 /* Frameworks */,
 				FAC25EAFE8B8901BDEDD21DAC9DD45ED /* Resources */,
 				39BFA88BB58C8DFDF21395C7A6FD7D25 /* Headers */,
@@ -419,12 +428,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CA771114E7DB1C9C7E995AE8242C4F19 /* Sources */ = {
+		CE5E64CE3BE1AEA0E67C995DC80DB5F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBA8C724C31EBC571ED008721DC191C7 /* SideMenu-dummy.m in Sources */,
-				92A9FE9F77CE2BA2AB924DB02E446C76 /* SideMenuManager.swift in Sources */,
+				6B68286B3E7B0CB2FE5C392902281CE1 /* SideMenu-dummy.m in Sources */,
+				136BF9383BF2527B070BA5717DBA9D7F /* SideMenuManager.swift in Sources */,
+				B7BAC40F47999790437216BD070E4B0B /* SideMenuTransition.swift in Sources */,
+				3876451029D26E27CF659DA08BDBA909 /* UISideMenuNavigationController.swift in Sources */,
+				92E1730BB52E7F211ABDEA6120B3CBC0 /* UITableViewVibrantCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
