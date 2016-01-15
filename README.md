@@ -66,13 +66,14 @@ import SideMenu
 In your View Controller's `viewDidLoad` event, do something like this:
 ``` swift
 // Define the menus
-let leftMenuNavigationController = UIMenuNavigationController()
-leftMenuNavigationController.leftSide = true
-// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
-SideMenuManager.menuLeftNavigationController = leftMenuNavigationController
-let rightMenuNavigationController = UIMenuNavigationController()
-// UIMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
-SideMenuManager.menuRightNavigationController = rightMenuNavigationController
+let menuLeftNavigationController = UISideMenuNavigationController()
+menuLeftNavigationController.leftSide = true
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+
+let menuRightNavigationController = UISideMenuNavigationController()
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+SideMenuManager.menuRightNavigationController = menuRightNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
 // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
