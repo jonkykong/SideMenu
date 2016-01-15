@@ -58,6 +58,11 @@ $ pod install
 
 That's it. *Note: you can only enable gestures in code.*
 ### Code Implementation
+First:
+```swift
+import SideMenu
+```
+
 In your View Controller's `viewDidLoad` event, do something like this:
 ``` swift
 // Define the menus
