@@ -135,6 +135,8 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     internal class func hideMenuStart() {
+        NSNotificationCenter.defaultCenter().removeObserver(SideMenuTransition.singleton)
+        
         let mainViewController = SideMenuTransition.viewControllerForPresentedMenu!
         let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController!.view : SideMenuManager.menuRightNavigationController!.view
         menuView.transform = CGAffineTransformIdentity
@@ -174,7 +176,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         mainViewController.view.motionEffects.removeAll()
         mainViewController.view.layer.shadowOpacity = 0
         menuView.layer.shadowOpacity = 0
-        NSNotificationCenter.defaultCenter().removeObserver(self)
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.enabled = true
         }
@@ -217,6 +218,8 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     internal class func presentMenuComplete() {
+        NSNotificationCenter.defaultCenter().addObserver(SideMenuTransition.singleton, selector:"applicationDidEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
         let mainViewController = SideMenuTransition.viewControllerForPresentedMenu!
         switch SideMenuManager.menuPresentMode {
         case .MenuSlideIn, .MenuDissolveIn:
@@ -303,9 +306,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             }
             
             SideMenuTransition.hideMenuStart() // offstage for interactive
-            
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-            NSNotificationCenter.defaultCenter().addObserver(SideMenuTransition.singleton, selector:"applicationDidEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         }
         
         // perform the animation!
@@ -326,6 +326,8 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 if transitionContext.transitionWasCancelled() {
                     if self.presenting {
                         SideMenuTransition.hideMenuComplete()
+                    } else {
+                        SideMenuTransition.presentMenuComplete()
                     }
                     transitionContext.completeTransition(false)
                 } else {
