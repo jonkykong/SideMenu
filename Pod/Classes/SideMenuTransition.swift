@@ -252,7 +252,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 group.motionEffects = [horizontal, vertical]
                 mainViewController.view.addMotionEffect(group)
             }
-        case .ViewSlideOutBottom, .ViewSlideOutUnder: break;
+        case .ViewSlideOut, .ViewSlideOutUnder: break;
         }
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.enabled = false
