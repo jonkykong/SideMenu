@@ -60,7 +60,7 @@ public class UISideMenuNavigationController: UINavigationController {
         if !isBeingDismissed() {
             if let mainView = presentingViewController?.view {
                 switch SideMenuManager.menuPresentMode {
-                case .ViewSlideOut, .ViewSlideOutUnder:
+                case .ViewSlideOut, .ViewSlideInOut:
                     mainView.superview?.insertSubview(view, belowSubview: mainView)
                 case .MenuSlideIn, .MenuDissolveIn:
                     mainView.superview?.insertSubview(view, aboveSubview: SideMenuTransition.tapView)

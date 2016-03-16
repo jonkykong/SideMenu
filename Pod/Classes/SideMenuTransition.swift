@@ -157,7 +157,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             mainViewController.view.frame.origin.x = 0
             menuView.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationShrinkStrength, SideMenuManager.menuAnimationShrinkStrength)
             
-        case .ViewSlideOutUnder:
+        case .ViewSlideInOut:
             menuView.alpha = 1
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? -menuView.frame.width : mainViewController.view.frame.width
             mainViewController.view.frame.origin.x = 0
@@ -209,7 +209,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
                 mainViewController.view.layer.shadowOffset = CGSizeMake(0, 0)
                 
-            case .ViewSlideOutUnder:
+            case .ViewSlideInOut:
                 menuView.alpha = 1
                 menuView.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
                 menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
@@ -252,7 +252,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 group.motionEffects = [horizontal, vertical]
                 mainViewController.view.addMotionEffect(group)
             }
-        case .ViewSlideOut, .ViewSlideOutUnder: break;
+        case .ViewSlideOut, .ViewSlideInOut: break;
         }
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.enabled = false
@@ -303,7 +303,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 container.addSubview(menuView)
                 container.addSubview(topView)
                 topView.addSubview(tapView)
-            case .MenuSlideIn, .MenuDissolveIn, .ViewSlideOutUnder:
+            case .MenuSlideIn, .MenuDissolveIn, .ViewSlideInOut:
                 container.addSubview(topView)
                 container.addSubview(tapView)
                 container.addSubview(menuView)
@@ -353,7 +353,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                         switch SideMenuManager.menuPresentMode {
                         case .ViewSlideOut:
                             container.addSubview(topView)
-                        case .MenuSlideIn, .MenuDissolveIn, .ViewSlideOutUnder:
+                        case .MenuSlideIn, .MenuDissolveIn, .ViewSlideInOut:
                             container.insertSubview(topView, atIndex: 0)
                         }
                         if let statusBarView = SideMenuTransition.statusBarView {

@@ -21,7 +21,7 @@ public class SideMenuManager {
     public enum MenuPresentMode {
         case MenuSlideIn
         case ViewSlideOut
-        case ViewSlideOutUnder
+        case ViewSlideInOut
         case MenuDissolveIn
     }
 
