@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yAA-s6-Bam">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yAA-s6-Bam">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -63,17 +63,6 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="KV2-tN-Aff">
-                                                <rect key="frame" x="20" y="37" width="280" height="29"/>
-                                                <segments>
-                                                    <segment title="Slide In"/>
-                                                    <segment title="Slide Out"/>
-                                                    <segment title="Dissolve"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="changeSegment:" destination="QHN-nZ-kbB" eventType="valueChanged" id="xYG-CU-6tx"/>
-                                                </connections>
-                                            </segmentedControl>
                                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Osf-2d-Znm">
                                                 <rect key="frame" x="18" y="234" width="284" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,7 +82,7 @@
                                                     <action selector="changeSegment:" destination="QHN-nZ-kbB" eventType="valueChanged" id="5cv-dF-wWs"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.001" minValue="0.001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xp9-C5-Td1">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.001" minValue="0.001" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="Xp9-C5-Td1">
                                                 <rect key="frame" x="18" y="368" width="284" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
@@ -113,8 +102,8 @@
                                                     <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="CFn-3w-HeP"/>
                                                 </connections>
                                             </slider>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Shrink Strength" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-30-YHs">
-                                                <rect key="frame" x="20" y="339" width="167" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Transform Scale Factor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-30-YHs">
+                                                <rect key="frame" x="20" y="339" width="225" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -144,6 +133,18 @@
                                                     <action selector="changeSwitch:" destination="QHN-nZ-kbB" eventType="valueChanged" id="yUy-FA-gYY"/>
                                                 </connections>
                                             </switch>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="KV2-tN-Aff">
+                                                <rect key="frame" x="20" y="37" width="280" height="29"/>
+                                                <segments>
+                                                    <segment title="Slide In"/>
+                                                    <segment title="Slide Out"/>
+                                                    <segment title="In + Out"/>
+                                                    <segment title="Dissolve"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="changeSegment:" destination="QHN-nZ-kbB" eventType="valueChanged" id="xYG-CU-6tx"/>
+                                                </connections>
+                                            </segmentedControl>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="KV2-tN-Aff" firstAttribute="leading" secondItem="DMn-tw-NTB" secondAttribute="leading" constant="20" id="0Xw-7D-HJS"/>
@@ -263,14 +264,14 @@
             </objects>
             <point key="canvasLocation" x="961.875" y="8.4507042253521121"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Side Menu Table View-->
         <scene sceneID="L2w-o7-jEN">
             <objects>
-                <tableViewController id="V6g-oO-Tbm" sceneMemberID="viewController">
+                <tableViewController id="V6g-oO-Tbm" customClass="SideMenuTableView" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dqh-bs-m2M">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.25134698280000001" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="8" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="vVB-ag-TnU">
@@ -395,14 +396,14 @@
             </objects>
             <point key="canvasLocation" x="961.875" y="698.23943661971828"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Side Menu Table View-->
         <scene sceneID="l9t-dY-QwR">
             <objects>
-                <tableViewController id="Ol4-YR-KUL" sceneMemberID="viewController">
+                <tableViewController id="Ol4-YR-KUL" customClass="SideMenuTableView" customModule="SideMenu_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="49z-eA-JB7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.25134698275862066" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="UXT-t2-k90">
                             <rect key="frame" x="0.0" y="132" width="320" height="0.0"/>

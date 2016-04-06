@@ -234,7 +234,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     internal class func presentMenuComplete() {
-        NSNotificationCenter.defaultCenter().addObserver(SideMenuTransition.singleton, selector:"applicationDidEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.applicationDidEnterBackgroundNotification), name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
         let mainViewController = SideMenuTransition.viewControllerForPresentedMenu!
         switch SideMenuManager.menuPresentMode {
@@ -288,9 +288,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             let tapView = UIView()
             tapView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             let exitPanGesture = UIPanGestureRecognizer()
-            exitPanGesture.addTarget(SideMenuTransition.self, action:"handleHideMenuPan:")
+            exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
             let exitTapGesture = UITapGestureRecognizer()
-            exitTapGesture.addTarget(SideMenuTransition.self, action: "handleHideMenuTap:")
+            exitTapGesture.addTarget(SideMenuTransition.self, action: #selector(SideMenuTransition.handleHideMenuTap(_:)))
             tapView.addGestureRecognizer(exitPanGesture)
             tapView.addGestureRecognizer(exitTapGesture)
             SideMenuTransition.tapView = tapView

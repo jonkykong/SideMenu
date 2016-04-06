@@ -35,7 +35,7 @@ public class SideMenuManager {
     public static var menuAnimationPresentDuration = 0.35
     public static var menuAnimationDismissDuration = 0.35
     public static var menuAnimationFadeStrength: CGFloat = 0
-    public static var menuAnimationShrinkStrength: CGFloat = 1
+    public static var menuAnimationTransformScaleFactor: CGFloat = 1
     public static var menuAnimationBackgroundColor: UIColor?
     public static var menuShadowOpacity: Float = 0.5
     public static var menuShadowColor = UIColor.blackColor()
@@ -44,6 +44,19 @@ public class SideMenuManager {
     public static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
     public static var menuParallaxStrength: Int = 0
     public static var menuFadeStatusBar = true
+    
+    public static var menuAnimationShrinkStrength: CGFloat {
+        get {
+            return menuAnimationTransformScaleFactor
+        }
+        set {
+            debugPrint("SideMenuManager.menuAnimationShrinkStrength is deprecated. Use menuAnimationTransformScaleFactor instead.")
+            menuAnimationTransformScaleFactor = newValue
+        }
+    }
+    
+    // prevent instantiation
+    private init() {}
     
     // Note: if you want cells in a UITableViewController menu to look good, make them a subclass of UITableViewVibrantCell!
     public static var menuBlurEffectStyle: UIBlurEffectStyle? {
@@ -64,7 +77,7 @@ public class SideMenuManager {
         didSet {
             if let menuLeftNavigationController = menuLeftNavigationController {
                 let exitPanGesture = UIPanGestureRecognizer()
-                exitPanGesture.addTarget(SideMenuTransition.self, action:"handleHideMenuPan:")
+                exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
                 menuLeftNavigationController.view.addGestureRecognizer(exitPanGesture)
                 menuLeftNavigationController.transitioningDelegate = SideMenuTransition.singleton
                 menuLeftNavigationController.modalPresentationStyle = .OverFullScreen
@@ -86,7 +99,7 @@ public class SideMenuManager {
         didSet {
             if let menuRightNavigationController = menuRightNavigationController {
                 let exitPanGesture = UIPanGestureRecognizer()
-                exitPanGesture.addTarget(SideMenuTransition.self, action:"handleHideMenuPan:")
+                exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
                 menuRightNavigationController.view.addGestureRecognizer(exitPanGesture)
                 menuRightNavigationController.transitioningDelegate = SideMenuTransition.singleton
                 menuRightNavigationController.modalPresentationStyle = .OverFullScreen
@@ -162,7 +175,7 @@ public class SideMenuManager {
         
         if forMenu != .Right {
             let leftScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
-            leftScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:"handlePresentMenuPan:")
+            leftScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
             leftScreenEdgeGestureRecognizer.edges = .Left
             leftScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(leftScreenEdgeGestureRecognizer)
@@ -171,7 +184,7 @@ public class SideMenuManager {
         
         if forMenu != .Left {
             let rightScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
-            rightScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:"handlePresentMenuPan:")
+            rightScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
             rightScreenEdgeGestureRecognizer.edges = .Right
             rightScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(rightScreenEdgeGestureRecognizer)
@@ -183,7 +196,7 @@ public class SideMenuManager {
     
     public class func menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer {
         let panGestureRecognizer = UIPanGestureRecognizer()
-        panGestureRecognizer.addTarget(SideMenuTransition.self, action:"handlePresentMenuPan:")
+        panGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
         toView.addGestureRecognizer(panGestureRecognizer)
         
         return panGestureRecognizer

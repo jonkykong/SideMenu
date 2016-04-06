@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         // Define the menus
         SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("LeftMenuNavigationController") as? UISideMenuNavigationController
         SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("RightMenuNavigationController") as? UISideMenuNavigationController
-
+        
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
     @IBAction private func changeSegment(segmentControl: UISegmentedControl) {
         switch segmentControl {
         case presentModeSegmentedControl:
-            let modes:[SideMenuManager.MenuPresentMode] = [.MenuSlideIn, .ViewSlideOut, .MenuDissolveIn]
+            let modes:[SideMenuManager.MenuPresentMode] = [.MenuSlideIn, .ViewSlideOut, .ViewSlideInOut, .MenuDissolveIn]
             SideMenuManager.menuPresentMode = modes[segmentControl.selectedSegmentIndex]
         case blurSegmentControl:
             if segmentControl.selectedSegmentIndex == 0 {
@@ -79,7 +79,7 @@ class MainViewController: UIViewController {
         case shadowOpacitySlider:
             SideMenuManager.menuShadowOpacity = slider.value
         case shrinkFactorSlider:
-            SideMenuManager.menuAnimationShrinkStrength = CGFloat(slider.value)
+            SideMenuManager.menuAnimationTransformScaleFactor = CGFloat(slider.value)
         case screenWidthSlider:
             SideMenuManager.menuWidth = view.frame.width * CGFloat(slider.value)
         default: break;

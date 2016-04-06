@@ -14,6 +14,7 @@
 		84788C781C2B9F1E00C4DAF4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84788C741C2B9F1E00C4DAF4 /* MainViewController.swift */; };
 		84788C7B1C2B9FAB00C4DAF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84788C7A1C2B9FAB00C4DAF4 /* AppDelegate.swift */; };
 		84788C7D1C2BCDEB00C4DAF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84788C7C1C2BCDEB00C4DAF4 /* Main.storyboard */; };
+		847D41DA1CB498BE0079C28F /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D41D91CB498BE0079C28F /* SideMenuTableView.swift */; };
 		A91D298EBD84AC675595CCA0 /* Pods_SideMenu_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02FB2E5A68EB8A0DF6615E0 /* Pods_SideMenu_Example.framework */; };
 		AFA077A8EC0A5A74F8D6FF18 /* Pods_SideMenu_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8960F7A82F3CB64025C48B38 /* Pods_SideMenu_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		84788C741C2B9F1E00C4DAF4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		84788C7A1C2B9FAB00C4DAF4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84788C7C1C2BCDEB00C4DAF4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		847D41D91CB498BE0079C28F /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
 		8960F7A82F3CB64025C48B38 /* Pods_SideMenu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20C1DB98DEF29F3CE8D592A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B02FB2E5A68EB8A0DF6615E0 /* Pods_SideMenu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 				84788C741C2B9F1E00C4DAF4 /* MainViewController.swift */,
 				84430B121C31F6D100858AA8 /* PresentedViewController.swift */,
 				84788C7C1C2BCDEB00C4DAF4 /* Main.storyboard */,
+				847D41D91CB498BE0079C28F /* SideMenuTableView.swift */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
@@ -362,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847D41DA1CB498BE0079C28F /* SideMenuTableView.swift in Sources */,
 				84788C7B1C2B9FAB00C4DAF4 /* AppDelegate.swift in Sources */,
 				84430B131C31F6D100858AA8 /* PresentedViewController.swift in Sources */,
 				84788C781C2B9F1E00C4DAF4 /* MainViewController.swift in Sources */,
