@@ -12,9 +12,12 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Supports continuous swiping between each side menu in a single gesture.
 - [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
-Check out the example project or this [interactive demo](https://appetize.io/app/5y7n2bk8f6jz58h92871udem54) to see it in action!
+Check out the example project or this [interactive demo](https://appetize.io/app/64a9v3e6b8c6f53zvn5pnny80m) to see it in action!
 
-![](etc/Preview.gif)
+![](etc/Slide%20Out.gif)
+![](etc/Slide%20In.gif)
+![](etc/Dissolve.gif)
+![](etc/In%20%2B%20Out.gif)
 
 ## Requirements
 - [x] iOS 8 or higher
@@ -95,7 +98,7 @@ menuWidth: CGFloat = max(round(min(UIScreen.mainScreen().bounds.width, UIScreen.
 menuAnimationPresentDuration = 0.35
 menuAnimationDismissDuration = 0.35
 menuAnimationFadeStrength: CGFloat = 0
-menuAnimationShrinkStrength: CGFloat = 1
+menuAnimationTransformScaleFactor: CGFloat = 1
 menuAnimationBackgroundColor: UIColor? = nil
 menuShadowOpacity: Float = 0.5
 menuShadowColor = UIColor.blackColor()
