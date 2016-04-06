@@ -45,12 +45,12 @@ public class SideMenuManager {
     public static var menuParallaxStrength: Int = 0
     public static var menuFadeStatusBar = true
     
+    @available(*, deprecated, renamed="menuAnimationTransformScaleFactor")
     public static var menuAnimationShrinkStrength: CGFloat {
         get {
             return menuAnimationTransformScaleFactor
         }
         set {
-            debugPrint("SideMenuManager.menuAnimationShrinkStrength is deprecated. Use menuAnimationTransformScaleFactor instead.")
             menuAnimationTransformScaleFactor = newValue
         }
     }

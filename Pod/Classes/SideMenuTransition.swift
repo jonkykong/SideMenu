@@ -155,7 +155,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
             mainViewController.view.frame.origin.x = 0
-            menuView.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationShrinkStrength, SideMenuManager.menuAnimationShrinkStrength)
+            menuView.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
             
         case .ViewSlideInOut:
             menuView.alpha = 1
@@ -217,7 +217,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 menuView.layer.shadowOffset = CGSizeMake(0, 0)
                 let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
                 mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
-                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationShrinkStrength, SideMenuManager.menuAnimationShrinkStrength)
+                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
                 mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
                 
             case .MenuSlideIn, .MenuDissolveIn:
@@ -227,7 +227,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
                 menuView.layer.shadowOffset = CGSizeMake(0, 0)
                 mainViewController.view.frame = CGRectMake(0, 0, size.width, size.height)
-                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationShrinkStrength, SideMenuManager.menuAnimationShrinkStrength)
+                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
                 mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
             }
         }
