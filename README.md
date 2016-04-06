@@ -14,10 +14,10 @@ SideMenu is a simple and versatile side menu control written in Swift.
 
 Check out the example project or this [interactive demo](https://appetize.io/app/64a9v3e6b8c6f53zvn5pnny80m) to see it in action!
 
-![](etc/Slide%20Out.gif)
-![](etc/Slide%20In.gif)
+![](etc/SlideOut.gif)
+![](etc/SlideIn.gif)
 ![](etc/Dissolve.gif)
-![](etc/In%20%2B%20Out.gif)
+![](etc/InOut.gif)
 
 ## Requirements
 - [x] iOS 8 or higher
