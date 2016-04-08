@@ -173,18 +173,18 @@ public class SideMenuManager {
         
         var array = [UIScreenEdgePanGestureRecognizer]()
         
-        if forMenu != .Right {
+        if forMenu != .Left {
             let leftScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
-            leftScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
+            leftScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuLeftScreenEdge(_:)))
             leftScreenEdgeGestureRecognizer.edges = .Left
             leftScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(leftScreenEdgeGestureRecognizer)
             array.append(leftScreenEdgeGestureRecognizer)
         }
         
-        if forMenu != .Left {
+        if forMenu != .Right {
             let rightScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
-            rightScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
+            rightScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuRightScreenEdge(_:)))
             rightScreenEdgeGestureRecognizer.edges = .Right
             rightScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(rightScreenEdgeGestureRecognizer)
