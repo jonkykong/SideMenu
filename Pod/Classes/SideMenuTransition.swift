@@ -85,7 +85,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             }
         }
         
-        let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
+        let direction: CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
         let distance = translation.x / SideMenuManager.menuWidth
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
@@ -109,6 +109,10 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             let velocity = pan.velocityInView(pan.view!).x * direction
             view.transform = transform
             if velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5 {
+                // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
+                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 {
+                    singleton.updateInteractiveTransition(0.9999)
+                }
                 singleton.finishInteractiveTransition()
             } else {
                 singleton.cancelInteractiveTransition()
@@ -132,9 +136,12 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             singleton.interactive = false
             let velocity = pan.velocityInView(pan.view!).x * direction
             if velocity >= 100 || velocity >= -50 && distance >= 0.5 {
+                // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
+                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 {
+                    singleton.updateInteractiveTransition(0.9999)
+                }
                 singleton.finishInteractiveTransition()
-            }
-            else {
+            } else {
                 singleton.cancelInteractiveTransition()
             }
         }
@@ -198,48 +205,50 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     internal class func presentMenuStart(forSize size: CGSize = UIScreen.mainScreen().bounds.size) {
+        guard let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
+            return
+        }
+        
         let mainViewController = SideMenuTransition.viewControllerForPresentedMenu!
-        if let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view {
-            menuView.transform = CGAffineTransformIdentity
-            mainViewController.view.transform = CGAffineTransformIdentity
-            menuView.frame.size.width = SideMenuManager.menuWidth
-            menuView.frame.size.height = size.height
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : size.width - SideMenuManager.menuWidth
-            SideMenuTransition.statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
-            SideMenuTransition.statusBarView?.alpha = 1
+        menuView.transform = CGAffineTransformIdentity
+        mainViewController.view.transform = CGAffineTransformIdentity
+        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.height = size.height
+        menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : size.width - SideMenuManager.menuWidth
+        SideMenuTransition.statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
+        SideMenuTransition.statusBarView?.alpha = 1
+        
+        switch SideMenuManager.menuPresentMode {
             
-            switch SideMenuManager.menuPresentMode {
-                
-            case .ViewSlideOut:
-                menuView.alpha = 1
-                let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
-                mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
-                mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
-                mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
-                mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-                mainViewController.view.layer.shadowOffset = CGSizeMake(0, 0)
-                
-            case .ViewSlideInOut:
-                menuView.alpha = 1
-                menuView.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
-                menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-                menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-                menuView.layer.shadowOffset = CGSizeMake(0, 0)
-                let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
-                mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
-                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
-                mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
-                
-            case .MenuSlideIn, .MenuDissolveIn:
-                menuView.alpha = 1
-                menuView.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
-                menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-                menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-                menuView.layer.shadowOffset = CGSizeMake(0, 0)
-                mainViewController.view.frame = CGRectMake(0, 0, size.width, size.height)
-                mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
-                mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
-            }
+        case .ViewSlideOut:
+            menuView.alpha = 1
+            let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
+            mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
+            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
+            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
+            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            mainViewController.view.layer.shadowOffset = CGSizeMake(0, 0)
+            
+        case .ViewSlideInOut:
+            menuView.alpha = 1
+            menuView.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
+            menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
+            menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            menuView.layer.shadowOffset = CGSizeMake(0, 0)
+            let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
+            mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
+            mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
+            mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
+            
+        case .MenuSlideIn, .MenuDissolveIn:
+            menuView.alpha = 1
+            menuView.layer.shadowColor = SideMenuManager.menuShadowColor.CGColor
+            menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
+            menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            menuView.layer.shadowOffset = CGSizeMake(0, 0)
+            mainViewController.view.frame = CGRectMake(0, 0, size.width, size.height)
+            mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
+            mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
         }
     }
     

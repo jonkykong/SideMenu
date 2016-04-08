@@ -173,7 +173,7 @@ public class SideMenuManager {
         
         var array = [UIScreenEdgePanGestureRecognizer]()
         
-        if forMenu != .Left {
+        if forMenu != .Right {
             let leftScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
             leftScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuLeftScreenEdge(_:)))
             leftScreenEdgeGestureRecognizer.edges = .Left
@@ -182,7 +182,7 @@ public class SideMenuManager {
             array.append(leftScreenEdgeGestureRecognizer)
         }
         
-        if forMenu != .Right {
+        if forMenu != .Left {
             let rightScreenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
             rightScreenEdgeGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuRightScreenEdge(_:)))
             rightScreenEdgeGestureRecognizer.edges = .Right
