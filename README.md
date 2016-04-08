@@ -7,9 +7,10 @@
 
 SideMenu is a simple and versatile side menu control written in Swift.
 - [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
-- [x] Three standard animation styles to choose from.
+- [x] Four standard animation styles to choose from (even parallax if you want to get weird).
 - [x] Highly customizable without needing to write tons of custom code.
-- [x] Supports continuous swiping between each side menu in a single gesture.
+- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
+- [x] Global menu configuration. Set-up once and be done for all screens.
 - [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
 Check out the example project or this [interactive demo](https://appetize.io/app/64a9v3e6b8c6f53zvn5pnny80m) to see it in action!
