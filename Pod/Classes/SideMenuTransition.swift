@@ -110,7 +110,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             view.transform = transform
             if velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5 {
                 // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
-                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 {
+                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 && singleton.percentComplete > 1 - CGFloat(FLT_EPSILON) {
                     singleton.updateInteractiveTransition(0.9999)
                 }
                 singleton.finishInteractiveTransition()
@@ -137,7 +137,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             let velocity = pan.velocityInView(pan.view!).x * direction
             if velocity >= 100 || velocity >= -50 && distance >= 0.5 {
                 // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
-                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 {
+                if NSProcessInfo().operatingSystemVersion.majorVersion == 8 && singleton.percentComplete > 1 - CGFloat(FLT_EPSILON) {
                     singleton.updateInteractiveTransition(0.9999)
                 }
                 singleton.finishInteractiveTransition()
