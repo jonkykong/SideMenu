@@ -274,8 +274,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     // animate a change from one viewcontroller to another
     internal func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
-        let statusBarStyle = SideMenuTransition.visibleViewController?.preferredStatusBarStyle()
-        
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()!
         if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
