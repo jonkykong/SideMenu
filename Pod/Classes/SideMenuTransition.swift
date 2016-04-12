@@ -257,7 +257,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         
         let mainViewController = SideMenuTransition.viewControllerForPresentedMenu!
         switch SideMenuManager.menuPresentMode {
-        case .MenuSlideIn, .MenuDissolveIn:
+        case .MenuSlideIn, .MenuDissolveIn, .ViewSlideInOut:
             if SideMenuManager.menuParallaxStrength != 0 {
                 let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
                 horizontal.minimumRelativeValue = -SideMenuManager.menuParallaxStrength
@@ -271,7 +271,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 group.motionEffects = [horizontal, vertical]
                 mainViewController.view.addMotionEffect(group)
             }
-        case .ViewSlideOut, .ViewSlideInOut: break;
+        case .ViewSlideOut: break;
         }
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.enabled = false
@@ -400,7 +400,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     
     // MARK: UIViewControllerTransitioningDelegate protocol methods
     
-    // return the animataor when presenting a viewcontroller
+    // return the animator when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
     internal func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = true
