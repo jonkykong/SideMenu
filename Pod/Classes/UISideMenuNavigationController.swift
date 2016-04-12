@@ -18,6 +18,7 @@ public class UISideMenuNavigationController: UINavigationController {
         modalPresentationStyle = .OverFullScreen
     }
     
+    /// Whether the menu appears on the right or left side of the screen. Right is the default.
     @IBInspectable public var leftSide:Bool = false {
         didSet {
             if isViewLoaded() { // suppress warnings
