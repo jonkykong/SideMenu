@@ -123,6 +123,13 @@ menuAddPanGestureToPresent(toView toView: UIView) -> UIPanGestureRecognizer
 ## Known Issues
 Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks the UI. See [radar 21961293](http://www.openradar.me/21961293) for more information.
 
+## About Me
+My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile strategist. I love coffee and play the drums. I live in San Francisco. **Hire me!**
+
+Web: [http://jonkent.me](http://jonkent.me)
+
+Email: [contact@jonkent.me](mailto:contact@jonkent.me)
+
 ## License
 
 SideMenu is available under the MIT license. See the LICENSE file for more info.
