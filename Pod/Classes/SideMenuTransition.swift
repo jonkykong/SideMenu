@@ -204,7 +204,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         originalSuperview?.addSubview(mainViewController.view)
     }
     
-    internal class func presentMenuStart(forSize size: CGSize = UIScreen.mainScreen().bounds.size) {
+    internal class func presentMenuStart(forSize size: CGSize = (UIApplication.sharedApplication().keyWindow?.bounds.size)!) {
         guard let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
             return
         }
