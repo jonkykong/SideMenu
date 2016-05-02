@@ -45,8 +45,14 @@ public class SideMenuManager {
     /// Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class. Defaults to false.
     public static var menuAllowPopIfPossible = false
     
+    // Bounds which has been allocated for the app on the whole device screen
+    public static var appScreenRect: CGRect {
+        let appWindowRect = (UIApplication.sharedApplication().keyWindow != nil) ? UIApplication.sharedApplication().keyWindow!.bounds : UIWindow().bounds
+        return appWindowRect
+    }
+    
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
-    public static var menuWidth: CGFloat = max(round(min((UIApplication.sharedApplication().keyWindow?.bounds.width)!, (UIApplication.sharedApplication().keyWindow?.bounds.height)!) * 0.75), 240)
+    public static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
     public static var menuAnimationPresentDuration = 0.35
