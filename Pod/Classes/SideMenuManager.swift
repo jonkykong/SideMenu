@@ -46,7 +46,7 @@ public class SideMenuManager {
     public static var menuAllowPopIfPossible = false
     
     // Bounds which has been allocated for the app on the whole device screen
-    public static var appScreenRect: CGRect {
+    static var appScreenRect: CGRect {
         let appWindowRect = (UIApplication.sharedApplication().keyWindow != nil) ? UIApplication.sharedApplication().keyWindow!.bounds : UIWindow().bounds
         return appWindowRect
     }
