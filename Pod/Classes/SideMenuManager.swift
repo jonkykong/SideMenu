@@ -220,10 +220,8 @@ public class SideMenuManager {
             tableViewController.tableView.backgroundView = nil
             tableViewController.tableView.separatorEffect = nil
             tableViewController.tableView.reloadData()
-        } else if let viewController = forMenu.visibleViewController {
-            if let blurView = view.subviews[0] as? UIVisualEffectView {
-                blurView.removeFromSuperview()
-            }
+        } else if let blurView = view.subviews[0] as? UIVisualEffectView {
+            blurView.removeFromSuperview()
         }
     }
     
