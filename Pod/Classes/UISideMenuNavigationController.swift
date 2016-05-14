@@ -9,6 +9,8 @@ import UIKit
 
 public class UISideMenuNavigationController: UINavigationController {
     
+    internal var originalMenuBackgroundColor: UIColor?
+    
     public override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -21,7 +23,7 @@ public class UISideMenuNavigationController: UINavigationController {
     /// Whether the menu appears on the right or left side of the screen. Right is the default.
     @IBInspectable public var leftSide:Bool = false {
         didSet {
-            if isViewLoaded() { // suppress warnings
+            if isViewLoaded() && oldValue != leftSide { // suppress warnings
                 didSetSide()
             }
         }
@@ -148,7 +150,7 @@ public class UISideMenuNavigationController: UINavigationController {
                 CATransaction.commit()
             } else {
                 menuViewController.presentViewController(viewController, animated: animated, completion: nil)
-                print("Warning: attempted to push a ViewController from a ViewController that doesn't have a NavigationController. It will be presented it instead.")
+                print("SideMenu Warning: cannot push a ViewController from a ViewController without a NavigationController. It will be presented it instead.")
             }
         }
     }

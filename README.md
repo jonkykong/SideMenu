@@ -26,7 +26,7 @@ Check out the example project or this [interactive demo](https://appetize.io/app
 ![](etc/InOut.gif)
 
 ## Requirements
-* iOS 8 or higher
+- [x] iOS 8 or higher
 
 ## Installation
 
