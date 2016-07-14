@@ -115,44 +115,49 @@ public class UISideMenuNavigationController: UINavigationController {
     }
     
     override public func pushViewController(viewController: UIViewController, animated: Bool) {
-        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController {
-            if let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-                
-                // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
-                // is dismissed after showing the appropriate screen
-                CATransaction.begin()
-                CATransaction.setCompletionBlock( { () -> Void in
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
-                })
-                
-                UIView.animateWithDuration(SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
-                    SideMenuTransition.hideMenuStart()
-                })
-                
-                if SideMenuManager.menuAllowPopIfPossible {
-                    for subViewController in presentingViewController.viewControllers {
-                        if subViewController.dynamicType == viewController.dynamicType {
-                            presentingViewController.popToViewController(subViewController, animated: animated)
-                            CATransaction.commit()
-                            return
-                        }
-                    }
+        guard viewControllers.count > 0 else {
+            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
+            // so we must perform the normal super method in this case.
+            super.pushViewController(viewController, animated: true)
+            return
+        }
+        
+        guard let presentingViewController = presentingViewController as? UINavigationController else {
+            presentViewController(viewController, animated: animated, completion: nil)
+            print("SideMenu Warning: cannot push a ViewController from a ViewController without a NavigationController. It will be presented it instead.")
+            return
+        }
+        
+        // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
+        // is dismissed after showing the appropriate screen
+        CATransaction.begin()
+        CATransaction.setCompletionBlock( { () -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
+        })
+        
+        UIView.animateWithDuration(SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
+            SideMenuTransition.hideMenuStart()
+        })
+        
+        if SideMenuManager.menuAllowPopIfPossible {
+            for subViewController in presentingViewController.viewControllers {
+                if subViewController.dynamicType == viewController.dynamicType {
+                    presentingViewController.popToViewController(subViewController, animated: animated)
+                    CATransaction.commit()
+                    return
                 }
-                if !SideMenuManager.menuAllowPushOfSameClassTwice {
-                    if presentingViewController.viewControllers.last?.dynamicType == viewController.dynamicType {
-                        CATransaction.commit()
-                        return
-                    }
-                }
-                
-                presentingViewController.pushViewController(viewController, animated: animated)
-                CATransaction.commit()
-            } else {
-                menuViewController.presentViewController(viewController, animated: animated, completion: nil)
-                print("SideMenu Warning: cannot push a ViewController from a ViewController without a NavigationController. It will be presented it instead.")
             }
         }
+        if !SideMenuManager.menuAllowPushOfSameClassTwice {
+            if presentingViewController.viewControllers.last?.dynamicType == viewController.dynamicType {
+                CATransaction.commit()
+                return
+            }
+        }
+        
+        presentingViewController.pushViewController(viewController, animated: animated)
+        CATransaction.commit()
     }
 }
 
