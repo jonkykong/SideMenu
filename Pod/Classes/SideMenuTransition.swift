@@ -347,10 +347,10 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         UIView.animateWithDuration(duration, delay: 0, options: options, animations: { () -> Void in
             if self.presenting {
                 SideMenuTransition.presentMenuStart() // onstage items: slide in
-            }
-            else {
+            } else {
                 SideMenuTransition.hideMenuStart()
             }
+            menuView.userInteractionEnabled = false
             }) { (finished) -> Void in
                 // tell our transitionContext object that we've finished animating
                 if transitionContext.transitionWasCancelled() {
@@ -361,6 +361,8 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                     } else {
                         SideMenuTransition.presentMenuComplete()
                     }
+                    menuView.userInteractionEnabled = true
+                    
                     transitionContext.completeTransition(false)
                     
                     if SideMenuTransition.switchMenus {
@@ -373,6 +375,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 
                 if self.presenting {
                     SideMenuTransition.presentMenuComplete()
+                    menuView.userInteractionEnabled = true
                     transitionContext.completeTransition(true)
                     switch SideMenuManager.menuPresentMode {
                     case .ViewSlideOut:
