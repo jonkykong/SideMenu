@@ -192,7 +192,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     
     internal class func hideMenuComplete() {
         guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu,
-           let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {return}
+            let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
+                return
+        }
 
         SideMenuTransition.tapView.removeFromSuperview()
         SideMenuTransition.statusBarView?.removeFromSuperview()
@@ -208,7 +210,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     internal class func presentMenuStart(forSize size: CGSize = SideMenuManager.appScreenRect.size) {
         guard let menuView = SideMenuTransition.presentDirection == .Left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view,
             let mainViewController = SideMenuTransition.viewControllerForPresentedMenu else {
-            return
+                return
         }
         
         menuView.transform = CGAffineTransformIdentity
@@ -255,7 +257,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     
     internal class func presentMenuComplete() {
         NSNotificationCenter.defaultCenter().addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.applicationDidEnterBackgroundNotification), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu else {return}
+        guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu else {
+            return
+        }
       
         switch SideMenuManager.menuPresentMode {
         case .MenuSlideIn, .MenuDissolveIn, .ViewSlideInOut:
