@@ -4,19 +4,19 @@
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
 ## Shameless Requests First
-**1. If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.**
+**1. If you like SideMenu, give it a ★ at the top right of this page.**
 
 **2. I need an invite to Dribbble to share SideMenu. Invite me: https://dribbble.com/jonkykong**
 
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
-* **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
-* Four standard animation styles to choose from (even parallax if you want to get weird).
-* Highly customizable without needing to write tons of custom code.
-* Supports continuous swiping between side menus on boths sides in a single gesture.
-* Global menu configuration. Set-up once and be done for all screens.
-* Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+- [x] Four standard animation styles to choose from (even parallax if you want to get weird).
+- [x] Highly customizable without needing to write tons of custom code.
+- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
+- [x] Global menu configuration. Set-up once and be done for all screens.
+- [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
 Check out the example project or this [interactive demo](https://appetize.io/app/64a9v3e6b8c6f53zvn5pnny80m) to see it in action!
 
@@ -26,7 +26,7 @@ Check out the example project or this [interactive demo](https://appetize.io/app
 ![](etc/InOut.gif)
 
 ## Requirements
-* iOS 8 or higher
+- [x] iOS 8 or higher
 
 ## Installation
 
