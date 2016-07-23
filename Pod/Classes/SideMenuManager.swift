@@ -31,6 +31,9 @@ public class SideMenuManager {
         return appWindowRect
     }
 
+    /// Delegate
+    public static var delegate: SideMenuDelegate?
+    
     /**
      The presentation mode of the menu.
      
