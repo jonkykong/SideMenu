@@ -16,9 +16,9 @@
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
-public class SideMenuManager {
+public class SideMenuManager : NSObject {
     
-    public enum MenuPresentMode {
+    @objc public enum MenuPresentMode : Int {
         case MenuSlideIn
         case ViewSlideOut
         case ViewSlideInOut
@@ -30,7 +30,7 @@ public class SideMenuManager {
         let appWindowRect = UIApplication.sharedApplication().keyWindow?.bounds ?? UIWindow().bounds
         return appWindowRect
     }
-
+    
     /**
      The presentation mode of the menu.
      
@@ -87,7 +87,7 @@ public class SideMenuManager {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     public static var menuFadeStatusBar = true
     
-    /// - Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
+    /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed="menuAnimationTransformScaleFactor")
     public static var menuAnimationShrinkStrength: CGFloat {
         get {
@@ -99,7 +99,7 @@ public class SideMenuManager {
     }
     
     // prevent instantiation
-    private init() {}
+    private override init() {}
     
     /**
      The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
@@ -230,7 +230,7 @@ public class SideMenuManager {
      
      - Parameter toView: The view to add gestures to.
      - Parameter forMenu: The menu (left or right) you want to add a gesture for. If unspecified, gestures will be added for both sides.
- 
+     
      - Returns: The array of screen edge gestures added to `toView`.
      */
     public class func menuAddScreenEdgePanGesturesToPresent(toView toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer] {
