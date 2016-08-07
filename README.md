@@ -3,10 +3,7 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-## Shameless Requests First
-**1. If you like SideMenu, give it a ★ at the top right of this page.**
-
-**2. I need an invite to Dribbble to share SideMenu. Invite me: https://dribbble.com/jonkykong**
+**If you like SideMenu, give it a ★ at the top right of this page.**
 
 ## Overview
 
@@ -128,7 +125,7 @@ My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile stra
 
 🌎 Web: [http://jonkent.me](http://jonkent.me)
 
-✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me)
+✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me) **_IMPORTANT: If you're having a problem implementing SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues) instead of emailing me. Thanks!_**
 
 ## License
 
