@@ -188,6 +188,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
             mainViewController.view.frame.origin.x = 0
         }
+        
+        // Call to delegate
+        SideMenuManager.delegate?.sideMenuWillClose?()
     }
     
     internal class func hideMenuComplete() {
@@ -205,6 +208,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             topNavigationController.interactivePopGestureRecognizer!.enabled = true
         }
         originalSuperview?.addSubview(mainViewController.view)
+        
+        // Call to delegate
+        SideMenuManager.delegate?.sideMenuDidClose?()
     }
     
     internal class func presentMenuStart(forSize size: CGSize = SideMenuManager.appScreenRect.size) {
@@ -253,6 +259,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
             mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
         }
+        
+        // Call to delegate
+        SideMenuManager.delegate?.sideMenuWillOpen?()
     }
     
     internal class func presentMenuComplete() {
@@ -281,6 +290,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.enabled = false
         }
+        
+        // Call to delegate
+        SideMenuManager.delegate?.sideMenuDidOpen?()
     }
     
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
