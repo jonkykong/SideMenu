@@ -50,14 +50,20 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     class func handlePresentMenuLeftScreenEdge(edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .Left
         handlePresentMenuPan(edge)
+        
     }
     
     class func handlePresentMenuRightScreenEdge(edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .Right
         handlePresentMenuPan(edge)
+        
     }
     
     class func handlePresentMenuPan(pan: UIPanGestureRecognizer) {
+        if !SideMenuManager.enableGestures {
+            return
+        }
+        
         // how much distance have we panned in reference to the parent view?
         guard let view = viewControllerForPresentedMenu != nil ? viewControllerForPresentedMenu?.view : pan.view else {
             return
@@ -121,6 +127,10 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     class func handleHideMenuPan(pan: UIPanGestureRecognizer) {
+        if !SideMenuManager.enableGestures {
+            return
+        }
+        
         let translation = pan.translationInView(pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? -1 : 1
         let distance = translation.x / SideMenuManager.menuWidth * direction
