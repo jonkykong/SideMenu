@@ -320,7 +320,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             let tapView = UIView()
             tapView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             let exitPanGesture = UIPanGestureRecognizer()
-            exitPanGesture.enabled = SideMenuManager.enableGestures
             exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
             let exitTapGesture = UITapGestureRecognizer()
             exitTapGesture.addTarget(SideMenuTransition.self, action: #selector(SideMenuTransition.handleHideMenuTap(_:)))
