@@ -66,7 +66,11 @@ public class UISideMenuNavigationController: UINavigationController {
                 case .ViewSlideOut, .ViewSlideInOut:
                     mainView.superview?.insertSubview(view, belowSubview: mainView)
                 case .MenuSlideIn, .MenuDissolveIn:
-                    mainView.superview?.insertSubview(view, aboveSubview: SideMenuTransition.tapView)
+                    if let tapView = SideMenuTransition.tapView {
+                        mainView.superview?.insertSubview(view, aboveSubview: tapView)
+                    } else {
+                        mainView.superview?.insertSubview(view, aboveSubview: mainView)
+                    }
                 }
             }
         }

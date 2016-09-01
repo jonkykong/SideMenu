@@ -17,7 +17,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     
     internal static let singleton = SideMenuTransition()
     internal static var presentDirection: UIRectEdge = .Left;
-    internal static weak var tapView: UIView!
+    internal static weak var tapView: UIView?
     internal static weak var statusBarView: UIView?
     
     // prevent instantiation
@@ -167,7 +167,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         menuView.transform = CGAffineTransformIdentity
         mainViewController.view.transform = CGAffineTransformIdentity
         mainViewController.view.alpha = 1
-        SideMenuTransition.tapView.frame = CGRectMake(0, 0, mainViewController.view.frame.width, mainViewController.view.frame.height)
+        SideMenuTransition.tapView?.frame = CGRectMake(0, 0, mainViewController.view.frame.width, mainViewController.view.frame.height)
         menuView.frame.origin.y = 0
         menuView.frame.size.width = SideMenuManager.menuWidth
         menuView.frame.size.height = mainViewController.view.frame.height
@@ -204,7 +204,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                 return
         }
 
-        SideMenuTransition.tapView.removeFromSuperview()
+        SideMenuTransition.tapView?.removeFromSuperview()
         SideMenuTransition.statusBarView?.removeFromSuperview()
         mainViewController.view.motionEffects.removeAll()
         mainViewController.view.layer.shadowOpacity = 0
@@ -315,15 +315,18 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         
         // prepare menu items to slide in
         if presenting {
-            let tapView = UIView()
-            tapView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            let exitPanGesture = UIPanGestureRecognizer()
-            exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
-            let exitTapGesture = UITapGestureRecognizer()
-            exitTapGesture.addTarget(SideMenuTransition.self, action: #selector(SideMenuTransition.handleHideMenuTap(_:)))
-            tapView.addGestureRecognizer(exitPanGesture)
-            tapView.addGestureRecognizer(exitTapGesture)
-            SideMenuTransition.tapView = tapView
+            var tapView: UIView?
+            if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
+                tapView = UIView()
+                tapView!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+                let exitPanGesture = UIPanGestureRecognizer()
+                exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
+                let exitTapGesture = UITapGestureRecognizer()
+                exitTapGesture.addTarget(SideMenuTransition.self, action: #selector(SideMenuTransition.handleHideMenuTap(_:)))
+                tapView!.addGestureRecognizer(exitPanGesture)
+                tapView!.addGestureRecognizer(exitTapGesture)
+                SideMenuTransition.tapView = tapView
+            }
             
             SideMenuTransition.originalSuperview = topView.superview
             
@@ -332,10 +335,14 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             case .ViewSlideOut:
                 container.addSubview(menuView)
                 container.addSubview(topView)
-                topView.addSubview(tapView)
+                if let tapView = tapView {
+                    topView.addSubview(tapView)
+                }
             case .MenuSlideIn, .MenuDissolveIn, .ViewSlideInOut:
                 container.addSubview(topView)
-                container.addSubview(tapView)
+                if let tapView = tapView {
+                    container.addSubview(tapView)
+                }
                 container.addSubview(menuView)
             }
             
