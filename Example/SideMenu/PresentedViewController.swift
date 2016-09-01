@@ -10,7 +10,7 @@ import UIKit
 class PresentedViewController: UIViewController {
 
     @IBAction private func close() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
