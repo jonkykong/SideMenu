@@ -93,7 +93,7 @@ public class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     public static var menuFadeStatusBar = true
     
-    /// - Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
+    /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed="menuAnimationTransformScaleFactor")
     public static var menuAnimationShrinkStrength: CGFloat {
         get {
