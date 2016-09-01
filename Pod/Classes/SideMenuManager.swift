@@ -81,8 +81,8 @@ public class SideMenuManager {
     /// The right menu swipe to dismiss gesture.
     public static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
     
-    /// Enable or Disable Gestures that would swipe to dismiss or present the view controllers. The default value is true
-    public static var enableGestures : Bool = true
+    /// Enable or disable gestures that would swipe to present or dismiss the menu. Default is true.
+    public static var menuEnableSwipeGestures : Bool = true
     
     /// The strength of the parallax effect on the existing view controller. Does not apply to `menuPresentMode` when set to `ViewSlideOut`. Default is 0.
     public static var menuParallaxStrength: Int = 0

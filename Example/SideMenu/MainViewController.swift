@@ -16,7 +16,6 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var screenWidthSlider:UISlider!
     @IBOutlet private weak var shrinkFactorSlider:UISlider!
     @IBOutlet private weak var blackOutStatusBar:UISwitch!
-    @IBOutlet private weak var enableDisableSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,14 +87,6 @@ class MainViewController: UIViewController {
     }
     
     @IBAction private func changeSwitch(switchControl: UISwitch) {
-        
-        switch switchControl {
-        case blackOutStatusBar:
-            SideMenuManager.menuFadeStatusBar = switchControl.on
-        case enableDisableSwitch:
-            SideMenuManager.enableGestures = switchControl.on
-        default:
-            break;
-        }
+        SideMenuManager.menuFadeStatusBar = switchControl.on
     }
 }
