@@ -167,11 +167,10 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         menuView.transform = CGAffineTransformIdentity
         mainViewController.view.transform = CGAffineTransformIdentity
         mainViewController.view.alpha = 1
-        
+        SideMenuTransition.tapView.frame = CGRectMake(0, 0, mainViewController.view.frame.width, mainViewController.view.frame.height)
         menuView.frame.origin.y = 0
         menuView.frame.size.width = SideMenuManager.menuWidth
         menuView.frame.size.height = mainViewController.view.frame.height
-        
         SideMenuTransition.statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 0
         
@@ -188,12 +187,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? -menuView.frame.width : mainViewController.view.frame.width
             mainViewController.view.frame.origin.x = 0
             
-            // Restore mainViewController.view.frame to avoid wrong frame after device rotation
-            if SideMenuManager.menuAnimationTransformScaleFactor != 1 {
-                let rect = SideMenuManager.appScreenRect
-                mainViewController.view.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height)
-            }
-            
         case .MenuSlideIn:
             menuView.alpha = 1
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? -menuView.frame.width : mainViewController.view.frame.width
@@ -203,8 +196,6 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
             mainViewController.view.frame.origin.x = 0
         }
-        
-        SideMenuTransition.tapView.frame = mainViewController.view.frame
     }
     
     internal class func hideMenuComplete() {
@@ -256,7 +247,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             menuView.layer.shadowOffset = CGSizeMake(0, 0)
             let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
-            mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
+            mainViewController.view.frame = CGRect(x: direction * (menuView.frame.width), y: 0, width: size.width, height: size.height)
             mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
             mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
             

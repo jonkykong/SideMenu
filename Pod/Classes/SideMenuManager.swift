@@ -26,7 +26,7 @@ public class SideMenuManager {
     }
     
     // Bounds which has been allocated for the app on the whole device screen
-    static var appScreenRect: CGRect {
+    internal static var appScreenRect: CGRect {
         let appWindowRect = UIApplication.sharedApplication().keyWindow?.bounds ?? UIWindow().bounds
         return appWindowRect
     }
