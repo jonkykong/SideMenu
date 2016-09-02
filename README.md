@@ -43,6 +43,9 @@ platform :ios, '8.0'
 use_frameworks!
 
 pod 'SideMenu'
+
+# For Swift 3, use:
+# pod 'SideMenu', :git => 'https://github.com/jonkykong/SideMenu.git', :branch => 'swift3'
 ```
 
 Then, run the following command:
