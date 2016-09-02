@@ -6,14 +6,14 @@
 //
 
 /* Example usage:
-    // Define the menus
-    SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewControllerWithIdentifier("LeftMenuNavigationController") as? UISideMenuNavigationController
-    SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewControllerWithIdentifier("RightMenuNavigationController") as? UISideMenuNavigationController
-
-    // Enable gestures. The left and/or right menus must be set up above for these to work.
-    // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
-    SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-    SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+     // Define the menus
+     SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
+     SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? UISideMenuNavigationController
+     
+     // Enable gestures. The left and/or right menus must be set up above for these to work.
+     // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+     SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
 open class SideMenuManager : NSObject {
@@ -35,10 +35,10 @@ open class SideMenuManager : NSObject {
      The presentation mode of the menu.
      
      There are four modes in MenuPresentMode:
-     - MenuSlideIn: Menu slides in over of the existing view.
-     - ViewSlideOut: The existing view slides out to reveal the menu.
-     - ViewSlideInOut: The existing view slides out while the menu slides in.
-     - MenuDissolveIn: The menu dissolves in over the existing view controller.
+     - menuSlideIn: Menu slides in over of the existing view.
+     - viewSlideOut: The existing view slides out to reveal the menu.
+     - viewSlideInOut: The existing view slides out while the menu slides in.
+     - menuDissolveIn: The menu dissolves in over the existing view controller.
      */
     open static var menuPresentMode: MenuPresentMode = .viewSlideOut
     
