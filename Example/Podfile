@@ -1,12 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'SideMenu_Example', :exclusive => true do
+target 'SideMenu_Example' do
   pod "SideMenu", :path => "../"
 end
 
-target 'SideMenu_Tests', :exclusive => true do
+target 'SideMenu_Tests' do
   pod "SideMenu", :path => "../"
-
-  
 end
