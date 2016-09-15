@@ -242,10 +242,10 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             
         case .viewSlideInOut:
             menuView.alpha = 1
-            menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-            menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-            menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
+            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
+            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
             mainViewController.view.frame = CGRect(x: direction * (menuView.frame.width), y: 0, width: size.width, height: size.height)
             mainViewController.view.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
@@ -253,10 +253,12 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             
         case .menuSlideIn, .menuDissolveIn:
             menuView.alpha = 1
-            menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-            menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-            menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            if SideMenuManager.menuBlurEffectStyle == nil {
+                menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
+                menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
+                menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+                menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            }
             mainViewController.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             mainViewController.view.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
             mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
@@ -332,13 +334,13 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             
             // add the both views to our view controller
             switch SideMenuManager.menuPresentMode {
-            case .viewSlideOut:
+            case .viewSlideOut, .viewSlideInOut:
                 container.addSubview(menuView!)
                 container.addSubview(topView!)
                 if let tapView = tapView {
                     topView?.addSubview(tapView)
                 }
-            case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
+            case .menuSlideIn, .menuDissolveIn:
                 container.addSubview(topView!)
                 if let tapView = tapView {
                     container.addSubview(tapView)
@@ -398,9 +400,9 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
                     menuView?.isUserInteractionEnabled = true
                     transitionContext.completeTransition(true)
                     switch SideMenuManager.menuPresentMode {
-                    case .viewSlideOut:
+                    case .viewSlideOut, .viewSlideInOut:
                         container.addSubview(topView!)
-                    case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
+                    case .menuSlideIn, .menuDissolveIn:
                         container.insertSubview(topView!, at: 0)
                     }
                     if let statusBarView = SideMenuTransition.statusBarView {
