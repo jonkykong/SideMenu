@@ -42,7 +42,10 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'SideMenu', :git => 'https://github.com/jonkykong/SideMenu.git', :branch => 'swift3'
+pod 'SideMenu'
+
+# For Swift 2.3, use:
+# pod 'SideMenu', '~> 1.2.1'
 ```
 
 Then, run the following command:
