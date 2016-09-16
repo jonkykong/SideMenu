@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
-  s.version          = "1.2.1"
+  s.version          = "2.0.0"
   s.summary          = "Simple side menu control for iOS in Swift inspired by Facebook. Right and Left sides. No coding required."
 
 # This description is used to generate tags and improve search results.
@@ -31,9 +31,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'SideMenu' => ['Pod/Assets/*.png']
-  }
+# s.resource_bundles = {
+#    'SideMenu' => ['Pod/Assets/*.png']
+#  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

@@ -11,7 +11,7 @@ import SideMenu
 
 class SideMenuTableView: UITableViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // this will be non-nil if a blur effect is applied
@@ -21,8 +21,8 @@ class SideMenuTableView: UITableViewController {
         
         // Set up a cool background image for demo purposes
         let imageView = UIImageView(image: UIImage(named: "saturn"))
-        imageView.contentMode = .ScaleAspectFit
-        imageView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         tableView.backgroundView = imageView
     }
     
