@@ -15,7 +15,7 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Global menu configuration. Set-up once and be done for all screens.
 - [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
-Check out the example project or this [interactive demo](https://appetize.io/app/64a9v3e6b8c6f53zvn5pnny80m) to see it in action!
+Check out the example project to see it in action!
 
 ![](etc/SlideOut.gif)
 ![](etc/SlideIn.gif)
@@ -162,6 +162,9 @@ open static var menuFadeStatusBar = true
 
 ## Known Issues
 Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks the UI. See [radar 21961293](http://www.openradar.me/21961293) for more information.
+
+## Thank You
+A special thank you to everyone that has [contributed](https://github.com/jonkykong/SideMenu/graphs/contributors) to this library to make it better. Your support is appreciated!
 
 ## About Me
 My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile strategist. I love coffee and play the drums. **Hire me!**
