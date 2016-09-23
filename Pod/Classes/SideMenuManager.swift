@@ -93,6 +93,10 @@ open class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open static var menuFadeStatusBar = true
     
+    ///Do not push a viewController on presentingViewController but on viewController that represents the current menu
+    open static var menuAllowSubmenus: Bool = false
+
+    
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")
     open static var menuAnimationShrinkStrength: CGFloat {

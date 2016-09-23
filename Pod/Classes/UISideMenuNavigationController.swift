@@ -132,6 +132,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
+        if SideMenuManager.menuAllowSubmenus{
+            super.pushViewController(viewController, animated: true)
+            return
+        }
+        
         // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
         CATransaction.begin()
