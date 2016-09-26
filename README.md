@@ -171,7 +171,7 @@ My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile stra
 
 🌎 Web: [http://jonkent.me](http://jonkent.me)
 
-✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me) **IMPORTANT: If you think you've found a bug with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues) and do _not_ email me. If you are having a problem getting SideMenu to work, read this README thoroughly and check out the example project and do _not_ open an issue or email me. If you ask me how to do things that this document already covers I will not respond. Thank you for respecting my time.**
+✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me) **IMPORTANT: Before emailing me, please read [this](https://github.com/jonkykong/SideMenu/issues/58).**
 
 ## License
 
