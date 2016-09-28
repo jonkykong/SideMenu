@@ -158,6 +158,9 @@ open static var menuParallaxStrength: Int = 0
 
 /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
 open static var menuFadeStatusBar = true
+
+/// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
+open static var menuAllowSubmenus: Bool = false
 ```
 
 ## Known Issues
