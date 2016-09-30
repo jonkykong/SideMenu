@@ -1,9 +1,9 @@
-# SideMenu
+# ▤ SideMenu
 [![Version](https://img.shields.io/cocoapods/v/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-**If you like SideMenu, give it a ★ at the top right of this page.**
+### If you like SideMenu, give it a ★ at the top right of this page.
 
 ## Overview
 
