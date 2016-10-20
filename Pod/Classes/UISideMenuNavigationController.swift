@@ -119,7 +119,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        guard viewControllers.count > 0 else {
+        guard viewControllers.count > 0 && !SideMenuManager.menuAllowSubmenus else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case.
             super.pushViewController(viewController, animated: true)
@@ -127,13 +127,7 @@ open class UISideMenuNavigationController: UINavigationController {
         }
         
         guard let presentingViewController = presentingViewController as? UINavigationController else {
-            present(viewController, animated: animated, completion: nil)
-            print("SideMenu Warning: cannot push a ViewController from a ViewController without a NavigationController. It will be presented it instead.")
-            return
-        }
-        
-        if SideMenuManager.menuAllowSubmenus{
-            super.pushViewController(viewController, animated: true)
+            print("SideMenu Warning: attempt to push a ViewController from a ViewController without a NavigationController. Your ViewController must be embedded in a NavigationController for this to work.")
             return
         }
         
