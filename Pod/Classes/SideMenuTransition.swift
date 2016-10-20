@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
     
     fileprivate var presenting = false
     fileprivate var interactive = false
@@ -47,17 +47,17 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         return viewController
     }
     
-    class func handlePresentMenuLeftScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
+    internal class func handlePresentMenuLeftScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .left
         handlePresentMenuPan(edge)
     }
     
-    class func handlePresentMenuRightScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
+    internal class func handlePresentMenuRightScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .right
         handlePresentMenuPan(edge)
     }
     
-    class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
+    internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
         if !SideMenuManager.menuEnableSwipeGestures {
             return
         }
@@ -124,7 +124,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         }
     }
     
-    class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+    internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
         if !SideMenuManager.menuEnableSwipeGestures {
             return
         }
@@ -155,7 +155,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         }
     }
     
-    class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
+    internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
         viewControllerForPresentedMenu?.dismiss(animated: true, completion: nil)
     }
     
@@ -296,7 +296,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
     
     // animate a change from one viewcontroller to another
-    internal func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView
@@ -419,7 +419,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     }
     
     // return how many seconds the transiton animation will take
-    internal func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
@@ -427,25 +427,25 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
     
     // return the animator when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
-    internal func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = true
         SideMenuTransition.presentDirection = presented == SideMenuManager.menuLeftNavigationController ? .left : .right
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
-    internal func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presenting = false
         return self
     }
     
-    internal func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         // if our interactive flag is true, return the transition manager object
         // otherwise return nil
         return interactive ? SideMenuTransition.singleton : nil
     }
     
-    internal func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactive ? SideMenuTransition.singleton : nil
     }
     
