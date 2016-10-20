@@ -152,8 +152,8 @@ open class UISideMenuNavigationController: UINavigationController {
                 }
             }
         }
-        if !SideMenuManager.menuAllowPushOfSameClassTwice {
-            if type(of: presentingViewController.viewControllers.last) == type(of: viewController) {
+        if let lastViewController = presentingViewController.viewControllers.last, SideMenuManager.menuAllowPushOfSameClassTwice {
+            if type(of: lastViewController) == type(of: viewController) {
                 CATransaction.commit()
                 return
             }
