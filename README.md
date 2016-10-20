@@ -3,17 +3,17 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-### If you like SideMenu, give it a ★ at the top right of this page.
+### If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.
 
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
-- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
-- [x] Four standard animation styles to choose from (even parallax if you want to get weird).
-- [x] Highly customizable without needing to write tons of custom code.
-- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
-- [x] Global menu configuration. Set-up once and be done for all screens.
-- [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
+* **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+* Four standard animation styles to choose from (even parallax if you want to get weird).
+* Highly customizable without needing to write tons of custom code.
+* Supports continuous swiping between side menus on boths sides in a single gesture.
+* Global menu configuration. Set-up once and be done for all screens.
+* Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
 Check out the example project to see it in action!
 
@@ -23,10 +23,9 @@ Check out the example project to see it in action!
 ![](etc/InOut.gif)
 
 ## Requirements
-- [x] iOS 8 or higher
+* iOS 8 or higher
 
 ## Installation
-
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
