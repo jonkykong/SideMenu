@@ -90,7 +90,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         let direction: CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
-        let distance = translation.x / SideMenuManager.menuWidth
+        let distance = translation.x / (SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftWidth : SideMenuManager.menuRightWidth)
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
         case .began, .changed:
@@ -131,7 +131,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
-        let distance = translation.x / SideMenuManager.menuWidth * direction
+        let distance = translation.x / (SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftWidth : SideMenuManager.menuRightWidth) * direction
         
         switch (pan.state) {
             
@@ -163,13 +163,13 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         NotificationCenter.default.removeObserver(SideMenuTransition.singleton)
         guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu,
             let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {return}
-      
+        
         menuView.transform = CGAffineTransform.identity
         mainViewController.view.transform = CGAffineTransform.identity
         mainViewController.view.alpha = 1
         SideMenuTransition.tapView?.frame = CGRect(x: 0, y: 0, width: mainViewController.view.frame.width, height: mainViewController.view.frame.height)
         menuView.frame.origin.y = 0
-        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.width = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftWidth : SideMenuManager.menuRightWidth
         menuView.frame.size.height = mainViewController.view.frame.height
         SideMenuTransition.statusBarView?.frame = UIApplication.shared.statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 0
@@ -178,7 +178,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             
         case .viewSlideOut:
             menuView.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
+            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuRightWidth
             mainViewController.view.frame.origin.x = 0
             menuView.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
             
@@ -223,9 +223,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         
         menuView.transform = CGAffineTransform.identity
         mainViewController.view.transform = CGAffineTransform.identity
-        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.width = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftWidth : SideMenuManager.menuRightWidth
         menuView.frame.size.height = size.height
-        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuWidth
+        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuRightWidth
         SideMenuTransition.statusBarView?.frame = UIApplication.shared.statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
         

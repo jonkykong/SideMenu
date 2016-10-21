@@ -52,7 +52,7 @@ class MainViewController: UIViewController {
         darknessSlider.value = Float(SideMenuManager.menuAnimationFadeStrength)
         shadowOpacitySlider.value = Float(SideMenuManager.menuShadowOpacity)
         shrinkFactorSlider.value = Float(SideMenuManager.menuAnimationTransformScaleFactor)
-        screenWidthSlider.value = Float(SideMenuManager.menuWidth / view.frame.width)
+        screenWidthSlider.value = Float(SideMenuManager.menuLeftWidth / view.frame.width)
         blackOutStatusBar.isOn = SideMenuManager.menuFadeStatusBar
     }
     
@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
         case shrinkFactorSlider:
             SideMenuManager.menuAnimationTransformScaleFactor = CGFloat(slider.value)
         case screenWidthSlider:
-            SideMenuManager.menuWidth = view.frame.width * CGFloat(slider.value)
+            SideMenuManager.menuLeftWidth = view.frame.width * CGFloat(slider.value)
         default: break;
         }
     }
