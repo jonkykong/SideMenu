@@ -1,8 +1,8 @@
 # ▤ SideMenu
 [![Version](https://img.shields.io/cocoapods/v/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ### If you like SideMenu, give it a ★ at the top right of this page.
 
@@ -65,7 +65,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate Firebase into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate SideMenu into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "jonkykong/SideMenu"
