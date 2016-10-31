@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "92B1C7A9E8122442B031A44C1CA691AF"
+               BlueprintIdentifier = "7B9DC9031DC6E8C1000D4007"
                BuildableName = "SideMenu.framework"
                BlueprintName = "SideMenu"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               ReferencedContainer = "container:SideMenu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "92B1C7A9E8122442B031A44C1CA691AF"
+            BlueprintIdentifier = "7B9DC9031DC6E8C1000D4007"
             BuildableName = "SideMenu.framework"
             BlueprintName = "SideMenu"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            ReferencedContainer = "container:SideMenu.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B9DC9031DC6E8C1000D4007"
+            BuildableName = "SideMenu.framework"
+            BlueprintName = "SideMenu"
+            ReferencedContainer = "container:SideMenu.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
