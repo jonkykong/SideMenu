@@ -15,6 +15,7 @@
 		7B48A0F61DCB2518002990A1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0F31DCB2518002990A1 /* MainViewController.swift */; };
 		7B48A0F71DCB2518002990A1 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0F41DCB2518002990A1 /* PresentedViewController.swift */; };
 		7B48A0F81DCB2518002990A1 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0F51DCB2518002990A1 /* SideMenuTableView.swift */; };
+		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B58971D1DC6E97D000C2D24 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5897191DC6E97D000C2D24 /* SideMenuManager.swift */; };
 		7B58971E1DC6E97D000C2D24 /* SideMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58971A1DC6E97D000C2D24 /* SideMenuTransition.swift */; };
 		7B58971F1DC6E97D000C2D24 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B58971B1DC6E97D000C2D24 /* UISideMenuNavigationController.swift */; };
@@ -49,6 +50,7 @@
 		7B48A0F31DCB2518002990A1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7B48A0F41DCB2518002990A1 /* PresentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
 		7B48A0F51DCB2518002990A1 /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
+		7B552D5C1DCC65830010301C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7B5897191DC6E97D000C2D24 /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuManager.swift; sourceTree = "<group>"; };
 		7B58971A1DC6E97D000C2D24 /* SideMenuTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTransition.swift; sourceTree = "<group>"; };
 		7B58971B1DC6E97D000C2D24 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISideMenuNavigationController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				7B48A0D51DCB2487002990A1 /* AppDelegate.swift */,
 				7B48A0F31DCB2518002990A1 /* MainViewController.swift */,
 				7B48A0F41DCB2518002990A1 /* PresentedViewController.swift */,
+				7B552D5C1DCC65830010301C /* Launch Screen.storyboard */,
 				7B5FA9B51DCB269700278DF6 /* Main.storyboard */,
 				7B48A0F51DCB2518002990A1 /* SideMenuTableView.swift */,
 				7B48A0DC1DCB2487002990A1 /* Assets.xcassets */,
@@ -312,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */,
 				7B48A0DD1DCB2487002990A1 /* Assets.xcassets in Resources */,
 				7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */,
 			);
