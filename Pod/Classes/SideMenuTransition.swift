@@ -58,7 +58,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
-        if !SideMenuManager.menuEnableSwipeGestures {
+        guard SideMenuManager.menuEnableSwipeGestures else {
             return
         }
         
