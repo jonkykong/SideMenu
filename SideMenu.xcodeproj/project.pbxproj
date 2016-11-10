@@ -17,6 +17,9 @@
 		7B48A0F81DCB2518002990A1 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0F51DCB2518002990A1 /* SideMenuTableView.swift */; };
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
+		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
+		84B489B71DD469B000D6CB43 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
+		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
 		ACD6DAED90DE36FEA68CDF38 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47896ABC5C8830D88945A8D3 /* Pods_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +51,9 @@
 		7B552D5C1DCC65830010301C /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7B5FA9B51DCB269700278DF6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7B9DC9041DC6E8C1000D4007 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B489B21DD469B000D6CB43 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		84B489B41DD469B000D6CB43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		84B489B91DD469DA00D6CB43 /* SideMenu.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SideMenu.podspec; sourceTree = "<group>"; };
 		C5943C005BBB10263AFAC91E /* Pods-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7DA85E73FE6228663AD9236 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		C9E09E1C686BF24AD4976EA7 /* Pods-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 		7B9DC8FA1DC6E8C1000D4007 = {
 			isa = PBXGroup;
 			children = (
+				84B489B81DD469B900D6CB43 /* Podspec Metadata */,
 				7B48A0D41DCB2487002990A1 /* Example */,
 				7B48A0E91DCB2487002990A1 /* ExampleTests */,
 				7B9DC9051DC6E8C1000D4007 /* Products */,
@@ -126,6 +133,16 @@
 				7B48A0E61DCB2487002990A1 /* ExampleTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		84B489B81DD469B900D6CB43 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				84B489B21DD469B000D6CB43 /* LICENSE */,
+				84B489B41DD469B000D6CB43 /* README.md */,
+				84B489B91DD469DA00D6CB43 /* SideMenu.podspec */,
+			);
+			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
 		9C94EEEBD250FF394115AAFC /* Frameworks */ = {
@@ -290,6 +307,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */,
+				84B489B51DD469B000D6CB43 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B489B71DD469B000D6CB43 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
