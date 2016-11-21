@@ -89,9 +89,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65FF1B391DE31DA3007B0845 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		7B48A0D41DCB2487002990A1 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				65FF1B391DE31DA3007B0845 /* SupportingFiles */,
 				7B48A0D51DCB2487002990A1 /* AppDelegate.swift */,
 				7B48A0F31DCB2518002990A1 /* MainViewController.swift */,
 				7B48A0F41DCB2518002990A1 /* PresentedViewController.swift */,
@@ -617,6 +625,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/SideMenu/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.SideMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -636,6 +645,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/SideMenu/module.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.SideMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
