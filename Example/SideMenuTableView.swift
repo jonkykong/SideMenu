@@ -25,5 +25,4 @@ class SideMenuTableView: UITableViewController {
         imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         tableView.backgroundView = imageView
     }
-    
 }
