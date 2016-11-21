@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SideMenuManager.swift"
+#import "SideMenuTransition.swift"
+#import "UISideMenuNavigationController.swift"
+#import "UITableViewVibrantCell.swift"
 
 //! Project version number for SideMenu.
 FOUNDATION_EXPORT double SideMenuVersionNumber;
