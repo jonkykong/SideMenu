@@ -68,7 +68,7 @@ $ brew install carthage
 To integrate SideMenu into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "jonkykong/SideMenu"
+github "jonkykong/SideMenu" "master"
 ```
 
 ## Usage
