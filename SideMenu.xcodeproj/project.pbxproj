@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		108F6C478E56A4CA081F8E09 /* Pods_Example_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C8DD7BE43A8987854CA726 /* Pods_Example_ExampleTests.framework */; };
 		456193561EADC00AC505B531 /* Pods_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1435FAD2F735E43F383BE96 /* Pods_ExampleTests.framework */; };
+		65FF1B3E1DE321D8007B0845 /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 65FF1B3D1DE321D8007B0845 /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B48A0D61DCB2487002990A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0D51DCB2487002990A1 /* AppDelegate.swift */; };
 		7B48A0DD1DCB2487002990A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B48A0DC1DCB2487002990A1 /* Assets.xcassets */; };
 		7B48A0EB1DCB2487002990A1 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B48A0EA1DCB2487002990A1 /* Tests.swift */; };
@@ -38,6 +39,7 @@
 		281FB58A39C022692CEEBF0D /* Pods-Example-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example-ExampleTests/Pods-Example-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		47896ABC5C8830D88945A8D3 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C8DD7BE43A8987854CA726 /* Pods_Example_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65FF1B3D1DE321D8007B0845 /* SideMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideMenu.h; path = SideMenu/SideMenu.h; sourceTree = "<group>"; };
 		7B48A0D31DCB2487002990A1 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B48A0D51DCB2487002990A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B48A0DC1DCB2487002990A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		7B9DC8FA1DC6E8C1000D4007 = {
 			isa = PBXGroup;
 			children = (
+				65FF1B3D1DE321D8007B0845 /* SideMenu.h */,
 				84B489B81DD469B900D6CB43 /* Podspec Metadata */,
 				7B48A0D41DCB2487002990A1 /* Example */,
 				7B48A0E91DCB2487002990A1 /* ExampleTests */,
@@ -183,6 +186,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65FF1B3E1DE321D8007B0845 /* SideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
