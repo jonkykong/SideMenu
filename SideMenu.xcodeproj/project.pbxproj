@@ -18,7 +18,7 @@
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
-		84B489B71DD469B000D6CB43 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
+		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
 		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
 		ACD6DAED90DE36FEA68CDF38 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47896ABC5C8830D88945A8D3 /* Pods_Example.framework */; };
 /* End PBXBuildFile section */
@@ -309,6 +309,7 @@
 			files = (
 				84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */,
 				84B489B51DD469B000D6CB43 /* LICENSE in Resources */,
+				84B489B71DD469B000D6CB43 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +432,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B489B71DD469B000D6CB43 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
