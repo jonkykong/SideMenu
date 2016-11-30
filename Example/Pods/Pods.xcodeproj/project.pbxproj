@@ -53,7 +53,7 @@
 		2EDFBF4C7F59BE1B8E64B4C20C5A69A3 /* Pods-SideMenu_Example-SideMenu_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SideMenu_Example-SideMenu_Tests-dummy.m"; sourceTree = "<group>"; };
 		2FEAFF092FDF0F64E883DF668E01BFAE /* ResourceBundle-SideMenu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SideMenu-Info.plist"; sourceTree = "<group>"; };
 		31B7E4BC1E74F4313F3A1B3CFBDE3933 /* Pods-SideMenu_Example-SideMenu_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SideMenu_Example-SideMenu_Tests-resources.sh"; sourceTree = "<group>"; };
-		36B77275474AC56FB7D541AAD6209096 /* Pods-SideMenu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SideMenu_Example.modulemap"; sourceTree = "<group>"; };
+		36B77275474AC56FB7D541AAD6209096 /* Pods-SideMenu_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SideMenu_Example.modulemap"; sourceTree = "<group>"; };
 		38F9B689DC971971041748B505A2F705 /* Pods-SideMenu_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SideMenu_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		4EC18880AC36AB54E452E3542D10C9D8 /* Pods-SideMenu_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SideMenu_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		52DE1297F95A3E1ECB42E45748AE2D01 /* SideMenuTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SideMenuTransition.swift; sourceTree = "<group>"; };
@@ -64,11 +64,11 @@
 		77651E5994E2090729B1477B34536E5C /* Pods-SideMenu_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7F941601F90874A185EE9C2730325B90 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89D1773033F392D07A36567F0A112E67 /* Pods-SideMenu_Example-SideMenu_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SideMenu_Example-SideMenu_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8BE9F6384A891DBB10646FD070F47F9A /* Pods-SideMenu_Example-SideMenu_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SideMenu_Example-SideMenu_Tests.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8BE9F6384A891DBB10646FD070F47F9A /* Pods-SideMenu_Example-SideMenu_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SideMenu_Example-SideMenu_Tests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		96791EFBB6DC10BFF10D3F37D80E1636 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UISideMenuNavigationController.swift; sourceTree = "<group>"; };
 		99BBDEFD82996DD258BD703B9CA1052D /* Pods-SideMenu_Example-SideMenu_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Example-SideMenu_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		9FD7C92D60CA5294E9276D7F621B5551 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SideMenu.framework; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD7C92D60CA5294E9276D7F621B5551 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FF87E68508442CAE6BB25CFFA537037 /* Pods-SideMenu_Example-SideMenu_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SideMenu_Example-SideMenu_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		A1FAA7D3A3B21BAAB44B2D1FA912C83C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5CD4A1A1B5E42FDA3F2A52BA39D77E1 /* Pods-SideMenu_Example-SideMenu_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SideMenu_Example-SideMenu_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -77,14 +77,14 @@
 		C7C5C25AFCC2B327372BAEF9D94F8B90 /* Pods-SideMenu_Example-SideMenu_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SideMenu_Example-SideMenu_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CDE8A4CAA8AEC588E89656F26C9592D0 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
-		D8921385611353F01C4E0ACF0F1451C1 /* Pods_SideMenu_Example_SideMenu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SideMenu_Example_SideMenu_Tests.framework; path = "Pods-SideMenu_Example-SideMenu_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8921385611353F01C4E0ACF0F1451C1 /* Pods_SideMenu_Example_SideMenu_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Example_SideMenu_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA65B8B31BDB14C78E56202F1FB6EE8C /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		E38650A65AB4D5CDD652C6AFD7BD2514 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6339EFA75EEF30590565DB8C97F29A5 /* Pods-SideMenu_Example-SideMenu_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SideMenu_Example-SideMenu_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		EB9E39BF26CDB661CE4133FCE9831355 /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SideMenu.modulemap; sourceTree = "<group>"; };
+		EB9E39BF26CDB661CE4133FCE9831355 /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SideMenu.modulemap; sourceTree = "<group>"; };
 		EC10E044E158399BC73A4BACBA535752 /* Pods-SideMenu_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SideMenu_Example-frameworks.sh"; sourceTree = "<group>"; };
-		F121D559B4D1F2F933AA212160015D42 /* SideMenu.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SideMenu.bundle; path = SideMenu.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD5096E9FA2C7C8AC2A9291B68FE52B8 /* Pods_SideMenu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SideMenu_Example.framework; path = "Pods-SideMenu_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F121D559B4D1F2F933AA212160015D42 /* SideMenu.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SideMenu.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD5096E9FA2C7C8AC2A9291B68FE52B8 /* Pods_SideMenu_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SideMenu_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,6 @@
 				96791EFBB6DC10BFF10D3F37D80E1636 /* UISideMenuNavigationController.swift */,
 				21867AFF11B61D5A4698269F7B160A12 /* UITableViewVibrantCell.swift */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -200,7 +199,6 @@
 			children = (
 				014EBC401801A96B7BA1DB488950D783 /* Classes */,
 			);
-			name = Pod;
 			path = Pod;
 			sourceTree = "<group>";
 		};
@@ -369,6 +367,17 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					6CFCCEF14DD8E9C71C903112B4CCE90A = {
+						LastSwiftMigration = 0810;
+					};
+					7B462D27EB35BE7845C3DDFDCFF76B8E = {
+						LastSwiftMigration = 0810;
+					};
+					7BED94C55DDFEEE4F54AE2D9FC148199 = {
+						LastSwiftMigration = 0810;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -492,6 +501,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -521,6 +531,7 @@
 				PRODUCT_NAME = SideMenu;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -596,6 +607,7 @@
 				PRODUCT_NAME = Pods_SideMenu_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -630,6 +642,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -681,6 +694,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -769,6 +783,7 @@
 				PRODUCT_NAME = Pods_SideMenu_Example_SideMenu_Tests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
