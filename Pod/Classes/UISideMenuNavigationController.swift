@@ -119,7 +119,7 @@ public class UISideMenuNavigationController: UINavigationController {
     }
     
     override public func pushViewController(viewController: UIViewController, animated: Bool) {
-        guard viewControllers.count > 0 else {
+        guard viewControllers.count > 0 && !SideMenuManager.menuAllowSubmenus else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case.
             super.pushViewController(viewController, animated: true)

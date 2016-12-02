@@ -92,6 +92,9 @@ public class SideMenuManager : NSObject {
     
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     public static var menuFadeStatusBar = true
+
+    /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
+    public static var menuAllowSubmenus: Bool = false
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed="menuAnimationTransformScaleFactor")
