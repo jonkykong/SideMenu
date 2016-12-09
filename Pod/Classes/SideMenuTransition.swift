@@ -450,7 +450,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     internal func applicationDidEnterBackgroundNotification() {
-        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController {
+        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
+            menuViewController.presentedViewController == nil {
             SideMenuTransition.hideMenuStart()
             SideMenuTransition.hideMenuComplete()
             menuViewController.dismiss(animated: false, completion: nil)
