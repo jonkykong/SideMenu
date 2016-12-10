@@ -122,7 +122,7 @@ open class UISideMenuNavigationController: UINavigationController {
         guard viewControllers.count > 0 && !SideMenuManager.menuAllowSubmenus else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case.
-            super.pushViewController(viewController, animated: true)
+            super.pushViewController(viewController, animated: animated)
             return
         }
         
@@ -152,7 +152,17 @@ open class UISideMenuNavigationController: UINavigationController {
                 }
             }
         }
-        if let lastViewController = presentingViewController.viewControllers.last, SideMenuManager.menuAllowPushOfSameClassTwice {
+        
+        if let lastViewController = presentingViewController.viewControllers.last, SideMenuManager.menuReplaceOnPush {
+            var viewControllers = presentingViewController.viewControllers
+            viewControllers.removeLast()
+            viewControllers.append(viewController)
+            presentingViewController.setViewControllers(viewControllers, animated: animated)
+            CATransaction.commit()
+            return
+        }
+        
+        if let lastViewController = presentingViewController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice {
             if type(of: lastViewController) == type(of: viewController) {
                 CATransaction.commit()
                 return

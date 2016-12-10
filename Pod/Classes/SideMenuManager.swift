@@ -96,6 +96,9 @@ open class SideMenuManager : NSObject {
     /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
     open static var menuAllowSubmenus: Bool = false
     
+    /// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
+    open static var menuReplaceOnPush: Bool = false
+    
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")
     open static var menuAnimationShrinkStrength: CGFloat {
