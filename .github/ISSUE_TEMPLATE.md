@@ -8,5 +8,5 @@ I have read the [guidelines for contributing](https://github.com/jonkykong/SideM
 - [ ] My issue is **not** a request for new functionality that I am unwilling to build and contribute with a pull request.
 - [ ] My issue **is** reproducible in the [demo project](https://github.com/jonkykong/SideMenu/tree/master/Example).
 
-### Issue Description
+## Issue Description
 <!--- After completing all of the checks above, describe the issue here -->
