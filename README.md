@@ -229,7 +229,7 @@ My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile stra
 
 🌎 Web: [http://jonkent.me](http://jonkent.me)
 
-✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me) **IMPORTANT: Before emailing me, please read [this](https://github.com/jonkykong/SideMenu/issues/58).**
+✉️ Email: [contact@jonkent.me](mailto:contact@jonkent.me) **IMPORTANT: Before emailing me, please read [this](https://github.com/jonkykong/SideMenu/blob/master/.github/CONTRIBUTING.md).**
 
 ## License
 
