@@ -5,7 +5,7 @@
 //  Copyright © 2015 Jon Kent. All rights reserved.
 //
 
-/* Example usage:
+/* Example usage::
      // Define the menus
      SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
      SideMenuManager.menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? UISideMenuNavigationController
