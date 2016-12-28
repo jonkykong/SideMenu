@@ -162,11 +162,9 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        if let lastViewController = presentingViewController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice {
-            if type(of: lastViewController) == type(of: viewController) {
-                CATransaction.commit()
-                return
-            }
+        if let lastViewController = presentingViewController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            CATransaction.commit()
+            return
         }
         
         presentingViewController.pushViewController(viewController, animated: animated)
