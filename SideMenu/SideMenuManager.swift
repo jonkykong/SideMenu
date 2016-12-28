@@ -81,9 +81,6 @@ open class SideMenuManager : NSObject {
     /// The right menu swipe to dismiss gesture.
     open static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
     
-    /// Enable or disable gestures that would swipe to present or dismiss the menu. Default is true.
-    open static var menuEnableSwipeGestures: Bool = true
-    
     /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. Default is false.
     open static var menuPresentingViewControllerUserInteractionEnabled: Bool = false
     
@@ -95,6 +92,9 @@ open class SideMenuManager : NSObject {
     
     /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
     open static var menuAllowSubmenus: Bool = false
+    
+    /// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
+    open static var menuReplaceOnPush: Bool = false
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")
@@ -162,18 +162,30 @@ open class SideMenuManager : NSObject {
             return
         }
         
-        let exitPanGesture = UIPanGestureRecognizer()
-        exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
-        forMenu.view.addGestureRecognizer(exitPanGesture)
+        if menuEnableSwipeGestures {
+            let exitPanGesture = UIPanGestureRecognizer()
+            exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
+            forMenu.view.addGestureRecognizer(exitPanGesture)
+            if leftSide {
+                menuLeftSwipeToDismissGesture = exitPanGesture
+            } else {
+                menuRightSwipeToDismissGesture = exitPanGesture
+            }
+        }
         forMenu.transitioningDelegate = SideMenuTransition.singleton
         forMenu.modalPresentationStyle = .overFullScreen
         forMenu.leftSide = leftSide
-        if leftSide {
-            menuLeftSwipeToDismissGesture = exitPanGesture
-        } else {
-            menuRightSwipeToDismissGesture = exitPanGesture
-        }
         updateMenuBlurIfNecessary()
+    }
+    
+    /// Enable or disable gestures that would swipe to present or dismiss the menu. Default is true.
+    open static var menuEnableSwipeGestures: Bool = true {
+        didSet {
+            menuLeftSwipeToDismissGesture?.view?.removeGestureRecognizer(menuLeftSwipeToDismissGesture!)
+            menuRightSwipeToDismissGesture?.view?.removeGestureRecognizer(menuRightSwipeToDismissGesture!)
+            setupNavigationController(menuLeftNavigationController, leftSide: true)
+            setupNavigationController(menuRightNavigationController, leftSide: false)
+        }
     }
     
     fileprivate class func updateMenuBlurIfNecessary() {
@@ -194,7 +206,7 @@ open class SideMenuManager : NSObject {
             let menuBlurEffectStyle = menuBlurEffectStyle,
             let view = forMenu.visibleViewController?.view
             , !UIAccessibilityIsReduceTransparencyEnabled() else {
-            return
+                return
         }
         
         if forMenu.originalMenuBackgroundColor == nil {
@@ -219,7 +231,7 @@ open class SideMenuManager : NSObject {
         guard let forMenu = forMenu,
             let originalMenuBackgroundColor = forMenu.originalMenuBackgroundColor,
             let view = forMenu.visibleViewController?.view else {
-            return
+                return
         }
         
         view.backgroundColor = originalMenuBackgroundColor
