@@ -111,7 +111,9 @@ SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationCon
 ```
 Then from a button, do something like this:
 ``` swift
-present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+    if let leftMenu = SideMenuManager.menuLeftNavigationController {
+        self.present(leftMenu, animated: true)
+    }
 
 // For Swift 2.3, use:
 // presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
