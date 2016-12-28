@@ -153,7 +153,7 @@ open class UISideMenuNavigationController: UINavigationController {
             }
         }
         
-        if let lastViewController = presentingViewController.viewControllers.last, SideMenuManager.menuReplaceOnPush {
+        if SideMenuManager.menuReplaceOnPush {
             var viewControllers = presentingViewController.viewControllers
             viewControllers.removeLast()
             viewControllers.append(viewController)
