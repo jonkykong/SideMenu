@@ -12,6 +12,7 @@ My name is Jon Kent and I'm a freelance iOS designer, developer, and mobile stra
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
 * **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
 * Four standard animation styles to choose from (even parallax if you want to get weird).
 * Highly customizable without needing to write tons of custom code.
