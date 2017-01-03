@@ -1,0 +1,6 @@
+framework module SideMenu {
+  umbrella header "SideMenu-umbrella.h"
+
+  export *
+  module * { export * }
+}

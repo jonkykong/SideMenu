@@ -1,0 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '8.0'
+
+target 'SideMenuEx' do
+
+
+# Side Menu pod
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+pod 'SideMenu'
+
+  target 'SideMenuExTests' do
+    inherit! :search_paths
+    # Pods for testing
+
+  end
+
+end
