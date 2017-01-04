@@ -126,7 +126,7 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        guard let presentingViewController = presentingViewController as? UINavigationController else {
+        guard let presentingViewController = (presentingViewController as? UITabBarController)?.selectedViewController as? UINavigationController else {
             print("SideMenu Warning: attempt to push a View Controller from \(self.presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
