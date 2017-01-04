@@ -1,5 +1,5 @@
 <!--- Provide a general summary of your changes in the Title above -->
-
+<!--- IF YOU DELETE OR IGNORE THIS TEMPLATE WHEN OPENING A NEW ISSUE, YOUR ISSUE WILL BE IGNORED -->
 ## New Issue Checklist
 <!--- Please complete all of the checks below before submitting a new issue -->
 I have read the [guidelines for contributing](https://github.com/jonkykong/SideMenu/blob/master/.github/CONTRIBUTING.md) and I understand:
