@@ -125,11 +125,16 @@ open class UISideMenuNavigationController: UINavigationController {
             super.pushViewController(viewController, animated: animated)
             return
         }
-        
-        guard let presentingViewController = (presentingViewController as? UITabBarController)?.selectedViewController as? UINavigationController else {
+
+        var presentingViewControllerOptional = self.presentingViewController as? UINavigationController
+        if presentingViewControllerOptional == nil {
+            presentingViewControllerOptional =  (self.presentingViewController as? UITabBarController)?.selectedViewController as? UINavigationController
+        } else {
             print("SideMenu Warning: attempt to push a View Controller from \(self.presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
+
+        let presentingViewController = presentingViewControllerOptional!
         
         // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
