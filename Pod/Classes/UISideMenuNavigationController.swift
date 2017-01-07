@@ -126,15 +126,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
 
-        var presentingViewControllerOptional = self.presentingViewController as? UINavigationController
-        if presentingViewControllerOptional == nil {
-            presentingViewControllerOptional =  (self.presentingViewController as? UITabBarController)?.selectedViewController as? UINavigationController
-        } else {
-            print("SideMenu Warning: attempt to push a View Controller from \(self.presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
+        let tabBarController = presentingViewController as? UITabBarController
+        guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
+            print("SideMenu Warning: attempt to push a View Controller from \(presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
-
-        let presentingViewController = presentingViewControllerOptional!
         
         // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
@@ -149,9 +145,9 @@ open class UISideMenuNavigationController: UINavigationController {
         })
         
         if SideMenuManager.menuAllowPopIfPossible {
-            for subViewController in presentingViewController.viewControllers {
+            for subViewController in navigationController.viewControllers {
                 if type(of: subViewController) == type(of: viewController) {
-                    presentingViewController.popToViewController(subViewController, animated: animated)
+                    navigationController.popToViewController(subViewController, animated: animated)
                     CATransaction.commit()
                     return
                 }
@@ -159,20 +155,20 @@ open class UISideMenuNavigationController: UINavigationController {
         }
         
         if SideMenuManager.menuReplaceOnPush {
-            var viewControllers = presentingViewController.viewControllers
+            var viewControllers = navigationController.viewControllers
             viewControllers.removeLast()
             viewControllers.append(viewController)
-            presentingViewController.setViewControllers(viewControllers, animated: animated)
+            navigationController.setViewControllers(viewControllers, animated: animated)
             CATransaction.commit()
             return
         }
         
-        if let lastViewController = presentingViewController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
             CATransaction.commit()
             return
         }
         
-        presentingViewController.pushViewController(viewController, animated: animated)
+        navigationController.pushViewController(viewController, animated: animated)
         CATransaction.commit()
     }
 }
