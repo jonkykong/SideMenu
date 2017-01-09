@@ -363,7 +363,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             }
             
             if SideMenuManager.menuFadeStatusBar {
-                var statusBarView = UIView()
+                let statusBarView = UIView()
                 SideMenuTransition.statusBarView = statusBarView
                 container.addSubview(statusBarView)
             }
