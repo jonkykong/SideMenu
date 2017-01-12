@@ -321,6 +321,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView
+        // prevent any other menu gestures from firing
+        container.isUserInteractionEnabled = false
+        
         if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
             container.backgroundColor = menuBackgroundColor
         }
@@ -371,16 +374,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             SideMenuTransition.hideMenuStart()
         }
         
-        let enableTapViewGestures = { (enable: Bool) in
-            guard let gestures = SideMenuTransition.tapView?.gestureRecognizers else {
-                return
-            }
-            
-            for gesture in gestures {
-                gesture.isEnabled = enable
-            }
-        }
-        
         // perform the animation!
         let duration = transitionDuration(using: transitionContext)
         let options: UIViewAnimationOptions = interactive ? .curveLinear : UIViewAnimationOptions()
@@ -390,9 +383,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             } else {
                 SideMenuTransition.hideMenuStart()
             }
-            menuView.isUserInteractionEnabled = false
-            enableTapViewGestures(false)
         }) { (finished) -> Void in
+            
+            container.isUserInteractionEnabled = true
             
             // tell our transitionContext object that we've finished animating
             if transitionContext.transitionWasCancelled {
@@ -403,8 +396,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                 } else {
                     SideMenuTransition.presentMenuComplete()
                 }
-                menuView.isUserInteractionEnabled = true
-                enableTapViewGestures(true)
                 
                 transitionContext.completeTransition(false)
                 
@@ -418,8 +409,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             
             if self.presenting {
                 SideMenuTransition.presentMenuComplete()
-                menuView.isUserInteractionEnabled = true
-                enableTapViewGestures(true)
                 transitionContext.completeTransition(true)
                 switch SideMenuManager.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
