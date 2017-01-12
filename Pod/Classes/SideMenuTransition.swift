@@ -321,29 +321,26 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView
+        // prevent any other menu gestures from firing
+        container.isUserInteractionEnabled = false
+        
         if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
             container.backgroundColor = menuBackgroundColor
         }
         
-        // create a tuple of our screens
-        let screens : (from:UIViewController, to:UIViewController) = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!, transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!)
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
         
         // assign references to our menu view controller and the 'bottom' view controller from the tuple
         // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
-        let menuViewController = (!presenting ? screens.from : screens.to)
-        let topViewController = !presenting ? screens.to : screens.from
+        let menuViewController = presenting ? toViewController : fromViewController
+        let topViewController = presenting ? fromViewController : toViewController
         
         let menuView = menuViewController.view!
         let topView = topViewController.view!
         
         // prepare menu items to slide in
         if presenting {
-            var tapView: UIView?
-            if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
-                tapView = UIView()
-                SideMenuTransition.tapView = tapView
-            }
-            
             SideMenuTransition.originalSuperview = topView.superview
             
             // add the both views to our view controller
@@ -351,17 +348,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             case .viewSlideOut, .viewSlideInOut:
                 container.addSubview(menuView)
                 container.addSubview(topView)
-                if let tapView = tapView {
-                    topView.addSubview(tapView)
-                }
             case .menuSlideIn, .menuDissolveIn:
                 container.addSubview(topView)
-                if let tapView = tapView {
-                    container.addSubview(tapView)
-                }
                 container.addSubview(menuView)
             }
-            
+
             if SideMenuManager.menuFadeStatusBar {
                 let statusBarView = UIView()
                 SideMenuTransition.statusBarView = statusBarView
@@ -369,16 +360,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             }
             
             SideMenuTransition.hideMenuStart()
-        }
-        
-        let enableTapViewGestures = { (enable: Bool) in
-            guard let gestures = SideMenuTransition.tapView?.gestureRecognizers else {
-                return
-            }
-            
-            for gesture in gestures {
-                gesture.isEnabled = enable
-            }
         }
         
         // perform the animation!
@@ -390,9 +371,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             } else {
                 SideMenuTransition.hideMenuStart()
             }
-            menuView.isUserInteractionEnabled = false
-            enableTapViewGestures(false)
         }) { (finished) -> Void in
+            
+            container.isUserInteractionEnabled = true
             
             // tell our transitionContext object that we've finished animating
             if transitionContext.transitionWasCancelled {
@@ -403,8 +384,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                 } else {
                     SideMenuTransition.presentMenuComplete()
                 }
-                menuView.isUserInteractionEnabled = true
-                enableTapViewGestures(true)
                 
                 transitionContext.completeTransition(false)
                 
@@ -418,8 +397,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             
             if self.presenting {
                 SideMenuTransition.presentMenuComplete()
-                menuView.isUserInteractionEnabled = true
-                enableTapViewGestures(true)
+                if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
+                    let tapView = UIView()
+                    topView.addSubview(tapView)
+                    tapView.frame = topView.bounds
+                    SideMenuTransition.tapView = tapView
+                }
                 transitionContext.completeTransition(true)
                 switch SideMenuManager.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
