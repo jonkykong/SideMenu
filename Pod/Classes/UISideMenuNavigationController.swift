@@ -125,7 +125,7 @@ open class UISideMenuNavigationController: UINavigationController {
             super.pushViewController(viewController, animated: animated)
             return
         }
-        
+
         let tabBarController = presentingViewController as? UITabBarController
         guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
             print("SideMenu Warning: attempt to push a View Controller from \(presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
