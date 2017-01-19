@@ -161,18 +161,19 @@ open class UISideMenuNavigationController: UINavigationController {
         
         if SideMenuManager.menuPreserveViewOnPush {
             var viewControllers = navigationController.viewControllers
-            let filtered = viewControllers.filter{$0.restorationIdentifier == viewController.restorationIdentifier}
-            if let preservedView = filtered.first {
-                viewControllers = viewControllers.filter() { $0 !== preservedView }
-                viewControllers.append(preservedView)
-                if SideMenuManager.menuTabMode {
-                    navigationController.setViewControllers(viewControllers, animated: false)
+            for (index, subViewController) in navigationController.viewControllers.enumerated() {
+                if type(of: subViewController) == type(of: viewController) {
+                    viewControllers.remove(at: index)
+                    viewControllers.append(subViewController)
+                    if SideMenuManager.menuTabMode {
+                        navigationController.setViewControllers(viewControllers, animated: false)
+                        CATransaction.commit()
+                        return
+                    }
+                    navigationController.setViewControllers(viewControllers, animated: animated)
                     CATransaction.commit()
                     return
                 }
-                navigationController.setViewControllers(viewControllers, animated: animated)
-                CATransaction.commit()
-                return
             }
             if SideMenuManager.menuTabMode {
                 navigationController.pushViewController(viewController, animated: false)
