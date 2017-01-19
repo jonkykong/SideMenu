@@ -99,7 +99,7 @@ open class UISideMenuNavigationController: UINavigationController {
             SideMenuTransition.presentMenuStart(forSize: size)
             }) { (context) -> Void in
                 SideMenuTransition.statusBarView?.isHidden = false
-            }
+        }
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {

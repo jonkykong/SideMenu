@@ -14,7 +14,7 @@
      // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
      SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
      SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
- */
+*/
 
 open class SideMenuManager : NSObject {
     
@@ -257,7 +257,7 @@ open class SideMenuManager : NSObject {
      
      - Parameter toView: The view to add gestures to.
      - Parameter forMenu: The menu (left or right) you want to add a gesture for. If unspecified, gestures will be added for both sides.
-
+ 
      - Returns: The array of screen edge gestures added to `toView`.
      */
     @discardableResult open class func menuAddScreenEdgePanGesturesToPresent(toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer] {
