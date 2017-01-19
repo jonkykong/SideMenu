@@ -97,22 +97,22 @@ open class UISideMenuNavigationController: UINavigationController {
         SideMenuTransition.statusBarView?.isHidden = true
         coordinator.animate(alongsideTransition: { (context) -> Void in
             SideMenuTransition.presentMenuStart(forSize: size)
-            }) { (context) -> Void in
-                SideMenuTransition.statusBarView?.isHidden = false
+        }) { (context) -> Void in
+            SideMenuTransition.statusBarView?.isHidden = false
         }
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
             let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-                presentingViewController.prepare(for: segue, sender: sender)
+            presentingViewController.prepare(for: segue, sender: sender)
         }
     }
     
     override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
             let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-                return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
         
         return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
@@ -125,7 +125,7 @@ open class UISideMenuNavigationController: UINavigationController {
             super.pushViewController(viewController, animated: animated)
             return
         }
-
+        
         let tabBarController = presentingViewController as? UITabBarController
         guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
             print("SideMenu Warning: attempt to push a View Controller from \(presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
@@ -147,6 +147,11 @@ open class UISideMenuNavigationController: UINavigationController {
         if SideMenuManager.menuAllowPopIfPossible {
             for subViewController in navigationController.viewControllers {
                 if type(of: subViewController) == type(of: viewController) {
+                    if SideMenuManager.menuTabMode {
+                        navigationController.popToViewController(subViewController, animated: false)
+                        CATransaction.commit()
+                        return
+                    }
                     navigationController.popToViewController(subViewController, animated: animated)
                     CATransaction.commit()
                     return
@@ -154,16 +159,52 @@ open class UISideMenuNavigationController: UINavigationController {
             }
         }
         
+        if SideMenuManager.menuPreserveViewOnPush {
+            var viewControllers = navigationController.viewControllers
+            let filtered = viewControllers.filter{$0.restorationIdentifier == viewController.restorationIdentifier}
+            if let preservedView = filtered.first {
+                viewControllers = viewControllers.filter() { $0 !== preservedView }
+                viewControllers.append(preservedView)
+                if SideMenuManager.menuTabMode {
+                    navigationController.setViewControllers(viewControllers, animated: false)
+                    CATransaction.commit()
+                    return
+                }
+                navigationController.setViewControllers(viewControllers, animated: animated)
+                CATransaction.commit()
+                return
+            }
+            if SideMenuManager.menuTabMode {
+                navigationController.pushViewController(viewController, animated: false)
+                CATransaction.commit()
+                return
+            }
+            navigationController.pushViewController(viewController, animated: animated)
+            CATransaction.commit()
+            return
+        }
+        
         if SideMenuManager.menuReplaceOnPush {
             var viewControllers = navigationController.viewControllers
             viewControllers.removeLast()
             viewControllers.append(viewController)
+            if SideMenuManager.menuTabMode {
+                navigationController.setViewControllers(viewControllers, animated: false)
+                CATransaction.commit()
+                return
+            }
             navigationController.setViewControllers(viewControllers, animated: animated)
             CATransaction.commit()
             return
         }
         
         if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            CATransaction.commit()
+            return
+        }
+        
+        if SideMenuManager.menuTabMode {
+            navigationController.pushViewController(viewController, animated: false)
             CATransaction.commit()
             return
         }
