@@ -97,22 +97,22 @@ open class UISideMenuNavigationController: UINavigationController {
         SideMenuTransition.statusBarView?.isHidden = true
         coordinator.animate(alongsideTransition: { (context) -> Void in
             SideMenuTransition.presentMenuStart(forSize: size)
-        }) { (context) -> Void in
-            SideMenuTransition.statusBarView?.isHidden = false
-        }
+            }) { (context) -> Void in
+                SideMenuTransition.statusBarView?.isHidden = false
+            }
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
             let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-            presentingViewController.prepare(for: segue, sender: sender)
+                presentingViewController.prepare(for: segue, sender: sender)
         }
     }
     
     override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
             let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+                return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
         
         return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
