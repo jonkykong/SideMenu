@@ -147,11 +147,6 @@ open class UISideMenuNavigationController: UINavigationController {
         if SideMenuManager.menuAllowPopIfPossible {
             for subViewController in navigationController.viewControllers {
                 if type(of: subViewController) == type(of: viewController) {
-                    if SideMenuManager.menuTabMode {
-                        navigationController.popToViewController(subViewController, animated: false)
-                        CATransaction.commit()
-                        return
-                    }
                     navigationController.popToViewController(subViewController, animated: animated)
                     CATransaction.commit()
                     return
@@ -161,22 +156,11 @@ open class UISideMenuNavigationController: UINavigationController {
         
         if SideMenuManager.menuPreserveViewOnPush {
             var viewControllers = navigationController.viewControllers
-            for (index, subViewController) in navigationController.viewControllers.enumerated() {
-                if type(of: subViewController) == type(of: viewController) {
-                    viewControllers.remove(at: index)
-                    viewControllers.append(subViewController)
-                    if SideMenuManager.menuTabMode {
-                        navigationController.setViewControllers(viewControllers, animated: false)
-                        CATransaction.commit()
-                        return
-                    }
-                    navigationController.setViewControllers(viewControllers, animated: animated)
-                    CATransaction.commit()
-                    return
-                }
-            }
-            if SideMenuManager.menuTabMode {
-                navigationController.pushViewController(viewController, animated: false)
+            let filtered = viewControllers.filter {preservedViewController in type(of: preservedViewController) == type(of: viewController)}
+            if let preservedViewController = filtered.first {
+                viewControllers = viewControllers.filter() { subController !== preservedViewController }
+                viewControllers.append(preservedViewController)
+                navigationController.setViewControllers(viewControllers, animated: animated)
                 CATransaction.commit()
                 return
             }
@@ -189,23 +173,12 @@ open class UISideMenuNavigationController: UINavigationController {
             var viewControllers = navigationController.viewControllers
             viewControllers.removeLast()
             viewControllers.append(viewController)
-            if SideMenuManager.menuTabMode {
-                navigationController.setViewControllers(viewControllers, animated: false)
-                CATransaction.commit()
-                return
-            }
             navigationController.setViewControllers(viewControllers, animated: animated)
             CATransaction.commit()
             return
         }
         
         if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
-            CATransaction.commit()
-            return
-        }
-        
-        if SideMenuManager.menuTabMode {
-            navigationController.pushViewController(viewController, animated: false)
             CATransaction.commit()
             return
         }
