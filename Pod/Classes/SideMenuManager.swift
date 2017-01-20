@@ -18,6 +18,14 @@
 
 open class SideMenuManager : NSObject {
     
+    @objc public enum MenuPushBehavior : Int {
+        case defaultBehavior
+        case popWhenPossible
+        case replace
+        case preserve
+        case preserveAndHideBackButton
+    }
+    
     @objc public enum MenuPresentMode : Int {
         case menuSlideIn
         case viewSlideOut
@@ -32,6 +40,18 @@ open class SideMenuManager : NSObject {
     }
 
     /**
+     The push behavior of the menu.
+     
+     There are six modes in MenuPushBehavior:
+     - defaultBehavior: The view controller is simply pushed into the stack.
+     - popWhenPossible: Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class.
+     - preserve: Retrieves each already created view controller to front when called.
+     - preserveAndHideBackButton: Retrieves each already created view controller to front when called, and hides the back button.
+     - replace: Releases the current view controller and pushes the new view controller.
+     */
+    open static var menuPushBehavior: MenuPushBehavior = .defaultBehavior
+
+    /**
      The presentation mode of the menu.
      
      There are four modes in MenuPresentMode:
@@ -41,15 +61,9 @@ open class SideMenuManager : NSObject {
      - menuDissolveIn: The menu dissolves in over the existing view controller.
      */
     open static var menuPresentMode: MenuPresentMode = .viewSlideOut
-    
-    /// Retrieves each already created view controller to front when called. Disables navigation back button. Defaults to false.
-    open static var menuPreserveViewOnPush = false
-    
+
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     open static var menuAllowPushOfSameClassTwice = true
-    
-    /// Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class. Defaults to false.
-    open static var menuAllowPopIfPossible = false
     
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
     open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
@@ -96,8 +110,37 @@ open class SideMenuManager : NSObject {
     /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
     open static var menuAllowSubmenus: Bool = false
     
-    /// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
-    open static var menuReplaceOnPush: Bool = false
+    /// -Warning: Deprecated. Use `menuPushBehavior = .popWhenPossible` instead.
+    @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .popWhenPossible` instead.")
+    open static var menuAllowPopIfPossible: Bool {
+        get {
+            if menuPushBehavior == .popWhenPossible {
+                return true
+            }
+            return false
+        }
+        set {
+            if newValue {
+                menuPushBehavior = .popWhenPossible
+            }
+        }
+    }
+    
+    /// -Warning: Deprecated. Use `menuPushBehavior = .replace` instead.
+    @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .replace` instead.")
+    open static var menuReplaceOnPush: Bool {
+        get {
+            if menuPushBehavior == .replace {
+                return true
+            }
+            return false
+        }
+        set {
+            if newValue {
+                menuPushBehavior = .replace
+            }
+        }
+    }
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")

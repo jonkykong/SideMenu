@@ -147,7 +147,17 @@ open class UISideMenuNavigationController: UINavigationController {
         })
         UIView.setAnimationsEnabled(areAnimationsEnabled)
         
-        if SideMenuManager.menuAllowPopIfPossible {
+        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            CATransaction.commit()
+            return
+        }
+        
+        switch SideMenuManager.menuPushBehavior {
+        case .defaultBehavior:
+            navigationController.pushViewController(viewController, animated: animated)
+            CATransaction.commit()
+            return
+        case .popWhenPossible:
             for subViewController in navigationController.viewControllers {
                 if type(of: subViewController) == type(of: viewController) {
                     navigationController.popToViewController(subViewController, animated: animated)
@@ -155,9 +165,20 @@ open class UISideMenuNavigationController: UINavigationController {
                     return
                 }
             }
-        }
-        
-        if SideMenuManager.menuPreserveViewOnPush {
+        case .preserve:
+            var viewControllers = navigationController.viewControllers
+            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
+            if let preservedViewController = filtered.first {
+                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
+                viewControllers.append(preservedViewController)
+                navigationController.setViewControllers(viewControllers, animated: animated)
+                CATransaction.commit()
+                return
+            }
+            navigationController.pushViewController(viewController, animated: animated)
+            CATransaction.commit()
+            return
+        case .preserveAndHideBackButton:
             var viewControllers = navigationController.viewControllers
             let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
             if let preservedViewController = filtered.first {
@@ -172,24 +193,15 @@ open class UISideMenuNavigationController: UINavigationController {
             navigationController.pushViewController(viewController, animated: animated)
             CATransaction.commit()
             return
-        }
-        
-        if SideMenuManager.menuReplaceOnPush {
+        case .replace:
             var viewControllers = navigationController.viewControllers
             viewControllers.removeLast()
+            viewController.navigationItem.hidesBackButton = true
             viewControllers.append(viewController)
             navigationController.setViewControllers(viewControllers, animated: animated)
             CATransaction.commit()
             return
         }
-        
-        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
-            CATransaction.commit()
-            return
-        }
-        
-        navigationController.pushViewController(viewController, animated: animated)
-        CATransaction.commit()
     }
 }
 
