@@ -130,7 +130,7 @@ There are four modes in MenuPresentMode:
 */
 open static var menuPresentMode: MenuPresentMode = .viewSlideOut
 
-/// Retrieves each already created view controller to front when called. Requires class restoration identifiers. Defaults to false.
+/// Retrieves each already created view controller to front when called. Disables navigation back button. Defaults to false.
 open static var menuPreserveViewOnPush = false
 
 /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
