@@ -140,9 +140,12 @@ open class UISideMenuNavigationController: UINavigationController {
             self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
         })
         
+        let areAnimationsEnabled = UIView.areAnimationsEnabled
+        UIView.setAnimationsEnabled(true)
         UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
             SideMenuTransition.hideMenuStart()
         })
+        UIView.setAnimationsEnabled(areAnimationsEnabled)
         
         if SideMenuManager.menuAllowPopIfPossible {
             for subViewController in navigationController.viewControllers {
@@ -156,9 +159,10 @@ open class UISideMenuNavigationController: UINavigationController {
         
         if SideMenuManager.menuPreserveViewOnPush {
             var viewControllers = navigationController.viewControllers
-            let filtered = viewControllers.filter {preservedViewController in type(of: preservedViewController) == type(of: viewController)}
+            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
             if let preservedViewController = filtered.first {
-                viewControllers = viewControllers.filter() { subController !== preservedViewController }
+                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
+                preservedViewController.navigationItem.hidesBackButton = true
                 viewControllers.append(preservedViewController)
                 navigationController.setViewControllers(viewControllers, animated: animated)
                 CATransaction.commit()
