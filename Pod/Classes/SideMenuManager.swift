@@ -47,7 +47,7 @@ open class SideMenuManager : NSObject {
      - popWhenPossible: Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class.
      - preserve: Retrieves each already created view controller to front when called.
      - preserveAndHideBackButton: Retrieves each already created view controller to front when called, and hides the back button.
-     - replace: Releases the current view controller and pushes the new view controller.
+     - replace: Releases the current view controller and pushes the new view controller. Hides the back button by default.
      */
     open static var menuPushBehavior: MenuPushBehavior = .defaultBehavior
 
