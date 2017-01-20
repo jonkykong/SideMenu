@@ -120,6 +120,18 @@ That's it.
 Just type `SideMenuManager.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
 ``` swift
 /**
+The push behavior of the menu.
+
+There are six modes in MenuPushBehavior:
+- defaultBehavior: The view controller is simply pushed into the stack.
+- popWhenPossible: Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class.
+- preserve: Retrieves each already created view controller to front when called.
+- preserveAndHideBackButton: Retrieves each already created view controller to front when called, and hides the back button.
+- replace: Releases the current view controller and pushes the new view controller.
+*/
+open static var menuPushBehavior: MenuPushBehavior = .defaultBehavior
+
+/**
 The presentation mode of the menu.
 
 There are four modes in MenuPresentMode:
@@ -130,14 +142,8 @@ There are four modes in MenuPresentMode:
 */
 open static var menuPresentMode: MenuPresentMode = .viewSlideOut
 
-/// Retrieves each already created view controller to front when called. Disables navigation back button. Defaults to false.
-open static var menuPreserveViewOnPush = false
-
 /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
 open static var menuAllowPushOfSameClassTwice = true
-
-/// Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class. Defaults to false.
-open static var menuAllowPopIfPossible = false
 
 /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
 open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
@@ -186,9 +192,6 @@ open static var menuFadeStatusBar = true
 
 /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
 open static var menuAllowSubmenus: Bool = false
-
-/// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
-open static var menuReplaceOnPush: Bool = false
 
 /**
  The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
