@@ -114,10 +114,7 @@ open class SideMenuManager : NSObject {
     @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .popWhenPossible` instead.")
     open static var menuAllowPopIfPossible: Bool {
         get {
-            if menuPushBehavior == .popWhenPossible {
-                return true
-            }
-            return false
+            return menuPushBehavior == .popWhenPossible
         }
         set {
             if newValue {
@@ -130,10 +127,7 @@ open class SideMenuManager : NSObject {
     @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .replace` instead.")
     open static var menuReplaceOnPush: Bool {
         get {
-            if menuPushBehavior == .replace {
-                return true
-            }
-            return false
+            return menuPushBehavior == .replace
         }
         set {
             if newValue {
