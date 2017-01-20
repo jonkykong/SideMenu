@@ -168,6 +168,7 @@ open class UISideMenuNavigationController: UINavigationController {
                 CATransaction.commit()
                 return
             }
+            viewController.navigationItem.hidesBackButton = true
             navigationController.pushViewController(viewController, animated: animated)
             CATransaction.commit()
             return
