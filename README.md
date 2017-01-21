@@ -6,7 +6,8 @@
 
 ### If you like SideMenu, give it a ★ at the top right of this page.
 #### Using SideMenu in your app? [Send](mailto:contact@jonkent.me?subject=SideMenu in action!) me a link to your app in the app store!
-I'm Jon Kent and I freelance iOS design, development, and mobile strategies. I love coffee and play the drums. [**Hire me**](mailto:contact@jonkent.me?subject=Let's build something amazing.) to help you make cool stuff. I also have a [website](http://jonkent.me). *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
+
+> I'm Jon Kent and I freelance iOS design, development, and mobile strategies. I love coffee and play the drums. [**Hire me**](mailto:contact@jonkent.me?subject=Let's build something amazing.) to help you make cool stuff. I also have a [website](http://jonkent.me). *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
 
 ## Overview
 
@@ -19,11 +20,10 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
 
 Check out the example project to see it in action!
-
-![](etc/SlideOut.gif)
-![](etc/SlideIn.gif)
-![](etc/Dissolve.gif)
-![](etc/InOut.gif)
+### Preview Samples
+| Slide Out | Slide In | Dissolve | Slide In + Out |
+| --- | --- | --- | --- |
+| ![](etc/SlideOut.gif) | ![](etc/SlideIn.gif) | ![](etc/Dissolve.gif) | ![](etc/InOut.gif) |
 
 ## Requirements
 - [x] iOS 8 or higher
