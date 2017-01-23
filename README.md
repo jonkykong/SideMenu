@@ -96,12 +96,14 @@ In your View Controller's `viewDidLoad` event, do something like this:
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController()
 menuLeftNavigationController.leftSide = true
-// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration 
+// of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
 // let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
 SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
 
 let menuRightNavigationController = UISideMenuNavigationController()
-// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration
+// of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
 // let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as! UISideMenuNavigationController
 SideMenuManager.menuRightNavigationController = menuRightNavigationController
 
