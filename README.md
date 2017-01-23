@@ -96,11 +96,13 @@ In your View Controller's `viewDidLoad` event, do something like this:
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController()
 menuLeftNavigationController.leftSide = true
-// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
 SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
 
 let menuRightNavigationController = UISideMenuNavigationController()
-// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers.
+// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
+// let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as! UISideMenuNavigationController
 SideMenuManager.menuRightNavigationController = menuRightNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
@@ -111,6 +113,9 @@ SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationCon
 Then from a button, do something like this:
 ``` swift
 present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+
+// Similarly, to dismiss a menu programmatically, you would do this:
+dismiss(animated: true, completion: nil)
 
 // For Swift 2.3, use:
 // presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
