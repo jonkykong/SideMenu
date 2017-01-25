@@ -183,7 +183,6 @@ open class UISideMenuNavigationController: UINavigationController {
                 viewController.navigationItem.hidesBackButton = true
             }
         case .replace:
-            var viewControllers = navigationController.viewControllers
             viewController.navigationItem.hidesBackButton = true
             navigationController.setViewControllers([viewController], animated: animated)
             CATransaction.commit()
