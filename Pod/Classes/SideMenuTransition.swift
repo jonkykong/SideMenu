@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     fileprivate var presenting = false
     fileprivate var interactive = false
@@ -337,7 +337,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         }
     }
     
-    // MARK: UIViewControllerAnimatedTransitioning protocol methods
+}
+
+extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
     
     // animate a change from one viewcontroller to another
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -392,7 +394,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                 SideMenuTransition.hideMenuStart()
             }
         }
-            
+        
         let complete = {
             container.isUserInteractionEnabled = true
             
@@ -476,7 +478,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
-    // MARK: UIViewControllerTransitioningDelegate protocol methods
+}
+
+extension SideMenuTransition: UIViewControllerTransitioningDelegate {
     
     // return the animator when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
