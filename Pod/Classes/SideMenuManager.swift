@@ -41,7 +41,7 @@ open class SideMenuManager : NSObject {
     }
 
     /**
-     The push behavior of the menu.
+     The push style of the menu.
      
      There are six modes in MenuPushStyle:
      - defaultBehavior: The view controller is pushed onto the stack.
