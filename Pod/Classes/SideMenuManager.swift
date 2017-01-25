@@ -71,10 +71,13 @@ open class SideMenuManager : NSObject {
     open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
-    open static var menuAnimationPresentDuration = 0.35
+    open static var menuAnimationPresentDuration: Double = 0.35
     
     /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
-    open static var menuAnimationDismissDuration = 0.35
+    open static var menuAnimationDismissDuration: Double = 0.35
+    
+    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.2 seconds.
+    open static var menuAnimationCompleteGestureDuration: Double = 0.20
     
     /// Amount to fade the existing view controller when the menu is presented. Default is 0 for no fade. Set to 1 to fade completely.
     open static var menuAnimationFadeStrength: CGFloat = 0
@@ -109,6 +112,14 @@ open class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open static var menuFadeStatusBar = true
     
+    /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
+    
+    /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationUsingSpringWithDamping: CGFloat = 1
+    
+    /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationInitialSpringVelocity: CGFloat = 1
     
     /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")

@@ -362,17 +362,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             SideMenuTransition.hideMenuStart()
         }
         
-        // perform the animation!
-        let duration = transitionDuration(using: transitionContext)
-        let options: UIViewAnimationOptions = interactive ? .curveLinear : UIViewAnimationOptions()
-        UIView.animate(withDuration: duration, delay: 0, options: options, animations: { () -> Void in
+        let animate = {
             if self.presenting {
                 SideMenuTransition.presentMenuStart()
             } else {
                 SideMenuTransition.hideMenuStart()
             }
-        }) { (finished) -> Void in
+        }
             
+        let complete = {
             container.isUserInteractionEnabled = true
             
             // tell our transitionContext object that we've finished animating
@@ -421,10 +419,37 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             transitionContext.completeTransition(true)
             menuView.removeFromSuperview()
         }
+        
+        // perform the animation!
+        let duration = transitionDuration(using: transitionContext)
+        if interactive {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: .curveLinear,
+                           animations: {
+                            animate()
+            }, completion: { (finished) in
+                complete()
+            })
+        } else {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                           options: SideMenuManager.menuAnimationOptions,
+                           animations: {
+                            animate()
+            }) { (finished) -> Void in
+                complete()
+            }
+        }
     }
     
     // return how many seconds the transiton animation will take
     open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        if interactive {
+            return SideMenuManager.menuAnimationCompleteGestureDuration
+        }
         return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
