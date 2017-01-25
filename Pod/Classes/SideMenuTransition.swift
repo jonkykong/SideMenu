@@ -13,6 +13,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
     fileprivate var presenting = false
     fileprivate var interactive = false
     fileprivate static weak var originalSuperview: UIView?
+    fileprivate static weak var activeGesture: UIGestureRecognizer?
     fileprivate static var switchMenus = false
     
     internal static let singleton = SideMenuTransition()
@@ -85,6 +86,14 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
+        if activeGesture == nil {
+            activeGesture = pan
+        } else if pan != activeGesture {
+            pan.isEnabled = false
+            pan.isEnabled = true
+            return
+        }
+        
         // how much distance have we panned in reference to the parent view?
         guard let view = viewControllerForPresentedMenu != nil ? viewControllerForPresentedMenu?.view : pan.view else {
             return
@@ -109,6 +118,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                 let visibleViewController = visibleViewController {
                 singleton.interactive = true
                 visibleViewController.present(menuViewController, animated: true, completion: nil)
+            } else {
+                return
             }
         }
         
@@ -141,13 +152,23 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                     singleton.update(0.9999)
                 }
                 singleton.finish()
+                activeGesture = nil
             } else {
                 singleton.cancel()
+                activeGesture = nil
             }
         }
     }
     
     internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+        if activeGesture == nil {
+            activeGesture = pan
+        } else if pan != activeGesture {
+            pan.isEnabled = false
+            pan.isEnabled = true
+            return
+        }
+        
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
         let distance = translation.x / SideMenuManager.menuWidth * direction
@@ -168,8 +189,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                     singleton.update(0.9999)
                 }
                 singleton.finish()
+                activeGesture = nil
             } else {
                 singleton.cancel()
+                activeGesture = nil
             }
         }
     }
