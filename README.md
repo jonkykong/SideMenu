@@ -127,16 +127,17 @@ That's it.
 Just type `SideMenuManager.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
 ``` swift
 /**
-The push behavior of the menu.
+The push style of the menu.
 
-There are six modes in MenuPushBehavior:
-- defaultBehavior: The view controller is simply pushed into the stack.
-- popWhenPossible: Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class.
-- preserve: Retrieves each already created view controller to front when called.
-- preserveAndHideBackButton: Retrieves each already created view controller to front when called, and hides the back button.
-- replace: Releases the current view controller and pushes the new view controller. Hides the back button by default.
+There are six modes in MenuPushStyle:
+- defaultBehavior: The view controller is pushed onto the stack.
+- popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
+- preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
+- preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
+- replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
+- subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
 */
-open static var menuPushBehavior: MenuPushBehavior = .defaultBehavior
+open static var menuPushStyle: MenuPushStyle = .defaultBehavior
 
 /**
 The presentation mode of the menu.
@@ -197,8 +198,14 @@ open static var menuParallaxStrength: Int = 0
 /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
 open static var menuFadeStatusBar = true
 
-/// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
-open static var menuAllowSubmenus: Bool = false
+/// The animation options when a menu is displayed. Ignored when displayed with a gesture.
+open static var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
+
+/// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
+open static var menuAnimationUsingSpringWithDamping: CGFloat = 1
+
+/// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
+open static var menuAnimationInitialSpringVelocity: CGFloat = 1
 
 /**
  The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
