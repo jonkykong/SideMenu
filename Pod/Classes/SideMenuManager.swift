@@ -18,19 +18,20 @@
 
 open class SideMenuManager : NSObject {
     
-    @objc public enum MenuPushBehavior : Int {
-        case defaultBehavior
-        case popWhenPossible
-        case replace
-        case preserve
-        case preserveAndHideBackButton
+    @objc public enum MenuPushStyle : Int {
+        case defaultBehavior,
+        popWhenPossible,
+        replace,
+        preserve,
+        preserveAndHideBackButton,
+        subMenu
     }
     
     @objc public enum MenuPresentMode : Int {
-        case menuSlideIn
-        case viewSlideOut
-        case viewSlideInOut
-        case menuDissolveIn
+        case menuSlideIn,
+        viewSlideOut,
+        viewSlideInOut,
+        menuDissolveIn
     }
     
     // Bounds which has been allocated for the app on the whole device screen
@@ -42,14 +43,15 @@ open class SideMenuManager : NSObject {
     /**
      The push behavior of the menu.
      
-     There are six modes in MenuPushBehavior:
-     - defaultBehavior: The view controller is simply pushed into the stack.
-     - popWhenPossible: Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class.
-     - preserve: Retrieves each already created view controller to front when called.
-     - preserveAndHideBackButton: Retrieves each already created view controller to front when called, and hides the back button.
-     - replace: Releases the current view controller and pushes the new view controller. Hides the back button by default.
+     There are six modes in MenuPushStyle:
+     - defaultBehavior: The view controller is pushed onto the stack.
+     - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
+     - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
+     - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
+     - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
+     - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
      */
-    open static var menuPushBehavior: MenuPushBehavior = .defaultBehavior
+    open static var menuPushStyle: MenuPushStyle = .defaultBehavior
 
     /**
      The presentation mode of the menu.
@@ -107,31 +109,42 @@ open class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open static var menuFadeStatusBar = true
     
-    /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
-    open static var menuAllowSubmenus: Bool = false
     
-    /// -Warning: Deprecated. Use `menuPushBehavior = .popWhenPossible` instead.
-    @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .popWhenPossible` instead.")
-    open static var menuAllowPopIfPossible: Bool {
+    /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
+    open static var menuAllowSubmenus: Bool {
         get {
-            return menuPushBehavior == .popWhenPossible
+            return menuPushStyle == .subMenu
         }
         set {
             if newValue {
-                menuPushBehavior = .popWhenPossible
+                menuPushStyle = .subMenu
             }
         }
     }
     
-    /// -Warning: Deprecated. Use `menuPushBehavior = .replace` instead.
-    @available(*, deprecated, renamed: "menuPushBehavior", message: "Use `menuPushBehavior = .replace` instead.")
-    open static var menuReplaceOnPush: Bool {
+    /// -Warning: Deprecated. Use `menuPushStyle = .popWhenPossible` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .popWhenPossible` instead.")
+    open static var menuAllowPopIfPossible: Bool {
         get {
-            return menuPushBehavior == .replace
+            return menuPushStyle == .popWhenPossible
         }
         set {
             if newValue {
-                menuPushBehavior = .replace
+                menuPushStyle = .popWhenPossible
+            }
+        }
+    }
+    
+    /// -Warning: Deprecated. Use `menuPushStyle = .replace` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .replace` instead.")
+    open static var menuReplaceOnPush: Bool {
+        get {
+            return menuPushStyle == .replace
+        }
+        set {
+            if newValue {
+                menuPushStyle = .replace
             }
         }
     }
