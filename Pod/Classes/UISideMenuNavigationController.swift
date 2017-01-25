@@ -21,7 +21,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     /// Whether the menu appears on the right or left side of the screen. Right is the default.
-    @IBInspectable open var leftSide:Bool = false {
+    @IBInspectable open var leftSide: Bool = false {
         didSet {
             if isViewLoaded && oldValue != leftSide { // suppress warnings
                 didSetSide()
@@ -52,6 +52,10 @@ open class UISideMenuNavigationController: UINavigationController {
             dismiss(animated: false, completion: { () -> Void in
                 self.view.isHidden = false
             })
+        }
+        
+        if topViewController == nil {
+            print("SideMenu Warning: the menu doesn't have a view controller to show! UISideMenuNavigationController needs a view controller to display just like a UINavigationController.")
         }
     }
     
@@ -119,7 +123,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        guard viewControllers.count > 0 && !SideMenuManager.menuAllowSubmenus else {
+        guard viewControllers.count > 0 && SideMenuManager.menuPushStyle != .subMenu else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case.
             super.pushViewController(viewController, animated: animated)
@@ -140,30 +144,47 @@ open class UISideMenuNavigationController: UINavigationController {
             self.visibleViewController?.viewWillAppear(false) // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
         })
         
+        let areAnimationsEnabled = UIView.areAnimationsEnabled
+        UIView.setAnimationsEnabled(true)
         UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
             SideMenuTransition.hideMenuStart()
         })
+        UIView.setAnimationsEnabled(areAnimationsEnabled)
         
-        if SideMenuManager.menuAllowPopIfPossible {
-            for subViewController in navigationController.viewControllers {
+        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            CATransaction.commit()
+            return
+        }
+        
+        switch SideMenuManager.menuPushStyle {
+        case .subMenu, .defaultBehavior: break // .subMenu handled earlier, .defaultBehavior falls through to end
+        case .popWhenPossible:
+            for subViewController in navigationController.viewControllers.reversed() {
                 if type(of: subViewController) == type(of: viewController) {
                     navigationController.popToViewController(subViewController, animated: animated)
                     CATransaction.commit()
                     return
                 }
             }
-        }
-        
-        if SideMenuManager.menuReplaceOnPush {
+        case .preserve, .preserveAndHideBackButton:
             var viewControllers = navigationController.viewControllers
-            viewControllers.removeLast()
-            viewControllers.append(viewController)
-            navigationController.setViewControllers(viewControllers, animated: animated)
-            CATransaction.commit()
-            return
-        }
-        
-        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
+            if let preservedViewController = filtered.last {
+                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
+                if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
+                    preservedViewController.navigationItem.hidesBackButton = true
+                }
+                viewControllers.append(preservedViewController)
+                navigationController.setViewControllers(viewControllers, animated: animated)
+                CATransaction.commit()
+                return
+            }
+            if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
+                viewController.navigationItem.hidesBackButton = true
+            }
+        case .replace:
+            viewController.navigationItem.hidesBackButton = true
+            navigationController.setViewControllers([viewController], animated: animated)
             CATransaction.commit()
             return
         }

@@ -18,11 +18,20 @@
 
 open class SideMenuManager : NSObject {
     
+    @objc public enum MenuPushStyle : Int {
+        case defaultBehavior,
+        popWhenPossible,
+        replace,
+        preserve,
+        preserveAndHideBackButton,
+        subMenu
+    }
+    
     @objc public enum MenuPresentMode : Int {
-        case menuSlideIn
-        case viewSlideOut
-        case viewSlideInOut
-        case menuDissolveIn
+        case menuSlideIn,
+        viewSlideOut,
+        viewSlideInOut,
+        menuDissolveIn
     }
     
     // Bounds which has been allocated for the app on the whole device screen
@@ -30,6 +39,19 @@ open class SideMenuManager : NSObject {
         let appWindowRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
         return appWindowRect
     }
+
+    /**
+     The push style of the menu.
+     
+     There are six modes in MenuPushStyle:
+     - defaultBehavior: The view controller is pushed onto the stack.
+     - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
+     - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
+     - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
+     - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
+     - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
+     */
+    open static var menuPushStyle: MenuPushStyle = .defaultBehavior
 
     /**
      The presentation mode of the menu.
@@ -45,17 +67,17 @@ open class SideMenuManager : NSObject {
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     open static var menuAllowPushOfSameClassTwice = true
     
-    /// Pops to any view controller already in the navigation stack instead of the view controller being pushed if they share the same class. Defaults to false.
-    open static var menuAllowPopIfPossible = false
-    
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
     open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
-    open static var menuAnimationPresentDuration = 0.35
+    open static var menuAnimationPresentDuration: Double = 0.35
     
     /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
-    open static var menuAnimationDismissDuration = 0.35
+    open static var menuAnimationDismissDuration: Double = 0.35
+    
+    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.2 seconds.
+    open static var menuAnimationCompleteGestureDuration: Double = 0.20
     
     /// Amount to fade the existing view controller when the menu is presented. Default is 0 for no fade. Set to 1 to fade completely.
     open static var menuAnimationFadeStrength: CGFloat = 0
@@ -90,11 +112,53 @@ open class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open static var menuFadeStatusBar = true
     
-    /// When true, pushViewController called within the menu it will push the new view controller inside of the menu. Otherwise, it is pushed on the menu's presentingViewController. Default is false.
-    open static var menuAllowSubmenus: Bool = false
+    /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
     
-    /// When true, pushViewController will replace the last view controller in the navigation controller's viewController stack instead of appending to it. This makes menus similar to tab bar controller behavior.
-    open static var menuReplaceOnPush: Bool = false
+    /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationUsingSpringWithDamping: CGFloat = 1
+    
+    /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
+    open static var menuAnimationInitialSpringVelocity: CGFloat = 1
+    
+    /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
+    open static var menuAllowSubmenus: Bool {
+        get {
+            return menuPushStyle == .subMenu
+        }
+        set {
+            if newValue {
+                menuPushStyle = .subMenu
+            }
+        }
+    }
+    
+    /// -Warning: Deprecated. Use `menuPushStyle = .popWhenPossible` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .popWhenPossible` instead.")
+    open static var menuAllowPopIfPossible: Bool {
+        get {
+            return menuPushStyle == .popWhenPossible
+        }
+        set {
+            if newValue {
+                menuPushStyle = .popWhenPossible
+            }
+        }
+    }
+    
+    /// -Warning: Deprecated. Use `menuPushStyle = .replace` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .replace` instead.")
+    open static var menuReplaceOnPush: Bool {
+        get {
+            return menuPushStyle == .replace
+        }
+        set {
+            if newValue {
+                menuPushStyle = .replace
+            }
+        }
+    }
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")
@@ -264,6 +328,10 @@ open class SideMenuManager : NSObject {
             leftScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(leftScreenEdgeGestureRecognizer)
             array.append(leftScreenEdgeGestureRecognizer)
+            
+            if SideMenuManager.menuLeftNavigationController == nil {
+                print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent for the left side was called before menuLeftNavigationController has been defined. The gesture will not work without a menu.")
+            }
         }
         
         if forMenu != .left {
@@ -273,6 +341,10 @@ open class SideMenuManager : NSObject {
             rightScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(rightScreenEdgeGestureRecognizer)
             array.append(rightScreenEdgeGestureRecognizer)
+            
+            if SideMenuManager.menuRightNavigationController == nil {
+                print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent for the right side was called before menuRightNavigationController has been defined. The gesture will not work without a menu.")
+            }
         }
         
         return array
@@ -289,6 +361,10 @@ open class SideMenuManager : NSObject {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
         toView.addGestureRecognizer(panGestureRecognizer)
+        
+        if SideMenuManager.menuLeftNavigationController ?? SideMenuManager.menuRightNavigationController == nil {
+            print("SideMenu Warning: menuAddPanGestureToPresent called before menuLeftNavigationController or menuRightNavigationController have been defined. Gestures will not work without a menu.")
+        }
         
         return panGestureRecognizer
     }

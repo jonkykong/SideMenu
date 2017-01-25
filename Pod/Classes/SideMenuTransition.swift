@@ -8,11 +8,12 @@
 
 import UIKit
 
-open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     fileprivate var presenting = false
     fileprivate var interactive = false
     fileprivate static weak var originalSuperview: UIView?
+    fileprivate static weak var activeGesture: UIGestureRecognizer?
     fileprivate static var switchMenus = false
     
     internal static let singleton = SideMenuTransition()
@@ -85,6 +86,14 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     
     internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
+        if activeGesture == nil {
+            activeGesture = pan
+        } else if pan != activeGesture {
+            pan.isEnabled = false
+            pan.isEnabled = true
+            return
+        }
+        
         // how much distance have we panned in reference to the parent view?
         guard let view = viewControllerForPresentedMenu != nil ? viewControllerForPresentedMenu?.view : pan.view else {
             return
@@ -109,6 +118,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                 let visibleViewController = visibleViewController {
                 singleton.interactive = true
                 visibleViewController.present(menuViewController, animated: true, completion: nil)
+            } else {
+                return
             }
         }
         
@@ -141,13 +152,23 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                     singleton.update(0.9999)
                 }
                 singleton.finish()
+                activeGesture = nil
             } else {
                 singleton.cancel()
+                activeGesture = nil
             }
         }
     }
     
     internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+        if activeGesture == nil {
+            activeGesture = pan
+        } else if pan != activeGesture {
+            pan.isEnabled = false
+            pan.isEnabled = true
+            return
+        }
+        
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
         let distance = translation.x / SideMenuManager.menuWidth * direction
@@ -168,8 +189,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
                     singleton.update(0.9999)
                 }
                 singleton.finish()
+                activeGesture = nil
             } else {
                 singleton.cancel()
+                activeGesture = nil
             }
         }
     }
@@ -314,7 +337,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
         }
     }
     
-    // MARK: UIViewControllerAnimatedTransitioning protocol methods
+}
+
+extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
     
     // animate a change from one viewcontroller to another
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -362,17 +387,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             SideMenuTransition.hideMenuStart()
         }
         
-        // perform the animation!
-        let duration = transitionDuration(using: transitionContext)
-        let options: UIViewAnimationOptions = interactive ? .curveLinear : UIViewAnimationOptions()
-        UIView.animate(withDuration: duration, delay: 0, options: options, animations: { () -> Void in
+        let animate = {
             if self.presenting {
                 SideMenuTransition.presentMenuStart()
             } else {
                 SideMenuTransition.hideMenuStart()
             }
-        }) { (finished) -> Void in
-            
+        }
+        
+        let complete = {
             container.isUserInteractionEnabled = true
             
             // tell our transitionContext object that we've finished animating
@@ -421,14 +444,43 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewContr
             transitionContext.completeTransition(true)
             menuView.removeFromSuperview()
         }
+        
+        // perform the animation!
+        let duration = transitionDuration(using: transitionContext)
+        if interactive {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: .curveLinear,
+                           animations: {
+                            animate()
+            }, completion: { (finished) in
+                complete()
+            })
+        } else {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                           options: SideMenuManager.menuAnimationOptions,
+                           animations: {
+                            animate()
+            }) { (finished) -> Void in
+                complete()
+            }
+        }
     }
     
     // return how many seconds the transiton animation will take
     open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        if interactive {
+            return SideMenuManager.menuAnimationCompleteGestureDuration
+        }
         return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
-    // MARK: UIViewControllerTransitioningDelegate protocol methods
+}
+
+extension SideMenuTransition: UIViewControllerTransitioningDelegate {
     
     // return the animator when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
