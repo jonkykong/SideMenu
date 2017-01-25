@@ -328,6 +328,10 @@ open class SideMenuManager : NSObject {
             leftScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(leftScreenEdgeGestureRecognizer)
             array.append(leftScreenEdgeGestureRecognizer)
+            
+            if SideMenuManager.menuLeftNavigationController == nil {
+                print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent for the left side was called before menuLeftNavigationController has been defined. The gesture will not work without a menu.")
+            }
         }
         
         if forMenu != .left {
@@ -337,6 +341,10 @@ open class SideMenuManager : NSObject {
             rightScreenEdgeGestureRecognizer.cancelsTouchesInView = true
             toView.addGestureRecognizer(rightScreenEdgeGestureRecognizer)
             array.append(rightScreenEdgeGestureRecognizer)
+            
+            if SideMenuManager.menuRightNavigationController == nil {
+                print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent for the right side was called before menuRightNavigationController has been defined. The gesture will not work without a menu.")
+            }
         }
         
         return array
@@ -353,6 +361,10 @@ open class SideMenuManager : NSObject {
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
         toView.addGestureRecognizer(panGestureRecognizer)
+        
+        if SideMenuManager.menuLeftNavigationController ?? SideMenuManager.menuRightNavigationController == nil {
+            print("SideMenu Warning: menuAddPanGestureToPresent called before menuLeftNavigationController or menuRightNavigationController have been defined. Gestures will not work without a menu.")
+        }
         
         return panGestureRecognizer
     }

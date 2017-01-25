@@ -21,7 +21,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     /// Whether the menu appears on the right or left side of the screen. Right is the default.
-    @IBInspectable open var leftSide:Bool = false {
+    @IBInspectable open var leftSide: Bool = false {
         didSet {
             if isViewLoaded && oldValue != leftSide { // suppress warnings
                 didSetSide()
@@ -52,6 +52,10 @@ open class UISideMenuNavigationController: UINavigationController {
             dismiss(animated: false, completion: { () -> Void in
                 self.view.isHidden = false
             })
+        }
+        
+        if topViewController == nil {
+            print("SideMenu Warning: the menu doesn't have a view controller to show! UISideMenuNavigationController needs a view controller to display just like a UINavigationController.")
         }
     }
     
@@ -168,7 +172,7 @@ open class UISideMenuNavigationController: UINavigationController {
             if let preservedViewController = filtered.last {
                 viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
                 if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
-                preservedViewController.navigationItem.hidesBackButton = true
+                    preservedViewController.navigationItem.hidesBackButton = true
                 }
                 viewControllers.append(preservedViewController)
                 navigationController.setViewControllers(viewControllers, animated: animated)
@@ -176,7 +180,7 @@ open class UISideMenuNavigationController: UINavigationController {
                 return
             }
             if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
-            viewController.navigationItem.hidesBackButton = true
+                viewController.navigationItem.hidesBackButton = true
             }
         case .replace:
             var viewControllers = navigationController.viewControllers
