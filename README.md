@@ -17,7 +17,8 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Highly customizable without needing to write tons of custom code.
 - [x] Supports continuous swiping between side menus on boths sides in a single gesture.
 - [x] Global menu configuration. Set-up once and be done for all screens.
-- [x] Menus can be presented and dismissed the same as any other View Controller since this control uses custom transitions.
+- [x] Menus can be presented and dismissed the same as any other view controller since this control uses custom transitions.
+- [x] Animations use your view controllers, not snapshots.
 
 Check out the example project to see it in action!
 ### Preview Samples
@@ -75,13 +76,13 @@ github "jonkykong/SideMenu" "master"
 
 ## Usage
 ### Code-less Storyboard Implementation
-1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that View Controller.
+1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that view controller.
 ![](etc/Screenshot1.png)
 
 2. Set the `Left Side` property of the `UISideMenuNavigationController` to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
 ![](etc/Screenshot2.png)
 
-3. Add a UIButton or UIBarButton to a View Controller that you want to display the menu from. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
+3. Add a UIButton or UIBarButton to a view controller that you want to display the menu from. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
 ![](etc/Screenshot3.png)
 
 That's it. *Note: you can only enable gestures in code.*
@@ -91,7 +92,7 @@ First:
 import SideMenu
 ```
 
-In your View Controller's `viewDidLoad` event, do something like this:
+In your view controller's `viewDidLoad` event, do something like this:
 ``` swift
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
@@ -108,7 +109,7 @@ let menuRightNavigationController = UISideMenuNavigationController(rootViewContr
 SideMenuManager.menuRightNavigationController = menuRightNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
-// Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+// Note that these continue to work on the Navigation Controller independent of the view controller it displays!
 SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
 SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 ```
