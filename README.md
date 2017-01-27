@@ -120,7 +120,7 @@ present(SideMenuManager.menuLeftNavigationController!, animated: true, completio
 // Similarly, to dismiss a menu programmatically, you would do this:
 dismiss(animated: true, completion: nil)
 
-// For Swift 2.3, use:
+// For Swift 2.3 (no longer maintained), use:
 // presentViewController(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
 ```
 That's it.
