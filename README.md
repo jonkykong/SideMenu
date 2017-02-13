@@ -17,7 +17,7 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Highly customizable without needing to write tons of custom code.
 - [x] Supports continuous swiping between side menus on boths sides in a single gesture.
 - [x] Global menu configuration. Set-up once and be done for all screens.
-- [x] Menus can be presented and dismissed the same as any other view controller since this control uses custom transitions.
+- [x] Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
 - [x] Animations use your view controllers, not snapshots.
 
 Check out the example project to see it in action!
@@ -76,7 +76,7 @@ github "jonkykong/SideMenu" "master"
 
 ## Usage
 ### Code-less Storyboard Implementation
-1. Create a Navigation Controller for a side menu. Set the custom class of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that view controller.
+1. Create a Navigation Controller for a side menu. Set the `Custom Class` of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Set the `Module` to `SideMenu` (ignore this step if you've manually added SideMenu to your project). Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that view controller.
 ![](etc/Screenshot1.png)
 
 2. Set the `Left Side` property of the `UISideMenuNavigationController` to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
@@ -92,7 +92,7 @@ First:
 import SideMenu
 ```
 
-In your view controller's `viewDidLoad` event, do something like this:
+In your view controller's `viewDidLoad` event, do something like this (**IMPORTANT: If you're seeing a black menu when you use gestures, read this section carefully!**):
 ``` swift
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
