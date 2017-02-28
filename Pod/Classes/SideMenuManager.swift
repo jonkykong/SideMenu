@@ -16,6 +16,13 @@
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
+public protocol SideMenuTransitionDelegate: class {
+    func menuWillShow(from direction: UIRectEdge)
+    func menuDidShow(from direction: UIRectEdge)
+    func menuWillHide(from direction: UIRectEdge)
+    func menuDidHide(from direction: UIRectEdge)
+}
+
 public class SideMenuManager : NSObject {
     
     @objc public enum MenuPresentMode : Int {
@@ -92,6 +99,9 @@ public class SideMenuManager : NSObject {
     
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     public static var menuFadeStatusBar = true
+    
+    /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
+    public static weak var menuTransitionDelegate: SideMenuTransitionDelegate? = nil
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed="menuAnimationTransformScaleFactor")

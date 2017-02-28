@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.screenshots      = [ "https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideOut.gif", "https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideIn.gif", "https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Dissolve.gif", "https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/InOut.gif" ]
   s.license          = 'MIT'
   s.author           = { "jonkykong" => "jonk@jonked.com" }
-  s.source           = { :git => "https://github.com/jonkykong/SideMenu.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/toptier/SideMenu.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
