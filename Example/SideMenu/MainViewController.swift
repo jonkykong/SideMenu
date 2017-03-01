@@ -33,6 +33,7 @@ class MainViewController: UIViewController {
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        SideMenuManager.menuTransitionDelegate = self
         
         // Set up a cool background image for demo purposes
         SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
@@ -88,5 +89,11 @@ class MainViewController: UIViewController {
     
     @IBAction private func changeSwitch(switchControl: UISwitch) {
         SideMenuManager.menuFadeStatusBar = switchControl.on
+    }
+}
+
+extension MainViewController: SideMenuTransitionDelegate {
+    func menuWillShow(from direction: UIRectEdge) {
+        print("MENU WILL SHOW EXAMPLE")
     }
 }
