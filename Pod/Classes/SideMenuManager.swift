@@ -101,7 +101,7 @@ public class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     public static var menuFadeStatusBar = true
     
-    /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
+    /// Defines the `SideMenuTransitionDelegate`, which can implement the desired methods of the protocol. Default is nil.
     public static weak var menuTransitionDelegate: SideMenuTransitionDelegate? = nil
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
