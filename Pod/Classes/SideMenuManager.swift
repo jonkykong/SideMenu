@@ -16,11 +16,12 @@
     SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
-public protocol SideMenuTransitionDelegate: class {
-    func menuWillShow(from direction: UIRectEdge)
-    func menuDidShow(from direction: UIRectEdge)
-    func menuWillHide(from direction: UIRectEdge)
-    func menuDidHide(from direction: UIRectEdge)
+@objc public protocol SideMenuTransitionDelegate: class {
+    optional func panGestureStarted(from direction: UIRectEdge)
+    optional func menuWillShow(from direction: UIRectEdge)
+    optional func menuDidShow(from direction: UIRectEdge)
+    optional func menuWillHide(from direction: UIRectEdge)
+    optional func menuDidHide(from direction: UIRectEdge)
 }
 
 public class SideMenuManager : NSObject {

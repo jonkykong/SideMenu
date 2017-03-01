@@ -92,20 +92,8 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: menuTransitionDelegate {
+extension MainViewController: SideMenuTransitionDelegate {
     func menuWillShow(from direction: UIRectEdge) {
-        print("MENU WILL SHOW")
-    }
-    
-    func menuDidShow(from direction: UIRectEdge) {
-        print("MENU DID SHOW")
-    }
-    
-    func menuWillHide(from direction: UIRectEdge) {
-        print("MENU WILL HIDE")
-    }
-    
-    func menuDidHide(from direction: UIRectEdge) {
-        print("MENU DID HIDE")
+        print("MENU WILL SHOW EXAMPLE")
     }
 }
