@@ -35,6 +35,13 @@ open class UISideMenuNavigationController: UINavigationController {
         didSetSide()
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
+        presentingViewController?.view.endEditing(true)
+    }
+    
     fileprivate func didSetSide() {
         if leftSide {
             SideMenuManager.menuLeftNavigationController = self
