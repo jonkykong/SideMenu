@@ -242,7 +242,7 @@ open class SideMenuManager : NSObject {
         updateMenuBlurIfNecessary()
     }
     
-    /// Enable or disable gestures that would swipe to present or dismiss the menu. Default is true.
+    /// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
     open static var menuEnableSwipeGestures: Bool = true {
         didSet {
             menuLeftSwipeToDismissGesture?.view?.removeGestureRecognizer(menuLeftSwipeToDismissGesture!)

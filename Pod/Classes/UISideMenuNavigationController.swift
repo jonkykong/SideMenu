@@ -35,6 +35,13 @@ open class UISideMenuNavigationController: UINavigationController {
         didSetSide()
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
+        presentingViewController?.view.endEditing(true)
+    }
+    
     fileprivate func didSetSide() {
         if leftSide {
             SideMenuManager.menuLeftNavigationController = self
@@ -46,7 +53,7 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // we had presented a view before, so lets dismiss ourselves as already acted upon
+        // We had presented a view before, so lets dismiss ourselves as already acted upon
         if view.isHidden {
             SideMenuTransition.hideMenuComplete()
             dismiss(animated: false, completion: { () -> Void in
@@ -59,31 +66,10 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // when presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
-        // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
-        if !isBeingDismissed {
-            if let mainView = presentingViewController?.view {
-                switch SideMenuManager.menuPresentMode {
-                case .viewSlideOut, .viewSlideInOut:
-                    mainView.superview?.insertSubview(view, belowSubview: mainView)
-                case .menuSlideIn, .menuDissolveIn:
-                    if let tapView = SideMenuTransition.tapView {
-                        mainView.superview?.insertSubview(view, aboveSubview: tapView)
-                    } else {
-                        mainView.superview?.insertSubview(view, aboveSubview: mainView)
-                    }
-                }
-            }
-        }
-    }
-    
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // we're presenting a view controller from the menu, so we need to hide the menu so it isn't  g when the presented view is dismissed.
+        // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
         if !isBeingDismissed {
             view.isHidden = true
             SideMenuTransition.hideMenuStart()
@@ -93,30 +79,28 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        // don't bother resizing if the view isn't visible
-        if view.isHidden {
+        // Don't bother resizing if the view isn't visible
+        guard !view.isHidden else {
             return
         }
         
-        SideMenuTransition.statusBarView?.isHidden = true
-        coordinator.animate(alongsideTransition: { (context) -> Void in
-            SideMenuTransition.presentMenuStart(forSize: size)
-            }) { (context) -> Void in
-                SideMenuTransition.statusBarView?.isHidden = false
+        NotificationCenter.default.removeObserver(SideMenuTransition.singleton, name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        coordinator.animate(alongsideTransition: { (context) in
+            SideMenuTransition.presentMenuStart()
+        }) { (context) in
+            NotificationCenter.default.addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
         }
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
-            let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-                presentingViewController.prepare(for: segue, sender: sender)
+        if let presentingViewController = presentingViewController {
+            presentingViewController.prepare(for: segue, sender: sender)
         }
     }
     
     override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
-            let presentingViewController = menuViewController.presentingViewController as? UINavigationController {
-                return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+        if let presentingViewController = presentingViewController {
+            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
         
         return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
@@ -132,11 +116,11 @@ open class UISideMenuNavigationController: UINavigationController {
 
         let tabBarController = presentingViewController as? UITabBarController
         guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
-            print("SideMenu Warning: attempt to push a View Controller from \(presentingViewController.self) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
+            print("SideMenu Warning: attempt to push a View Controller from \(String(describing: presentingViewController.self)) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
         
-        // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
+        // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
         CATransaction.begin()
         CATransaction.setCompletionBlock( { () -> Void in
@@ -192,6 +176,7 @@ open class UISideMenuNavigationController: UINavigationController {
         navigationController.pushViewController(viewController, animated: animated)
         CATransaction.commit()
     }
+
 }
 
 
