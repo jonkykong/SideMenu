@@ -187,7 +187,7 @@ open static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer?
 /// The right menu swipe to dismiss gesture.
 open static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
 
-/// Enable or disable gestures that would swipe to present or dismiss the menu. Default is true.
+/// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
 open static var menuEnableSwipeGestures: Bool = true
 
 /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. Default is false.
