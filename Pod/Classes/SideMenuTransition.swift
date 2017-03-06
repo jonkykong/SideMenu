@@ -466,18 +466,19 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             
             if self.presenting {
                 SideMenuTransition.presentMenuComplete()
-                if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
-                    let tapView = UIView()
-                    topView.addSubview(tapView)
-                    tapView.frame = topView.bounds
-                    SideMenuTransition.tapView = tapView
-                }
                 transitionContext.completeTransition(true)
                 switch SideMenuManager.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     container.addSubview(topView)
                 case .menuSlideIn, .menuDissolveIn:
                     container.insertSubview(topView, at: 0)
+                }
+                if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
+                    let tapView = UIView()
+                    container.insertSubview(tapView, aboveSubview: topView)
+                    tapView.bounds = container.bounds
+                    tapView.center = topView.center
+                    SideMenuTransition.tapView = tapView
                 }
                 if let statusBarView = SideMenuTransition.statusBarView {
                     container.bringSubview(toFront: statusBarView)

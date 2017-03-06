@@ -94,13 +94,13 @@ open class UISideMenuNavigationController: UINavigationController {
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let presentingViewController = presentingViewController {
-                presentingViewController.prepare(for: segue, sender: sender)
+            presentingViewController.prepare(for: segue, sender: sender)
         }
     }
     
     override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if let presentingViewController = presentingViewController {
-                return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
         
         return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
