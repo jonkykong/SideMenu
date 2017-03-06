@@ -53,7 +53,7 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // we had presented a view before, so lets dismiss ourselves as already acted upon
+        // We had presented a view before, so lets dismiss ourselves as already acted upon
         if view.isHidden {
             SideMenuTransition.hideMenuComplete()
             dismiss(animated: false, completion: { () -> Void in
@@ -90,7 +90,7 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // we're presenting a view controller from the menu, so we need to hide the menu so it isn't  g when the presented view is dismissed.
+        // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
         if !isBeingDismissed {
             view.isHidden = true
             SideMenuTransition.hideMenuStart()
@@ -100,8 +100,8 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        // don't bother resizing if the view isn't visible
-        if view.isHidden {
+        // Don't bother resizing if the view isn't visible
+        guard !view.isHidden else {
             return
         }
         
@@ -143,7 +143,7 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        // to avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
+        // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
         CATransaction.begin()
         CATransaction.setCompletionBlock( { () -> Void in
@@ -199,6 +199,7 @@ open class UISideMenuNavigationController: UINavigationController {
         navigationController.pushViewController(viewController, animated: animated)
         CATransaction.commit()
     }
+
 }
 
 
