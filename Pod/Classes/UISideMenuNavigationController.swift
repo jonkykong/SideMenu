@@ -84,11 +84,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        SideMenuTransition.statusBarView?.isHidden = true
-        coordinator.animate(alongsideTransition: { (context) -> Void in
-            SideMenuTransition.presentMenuStart(forSize: size)
-            }) { (context) -> Void in
-                SideMenuTransition.statusBarView?.isHidden = false
+        NotificationCenter.default.removeObserver(SideMenuTransition.singleton, name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        coordinator.animate(alongsideTransition: { (context) in
+            SideMenuTransition.presentMenuStart()
+        }) { (context) in
+            NotificationCenter.default.addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
         }
     }
     

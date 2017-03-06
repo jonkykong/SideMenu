@@ -49,7 +49,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     // prevent instantiation
-    fileprivate override init() {}
+    fileprivate override init() {
+        super.init()
+        NotificationCenter.default.addObserver(self, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(SideMenuTransition.singleton)
+    }
     
     fileprivate class var presentingViewControllerForMenu: UIViewController? {
         get {
@@ -207,7 +215,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     internal class func hideMenuStart() {
-        NotificationCenter.default.removeObserver(SideMenuTransition.singleton)
         guard let mainViewController = presentingViewControllerForMenu,
             let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
                 return
@@ -215,12 +222,19 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
       
         mainViewController.view.transform = .identity
         mainViewController.view.alpha = 1
-        SideMenuTransition.tapView?.frame = CGRect(x: 0, y: 0, width: mainViewController.view.frame.width, height: mainViewController.view.frame.height)
+        mainViewController.view.frame.origin.y = 0
         menuView.transform = .identity
         menuView.frame.origin.y = 0
         menuView.frame.size.width = SideMenuManager.menuWidth
-        menuView.frame.size.height = mainViewController.view.frame.height
-        SideMenuTransition.statusBarView?.frame = UIApplication.shared.statusBarFrame
+        menuView.frame.size.height = mainViewController.view.frame.height // in case status bar height changed
+        var statusBarFrame = UIApplication.shared.statusBarFrame
+        let statusBarOffset = SideMenuManager.appScreenRect.size.height - mainViewController.view.frame.maxY
+        // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
+        // of view and set height to fill in remaining space.
+        if statusBarOffset >= CGFloat.ulpOfOne {
+            statusBarFrame.size.height = statusBarOffset
+        }
+        SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 0
         
         switch SideMenuManager.menuPresentMode {
@@ -261,61 +275,65 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.isEnabled = true
         }
-        originalSuperview?.addSubview(mainViewController.view)
+        if let originalSuperview = originalSuperview {
+            originalSuperview.addSubview(mainViewController.view)
+            let y = originalSuperview.bounds.height - mainViewController.view.frame.size.height
+            mainViewController.view.frame.origin.y = max(y, 0)
+        }
     }
     
-    internal class func presentMenuStart(forSize size: CGSize = SideMenuManager.appScreenRect.size) {
+    internal class func presentMenuStart() {
         guard let menuView = viewControllerForMenu?.view,
             let mainViewController = presentingViewControllerForMenu else {
                 return
         }
         
+        menuView.alpha = 1
         menuView.transform = .identity
         menuView.frame.size.width = SideMenuManager.menuWidth
-        menuView.frame.size.height = size.height
+        let size = SideMenuManager.appScreenRect.size
         menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuWidth
-        SideMenuTransition.statusBarView?.frame = UIApplication.shared.statusBarFrame
         mainViewController.view.transform = .identity
+        mainViewController.view.frame.size.width = size.width
+        let statusBarOffset = size.height - menuView.bounds.height
+        mainViewController.view.bounds.size.height = size.height - max(statusBarOffset, 0)
+        mainViewController.view.frame.origin.y = 0
+        var statusBarFrame = UIApplication.shared.statusBarFrame
+        // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
+        // of view and set height to fill in remaining space.
+        if statusBarOffset >= CGFloat.ulpOfOne {
+            statusBarFrame.size.height = statusBarOffset
+        }
+        SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
         
         switch SideMenuManager.menuPresentMode {
             
-        case .viewSlideOut:
-            menuView.alpha = 1
+        case .viewSlideOut, .viewSlideInOut:
+            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
+            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
+            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
             mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
-            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-            mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
-            
-        case .viewSlideInOut:
-            menuView.alpha = 1
-            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-            mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
-            let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
-            mainViewController.view.frame = CGRect(x: direction * (menuView.frame.width), y: 0, width: size.width, height: size.height)
-            mainViewController.view.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
-            mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
             
         case .menuSlideIn, .menuDissolveIn:
-            menuView.alpha = 1
             if SideMenuManager.menuBlurEffectStyle == nil {
                 menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
                 menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
                 menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
                 menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
             }
-            mainViewController.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            mainViewController.view.frame.origin.x = 0
+        }
+        
+        if SideMenuManager.menuPresentMode != .viewSlideOut {
             mainViewController.view.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
             mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
         }
     }
     
     internal class func presentMenuComplete() {
-        NotificationCenter.default.addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.applicationDidEnterBackgroundNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         guard let mainViewController = presentingViewControllerForMenu else {
             return
         }
@@ -339,6 +357,29 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.isEnabled = false
+        }
+    }
+    
+    internal func handleNotification() {
+        guard let mainViewController = SideMenuTransition.presentingViewControllerForMenu,
+            let menuViewController = SideMenuTransition.viewControllerForMenu,
+            menuViewController.presentedViewController == nil && menuViewController.presentingViewController != nil else {
+                return
+        }
+        
+        if let originalSuperview = SideMenuTransition.originalSuperview {
+            originalSuperview.addSubview(mainViewController.view)
+        }
+        UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
+                       delay: 0,
+                       usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                       initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                       options: SideMenuManager.menuAnimationOptions,
+                       animations: {
+                        SideMenuTransition.hideMenuStart()
+        }) { (finished) -> Void in
+            SideMenuTransition.hideMenuComplete()
+            menuViewController.dismiss(animated: false, completion: nil)
         }
     }
     
@@ -509,15 +550,6 @@ extension SideMenuTransition: UIViewControllerTransitioningDelegate {
     
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactive ? SideMenuTransition.singleton : nil
-    }
-    
-    internal func applicationDidEnterBackgroundNotification() {
-        if let menuViewController: UINavigationController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
-            menuViewController.presentedViewController == nil {
-            SideMenuTransition.hideMenuStart()
-            SideMenuTransition.hideMenuComplete()
-            menuViewController.dismiss(animated: false, completion: nil)
-        }
     }
     
 }
