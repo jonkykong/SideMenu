@@ -17,7 +17,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     fileprivate static var switchMenus = false
     
     internal static let singleton = SideMenuTransition()
-    internal static var presentDirection: UIRectEdge = .left;
+    internal static var presentDirection: UIRectEdge = .left
     internal static weak var tapView: UIView? {
         didSet {
             guard let tapView = tapView else {
@@ -51,9 +51,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     // prevent instantiation
     fileprivate override init() {}
     
-    fileprivate class var viewControllerForPresentedMenu: UIViewController? {
+    fileprivate class var presentingViewControllerForMenu: UIViewController? {
         get {
-            return SideMenuManager.menuLeftNavigationController?.presentingViewController != nil ? SideMenuManager.menuLeftNavigationController?.presentingViewController : SideMenuManager.menuRightNavigationController?.presentingViewController
+            return SideMenuManager.menuLeftNavigationController?.presentingViewController ?? SideMenuManager.menuRightNavigationController?.presentingViewController
+        }
+    }
+    
+    fileprivate class var viewControllerForMenu: UISideMenuNavigationController? {
+        get {
+            return SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController
         }
     }
     
@@ -95,12 +101,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         
         // how much distance have we panned in reference to the parent view?
-        guard let view = viewControllerForPresentedMenu != nil ? viewControllerForPresentedMenu?.view : pan.view else {
+        guard let view = presentingViewControllerForMenu?.view ?? pan.view else {
             return
         }
         
         let transform = view.transform
-        view.transform = CGAffineTransform.identity
+        view.transform = .identity
         let translation = pan.translation(in: pan.view!)
         view.transform = transform
         
@@ -114,8 +120,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 SideMenuTransition.presentDirection = translation.x > 0 ? .left : .right
             }
             
-            if let menuViewController = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController,
-                let visibleViewController = visibleViewController {
+            if let menuViewController = viewControllerForMenu, let visibleViewController = visibleViewController {
                 singleton.interactive = true
                 visibleViewController.present(menuViewController, animated: true, completion: nil)
             } else {
@@ -143,7 +148,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             }
         default:
             singleton.interactive = false
-            view.transform = CGAffineTransform.identity
+            view.transform = .identity
             let velocity = pan.velocity(in: pan.view!).x * direction
             view.transform = transform
             if velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5 {
@@ -177,7 +182,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             
         case .began:
             singleton.interactive = true
-            viewControllerForPresentedMenu?.dismiss(animated: true, completion: nil)
+            presentingViewControllerForMenu?.dismiss(animated: true, completion: nil)
         case .changed:
             singleton.update(max(min(distance, 1), 0))
         default:
@@ -198,20 +203,20 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
-        viewControllerForPresentedMenu?.dismiss(animated: true, completion: nil)
+        presentingViewControllerForMenu?.dismiss(animated: true, completion: nil)
     }
     
     internal class func hideMenuStart() {
         NotificationCenter.default.removeObserver(SideMenuTransition.singleton)
-        guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu,
+        guard let mainViewController = presentingViewControllerForMenu,
             let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
                 return
         }
       
-        menuView.transform = CGAffineTransform.identity
-        mainViewController.view.transform = CGAffineTransform.identity
+        mainViewController.view.transform = .identity
         mainViewController.view.alpha = 1
         SideMenuTransition.tapView?.frame = CGRect(x: 0, y: 0, width: mainViewController.view.frame.width, height: mainViewController.view.frame.height)
+        menuView.transform = .identity
         menuView.frame.origin.y = 0
         menuView.frame.size.width = SideMenuManager.menuWidth
         menuView.frame.size.height = mainViewController.view.frame.height
@@ -243,8 +248,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     internal class func hideMenuComplete() {
-        guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu,
-            let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
+        guard let mainViewController = presentingViewControllerForMenu,
+            let menuView = viewControllerForMenu?.view else {
                 return
         }
 
@@ -260,17 +265,17 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     internal class func presentMenuStart(forSize size: CGSize = SideMenuManager.appScreenRect.size) {
-        guard let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view,
-            let mainViewController = SideMenuTransition.viewControllerForPresentedMenu else {
+        guard let menuView = viewControllerForMenu?.view,
+            let mainViewController = presentingViewControllerForMenu else {
                 return
         }
         
-        menuView.transform = CGAffineTransform.identity
-        mainViewController.view.transform = CGAffineTransform.identity
+        menuView.transform = .identity
         menuView.frame.size.width = SideMenuManager.menuWidth
         menuView.frame.size.height = size.height
         menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuWidth
         SideMenuTransition.statusBarView?.frame = UIApplication.shared.statusBarFrame
+        mainViewController.view.transform = .identity
         SideMenuTransition.statusBarView?.alpha = 1
         
         switch SideMenuManager.menuPresentMode {
@@ -311,7 +316,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     internal class func presentMenuComplete() {
         NotificationCenter.default.addObserver(SideMenuTransition.singleton, selector:#selector(SideMenuTransition.applicationDidEnterBackgroundNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        guard let mainViewController = SideMenuTransition.viewControllerForPresentedMenu else {
+        guard let mainViewController = presentingViewControllerForMenu else {
             return
         }
       
@@ -400,7 +405,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             
             // tell our transitionContext object that we've finished animating
             if transitionContext.transitionWasCancelled {
-                let viewControllerForPresentedMenu = SideMenuTransition.viewControllerForPresentedMenu
+                let viewControllerForPresentedMenu = SideMenuTransition.presentingViewControllerForMenu
                 
                 if self.presenting {
                     SideMenuTransition.hideMenuComplete()
@@ -412,7 +417,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                 
                 if SideMenuTransition.switchMenus {
                     SideMenuTransition.switchMenus = false
-                    viewControllerForPresentedMenu?.present(SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController! : SideMenuManager.menuRightNavigationController!, animated: true, completion: nil)
+                    viewControllerForPresentedMenu?.present(SideMenuTransition.viewControllerForMenu!, animated: true, completion: nil)
                 }
                 
                 return
