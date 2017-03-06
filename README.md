@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
-### If you like SideMenu, give it a ★ at the top right of this page.
+### If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.
 #### Using SideMenu in your app? [Send](mailto:contact@jonkent.me?subject=SideMenu in action!) me a link to your app in the app store!
 
 > I'm Jon Kent and I freelance iOS design, development, and mobile strategies. I love coffee and play the drums. [**Hire me**](mailto:contact@jonkent.me?subject=Let's build something amazing.) to help you make cool stuff. I also have a [website](http://jonkent.me). *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
@@ -12,13 +12,13 @@
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
-- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
-- [x] Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
-- [x] Highly customizable without needing to write tons of custom code.
-- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
-- [x] Global menu configuration. Set-up once and be done for all screens.
-- [x] Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
-- [x] Animations use your view controllers, not snapshots.
+* **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+* Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
+* Highly customizable without needing to write tons of custom code.
+* Supports continuous swiping between side menus on boths sides in a single gesture.
+* Global menu configuration. Set-up once and be done for all screens.
+* Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
+* Animations use your view controllers, not snapshots.
 
 Check out the example project to see it in action!
 ### Preview Samples
@@ -27,7 +27,7 @@ Check out the example project to see it in action!
 | ![](etc/SlideOut.gif) | ![](etc/SlideIn.gif) | ![](etc/Dissolve.gif) | ![](etc/InOut.gif) |
 
 ## Requirements
-- [x] iOS 8 or higher
+* iOS 8 or higher
 
 ## Installation
 ### CocoaPods
