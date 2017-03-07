@@ -19,6 +19,7 @@ SideMenu is a simple and versatile side menu control written in Swift.
 - [x] Global menu configuration. Set-up once and be done for all screens.
 - [x] Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
 - [x] Animations use your view controllers, not snapshots.
+- [x] Properly handles screen rotation and in-call status bar height changes.
 
 Check out the example project to see it in action!
 ### Preview Samples
