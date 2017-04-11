@@ -66,6 +66,27 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // when presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
+        // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
+        if !isBeingDismissed {
+            if let mainView = presentingViewController?.view {
+                switch SideMenuManager.menuPresentMode {
+                case .viewSlideOut, .viewSlideInOut:
+                    mainView.superview?.insertSubview(view, belowSubview: mainView)
+                case .menuSlideIn, .menuDissolveIn:
+                    if let tapView = SideMenuTransition.tapView {
+                        mainView.superview?.insertSubview(view, aboveSubview: tapView)
+                    } else {
+                        mainView.superview?.insertSubview(view, aboveSubview: mainView)
+                    }
+                }
+            }
+        }
+    }
+    
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         

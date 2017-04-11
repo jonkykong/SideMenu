@@ -97,12 +97,6 @@ open class SideMenuManager : NSObject {
     /// The radius of the shadow around the menu view controller or existing view controller depending on the `menuPresentMode`. Default is 5.
     open static var menuShadowRadius: CGFloat = 5
     
-    /// The left menu swipe to dismiss gesture.
-    open static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer?
-    
-    /// The right menu swipe to dismiss gesture.
-    open static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer?
-    
     /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. Default is false.
     open static var menuPresentingViewControllerUserInteractionEnabled: Bool = false
     
@@ -221,6 +215,30 @@ open class SideMenuManager : NSObject {
         }
     }
     
+    /// The left menu swipe to dismiss gesture.
+    open static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer? {
+        didSet {
+            oldValue?.view?.removeGestureRecognizer(oldValue!)
+            setupGesture(gesture: menuLeftSwipeToDismissGesture)
+        }
+    }
+    
+    /// The right menu swipe to dismiss gesture.
+    open static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer? {
+        didSet {
+            oldValue?.view?.removeGestureRecognizer(oldValue!)
+            setupGesture(gesture: menuRightSwipeToDismissGesture)
+        }
+    }
+    
+    fileprivate class func setupGesture(gesture: UIPanGestureRecognizer?) {
+        guard let gesture = gesture else {
+            return
+        }
+        
+        gesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
+    }
+    
     fileprivate class func setupNavigationController(_ forMenu: UISideMenuNavigationController?, leftSide: Bool) {
         guard let forMenu = forMenu else {
             return
@@ -228,7 +246,6 @@ open class SideMenuManager : NSObject {
         
         if menuEnableSwipeGestures {
             let exitPanGesture = UIPanGestureRecognizer()
-            exitPanGesture.addTarget(SideMenuTransition.self, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
             forMenu.view.addGestureRecognizer(exitPanGesture)
             if leftSide {
                 menuLeftSwipeToDismissGesture = exitPanGesture
