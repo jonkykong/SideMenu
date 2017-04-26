@@ -5,10 +5,10 @@
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
 
 ### If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.
-#### Using SideMenu in your app? [Send](mailto:yo@massappeal.co?subject=SideMenu+in+action!) me a link to your app in the app store!
+#### Using SideMenu in your app? [Send](mailto:yo@massappeal.co?subject=SideMenu%20in%20action!) me a link to your app in the app store!
 
 > Hi, I'm Jon Kent and I am an iOS designer, developer, and mobile strategist. I love coffee and play the drums.
-> * [**Hire me**](mailto:yo@massappeal.co?subject=Let's+build+something+amazing) to help you make cool stuff. *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
+> * [**Hire me**](mailto:yo@massappeal.co?subject=Let's%20build%20something%20amazing) to help you make cool stuff. *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
 > * [Website](http://massappeal.co).
 > * Building and maintaining this free library takes time. Help keep me awake and buy me a coffee ☕️ via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted).
 
