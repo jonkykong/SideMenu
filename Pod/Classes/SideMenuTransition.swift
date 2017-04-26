@@ -365,7 +365,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
-    internal func handleNotification() {
+    internal func handleNotification(notification: NSNotification) {
         guard let mainViewController = SideMenuTransition.presentingViewControllerForMenu,
             let menuViewController = SideMenuTransition.viewControllerForMenu,
             menuViewController.presentedViewController == nil && menuViewController.presentingViewController != nil else {
@@ -375,6 +375,14 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         if let originalSuperview = SideMenuTransition.originalSuperview {
             originalSuperview.addSubview(mainViewController.view)
         }
+        
+        if notification.name == NSNotification.Name.UIApplicationDidEnterBackground {
+            SideMenuTransition.hideMenuStart()
+            SideMenuTransition.hideMenuComplete()
+            menuViewController.dismiss(animated: false, completion: nil)
+            return
+        }
+        
         UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
                        delay: 0,
                        usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
