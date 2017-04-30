@@ -73,7 +73,7 @@ open class UISideMenuNavigationController: UINavigationController {
         // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
         if !isBeingDismissed {
             if let mainView = presentingViewController?.view {
-                switch SideMenuManager.menuPresentMode {
+                switch SideMenuManager.leftMenuConfig.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     mainView.superview?.insertSubview(view, belowSubview: mainView)
                 case .menuSlideIn, .menuDissolveIn:
@@ -128,7 +128,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        guard viewControllers.count > 0 && SideMenuManager.menuPushStyle != .subMenu else {
+        guard viewControllers.count > 0 && SideMenuManager.leftMenuConfig.menuPushStyle != .subMenu else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case.
             super.pushViewController(viewController, animated: animated)
@@ -151,17 +151,17 @@ open class UISideMenuNavigationController: UINavigationController {
         
         let areAnimationsEnabled = UIView.areAnimationsEnabled
         UIView.setAnimationsEnabled(true)
-        UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
+        UIView.animate(withDuration: SideMenuManager.leftMenuConfig.menuAnimationDismissDuration, animations: { () -> Void in
             SideMenuTransition.hideMenuStart()
         })
         UIView.setAnimationsEnabled(areAnimationsEnabled)
         
-        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+        if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.leftMenuConfig.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
             CATransaction.commit()
             return
         }
         
-        switch SideMenuManager.menuPushStyle {
+        switch SideMenuManager.leftMenuConfig.menuPushStyle {
         case .subMenu, .defaultBehavior: break // .subMenu handled earlier, .defaultBehavior falls through to end
         case .popWhenPossible:
             for subViewController in navigationController.viewControllers.reversed() {
@@ -176,7 +176,7 @@ open class UISideMenuNavigationController: UINavigationController {
             let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
             if let preservedViewController = filtered.last {
                 viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
-                if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
+                if SideMenuManager.leftMenuConfig.menuPushStyle == .preserveAndHideBackButton {
                     preservedViewController.navigationItem.hidesBackButton = true
                 }
                 viewControllers.append(preservedViewController)
@@ -184,7 +184,7 @@ open class UISideMenuNavigationController: UINavigationController {
                 CATransaction.commit()
                 return
             }
-            if SideMenuManager.menuPushStyle == .preserveAndHideBackButton {
+            if SideMenuManager.leftMenuConfig.menuPushStyle == .preserveAndHideBackButton {
                 viewController.navigationItem.hidesBackButton = true
             }
         case .replace:

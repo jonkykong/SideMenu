@@ -38,8 +38,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             guard let statusBarView = statusBarView else {
                 return
             }
-            
-            if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
+            if let menuShrinkBackgroundColor = SideMenuManager.leftMenuConfig.menuAnimationBackgroundColor {
                 statusBarView.backgroundColor = menuShrinkBackgroundColor
             } else {
                 statusBarView.backgroundColor = UIColor.black
@@ -137,7 +136,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         
         let direction: CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
-        let distance = translation.x / SideMenuManager.menuWidth
+        let distance = translation.x / menuConfig(translation: translation).menuWidth
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
         case .began, .changed:
@@ -173,6 +172,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
+    class func menuConfig(translation: CGPoint) -> MenuConfiguration{
+        return translation.x > 0 ? SideMenuManager.leftMenuConfig : SideMenuManager.rightMenuConfig
+    }
+    
     internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
         if activeGesture == nil {
             activeGesture = pan
@@ -184,7 +187,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
-        let distance = translation.x / SideMenuManager.menuWidth * direction
+        let distance = translation.x / menuConfig(translation: translation).menuWidth * direction
         
         switch (pan.state) {
             
@@ -225,10 +228,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         mainViewController.view.frame.origin.y = 0
         menuView.transform = .identity
         menuView.frame.origin.y = 0
-        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.width = menuConfigByTransition().menuWidth
         menuView.frame.size.height = mainViewController.view.frame.height // in case status bar height changed
         var statusBarFrame = UIApplication.shared.statusBarFrame
-        let statusBarOffset = SideMenuManager.appScreenRect.size.height - mainViewController.view.frame.maxY
+        let statusBarOffset = MenuConfiguration.appScreenRect.size.height - mainViewController.view.frame.maxY
         // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
         // of view and set height to fill in remaining space.
         if statusBarOffset >= CGFloat.ulpOfOne {
@@ -237,13 +240,13 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 0
         
-        switch SideMenuManager.menuPresentMode {
+        switch menuConfigByTransition().menuPresentMode {
             
         case .viewSlideOut:
-            menuView.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
+            menuView.alpha = 1 - menuConfigByTransition().menuAnimationFadeStrength
+            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - menuConfigByTransition().menuWidth
             mainViewController.view.frame.origin.x = 0
-            menuView.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
+            menuView.transform = CGAffineTransform(scaleX: menuConfigByTransition().menuAnimationTransformScaleFactor, y: menuConfigByTransition().menuAnimationTransformScaleFactor)
             
         case .viewSlideInOut:
             menuView.alpha = 1
@@ -256,7 +259,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             
         case .menuDissolveIn:
             menuView.alpha = 0
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
+            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - menuConfigByTransition().menuWidth
             mainViewController.view.frame.origin.x = 0
         }
     }
@@ -290,9 +293,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         
         menuView.alpha = 1
         menuView.transform = .identity
-        menuView.frame.size.width = SideMenuManager.menuWidth
-        let size = SideMenuManager.appScreenRect.size
-        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuWidth
+        menuView.frame.size.width = menuConfigByTransition().menuWidth
+        let size = MenuConfiguration.appScreenRect.size
+        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - menuConfigByTransition().menuWidth
         mainViewController.view.transform = .identity
         mainViewController.view.frame.size.width = size.width
         let statusBarOffset = size.height - menuView.bounds.height
@@ -309,32 +312,32 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
         
-        switch SideMenuManager.menuPresentMode {
+        switch menuConfigByTransition().menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
-            mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-            mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+            mainViewController.view.layer.shadowColor = menuConfigByTransition().menuShadowColor.cgColor
+            mainViewController.view.layer.shadowRadius = menuConfigByTransition().menuShadowRadius
+            mainViewController.view.layer.shadowOpacity = menuConfigByTransition().menuShadowOpacity
             mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
             mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
             
         case .menuSlideIn, .menuDissolveIn:
             if SideMenuManager.menuBlurEffectStyle == nil {
-                menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
-                menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-                menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+                menuView.layer.shadowColor = menuConfigByTransition().menuShadowColor.cgColor
+                menuView.layer.shadowRadius = menuConfigByTransition().menuShadowRadius
+                menuView.layer.shadowOpacity = menuConfigByTransition().menuShadowOpacity
                 menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
             }
             mainViewController.view.frame.origin.x = 0
         }
         
-        if SideMenuManager.menuPresentMode != .viewSlideOut {
-            mainViewController.view.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
-            if SideMenuManager.menuAnimationTransformScaleFactor > 1 {
+        if menuConfigByTransition().menuPresentMode != .viewSlideOut {
+            mainViewController.view.transform = CGAffineTransform(scaleX: menuConfigByTransition().menuAnimationTransformScaleFactor, y: menuConfigByTransition().menuAnimationTransformScaleFactor)
+            if menuConfigByTransition().menuAnimationTransformScaleFactor > 1 {
                 SideMenuTransition.tapView?.transform = mainViewController.view.transform
             }
-            mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
+            mainViewController.view.alpha = 1 - menuConfigByTransition().menuAnimationFadeStrength
         }
     }
     
@@ -343,16 +346,16 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             return
         }
       
-        switch SideMenuManager.menuPresentMode {
+        switch menuConfigByTransition().menuPresentMode {
         case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
-            if SideMenuManager.menuParallaxStrength != 0 {
+            if menuConfigByTransition().menuParallaxStrength != 0 {
                 let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
-                horizontal.minimumRelativeValue = -SideMenuManager.menuParallaxStrength
-                horizontal.maximumRelativeValue = SideMenuManager.menuParallaxStrength
+                horizontal.minimumRelativeValue = -menuConfigByTransition().menuParallaxStrength
+                horizontal.maximumRelativeValue = menuConfigByTransition().menuParallaxStrength
                 
                 let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
-                vertical.minimumRelativeValue = -SideMenuManager.menuParallaxStrength
-                vertical.maximumRelativeValue = SideMenuManager.menuParallaxStrength
+                vertical.minimumRelativeValue = -menuConfigByTransition().menuParallaxStrength
+                vertical.maximumRelativeValue = menuConfigByTransition().menuParallaxStrength
                 
                 let group = UIMotionEffectGroup()
                 group.motionEffects = [horizontal, vertical]
@@ -383,11 +386,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             return
         }
         
-        UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
+        UIView.animate(withDuration: SideMenuTransition.menuConfigByTransition().menuAnimationDismissDuration,
                        delay: 0,
-                       usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                       initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                       options: SideMenuManager.menuAnimationOptions,
+                       usingSpringWithDamping: SideMenuTransition.menuConfigByTransition().menuAnimationUsingSpringWithDamping,
+                       initialSpringVelocity: SideMenuTransition.menuConfigByTransition().menuAnimationInitialSpringVelocity,
+                       options: SideMenuTransition.menuConfigByTransition().menuAnimationOptions,
                        animations: {
                         SideMenuTransition.hideMenuStart()
         }) { (finished) -> Void in
@@ -408,7 +411,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         // prevent any other menu gestures from firing
         container.isUserInteractionEnabled = false
         
-        if let menuBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
+        if let menuBackgroundColor = SideMenuTransition.menuConfigByTransition().menuAnimationBackgroundColor {
             container.backgroundColor = menuBackgroundColor
         }
         
@@ -428,7 +431,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             SideMenuTransition.originalSuperview = topView.superview
             
             // add the both views to our view controller
-            switch SideMenuManager.menuPresentMode {
+            switch SideMenuTransition.menuConfigByTransition().menuPresentMode {
             case .viewSlideOut, .viewSlideInOut:
                 container.addSubview(menuView)
                 container.addSubview(topView)
@@ -437,7 +440,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                 container.addSubview(menuView)
             }
 
-            if SideMenuManager.menuFadeStatusBar {
+            if SideMenuTransition.menuConfigByTransition().menuFadeStatusBar {
                 let statusBarView = UIView()
                 SideMenuTransition.statusBarView = statusBarView
                 container.addSubview(statusBarView)
@@ -480,18 +483,18 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             if self.presenting {
                 SideMenuTransition.presentMenuComplete()
                 transitionContext.completeTransition(true)
-                switch SideMenuManager.menuPresentMode {
+                switch SideMenuTransition.menuConfigByTransition().menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     container.addSubview(topView)
                 case .menuSlideIn, .menuDissolveIn:
                     container.insertSubview(topView, at: 0)
                 }
-                if !SideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
+                if !SideMenuTransition.menuConfigByTransition().menuPresentingViewControllerUserInteractionEnabled {
                     let tapView = UIView()
                     container.insertSubview(tapView, aboveSubview: topView)
                     tapView.bounds = container.bounds
                     tapView.center = topView.center
-                    if SideMenuManager.menuAnimationTransformScaleFactor > 1 {
+                    if SideMenuTransition.menuConfigByTransition().menuAnimationTransformScaleFactor > 1 {
                         tapView.transform = topView.transform
                     }
                     SideMenuTransition.tapView = tapView
@@ -522,9 +525,9 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         } else {
             UIView.animate(withDuration: duration,
                            delay: 0,
-                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                           options: SideMenuManager.menuAnimationOptions,
+                           usingSpringWithDamping: SideMenuTransition.menuConfigByTransition().menuAnimationUsingSpringWithDamping,
+                           initialSpringVelocity: SideMenuTransition.menuConfigByTransition().menuAnimationInitialSpringVelocity,
+                           options: SideMenuTransition.menuConfigByTransition().menuAnimationOptions,
                            animations: {
                             animate()
             }) { (finished) -> Void in
@@ -536,9 +539,9 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
     // return how many seconds the transiton animation will take
     open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         if interactive {
-            return SideMenuManager.menuAnimationCompleteGestureDuration
+            return SideMenuTransition.menuConfigByTransition().menuAnimationCompleteGestureDuration
         }
-        return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
+        return presenting ? SideMenuTransition.menuConfigByTransition().menuAnimationPresentDuration : SideMenuTransition.menuConfigByTransition().menuAnimationDismissDuration
     }
     
 }
@@ -567,6 +570,10 @@ extension SideMenuTransition: UIViewControllerTransitioningDelegate {
     
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return interactive ? SideMenuTransition.singleton : nil
+    }
+    
+    class func menuConfigByTransition() -> MenuConfiguration{
+        return SideMenuTransition.presentDirection == .left ? SideMenuManager.leftMenuConfig : SideMenuManager.rightMenuConfig
     }
     
 }
