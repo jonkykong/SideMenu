@@ -35,12 +35,12 @@ class MainViewController: UIViewController {
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
         
         // Set up a cool background image for demo purposes
-        SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        SideMenuManager.rightMenuConfig.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
     
     fileprivate func setDefaults() {
-        let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
-        presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.menuPresentMode)!
+        let modes:[MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
+        presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.rightMenuConfig.menuPresentMode)!
         
         let styles:[UIBlurEffectStyle] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = SideMenuManager.menuBlurEffectStyle {
@@ -49,18 +49,18 @@ class MainViewController: UIViewController {
             blurSegmentControl.selectedSegmentIndex = 0
         }
         
-        darknessSlider.value = Float(SideMenuManager.menuAnimationFadeStrength)
-        shadowOpacitySlider.value = Float(SideMenuManager.menuShadowOpacity)
-        shrinkFactorSlider.value = Float(SideMenuManager.menuAnimationTransformScaleFactor)
-        screenWidthSlider.value = Float(SideMenuManager.menuWidth / view.frame.width)
-        blackOutStatusBar.isOn = SideMenuManager.menuFadeStatusBar
+        darknessSlider.value = Float(SideMenuManager.rightMenuConfig.menuAnimationFadeStrength)
+        shadowOpacitySlider.value = Float(SideMenuManager.rightMenuConfig.menuShadowOpacity)
+        shrinkFactorSlider.value = Float(SideMenuManager.rightMenuConfig.menuAnimationTransformScaleFactor)
+        screenWidthSlider.value = Float(SideMenuManager.rightMenuConfig.menuWidth / view.frame.width)
+        blackOutStatusBar.isOn = SideMenuManager.rightMenuConfig.menuFadeStatusBar
     }
     
     @IBAction fileprivate func changeSegment(_ segmentControl: UISegmentedControl) {
         switch segmentControl {
         case presentModeSegmentedControl:
-            let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
-            SideMenuManager.menuPresentMode = modes[segmentControl.selectedSegmentIndex]
+            let modes:[MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
+            SideMenuManager.rightMenuConfig.menuPresentMode = modes[segmentControl.selectedSegmentIndex]
         case blurSegmentControl:
             if segmentControl.selectedSegmentIndex == 0 {
                 SideMenuManager.menuBlurEffectStyle = nil
@@ -75,18 +75,18 @@ class MainViewController: UIViewController {
     @IBAction fileprivate func changeSlider(_ slider: UISlider) {
         switch slider {
         case darknessSlider:
-            SideMenuManager.menuAnimationFadeStrength = CGFloat(slider.value)
+            SideMenuManager.rightMenuConfig.menuAnimationFadeStrength = CGFloat(slider.value)
         case shadowOpacitySlider:
-            SideMenuManager.menuShadowOpacity = slider.value
+            SideMenuManager.rightMenuConfig.menuShadowOpacity = slider.value
         case shrinkFactorSlider:
-            SideMenuManager.menuAnimationTransformScaleFactor = CGFloat(slider.value)
+            SideMenuManager.rightMenuConfig.menuAnimationTransformScaleFactor = CGFloat(slider.value)
         case screenWidthSlider:
-            SideMenuManager.menuWidth = view.frame.width * CGFloat(slider.value)
+            SideMenuManager.rightMenuConfig.menuWidth = view.frame.width * CGFloat(slider.value)
         default: break;
         }
     }
     
     @IBAction fileprivate func changeSwitch(_ switchControl: UISwitch) {
-        SideMenuManager.menuFadeStatusBar = switchControl.isOn
+        SideMenuManager.rightMenuConfig.menuFadeStatusBar = switchControl.isOn
     }
 }

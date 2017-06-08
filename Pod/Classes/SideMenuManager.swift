@@ -16,30 +16,24 @@
      SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
-open class SideMenuManager : NSObject {
-    
-    @objc public enum MenuPushStyle : Int {
-        case defaultBehavior,
-        popWhenPossible,
-        replace,
-        preserve,
-        preserveAndHideBackButton,
-        subMenu
-    }
-    
-    @objc public enum MenuPresentMode : Int {
-        case menuSlideIn,
-        viewSlideOut,
-        viewSlideInOut,
-        menuDissolveIn
-    }
-    
-    // Bounds which has been allocated for the app on the whole device screen
-    internal static var appScreenRect: CGRect {
-        let appWindowRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
-        return appWindowRect
-    }
+@objc public enum MenuPushStyle : Int {
+    case defaultBehavior,
+    popWhenPossible,
+    replace,
+    preserve,
+    preserveAndHideBackButton,
+    subMenu
+}
 
+@objc public enum MenuPresentMode : Int {
+    case menuSlideIn,
+    viewSlideOut,
+    viewSlideInOut,
+    menuDissolveIn
+}
+
+open class MenuConfiguration : NSObject{
+    
     /**
      The push style of the menu.
      
@@ -51,8 +45,8 @@ open class SideMenuManager : NSObject {
      - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
      - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
      */
-    open static var menuPushStyle: MenuPushStyle = .defaultBehavior
-
+    open var menuPushStyle: MenuPushStyle = .defaultBehavior
+    
     /**
      The presentation mode of the menu.
      
@@ -62,62 +56,68 @@ open class SideMenuManager : NSObject {
      - viewSlideInOut: The existing view slides out while the menu slides in.
      - menuDissolveIn: The menu dissolves in over the existing view controller.
      */
-    open static var menuPresentMode: MenuPresentMode = .viewSlideOut
+    open var menuPresentMode: MenuPresentMode = .viewSlideOut
+    
+    // Bounds which has been allocated for the app on the whole device screen
+    internal static var appScreenRect: CGRect {
+        let appWindowRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
+        return appWindowRect
+    }
     
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
-    open static var menuAllowPushOfSameClassTwice = true
+    open var menuAllowPushOfSameClassTwice = true
     
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
-    open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
+    open var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
-    open static var menuAnimationPresentDuration: Double = 0.35
+    open var menuAnimationPresentDuration: Double = 0.35
     
     /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
-    open static var menuAnimationDismissDuration: Double = 0.35
+    open var menuAnimationDismissDuration: Double = 0.35
     
     /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.2 seconds.
-    open static var menuAnimationCompleteGestureDuration: Double = 0.20
+    open var menuAnimationCompleteGestureDuration: Double = 0.20
     
     /// Amount to fade the existing view controller when the menu is presented. Default is 0 for no fade. Set to 1 to fade completely.
-    open static var menuAnimationFadeStrength: CGFloat = 0
+    open var menuAnimationFadeStrength: CGFloat = 0
     
     /// The amount to scale the existing view controller or the menu view controller depending on the `menuPresentMode`. Default is 1 for no scaling. Less than 1 will shrink, greater than 1 will grow.
-    open static var menuAnimationTransformScaleFactor: CGFloat = 1
+    open var menuAnimationTransformScaleFactor: CGFloat = 1
     
     /// The background color behind menu animations. Depending on the animation settings this may not be visible. If `menuFadeStatusBar` is true, this color is used to fade it. Default is black.
-    open static var menuAnimationBackgroundColor: UIColor?
+    open var menuAnimationBackgroundColor: UIColor?
     
     /// The shadow opacity around the menu view controller or existing view controller depending on the `menuPresentMode`. Default is 0.5 for 50% opacity.
-    open static var menuShadowOpacity: Float = 0.5
+    open var menuShadowOpacity: Float = 0.5
     
     /// The shadow color around the menu view controller or existing view controller depending on the `menuPresentMode`. Default is black.
-    open static var menuShadowColor = UIColor.black
+    open var menuShadowColor = UIColor.black
     
     /// The radius of the shadow around the menu view controller or existing view controller depending on the `menuPresentMode`. Default is 5.
-    open static var menuShadowRadius: CGFloat = 5
+    open var menuShadowRadius: CGFloat = 5
     
     /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. Default is false.
-    open static var menuPresentingViewControllerUserInteractionEnabled: Bool = false
+    open var menuPresentingViewControllerUserInteractionEnabled: Bool = false
     
     /// The strength of the parallax effect on the existing view controller. Does not apply to `menuPresentMode` when set to `ViewSlideOut`. Default is 0.
-    open static var menuParallaxStrength: Int = 0
+    open var menuParallaxStrength: Int = 0
     
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
-    open static var menuFadeStatusBar = true
+    open var menuFadeStatusBar = true
     
     /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
-    open static var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
+    open var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
     
     /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
-    open static var menuAnimationUsingSpringWithDamping: CGFloat = 1
+    open var menuAnimationUsingSpringWithDamping: CGFloat = 1
     
     /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
-    open static var menuAnimationInitialSpringVelocity: CGFloat = 1
+    open var menuAnimationInitialSpringVelocity: CGFloat = 1
     
     /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
-    open static var menuAllowSubmenus: Bool {
+    open var menuAllowSubmenus: Bool {
         get {
             return menuPushStyle == .subMenu
         }
@@ -130,7 +130,7 @@ open class SideMenuManager : NSObject {
     
     /// -Warning: Deprecated. Use `menuPushStyle = .popWhenPossible` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .popWhenPossible` instead.")
-    open static var menuAllowPopIfPossible: Bool {
+    open var menuAllowPopIfPossible: Bool {
         get {
             return menuPushStyle == .popWhenPossible
         }
@@ -143,7 +143,7 @@ open class SideMenuManager : NSObject {
     
     /// -Warning: Deprecated. Use `menuPushStyle = .replace` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .replace` instead.")
-    open static var menuReplaceOnPush: Bool {
+    open var menuReplaceOnPush: Bool {
         get {
             return menuPushStyle == .replace
         }
@@ -156,7 +156,7 @@ open class SideMenuManager : NSObject {
     
     /// -Warning: Deprecated. Use `menuAnimationTransformScaleFactor` instead.
     @available(*, deprecated, renamed: "menuAnimationTransformScaleFactor")
-    open static var menuAnimationShrinkStrength: CGFloat {
+    open var menuAnimationShrinkStrength: CGFloat {
         get {
             return menuAnimationTransformScaleFactor
         }
@@ -164,6 +164,13 @@ open class SideMenuManager : NSObject {
             menuAnimationTransformScaleFactor = newValue
         }
     }
+}
+
+open class SideMenuManager : NSObject {
+    
+    public private(set) static var leftMenuConfig : MenuConfiguration = MenuConfiguration()
+    
+    public private(set) static var rightMenuConfig : MenuConfiguration = MenuConfiguration()
     
     // prevent instantiation
     fileprivate override init() {}
