@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -299,7 +299,7 @@
 				};
 			};
 			buildConfigurationList = 7B9DC8FE1DC6E8C1000D4007 /* Build configuration list for PBXProject "SideMenu" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -655,7 +655,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "$(SRCROOT)/SideMenu/module.modulemap";
+				MODULEMAP_FILE = "";
+				MODULEMAP_PRIVATE_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.SideMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -677,7 +678,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "$(SRCROOT)/SideMenu/module.modulemap";
+				MODULEMAP_FILE = "";
+				MODULEMAP_PRIVATE_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.SideMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
