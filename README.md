@@ -119,7 +119,9 @@ SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationCon
 ```
 Then from a button, do something like this:
 ``` swift
-present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+    if let leftMenu = SideMenuManager.menuLeftNavigationController {
+        self.present(leftMenu, animated: true)
+    }
 
 // Similarly, to dismiss a menu programmatically, you would do this:
 dismiss(animated: true, completion: nil)
