@@ -17,7 +17,6 @@
 */
 import UIKit
 
-// MARK: - CHANGES begin
 public protocol SideMenuDelegate {
     func onSideMenuPercentageUpdate(percentComplete: CGFloat, presenting: Bool)
     func willOpen(duration: TimeInterval)
@@ -25,13 +24,10 @@ public protocol SideMenuDelegate {
     func didOpen()
     func didClose()
 }
-// MARK: - CHANGES end
 
 open class SideMenuManager : NSObject {
     
-    // MARK: - CHANGES begin
     public static var delegate: SideMenuDelegate?
-    // MARK: - CHANGES end
     
     @objc public enum MenuPushStyle : Int {
         case defaultBehavior,
