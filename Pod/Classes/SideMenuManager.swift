@@ -115,6 +115,14 @@ open class SideMenuManager : NSObject {
     /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
     open static var menuAnimationInitialSpringVelocity: CGFloat = 1
     
+    /** 
+     Automatically dismisses the menu when another view is pushed from it.
+    
+     Note: to prevent the menu from dismissing when presenting, set modalPresentationStyle = .overFullScreen
+     of the view controller being presented in storyboard or during its initalization.
+     */
+    open static var menuDismissOnPush = true
+    
     /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
     open static var menuAllowSubmenus: Bool {
