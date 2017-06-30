@@ -15,14 +15,14 @@
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
- * **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
- * Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
- * Highly customizable without needing to write tons of custom code.
- * Supports continuous swiping between side menus on boths sides in a single gesture.
- * Global menu configuration. Set-up once and be done for all screens.
- * Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
- * Animations use your view controllers, not snapshots.
- * Properly handles screen rotation and in-call status bar height changes.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+- [x] Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
+- [x] Highly customizable without needing to write tons of custom code.
+- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
+- [x] Global menu configuration. Set-up once and be done for all screens.
+- [x] Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
+- [x] Animations use your view controllers, not snapshots.
+- [x] Properly handles screen rotation and in-call status bar height changes.
 
 Check out the example project to see it in action!
 ### Preview Samples
@@ -31,7 +31,7 @@ Check out the example project to see it in action!
 | ![](etc/SlideOut.gif) | ![](etc/SlideIn.gif) | ![](etc/Dissolve.gif) | ![](etc/InOut.gif) |
 
 ## Requirements
- * iOS 8 or higher
+- [x] iOS 8 or higher
 
 ## Installation
 ### CocoaPods
