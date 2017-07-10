@@ -206,6 +206,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             } else {
                 singleton.cancel()
                 activeGesture = nil
+				// bug workaround: for some reason the shadowOpacity does not animate from previous value when cancelled
+				viewControllerForMenu?.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             }
         }
     }
@@ -347,9 +349,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             return
         }
 
-		mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-		menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
-
         switch SideMenuManager.menuPresentMode {
         case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
             if SideMenuManager.menuParallaxStrength != 0 {
@@ -404,13 +403,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
 
 	fileprivate static func addShadowAnimationTo(layer: CALayer, presenting: Bool) {
-
 		let toValue = presenting ? SideMenuManager.menuShadowOpacity : 0.0
 		let fromValue = presenting ? 0.0 : SideMenuManager.menuShadowOpacity
 
 		let animation = CABasicAnimation(keyPath: "shadowOpacity")
+		animation.fillMode = kCAFillModeForwards
 		animation.fromValue = fromValue
-		animation.toValue = toValue
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 
 		layer.add(animation, forKey: nil)
