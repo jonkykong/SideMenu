@@ -38,12 +38,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             guard let statusBarView = statusBarView else {
                 return
             }
-            
-            if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
-                statusBarView.backgroundColor = menuShrinkBackgroundColor
-            } else {
-                statusBarView.backgroundColor = UIColor.black
-            }
+
+            statusBarView.backgroundColor = SideMenuManager.menuStatusBarColor ?? SideMenuManager.menuAnimationBackgroundColor ?? .black
             statusBarView.isUserInteractionEnabled = false
         }
     }
@@ -206,6 +202,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             } else {
                 singleton.cancel()
                 activeGesture = nil
+				// bug workaround: for some reason the shadowOpacity does not animate from previous value when cancelled
+				viewControllerForMenu?.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             }
         }
     }
@@ -236,6 +234,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 0
+		SideMenuTransition.addShadowAnimationTo(layer: menuView.layer, presenting: false)
+		SideMenuTransition.addShadowAnimationTo(layer: mainViewController.view.layer, presenting: false)
         
         switch SideMenuManager.menuPresentMode {
             
@@ -270,8 +270,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         SideMenuTransition.tapView?.removeFromSuperview()
         SideMenuTransition.statusBarView?.removeFromSuperview()
         mainViewController.view.motionEffects.removeAll()
-        mainViewController.view.layer.shadowOpacity = 0
-        menuView.layer.shadowOpacity = 0
+		mainViewController.view.layer.shadowOpacity = 0
+		menuView.layer.shadowOpacity = 0
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.isEnabled = true
         }
@@ -308,14 +308,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         SideMenuTransition.tapView?.bounds = mainViewController.view.bounds
         SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
-        
+
         switch SideMenuManager.menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
             mainViewController.view.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
             mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
-            mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
+			mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
+			mainViewController.view.layer.shadowPath = UIBezierPath(rect: mainViewController.view.bounds).cgPath
             let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
             mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
             
@@ -323,8 +324,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             if SideMenuManager.menuBlurEffectStyle == nil {
                 menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
                 menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
-                menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
                 menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+				menuView.layer.shadowPath = UIBezierPath(rect: menuView.bounds).cgPath
+				SideMenuTransition.addShadowAnimationTo(layer: menuView.layer, presenting: true)
+				SideMenuTransition.addShadowAnimationTo(layer: mainViewController.view.layer, presenting: true)
             }
             mainViewController.view.frame.origin.x = 0
         }
@@ -339,10 +342,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     internal class func presentMenuComplete() {
-        guard let mainViewController = presentingViewControllerForMenu else {
+        guard let mainViewController = presentingViewControllerForMenu,
+			let _ = viewControllerForMenu?.view else {
             return
         }
-      
+
         switch SideMenuManager.menuPresentMode {
         case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
             if SideMenuManager.menuParallaxStrength != 0 {
@@ -395,7 +399,19 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             menuViewController.dismiss(animated: false, completion: nil)
         }
     }
-    
+
+	fileprivate static func addShadowAnimationTo(layer: CALayer, presenting: Bool) {
+		let toValue = presenting ? SideMenuManager.menuShadowOpacity : 0.0
+		let fromValue = presenting ? 0.0 : SideMenuManager.menuShadowOpacity
+
+		let animation = CABasicAnimation(keyPath: "shadowOpacity")
+		animation.fillMode = kCAFillModeForwards
+		animation.fromValue = fromValue
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+
+		layer.add(animation, forKey: nil)
+		layer.shadowOpacity = toValue
+	}
 }
 
 extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
