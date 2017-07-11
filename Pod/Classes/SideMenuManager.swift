@@ -105,6 +105,9 @@ open class SideMenuManager : NSObject {
     
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open static var menuFadeStatusBar = true
+
+	/// Color of status bar during presentation. Default is menuAnimationBackgroundColor.
+	open static var menuStatusBarColor: UIColor?
     
     /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
     open static var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut

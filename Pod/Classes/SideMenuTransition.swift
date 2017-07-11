@@ -38,12 +38,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             guard let statusBarView = statusBarView else {
                 return
             }
-            
-            if let menuShrinkBackgroundColor = SideMenuManager.menuAnimationBackgroundColor {
-                statusBarView.backgroundColor = menuShrinkBackgroundColor
-            } else {
-                statusBarView.backgroundColor = UIColor.black
-            }
+
+            statusBarView.backgroundColor = SideMenuManager.menuStatusBarColor ?? SideMenuManager.menuAnimationBackgroundColor ?? .black
             statusBarView.isUserInteractionEnabled = false
         }
     }
@@ -312,7 +308,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         SideMenuTransition.tapView?.bounds = mainViewController.view.bounds
         SideMenuTransition.statusBarView?.frame = statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
-        
+
         switch SideMenuManager.menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
@@ -320,6 +316,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
 			mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             mainViewController.view.layer.shadowOffset = CGSize(width: 0, height: 0)
+			mainViewController.view.layer.shadowPath = UIBezierPath(rect: mainViewController.view.bounds).cgPath
             let direction:CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
             mainViewController.view.frame.origin.x = direction * (menuView.frame.width)
             
@@ -328,6 +325,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 menuView.layer.shadowColor = SideMenuManager.menuShadowColor.cgColor
                 menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
                 menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+				menuView.layer.shadowPath = UIBezierPath(rect: menuView.bounds).cgPath
 				SideMenuTransition.addShadowAnimationTo(layer: menuView.layer, presenting: true)
 				SideMenuTransition.addShadowAnimationTo(layer: mainViewController.view.layer, presenting: true)
             }
@@ -345,7 +343,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     internal class func presentMenuComplete() {
         guard let mainViewController = presentingViewControllerForMenu,
-			let menuView = viewControllerForMenu?.view else {
+			let _ = viewControllerForMenu?.view else {
             return
         }
 
