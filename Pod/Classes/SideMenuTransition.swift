@@ -173,7 +173,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
-    internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+    @objc internal class func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
         if activeGesture == nil {
             activeGesture = pan
         } else if pan != activeGesture {
@@ -210,7 +210,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
-    internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
+    @objc internal class func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
         presentingViewControllerForMenu?.dismiss(animated: true, completion: nil)
     }
     
@@ -365,7 +365,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
     }
     
-    internal func handleNotification(notification: NSNotification) {
+    @objc internal func handleNotification(notification: NSNotification) {
         guard let mainViewController = SideMenuTransition.presentingViewControllerForMenu,
             let menuViewController = SideMenuTransition.viewControllerForMenu,
             menuViewController.presentedViewController == nil && menuViewController.presentingViewController != nil else {
