@@ -89,17 +89,17 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         return viewController
     }
     
-    internal class func handlePresentMenuLeftScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
+    @objc internal class func handlePresentMenuLeftScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .left
         handlePresentMenuPan(edge)
     }
     
-    internal class func handlePresentMenuRightScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
+    @objc internal class func handlePresentMenuRightScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
         SideMenuTransition.presentDirection = .right
         handlePresentMenuPan(edge)
     }
     
-    internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
+    @objc internal class func handlePresentMenuPan(_ pan: UIPanGestureRecognizer) {
         if activeGesture == nil {
             activeGesture = pan
         } else if pan != activeGesture {
