@@ -80,8 +80,8 @@ open class SideMenuManager : NSObject {
     /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
     open static var menuAnimationDismissDuration: Double = 0.35
     
-    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.2 seconds.
-    open static var menuAnimationCompleteGestureDuration: Double = 0.20
+    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.35 seconds.
+    open static var menuAnimationCompleteGestureDuration: Double = 0.35
     
     /// Amount to fade the existing view controller when the menu is presented. Default is 0 for no fade. Set to 1 to fade completely.
     open static var menuAnimationFadeStrength: CGFloat = 0
