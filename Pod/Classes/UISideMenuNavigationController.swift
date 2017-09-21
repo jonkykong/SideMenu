@@ -132,9 +132,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
 
+        let splitViewController = presentingViewController as? UISplitViewController
         let tabBarController = presentingViewController as? UITabBarController
-        guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
-            print("SideMenu Warning: attempt to push a View Controller from \(String(describing: presentingViewController.self)) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
+        let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? presentingViewController
+        guard let navigationController = potentialNavigationController as? UINavigationController else {
+            print("SideMenu Warning: attempt to push a View Controller from \(String(describing: potentialNavigationController.self)) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
         
