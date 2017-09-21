@@ -36,9 +36,6 @@ class MainViewController: UIViewController {
         
         // Set up a cool background image for demo purposes
         SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
-
-        // Set up right menu width
-        SideMenuManager.rightMenuWidth = SideMenuManager.leftMenuWidth / 2
     }
     
     fileprivate func setDefaults() {
@@ -84,8 +81,7 @@ class MainViewController: UIViewController {
         case shrinkFactorSlider:
             SideMenuManager.menuAnimationTransformScaleFactor = CGFloat(slider.value)
         case screenWidthSlider:
-            SideMenuManager.leftMenuWidth = view.frame.width * CGFloat(slider.value)
-            SideMenuManager.rightMenuWidth = SideMenuManager.leftMenuWidth / 2
+            SideMenuManager.menuWidth = view.frame.width * CGFloat(slider.value)
         default: break;
         }
     }

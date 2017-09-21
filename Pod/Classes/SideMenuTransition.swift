@@ -15,6 +15,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     fileprivate static weak var originalSuperview: UIView?
     fileprivate static weak var activeGesture: UIGestureRecognizer?
     fileprivate static var switchMenus = false
+    fileprivate static var menuWidth: CGFloat {
+        get {
+            let overriddenWidth = viewControllerForMenu?.menuWidth ?? 0
+            if overriddenWidth > CGFloat.ulpOfOne {
+                return overriddenWidth
+            }
+            return SideMenuManager.menuWidth
+        }
+    }
     
     internal static let singleton = SideMenuTransition()
     internal static var presentDirection: UIRectEdge = .left
@@ -139,7 +148,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         
         let direction: CGFloat = SideMenuTransition.presentDirection == .left ? 1 : -1
-        let distance = translation.x / SideMenuManager.menuWidth
+        let distance = translation.x / menuWidth
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
         case .began, .changed:
@@ -184,7 +193,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
-        let distance = translation.x / SideMenuManager.menuWidth * direction
+        let distance = translation.x / menuWidth * direction
         
         switch (pan.state) {
             
@@ -225,7 +234,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         mainViewController.view.frame.origin.y = 0
         menuView.transform = .identity
         menuView.frame.origin.y = 0
-        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.width = menuWidth
         menuView.frame.size.height = mainViewController.view.frame.height // in case status bar height changed
         var statusBarFrame = UIApplication.shared.statusBarFrame
         let statusBarOffset = SideMenuManager.appScreenRect.size.height - mainViewController.view.frame.maxY
@@ -241,7 +250,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             
         case .viewSlideOut:
             menuView.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
+            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - menuWidth
             mainViewController.view.frame.origin.x = 0
             menuView.transform = CGAffineTransform(scaleX: SideMenuManager.menuAnimationTransformScaleFactor, y: SideMenuManager.menuAnimationTransformScaleFactor)
             
@@ -256,7 +265,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             
         case .menuDissolveIn:
             menuView.alpha = 0
-            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - SideMenuManager.menuWidth
+            menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : mainViewController.view.frame.width - menuWidth
             mainViewController.view.frame.origin.x = 0
         }
     }
@@ -290,9 +299,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         
         menuView.alpha = 1
         menuView.transform = .identity
-        menuView.frame.size.width = SideMenuManager.menuWidth
+        menuView.frame.size.width = menuWidth
         let size = SideMenuManager.appScreenRect.size
-        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - SideMenuManager.menuWidth
+        menuView.frame.origin.x = SideMenuTransition.presentDirection == .left ? 0 : size.width - menuWidth
         mainViewController.view.transform = .identity
         mainViewController.view.frame.size.width = size.width
         let statusBarOffset = size.height - menuView.bounds.height

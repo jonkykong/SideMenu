@@ -66,22 +66,13 @@ open class SideMenuManager : NSObject {
     
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     open static var menuAllowPushOfSameClassTwice = true
-    
-    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
-    open static var leftMenuWidth: CGFloat = defaultMenuWidth
-    open static var rightMenuWidth: CGFloat = defaultMenuWidth
 
-    open static let defaultMenuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
-
-    open static var menuWidth: CGFloat {
-        get {
-            return SideMenuTransition.presentDirection == .left ? leftMenuWidth : rightMenuWidth
-        }
-        set {
-            leftMenuWidth = newValue
-            rightMenuWidth = newValue
-        }
-    }
+    /**
+     Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
+     
+     Note that each menu's width can be overridden using the `menuWidth` property on any `UISideMenuNavigationController` instance.
+     */
+    open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
     open static var menuAnimationPresentDuration: Double = 0.35
