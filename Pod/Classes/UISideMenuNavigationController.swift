@@ -9,6 +9,9 @@ import UIKit
 
 open class UISideMenuNavigationController: UINavigationController {
     
+    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero. When zero, `SideMenuManager.menuWidth` is used.
+    @IBInspectable open var menuWidth: CGFloat = 0
+    
     internal var originalMenuBackgroundColor: UIColor?
     
     open override func awakeFromNib() {
@@ -85,16 +88,18 @@ open class UISideMenuNavigationController: UINavigationController {
                 }
             }
             
-            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-            UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
-                           delay: 0,
-                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                           options: SideMenuManager.menuAnimationOptions,
-                           animations: {
-                            SideMenuTransition.hideMenuStart()
-            }) { (finished) -> Void in
-                self.view.isHidden = true
+            if SideMenuManager.menuDismissOnPush {
+                // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
+                UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
+                               delay: 0,
+                               usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                               initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                               options: SideMenuManager.menuAnimationOptions,
+                               animations: {
+                                SideMenuTransition.hideMenuStart()
+                }) { (finished) -> Void in
+                    self.view.isHidden = true
+                }
             }
         }
     }
@@ -122,20 +127,6 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
-    override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let presentingViewController = presentingViewController {
-            presentingViewController.prepare(for: segue, sender: sender)
-        }
-    }
-    
-    override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if let presentingViewController = presentingViewController {
-            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
-        }
-        
-        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
-    }
-    
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         guard viewControllers.count > 0 && SideMenuManager.menuPushStyle != .subMenu else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
@@ -144,9 +135,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
 
+        let splitViewController = presentingViewController as? UISplitViewController
         let tabBarController = presentingViewController as? UITabBarController
-        guard let navigationController = (tabBarController?.selectedViewController ?? presentingViewController) as? UINavigationController else {
-            print("SideMenu Warning: attempt to push a View Controller from \(String(describing: presentingViewController.self)) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
+        let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? presentingViewController
+        guard let navigationController = potentialNavigationController as? UINavigationController else {
+            print("SideMenu Warning: attempt to push a View Controller from \(String(describing: potentialNavigationController.self)) where its navigationController == nil. It must be embedded in a Navigation Controller for this to work.")
             return
         }
         

@@ -66,8 +66,12 @@ open class SideMenuManager : NSObject {
     
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     open static var menuAllowPushOfSameClassTwice = true
-    
-    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
+
+    /**
+     Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is 75% of the screen width.
+     
+     Note that each menu's width can be overridden using the `menuWidth` property on any `UISideMenuNavigationController` instance.
+     */
     open static var menuWidth: CGFloat = max(round(min((appScreenRect.width), (appScreenRect.height)) * 0.75), 240)
     
     /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
@@ -76,8 +80,8 @@ open class SideMenuManager : NSObject {
     /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
     open static var menuAnimationDismissDuration: Double = 0.35
     
-    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.2 seconds.
-    open static var menuAnimationCompleteGestureDuration: Double = 0.20
+    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.35 seconds.
+    open static var menuAnimationCompleteGestureDuration: Double = 0.35
     
     /// Amount to fade the existing view controller when the menu is presented. Default is 0 for no fade. Set to 1 to fade completely.
     open static var menuAnimationFadeStrength: CGFloat = 0

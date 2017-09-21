@@ -14,6 +14,11 @@ open class UITableViewVibrantCell: UITableViewCell {
     fileprivate var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()
     fileprivate var defaultSelectedBackgroundView:UIView?
     
+    // For registering with UITableView without subclassing otherwise dequeuing instance of the cell causes an exception
+    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
