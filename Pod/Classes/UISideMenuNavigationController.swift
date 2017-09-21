@@ -86,19 +86,19 @@ open class UISideMenuNavigationController: UINavigationController {
             }
             
             if SideMenuManager.menuDismissOnPush {
-            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-            UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
-                           delay: 0,
-                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                           options: SideMenuManager.menuAnimationOptions,
-                           animations: {
-                            SideMenuTransition.hideMenuStart()
-            }) { (finished) -> Void in
-                self.view.isHidden = true
+                // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
+                UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
+                               delay: 0,
+                               usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                               initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                               options: SideMenuManager.menuAnimationOptions,
+                               animations: {
+                                SideMenuTransition.hideMenuStart()
+                }) { (finished) -> Void in
+                    self.view.isHidden = true
+                }
             }
         }
-    }
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
