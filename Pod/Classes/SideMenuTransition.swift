@@ -14,7 +14,13 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     fileprivate var interactive = false
     fileprivate static weak var originalSuperview: UIView?
     fileprivate static weak var activeGesture: UIGestureRecognizer?
-    fileprivate static var switchMenus = false
+    fileprivate static var switchMenus = false {
+        didSet {
+            if switchMenus {
+                singleton.cancel()
+            }
+        }
+    }
     
     internal static let singleton = SideMenuTransition()
     internal static var presentDirection: UIRectEdge = .left
@@ -148,11 +154,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             } else if distance > 0 && SideMenuTransition.presentDirection == .right && SideMenuManager.menuLeftNavigationController != nil {
                 SideMenuTransition.presentDirection = .left
                 switchMenus = true
-                singleton.cancel()
             } else if distance < 0 && SideMenuTransition.presentDirection == .left && SideMenuManager.menuRightNavigationController != nil {
                 SideMenuTransition.presentDirection = .right
                 switchMenus = true
-                singleton.cancel()
             } else {
                 singleton.update(min(distance * direction, 1))
             }
