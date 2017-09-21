@@ -107,8 +107,17 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        // Hack: force selection to get cleared on UITableViewControllers when reappearing using custom transitions
-        visibleViewController?.viewWillAppear(false)
+        // Clear selecton on UITableViewControllers when reappearing using custom transitions
+        guard let tableViewController = topViewController as? UITableViewController,
+            let tableView = tableViewController.tableView,
+            let indexPaths = tableView.indexPathsForSelectedRows,
+            tableViewController.clearsSelectionOnViewWillAppear else {
+            return
+        }
+        
+        for indexPath in indexPaths {
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
     }
     
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
