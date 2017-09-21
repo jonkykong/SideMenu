@@ -9,6 +9,9 @@ import UIKit
 
 open class UISideMenuNavigationController: UINavigationController {
     
+    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero. When zero, `SideMenuManager.menuWidth` is used.
+    @IBInspectable open var menuWidth: CGFloat = 0
+    
     internal var originalMenuBackgroundColor: UIColor?
     
     open override func awakeFromNib() {
