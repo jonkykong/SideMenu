@@ -124,20 +124,6 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
-    override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let presentingViewController = presentingViewController {
-            presentingViewController.prepare(for: segue, sender: sender)
-        }
-    }
-    
-    override open func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if let presentingViewController = presentingViewController {
-            return presentingViewController.shouldPerformSegue(withIdentifier: identifier, sender: sender)
-        }
-        
-        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
-    }
-    
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         guard viewControllers.count > 0 && SideMenuManager.menuPushStyle != .subMenu else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
