@@ -516,7 +516,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         let duration = transitionDuration(using: transitionContext)
         if interactive {
             UIView.animate(withDuration: duration,
-                           delay: 0,
+                           delay: duration, // HACK: If zero, the animation briefly flashes in iOS 11. UIViewPropertyAnimators (iOS 10+) may resolve this.
                            options: .curveLinear,
                            animations: {
                             animate()
@@ -545,6 +545,13 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         return presenting ? SideMenuManager.menuAnimationPresentDuration : SideMenuManager.menuAnimationDismissDuration
     }
     
+    open override func update(_ percentComplete: CGFloat) {
+        guard !SideMenuTransition.switchMenus else {
+            return
+        }
+        
+        super.update(percentComplete)
+    }
 }
 
 extension SideMenuTransition: UIViewControllerTransitioningDelegate {
