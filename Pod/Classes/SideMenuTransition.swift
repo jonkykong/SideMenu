@@ -227,7 +227,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             let menuView = SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController?.view : SideMenuManager.menuRightNavigationController?.view else {
                 return
         }
-      
+        
+        NotificationCenter.default.post(name: .SideMenuWillHide,
+                                        object: SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController)
+        
         mainViewController.view.transform = .identity
         mainViewController.view.alpha = 1
         mainViewController.view.frame.origin.y = 0
@@ -288,6 +291,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             let y = originalSuperview.bounds.height - mainViewController.view.frame.size.height
             mainViewController.view.frame.origin.y = max(y, 0)
         }
+        
+        NotificationCenter.default.post(name: .SideMenuDidHide,
+                                        object: SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController)
     }
     
     internal class func presentMenuStart() {
@@ -295,6 +301,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             let mainViewController = presentingViewControllerForMenu else {
                 return
         }
+        
+        NotificationCenter.default.post(name: .SideMenuWillShow,
+                                        object: SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController)
         
         menuView.alpha = 1
         menuView.transform = .identity
@@ -371,6 +380,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.isEnabled = false
         }
+        
+        NotificationCenter.default.post(name: .SideMenuDidShow,
+                                        object: SideMenuTransition.presentDirection == .left ? SideMenuManager.menuLeftNavigationController : SideMenuManager.menuRightNavigationController)
     }
     
     @objc internal func handleNotification(notification: NSNotification) {
@@ -585,3 +597,14 @@ extension SideMenuTransition: UIViewControllerTransitioningDelegate {
     }
     
 }
+
+extension Notification.Name {
+    
+    static let SideMenuWillShow = Notification.Name(rawValue: "SideMenuWillShow")
+    static let SideMenuDidShow = Notification.Name(rawValue: "SideMenuDidShow")
+    
+    static let SideMenuWillHide = Notification.Name(rawValue: "SideMenuWillHide")
+    static let SideMenuDidHide = Notification.Name(rawValue: "SideMenuDidHide")
+    
+}
+
