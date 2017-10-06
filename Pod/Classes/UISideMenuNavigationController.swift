@@ -78,6 +78,13 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
+    /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
+    var isHidden: Bool {
+        get {
+            return self.presentingViewController == nil
+        }
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
