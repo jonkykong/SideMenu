@@ -297,7 +297,7 @@ open class SideMenuManager : NSObject {
         
         guard let forMenu = forMenu,
             let menuBlurEffectStyle = menuBlurEffectStyle,
-            let view = forMenu.visibleViewController?.view
+            let view = forMenu.topViewController?.view
             , !UIAccessibilityIsReduceTransparencyEnabled() else {
                 return
         }
@@ -309,7 +309,7 @@ open class SideMenuManager : NSObject {
         let blurEffect = UIBlurEffect(style: menuBlurEffectStyle)
         let blurView = UIVisualEffectView(effect: blurEffect)
         view.backgroundColor = UIColor.clear
-        if let tableViewController = forMenu.visibleViewController as? UITableViewController {
+        if let tableViewController = forMenu.topViewController as? UITableViewController {
             tableViewController.tableView.backgroundView = blurView
             tableViewController.tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurEffect)
             tableViewController.tableView.reloadData()
@@ -323,14 +323,14 @@ open class SideMenuManager : NSObject {
     fileprivate class func removeMenuBlurForMenu(_ forMenu: UISideMenuNavigationController?) {
         guard let forMenu = forMenu,
             let originalMenuBackgroundColor = forMenu.originalMenuBackgroundColor,
-            let view = forMenu.visibleViewController?.view else {
+            let view = forMenu.topViewController?.view else {
                 return
         }
         
         view.backgroundColor = originalMenuBackgroundColor
         forMenu.originalMenuBackgroundColor = nil
         
-        if let tableViewController = forMenu.visibleViewController as? UITableViewController {
+        if let tableViewController = forMenu.topViewController as? UITableViewController {
             tableViewController.tableView.backgroundView = nil
             tableViewController.tableView.separatorEffect = nil
             tableViewController.tableView.reloadData()

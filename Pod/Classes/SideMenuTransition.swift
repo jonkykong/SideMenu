@@ -83,20 +83,25 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     fileprivate class var visibleViewController: UIViewController? {
         get {
-            return getVisibleViewControllerFromViewController(UIApplication.shared.keyWindow?.rootViewController)
+            return getVisibleViewController(forViewController: UIApplication.shared.keyWindow?.rootViewController)
         }
     }
     
-    fileprivate class func getVisibleViewControllerFromViewController(_ viewController: UIViewController?) -> UIViewController? {
-        if let navigationController = viewController as? UINavigationController {
-            return getVisibleViewControllerFromViewController(navigationController.visibleViewController)
-        } else if let tabBarController = viewController as? UITabBarController {
-            return getVisibleViewControllerFromViewController(tabBarController.selectedViewController)
-        } else if let presentedViewController = viewController?.presentedViewController {
-            return getVisibleViewControllerFromViewController(presentedViewController)
+    fileprivate class func getVisibleViewController(forViewController: UIViewController?) -> UIViewController? {
+        if let navigationController = forViewController as? UINavigationController {
+            return getVisibleViewController(forViewController: navigationController.visibleViewController)
+        }
+        if let tabBarController = forViewController as? UITabBarController {
+            return getVisibleViewController(forViewController: tabBarController.selectedViewController)
+        }
+        if let splitViewController = forViewController as? UISplitViewController {
+            return getVisibleViewController(forViewController: splitViewController.viewControllers.last)
+        }
+        if let presentedViewController = forViewController?.presentedViewController {
+            return getVisibleViewController(forViewController: presentedViewController)
         }
         
-        return viewController
+        return forViewController
     }
     
     @objc internal class func handlePresentMenuLeftScreenEdge(_ edge: UIScreenEdgePanGestureRecognizer) {
