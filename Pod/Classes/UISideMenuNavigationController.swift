@@ -32,6 +32,14 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
+    fileprivate func didSetSide() {
+        if leftSide {
+            SideMenuManager.menuLeftNavigationController = self
+        } else {
+            SideMenuManager.menuRightNavigationController = self
+        }
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,14 +51,6 @@ open class UISideMenuNavigationController: UINavigationController {
         
         // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
         presentingViewController?.view.endEditing(true)
-    }
-    
-    fileprivate func didSetSide() {
-        if leftSide {
-            SideMenuManager.menuLeftNavigationController = self
-        } else {
-            SideMenuManager.menuRightNavigationController = self
-        }
     }
     
     override open func viewDidAppear(_ animated: Bool) {
