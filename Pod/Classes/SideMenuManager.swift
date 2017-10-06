@@ -18,7 +18,7 @@
 
 open class SideMenuManager : NSObject {
     
-    public enum MenuPushStyle : Int {
+    @objc public enum MenuPushStyle : Int {
         case defaultBehavior,
         popWhenPossible,
         replace,
@@ -27,7 +27,7 @@ open class SideMenuManager : NSObject {
         subMenu
     }
     
-    public enum MenuPresentMode : Int {
+    @objc public enum MenuPresentMode : Int {
         case menuSlideIn,
         viewSlideOut,
         viewSlideInOut,
