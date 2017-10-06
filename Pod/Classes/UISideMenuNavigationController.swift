@@ -88,18 +88,16 @@ open class UISideMenuNavigationController: UINavigationController {
                 }
             }
             
-            if SideMenuManager.menuDismissOnPush {
-                // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-                UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
-                               delay: 0,
-                               usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
-                               initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
-                               options: SideMenuManager.menuAnimationOptions,
-                               animations: {
-                                SideMenuTransition.hideMenuStart()
-                }) { (finished) -> Void in
-                    self.view.isHidden = true
-                }
+            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
+            UIView.animate(withDuration: animated ? SideMenuManager.menuAnimationDismissDuration : 0,
+                           delay: 0,
+                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                           options: SideMenuManager.menuAnimationOptions,
+                           animations: {
+                            SideMenuTransition.hideMenuStart()
+            }) { (finished) -> Void in
+                self.view.isHidden = true
             }
         }
     }
@@ -155,16 +153,23 @@ open class UISideMenuNavigationController: UINavigationController {
         // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
         // is dismissed after showing the appropriate screen
         CATransaction.begin()
-        CATransaction.setCompletionBlock( { () -> Void in
-            self.dismiss(animated: true, completion: nil)
-        })
+        if SideMenuManager.menuDismissOnPush {
+            CATransaction.setCompletionBlock( { () -> Void in
+                self.dismiss(animated: animated, completion: nil)
+            })
         
-        let areAnimationsEnabled = UIView.areAnimationsEnabled
-        UIView.setAnimationsEnabled(true)
-        UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration, animations: { () -> Void in
-            SideMenuTransition.hideMenuStart()
-        })
-        UIView.setAnimationsEnabled(areAnimationsEnabled)
+            let areAnimationsEnabled = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(animated)
+            UIView.animate(withDuration: SideMenuManager.menuAnimationDismissDuration,
+                           delay: 0,
+                           usingSpringWithDamping: SideMenuManager.menuAnimationUsingSpringWithDamping,
+                           initialSpringVelocity: SideMenuManager.menuAnimationInitialSpringVelocity,
+                           options: SideMenuManager.menuAnimationOptions,
+                           animations: {
+                            SideMenuTransition.hideMenuStart()
+            })
+            UIView.setAnimationsEnabled(areAnimationsEnabled)
+        }
         
         if let lastViewController = navigationController.viewControllers.last, !SideMenuManager.menuAllowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
             CATransaction.commit()
