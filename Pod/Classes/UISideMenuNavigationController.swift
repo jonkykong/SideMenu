@@ -39,6 +39,8 @@ open class UISideMenuNavigationController: UINavigationController {
         temporarySideMenuDelegate = forViewController as? UISideMenuNavigationControllerDelegate
         return temporarySideMenuDelegate
     }
+    fileprivate var usingInterfaceBuilder = false
+    internal var locked = false
     internal var originalMenuBackgroundColor: UIColor?
     internal var transition: SideMenuTransition {
         get {
@@ -58,7 +60,7 @@ open class UISideMenuNavigationController: UINavigationController {
     /// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`. This property cannot be changed after the menu has loaded.
     open weak var sideMenuManager: SideMenuManager! = SideMenuManager.default {
         didSet {
-            if isViewLoaded && oldValue != nil {
+            if locked && oldValue != nil {
                 print("SideMenu Warning: a menu's sideMenuManager property cannot be changed after it has loaded.")
                 sideMenuManager = oldValue
             }
@@ -69,6 +71,7 @@ open class UISideMenuNavigationController: UINavigationController {
     @IBInspectable open var menuWidth: CGFloat = 0 {
         didSet {
             if !isHidden && oldValue != menuWidth {
+                print("SideMenu Warning: a menu's width property can only be changed when it is hidden.")
                 menuWidth = oldValue
             }
         }
@@ -77,7 +80,7 @@ open class UISideMenuNavigationController: UINavigationController {
     /// Whether the menu appears on the right or left side of the screen. Right is the default. This property cannot be changed after the menu has loaded.
     @IBInspectable open var leftSide: Bool = false {
         didSet {
-            if isViewLoaded && leftSide != oldValue {
+            if locked && leftSide != oldValue {
                 print("SideMenu Warning: a menu's leftSide property cannot be changed after it has loaded.")
                 leftSide = oldValue
             }
@@ -91,13 +94,21 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        usingInterfaceBuilder = true
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        if leftSide {
-            sideMenuManager.menuLeftNavigationController = self
-        } else {
-            sideMenuManager.menuRightNavigationController = self
+        if !locked && usingInterfaceBuilder {
+            if leftSide {
+                sideMenuManager.menuLeftNavigationController = self
+            } else {
+                sideMenuManager.menuRightNavigationController = self
+            }
         }
     }
     
