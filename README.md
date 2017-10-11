@@ -100,7 +100,6 @@ In your view controller's `viewDidLoad` event, do something like this (**IMPORTA
 ``` swift
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
-menuLeftNavigationController.leftSide = true
 // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration 
 // of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
 // let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
