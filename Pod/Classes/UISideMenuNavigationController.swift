@@ -177,6 +177,14 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        // Work-around: if the menu is dismissed without animation the transition logic is never called to restore the
+        // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
+        // view, but dismissing without animation removes the container view before the original hierarchy is restored.
+        // This check corrects that.
+        if let sideMenuDelegate = sideMenuDelegate as? UIViewController, sideMenuDelegate.view.window == nil {
+            transition.hideMenuStart().hideMenuComplete()
+        }
+        
         sideMenuDelegate?.sideMenuDidDisappear(menu: self, animated: animated)
         
         // Clear selecton on UITableViewControllers when reappearing using custom transitions
