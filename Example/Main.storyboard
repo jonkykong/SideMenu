@@ -265,10 +265,10 @@
             </objects>
             <point key="canvasLocation" x="961.875" y="8.4507042253521121"/>
         </scene>
-        <!--Side Menu Table View-->
+        <!--Side Menu Table View Controller-->
         <scene sceneID="L2w-o7-jEN">
             <objects>
-                <tableViewController id="V6g-oO-Tbm" customClass="SideMenuTableView" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="V6g-oO-Tbm" customClass="SideMenuTableViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dqh-bs-m2M">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -396,10 +396,10 @@
             </objects>
             <point key="canvasLocation" x="961.875" y="698.23943661971828"/>
         </scene>
-        <!--Side Menu Table View-->
+        <!--Side Menu Table View Controller-->
         <scene sceneID="l9t-dY-QwR">
             <objects>
-                <tableViewController id="Ol4-YR-KUL" customClass="SideMenuTableView" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Ol4-YR-KUL" customClass="SideMenuTableViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="49z-eA-JB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
