@@ -104,22 +104,22 @@ menuLeftNavigationController.leftSide = true
 // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration 
 // of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
 // let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
-SideMenuManager.default.menuLeftNavigationController = menuLeftNavigationController
+SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
 
 let menuRightNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
 // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration
 // of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
 // let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as! UISideMenuNavigationController
-SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
+SideMenuManager.menuRightNavigationController = menuRightNavigationController
 
 // Enable gestures. The left and/or right menus must be set up above for these to work.
 // Note that these continue to work on the Navigation Controller independent of the view controller it displays!
-SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 ```
 Then from a button, do something like this:
 ``` swift
-present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
+present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
 
 // Similarly, to dismiss a menu programmatically, you would do this:
 dismiss(animated: true, completion: nil)
@@ -127,7 +127,7 @@ dismiss(animated: true, completion: nil)
 That's it.
 ### Customization
 #### SideMenuManager
-Just type ` SideMenuManager.default.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
+Just type ` SideMenuManager.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
 ``` swift
 /**
 The push style of the menu.
@@ -228,7 +228,7 @@ open var menuDismissOnPush = true
 /**
 The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
 
-- Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell and set the `blurEffectStyle` of each cell to SideMenuManager.default.menuBlurEffectStyle.
+- Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell and set the `blurEffectStyle` of each cell to SideMenuManager.menuBlurEffectStyle.
 */
 open var menuBlurEffectStyle: UIBlurEffectStyle?
 
@@ -260,8 +260,8 @@ Adds a pan edge gesture to a view to present menus.
 #### UISideMenuNavigationController
 `UISideMenuNavigationController` supports the following customizations and properties:
 ``` swift
-/// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`. This property cannot be changed after the menu has loaded.
-open weak var sideMenuManager: SideMenuManager! = SideMenuManager.default
+/// SideMenuManager instance associated with this menu. Default is `SideMenuManager`. This property cannot be changed after the menu has loaded.
+open weak var sideMenuManager: SideMenuManager! = SideMenuManager
 
 /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero. When zero, `sideMenuManager.menuWidth` is used. This property cannot be changed while the isHidden property is false.
 @IBInspectable open var menuWidth: CGFloat = 0
@@ -296,12 +296,12 @@ extension MyViewController: UISideMenuNavigationControllerDelegate {
 }
 ```
 ### Advanced
-For simplicity, `SideMenuManager.default` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu, such as from a modal view controller presented from a previous SideMenu, do the following:
+For simplicity, `SideMenuManager` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu, such as from a modal view controller presented from a previous SideMenu, do the following:
 1. Declare a variable containing your custom `SideMenuManager` instance. You may want it to define it globally and configure it in your app delegate if menus will be used on multiple screens.
 ``` swift
 let customSideMenuManager = SideMenuManager()
 ```
-2. Setup and display menus with your custom instance the same as you would with the  `SideMenuManager.default` instance.
+2. Setup and display menus with your custom instance the same as you would with the  `SideMenuManager` instance.
 3. If using Storyboards, subclass your instance of `UISideMenuNavigationController` and set its `sideMenuManager` property to your custom instance. This must be done before `viewDidLoad` is called:
 ``` swift
 class MySideMenuNavigationController: UISideMenuNavigationController {
