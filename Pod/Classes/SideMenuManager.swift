@@ -155,6 +155,7 @@ open class SideMenuManager : NSObject {
             guard menuLeftNavigationController != newValue, menuLeftNavigationController?.presentingViewController == nil else {
                 return
             }
+            menuLeftNavigationController?.locked = false
             removeMenuBlurForMenu(menuLeftNavigationController)
         }
         didSet {
@@ -233,6 +234,8 @@ open class SideMenuManager : NSObject {
             }
             forMenu.sideMenuManager = self
         }
+        
+        forMenu.locked = true
         
         if menuEnableSwipeGestures {
             let exitPanGesture = UIPanGestureRecognizer()
