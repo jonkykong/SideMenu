@@ -119,13 +119,14 @@ SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navig
 ```
 Then from a button, do something like this:
 ``` swift
-present( SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
+present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
 
 // Similarly, to dismiss a menu programmatically, you would do this:
 dismiss(animated: true, completion: nil)
 ```
 That's it.
 ### Customization
+#### SideMenuManager
 Just type ` SideMenuManager.default.menu...` and code completion will show you everything you can customize (defaults are shown below for reference):
 ``` swift
 /**
@@ -256,20 +257,22 @@ Adds a pan edge gesture to a view to present menus.
 */
 @discardableResult open func menuAddPanGestureToPresent(toView: UIView) -> UIPanGestureRecognizer
 ```
+#### UISideMenuNavigationController
 `UISideMenuNavigationController` supports the following customizations and properties:
 ``` swift
-/// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`.
-open weak var sideMenuManager = SideMenuManager.default
+/// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`. This property cannot be changed after the menu has loaded.
+open weak var sideMenuManager: SideMenuManager! = SideMenuManager.default
 
-/// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero. When zero, `sideMenuManager.menuWidth` is used.
+/// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero. When zero, `sideMenuManager.menuWidth` is used. This property cannot be changed while the isHidden property is false.
 @IBInspectable open var menuWidth: CGFloat = 0
 
-/// Whether the menu appears on the left or right side of the screen. Default is right.
+/// Whether the menu appears on the right or left side of the screen. Right is the default. This property cannot be changed after the menu has loaded.
 @IBInspectable open var leftSide: Bool = false
 
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
 open var isHidden: Bool
 ```
+#### UISideMenuNavigationControllerDelegate
 To receive notifications when a menu is displayed from a view controller, have it adhere to the  `UISideMenuNavigationControllerDelegate` protocol:
 ``` swift
 extension MyViewController: UISideMenuNavigationControllerDelegate {
@@ -299,9 +302,11 @@ For simplicity, `SideMenuManager.default` serves as the primary instance as most
 let customSideMenuManager = SideMenuManager()
 ```
 2. Setup and display menus with your custom instance the same as you would with the  `SideMenuManager.default` instance.
-3. If using Storyboards, subclass your instance of `UISideMenuNavigationController` and set its `sideMenuManager` property to your custom instance:
+3. If using Storyboards, subclass your instance of `UISideMenuNavigationController` and set its `sideMenuManager` property to your custom instance. This must be done before `viewDidLoad` is called:
 ``` swift
 class MySideMenuNavigationController: UISideMenuNavigationController {
+
+    let customSideMenuManager = SideMenuManager()
 
     override func awakeFromNib() {
         super.awakeFromNib()
