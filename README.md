@@ -325,7 +325,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 ```
 *Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` instead.*
 ## Known Issues
-* Issue #258.
+* Issue [#258](https://github.com/jonkykong/SideMenu/issues/258).
 * Don't try to change the status bar appearance when presenting a menu. When used with quick gestures/animations, it causes the presentation animation to not complete properly and locks the UI. This was fixed in iOS 9.3. See [radar 21961293](http://www.openradar.me/21961293) for more information.
 
 ## Thank You
