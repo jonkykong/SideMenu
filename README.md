@@ -294,6 +294,7 @@ extension MyViewController: UISideMenuNavigationControllerDelegate {
 
 }
 ```
+*Note: there is no `delegate` property to set on the `UISideMenuNavigationController` for this to work. If your view controller adheres to the protocol then the methods will be called automatically.*
 ### Advanced
 For simplicity, `SideMenuManager.default` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu, such as from a modal view controller presented from a previous SideMenu, do the following:
 1. Declare a variable containing your custom `SideMenuManager` instance. You may want it to define it globally and configure it in your app delegate if menus will be used on multiple screens.
