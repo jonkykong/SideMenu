@@ -224,6 +224,9 @@ of the view controller being presented in storyboard or during its initalization
 */
 open var menuDismissOnPush = true
 
+/// Uses the menu dismiss animation even if pushing a view is not animated itself.
+open var menuAnimateDismissOnNonAnimatedPush = false
+
 /**
 The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
 

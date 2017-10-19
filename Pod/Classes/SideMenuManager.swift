@@ -127,6 +127,9 @@ open class SideMenuManager : NSObject {
      */
     open var menuDismissOnPush = true
     
+    /// Uses the menu dismiss animation even if pushing a view is not animated itself.
+    open var menuAnimateDismissOnNonAnimatedPush = false
+    
     /// Default instance of SideMenuManager.
     open static let `default` = SideMenuManager()
     internal var transition: SideMenuTransition!

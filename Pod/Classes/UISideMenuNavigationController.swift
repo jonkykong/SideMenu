@@ -258,7 +258,7 @@ open class UISideMenuNavigationController: UINavigationController {
                 self.dismiss(animated: animated, completion: nil)
             })
         
-            if animated {
+            if animated || sideMenuManager.menuAnimateDismissOnNonAnimatedPush {
                 let areAnimationsEnabled = UIView.areAnimationsEnabled
                 UIView.setAnimationsEnabled(true)
                 UIView.animate(withDuration: sideMenuManager.menuAnimationDismissDuration,
