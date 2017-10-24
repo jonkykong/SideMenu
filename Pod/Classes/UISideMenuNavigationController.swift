@@ -94,6 +94,20 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
     
+    #if !STFU_SIDEMENU
+    // This override prevents newbie developers from creating black/blank menus and opening newbie issues.
+    // If you would like to remove this override, define STFU_SIDEMENU in the Active Compilation Conditions of your .plist file.
+    // Sorry for the inconvenience experienced developers :(
+    @available(*, unavailable, renamed: "init(rootViewController:)")
+    public init() {
+        fatalError("init is not available")
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    #endif
+    
     open override func awakeFromNib() {
         super.awakeFromNib()
         
