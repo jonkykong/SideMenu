@@ -137,9 +137,11 @@ open class UISideMenuNavigationController: UINavigationController {
         
         sideMenuDelegate?.sideMenuDidAppear(menu: self, animated: animated)
         
+        #if !STFU_SIDEMENU
         if topViewController == nil {
             print("SideMenu Warning: the menu doesn't have a view controller to show! UISideMenuNavigationController needs a view controller to display just like a UINavigationController.")
         }
+        #endif
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
