@@ -127,6 +127,9 @@ open class SideMenuManager : NSObject {
      */
     open var menuDismissOnPush = true
     
+    /// Forces menus to always animate when appearing or disappearing, regardless of a pushed view controller's animation.
+    open var menuAlwaysAnimate = false
+    
     /// Default instance of SideMenuManager.
     open static let `default` = SideMenuManager()
     internal var transition: SideMenuTransition!
@@ -227,11 +230,13 @@ open class SideMenuManager : NSObject {
         forMenu.leftSide = leftSide
         
         if forMenu.sideMenuManager != self {
+            #if !STFU_SIDEMENU
             if forMenu.sideMenuManager?.menuLeftNavigationController == forMenu {
                 print("SideMenu Warning: \(String(describing: forMenu.self)) was already assigned to the menuLeftNavigationController of \(String(describing: forMenu.sideMenuManager!.self)). When using multiple SideMenuManagers you may want to use new instances of UISideMenuNavigationController instead of existing instances to avoid crashes if the menu is presented more than once.")
             } else if forMenu.sideMenuManager?.menuRightNavigationController == forMenu {
                 print("SideMenu Warning: \(String(describing: forMenu.self)) was already assigned to the menuRightNavigationController of \(String(describing: forMenu.sideMenuManager!.self)). When using multiple SideMenuManagers you may want to use new instances of UISideMenuNavigationController instead of existing instances to avoid crashes if the menu is presented more than once.")
             }
+            #endif
             forMenu.sideMenuManager = self
         }
         
@@ -343,9 +348,11 @@ open class SideMenuManager : NSObject {
             leftScreenEdgeGestureRecognizer.addTarget(transition, action:#selector(SideMenuTransition.handlePresentMenuLeftScreenEdge(_:)))
             leftScreenEdgeGestureRecognizer.edges = .left
             
+            #if !STFU_SIDEMENU
             if menuLeftNavigationController == nil {
                 print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent was called before menuLeftNavigationController was set. The gesture will not work without a menu. Use menuAddScreenEdgePanGesturesToPresent(toView:forMenu:) to add gestures for only one menu.")
             }
+            #endif
         }
         
         if forMenu != .left {
@@ -353,9 +360,11 @@ open class SideMenuManager : NSObject {
             rightScreenEdgeGestureRecognizer.addTarget(transition, action:#selector(SideMenuTransition.handlePresentMenuRightScreenEdge(_:)))
             rightScreenEdgeGestureRecognizer.edges = .right
             
+            #if !STFU_SIDEMENU
             if menuRightNavigationController == nil {
                 print("SideMenu Warning: menuAddScreenEdgePanGesturesToPresent was called before menuRightNavigationController was set. The gesture will not work without a menu. Use menuAddScreenEdgePanGesturesToPresent(toView:forMenu:) to add gestures for only one menu.")
             }
+            #endif
         }
         
         return array
