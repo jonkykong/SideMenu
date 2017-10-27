@@ -267,6 +267,8 @@ open class UISideMenuNavigationController: UINavigationController {
         // is dismissed after showing the appropriate screen
         CATransaction.begin()
         if sideMenuManager.menuDismissOnPush {
+            let animated = animated || sideMenuManager.menuAlwaysAnimate
+            
             CATransaction.setCompletionBlock( { () -> Void in
                 activeDelegate?.sideMenuDidDisappear(menu: self, animated: animated)
                 if !animated {
