@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol UISideMenuNavigationControllerDelegate: class {
+@objc public protocol UISideMenuNavigationControllerDelegate: class {
     func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool)
     func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
     func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
@@ -104,6 +104,10 @@ open class UISideMenuNavigationController: UINavigationController {
     @available(*, unavailable, renamed: "init(rootViewController:)")
     public init() {
         fatalError("init is not available")
+    }
+    
+    public override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
     }
     
     public required init?(coder aDecoder: NSCoder) {
