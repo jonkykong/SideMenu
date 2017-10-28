@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol UISideMenuNavigationControllerDelegate: class {
+@objc public protocol UISideMenuNavigationControllerDelegate: class {
     func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool)
     func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
     func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
