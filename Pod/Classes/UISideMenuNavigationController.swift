@@ -104,6 +104,10 @@ open class UISideMenuNavigationController: UINavigationController {
         fatalError("init is not available")
     }
     
+    public override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
