@@ -56,6 +56,8 @@ open class UISideMenuNavigationController: UINavigationController {
             return sideMenuManager.transition
         }
     }
+    
+    /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `UISideMenuNavigationController` automatically receives these events.
     weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
     
     /// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`. This property cannot be changed after the menu has loaded.
