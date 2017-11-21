@@ -31,6 +31,8 @@ Check out the example project to see it in action!
 | ![](etc/SlideOut.gif) | ![](etc/SlideIn.gif) | ![](etc/Dissolve.gif) | ![](etc/InOut.gif) |
 
 ## Requirements
+- [x] Xcode 9.
+- [x] Swift 4.
 - [x] iOS 8 or higher.
 
 ## Installation
