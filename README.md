@@ -12,6 +12,24 @@
 > * Check out my [website](http://massappeal.co) to see some of my other projects.
 > * Building and maintaining this free library takes time. Help keep me awake and buy me a coffee ☕️ via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted).
 
+* **[Overview](#overview)**
+  * [Preview Samples](#preview-samples) 
+* **[Requirements](#requirements)**
+* **[Installation](#installation)**
+  * [Cocoapods](#cocoapods)
+  * [Carthage](#carthage)
+* **[Usage](#usage)**
+  * [Code-less Storyboard Implementation](#code-less-storyboard-implementation)
+  * [Code Implementation](#code-implementation)
+* **[Customization](#customization)**
+  * [SideMenuManager](#sidemenumanager)
+  * [UISideMenuNavigationController](#uisidemenunavigationcontroller)
+  * [UISideMenuNavigationControllerDelegate](#uisidemenunavigationcontrollerdelegate)
+  * [Advanced](#advanced)
+* [Known Issues](#known-issues)
+* [Thank You](#thank-you)
+* [License](#license)
+
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
@@ -32,7 +50,6 @@ Check out the example project to see it in action!
 
 ## Requirements
 * Xcode 9.
-* Swift 4.
 * iOS 8 or higher.
 
 ## Installation
