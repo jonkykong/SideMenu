@@ -16,7 +16,7 @@
   * [Preview Samples](#preview-samples) 
 * **[Requirements](#requirements)**
 * **[Installation](#installation)**
-  * [Cocoapods](#cocoapods)
+  * [CocoaPods](#cocoapods)
   * [Carthage](#carthage)
 * **[Usage](#usage)**
   * [Code-less Storyboard Implementation](#code-less-storyboard-implementation)
