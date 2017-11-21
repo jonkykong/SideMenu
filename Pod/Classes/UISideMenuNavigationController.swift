@@ -7,21 +7,14 @@
 
 import UIKit
 
-@objc public protocol UISideMenuNavigationControllerDelegate: class {
-    func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool)
-    func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
-    func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
-    func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool)
+@objc public protocol UISideMenuNavigationControllerDelegate {
+    @objc optional func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool)
 }
 
-// This makes adherance to the protocol optional:
-extension UIViewController {
-    func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool) {}
-    func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool) {}
-    func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool) {}
-    func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {}
-}
-
+@objcMembers
 open class UISideMenuNavigationController: UINavigationController {
     
     fileprivate weak var foundDelegate: UISideMenuNavigationControllerDelegate?
@@ -58,7 +51,7 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `UISideMenuNavigationController` automatically receives these events.
-    weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
+    open weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
     
     /// SideMenuManager instance associated with this menu. Default is `SideMenuManager.default`. This property cannot be changed after the menu has loaded.
     open weak var sideMenuManager: SideMenuManager! = SideMenuManager.default {
@@ -144,7 +137,7 @@ open class UISideMenuNavigationController: UINavigationController {
         presentingViewController?.view.endEditing(true)
         
         foundDelegate = nil
-        activeDelegate?.sideMenuWillAppear(menu: self, animated: animated)
+        activeDelegate?.sideMenuWillAppear?(menu: self, animated: animated)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -160,7 +153,7 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        activeDelegate?.sideMenuDidAppear(menu: self, animated: animated)
+        activeDelegate?.sideMenuDidAppear?(menu: self, animated: animated)
         
         #if !STFU_SIDEMENU
         if topViewController == nil {
@@ -200,16 +193,16 @@ open class UISideMenuNavigationController: UINavigationController {
                            options: sideMenuManager.menuAnimationOptions,
                            animations: {
                             self.transition.hideMenuStart()
-                            self.activeDelegate?.sideMenuWillDisappear(menu: self, animated: animated)
+                            self.activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
             }) { (finished) -> Void in
-                self.activeDelegate?.sideMenuDidDisappear(menu: self, animated: animated)
+                self.activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
                 self.view.isHidden = true
             }
             
             return
         }
         
-        activeDelegate?.sideMenuWillDisappear(menu: self, animated: animated)
+        activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
@@ -223,7 +216,7 @@ open class UISideMenuNavigationController: UINavigationController {
             transition.hideMenuStart().hideMenuComplete()
         }
         
-        activeDelegate?.sideMenuDidDisappear(menu: self, animated: animated)
+        activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
         
         // Clear selecton on UITableViewControllers when reappearing using custom transitions
         guard let tableViewController = topViewController as? UITableViewController,
@@ -280,7 +273,7 @@ open class UISideMenuNavigationController: UINavigationController {
             let animated = animated || sideMenuManager.menuAlwaysAnimate
             
             CATransaction.setCompletionBlock( { () -> Void in
-                activeDelegate?.sideMenuDidDisappear(menu: self, animated: animated)
+                activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
                 if !animated {
                     self.transition.hideMenuStart().hideMenuComplete()
                 }
@@ -296,7 +289,7 @@ open class UISideMenuNavigationController: UINavigationController {
                                initialSpringVelocity: sideMenuManager.menuAnimationInitialSpringVelocity,
                                options: sideMenuManager.menuAnimationOptions,
                                animations: {
-                                activeDelegate?.sideMenuWillDisappear(menu: self, animated: animated)
+                                activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
                                 self.transition.hideMenuStart()
                 })
                 UIView.setAnimationsEnabled(areAnimationsEnabled)

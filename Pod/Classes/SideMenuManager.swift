@@ -16,6 +16,7 @@
      SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 */
 
+@objcMembers
 open class SideMenuManager : NSObject {
     
     @objc public enum MenuPushStyle : Int {
@@ -132,6 +133,14 @@ open class SideMenuManager : NSObject {
     
     /// Default instance of SideMenuManager.
     open static let `default` = SideMenuManager()
+    
+    /// Default instance of SideMenuManager (objective-C).
+    open class var defaultManager: SideMenuManager {
+        get {
+            return SideMenuManager.default
+        }
+    }
+    
     internal var transition: SideMenuTransition!
     
     public override init() {
