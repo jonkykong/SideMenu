@@ -10,7 +10,7 @@
 > Hi, I'm Jon Kent and I am an iOS designer, developer, and mobile strategist. I love coffee and play the drums.
 > * [**Hire me**](mailto:yo@massappeal.co?subject=Let's%20build%20something%20amazing) to help you make cool stuff. *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
 > * Check out my [website](http://massappeal.co) to see some of my other projects.
-> * Building and maintaining this **free** library takes a lot of my time and **saves you time**. Please consider paying it forward by supporting me with a small amount to my [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted). ($0 in support since inception 😕)
+> * Building and maintaining this **free** library takes a lot of my time and **saves you time**. Please consider paying it forward by supporting me with a small amount to my [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted). (only **2** people have donated since inception 😕 but **thank you** to those who have!)
 
 * **[Overview](#overview)**
   * [Preview Samples](#preview-samples) 
@@ -46,7 +46,7 @@ Check out the example project to see it in action!
 ### Preview Samples
 | Slide Out | Slide In | Dissolve | Slide In + Out |
 | --- | --- | --- | --- |
-| ![](etc/SlideOut.gif) | ![](etc/SlideIn.gif) | ![](etc/Dissolve.gif) | ![](etc/InOut.gif) |
+| ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideOut.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideIn.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Dissolve.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/InOut.gif) |
 
 ## Requirements
 * Xcode 9.
@@ -100,13 +100,13 @@ github "jonkykong/SideMenu" "master"
 ## Usage
 ### Code-less Storyboard Implementation
 1. Create a Navigation Controller for a side menu. Set the `Custom Class` of the Navigation Controller to be `UISideMenuNavigationController` in the **Identity Inspector**. Set the `Module` to `SideMenu` (ignore this step if you've manually added SideMenu to your project). Create a Root View Controller for the Navigation Controller (shown as a UITableViewController below). Set up any Triggered Segues you want in that view controller.
-![](etc/Screenshot1.png)
+![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Screenshot1.png)
 
 2. Set the `Left Side` property of the `UISideMenuNavigationController` to On if you want it to appear from the left side of the screen, or Off/Default if you want it to appear from the right side.
-![](etc/Screenshot2.png)
+![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Screenshot2.png)
 
 3. Add a UIButton or UIBarButton to a view controller that you want to display the menu from. Set that button's Triggered Segues action to modally present the Navigation Controller from step 1.
-![](etc/Screenshot3.png)
+![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Screenshot3.png)
 
 That's it. *Note: you can only enable gestures in code.*
 ### Code Implementation
