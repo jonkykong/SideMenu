@@ -252,15 +252,15 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             
         case .viewSlideInOut:
             menuView?.alpha = 1
-            menuView?.frame.origin.x = presentDirection == .left ? -menuView!.frame.width : mainView!.frame.width
+            menuView?.frame.origin.x = presentDirection == .left ? -(mainView?.frame.width ?? 0) : (mainView?.frame.width ?? 0)
             
         case .menuSlideIn:
             menuView?.alpha = 1
-            menuView?.frame.origin.x = presentDirection == .left ? -menuView!.frame.width : mainView!.frame.width
+            menuView?.frame.origin.x = presentDirection == .left ? -(mainView?.frame.width ?? 0) : (mainView?.frame.width ?? 0)
             
         case .menuDissolveIn:
             menuView?.alpha = 0
-            menuView?.frame.origin.x = presentDirection == .left ? 0 : mainView!.frame.width - menuWidth
+            menuView?.frame.origin.x = presentDirection == .left ? 0 : (mainView?.frame.width ?? 0) - menuWidth
         }
         
         return self
