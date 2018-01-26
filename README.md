@@ -1,8 +1,8 @@
 # ▤ SideMenu
-[![Version](https://img.shields.io/cocoapods/v/SideMenu.svg?style=?style=flat-square)](http://cocoapods.org/pods/SideMenu)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=?style=flat-square)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=?style=flat-square)](http://cocoapods.org/pods/SideMenu)
-[![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=?style=flat-square)](http://cocoapods.org/pods/SideMenu)
+[![Version](https://img.shields.io/cocoapods/v/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
+[![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
 [![Total Downloads](https://img.shields.io/cocoapods/dt/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
 [![Monthly Downloads](https://img.shields.io/cocoapods/dm/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
 [![Weekly Downloads](https://img.shields.io/cocoapods/dw/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
