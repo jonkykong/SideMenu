@@ -294,6 +294,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         let menuView = menuViewController?.view
         let mainView = mainViewController?.view
         
+        guard menuView != nil,
+            mainView != nil else {
+                return self
+        }
+        
         menuView?.alpha = 1
         menuView?.transform = .identity
         menuView?.frame.size.width = menuWidth
