@@ -9,7 +9,8 @@ import SideMenu
 
 class MainViewController: UIViewController {
     
-    @IBOutlet fileprivate weak var presentModeSegmentedControl:UISegmentedControl!
+    @IBOutlet fileprivate weak var presentModeSegmentedControlLeft:UISegmentedControl!
+    @IBOutlet fileprivate weak var presentModeSegmentedControlRight:UISegmentedControl!
     @IBOutlet fileprivate weak var blurSegmentControl:UISegmentedControl!
     @IBOutlet fileprivate weak var darknessSlider:UISlider!
     @IBOutlet fileprivate weak var shadowOpacitySlider:UISlider!
@@ -40,8 +41,9 @@ class MainViewController: UIViewController {
     
     fileprivate func setDefaults() {
         let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
-        presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentMode)!
-        
+        presentModeSegmentedControlLeft.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentModes.left)!
+        presentModeSegmentedControlRight.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentModes.right)!
+
         let styles:[UIBlurEffectStyle] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = SideMenuManager.default.menuBlurEffectStyle {
             blurSegmentControl.selectedSegmentIndex = styles.index(of: menuBlurEffectStyle) ?? 0
@@ -57,10 +59,12 @@ class MainViewController: UIViewController {
     }
     
     @IBAction fileprivate func changeSegment(_ segmentControl: UISegmentedControl) {
+        let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
         switch segmentControl {
-        case presentModeSegmentedControl:
-            let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
-            SideMenuManager.default.menuPresentMode = modes[segmentControl.selectedSegmentIndex]
+        case presentModeSegmentedControlLeft:
+            SideMenuManager.default.menuPresentModes.left = modes[segmentControl.selectedSegmentIndex]
+        case presentModeSegmentedControlRight:
+            SideMenuManager.default.menuPresentModes.right = modes[segmentControl.selectedSegmentIndex]
         case blurSegmentControl:
             if segmentControl.selectedSegmentIndex == 0 {
                 SideMenuManager.default.menuBlurEffectStyle = nil

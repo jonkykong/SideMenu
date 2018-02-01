@@ -55,7 +55,7 @@ open class SideMenuManager : NSObject {
     open var menuPushStyle: MenuPushStyle = .defaultBehavior
 
     /**
-     The presentation mode of the menu.
+     The presentation modes of the menu for each side.
      
      There are four modes in MenuPresentMode:
      - menuSlideIn: Menu slides in over of the existing view.
@@ -63,7 +63,20 @@ open class SideMenuManager : NSObject {
      - viewSlideInOut: The existing view slides out while the menu slides in.
      - menuDissolveIn: The menu dissolves in over the existing view controller.
      */
-    open var menuPresentMode: MenuPresentMode = .viewSlideOut
+    open var menuPresentModes: (left: MenuPresentMode, right: MenuPresentMode) = (.viewSlideOut, .viewSlideOut)
+    
+    /**
+     This is a legacy property which assumes left and right modes are the same. If you need to use different modes,
+     better to update menuPresentModes.
+     */
+    open var menuPresentMode: MenuPresentMode {
+        get {
+            return menuPresentModes.left
+        }
+        set {
+            menuPresentModes = (newValue, newValue)
+        }
+    }
     
     /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     open var menuAllowPushOfSameClassTwice = true
@@ -414,10 +427,10 @@ extension SideMenuManager {
     @available(*, deprecated, renamed: "default.menuPresentMode", message: "SideMenuManager class methods deprecated.")
     open static var menuPresentMode: MenuPresentMode {
         get {
-            return `default`.menuPresentMode
+            return `default`.menuPresentModes.left
         }
         set {
-            `default`.menuPresentMode = newValue
+            `default`.menuPresentModes = (newValue, newValue)
         }
     }
     @available(*, deprecated, renamed: "default.menuAllowPushOfSameClassTwice", message: "SideMenuManager class methods deprecated.")

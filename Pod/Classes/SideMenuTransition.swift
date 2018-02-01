@@ -243,7 +243,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         statusBarView?.frame = statusBarFrame
         statusBarView?.alpha = 0
         
-        switch sideMenuManager.menuPresentMode {
+        switch menuViewController!.menuPresentMode {
             
         case .viewSlideOut:
             menuView?.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
@@ -315,7 +315,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         statusBarView?.frame = statusBarFrame
         statusBarView?.alpha = 1
         
-        switch sideMenuManager.menuPresentMode {
+        switch menuViewController!.menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
             mainView?.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
@@ -335,7 +335,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             mainView?.frame.origin.x = 0
         }
         
-        if sideMenuManager.menuPresentMode != .viewSlideOut {
+        if menuViewController!.menuPresentMode != .viewSlideOut {
             mainView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
             if sideMenuManager.menuAnimationTransformScaleFactor > 1 {
                 tapView?.transform = mainView!.transform
@@ -347,7 +347,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     @discardableResult internal func presentMenuComplete() -> SideMenuTransition {
-        switch sideMenuManager.menuPresentMode {
+        switch menuViewController!.menuPresentMode {
         case .menuSlideIn, .menuDissolveIn, .viewSlideInOut:
             if let mainView = mainViewController?.view, sideMenuManager.menuParallaxStrength != 0 {
                 let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
@@ -431,7 +431,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             originalSuperview = topView.superview
             
             // add the both views to our view controller
-            switch sideMenuManager.menuPresentMode {
+            switch menuViewController!.menuPresentMode {
             case .viewSlideOut, .viewSlideInOut:
                 container.addSubview(menuView)
                 container.addSubview(topView)
@@ -483,7 +483,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             if self.presenting {
                 self.presentMenuComplete()
                 transitionContext.completeTransition(true)
-                switch self.sideMenuManager.menuPresentMode {
+                switch self.menuViewController!.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     container.addSubview(topView)
                 case .menuSlideIn, .menuDissolveIn:

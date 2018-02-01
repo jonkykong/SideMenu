@@ -49,6 +49,9 @@ open class UISideMenuNavigationController: UINavigationController {
             return sideMenuManager.transition
         }
     }
+    internal var menuPresentMode: SideMenuManager.MenuPresentMode {
+        return self === sideMenuManager.menuLeftNavigationController ? sideMenuManager.menuPresentModes.left : sideMenuManager.menuPresentModes.right
+    }
     
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `UISideMenuNavigationController` automatically receives these events.
     open weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
@@ -173,7 +176,7 @@ open class UISideMenuNavigationController: UINavigationController {
             }
             
             if let mainView = transition.mainViewController?.view {
-                switch sideMenuManager.menuPresentMode {
+                switch self.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     mainView.superview?.insertSubview(view, belowSubview: mainView)
                 case .menuSlideIn, .menuDissolveIn:
