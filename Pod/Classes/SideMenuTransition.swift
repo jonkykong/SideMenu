@@ -250,11 +250,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             menuView?.frame.origin.x = presentDirection == .left ? 0 : (mainView?.frame.width ?? 0) - menuWidth
             menuView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
             
-        case .viewSlideInOut:
-            menuView?.alpha = 1
-            menuView?.frame.origin.x = presentDirection == .left ? -menuView!.frame.width : mainView!.frame.width
-            
-        case .menuSlideIn:
+        case .menuSlideIn, .viewSlideInOut:
             menuView?.alpha = 1
             menuView?.frame.origin.x = presentDirection == .left ? -menuView!.frame.width : mainView!.frame.width
             
