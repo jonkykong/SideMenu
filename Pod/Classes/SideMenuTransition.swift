@@ -125,10 +125,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             return
         }
         
-        let transform = view.transform
-        view.transform = .identity
+        let transform = view.layer.transform
+        view.layer.transform = CATransform3DIdentity
         let translation = pan.translation(in: pan.view!)
-        view.transform = transform
+        view.layer.transform = transform
         
         // do some math to translate this to a percentage based value
         if !interactive {
@@ -166,9 +166,9 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             }
         default:
             interactive = false
-            view.transform = .identity
+            view.layer.transform = CATransform3DIdentity
             let velocity = pan.velocity(in: pan.view!).x * direction
-            view.transform = transform
+            view.layer.transform = transform
             if velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5 {
                 // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
                 if ProcessInfo().operatingSystemVersion.majorVersion == 8 && percentComplete > 1 - CGFloat.ulpOfOne {
@@ -226,10 +226,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         let menuView = menuViewController?.view
         let mainView = mainViewController?.view
       
-        mainView?.transform = .identity
+        mainView?.layer.transform = CATransform3DIdentity
         mainView?.alpha = 1
         mainView?.frame.origin = .zero
-        menuView?.transform = .identity
+        menuView?.layer.transform = CATransform3DIdentity
         menuView?.frame.origin.y = 0
         menuView?.frame.size.width = menuWidth
         menuView?.frame.size.height = mainView?.frame.height ?? 0 // in case status bar height changed
@@ -248,7 +248,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         case .viewSlideOut:
             menuView?.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
             menuView?.frame.origin.x = presentDirection == .left ? 0 : (mainView?.frame.width ?? 0) - menuWidth
-            menuView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
+            let f = sideMenuManager.menuAnimationTransformScaleFactor
+            menuView?.layer.transform = CATransform3D(m11: f, m12: 0, m13: 0, m14: 0,
+                                                      m21: 0, m22: f, m23: 0, m24: 0,
+                                                      m31: 0, m32: 0, m33: 1, m34: 0,
+                                                      m41: 0, m42: 0, m43: 0, m44: 1)
             
         case .viewSlideInOut:
             menuView?.alpha = 1
@@ -295,11 +299,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         let mainView = mainViewController?.view
         
         menuView?.alpha = 1
-        menuView?.transform = .identity
+        menuView?.layer.transform = CATransform3DIdentity
         menuView?.frame.size.width = menuWidth
         let size = SideMenuManager.appScreenRect.size
         menuView?.frame.origin.x = presentDirection == .left ? 0 : size.width - menuWidth
-        mainView?.transform = .identity
+        mainView?.layer.transform = CATransform3DIdentity
         mainView?.frame.size.width = size.width
         let statusBarOffset = size.height - (menuView?.bounds.height ?? 0)
         mainView?.bounds.size.height = size.height - max(statusBarOffset, 0)
@@ -310,11 +314,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         if statusBarOffset >= CGFloat.ulpOfOne {
             statusBarFrame.size.height = statusBarOffset
         }
-        tapView?.transform = .identity
+        tapView?.layer.transform = CATransform3DIdentity
         tapView?.bounds = mainView!.bounds
         statusBarView?.frame = statusBarFrame
         statusBarView?.alpha = 1
         
+        var x: CGFloat = 0
         switch sideMenuManager.menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
@@ -323,7 +328,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             mainView?.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
             mainView?.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = presentDirection == .left ? 1 : -1
-            mainView?.frame.origin.x = direction * (menuView!.frame.width)
+            x = direction * (menuView!.frame.width)
             
         case .menuSlideIn, .menuDissolveIn:
             if sideMenuManager.menuBlurEffectStyle == nil {
@@ -332,17 +337,21 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 menuView?.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
                 menuView?.layer.shadowOffset = CGSize(width: 0, height: 0)
             }
-            mainView?.frame.origin.x = 0
         }
         
-        if sideMenuManager.menuPresentMode != .viewSlideOut {
-            mainView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
-            if sideMenuManager.menuAnimationTransformScaleFactor > 1 {
-                tapView?.transform = mainView!.transform
-            }
+        let f = sideMenuManager.menuPresentMode != .viewSlideOut ? sideMenuManager.menuAnimationTransformScaleFactor : 1
+        if sideMenuManager.menuPresentMode == .viewSlideInOut || sideMenuManager.menuPresentMode == .viewSlideOut {
             mainView?.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
         }
         
+        mainView?.layer.transform = CATransform3D(m11: f, m12: 0, m13: 0, m14: 0,
+                                                  m21: 0, m22: f, m23: 0, m24: 0,
+                                                  m31: 0, m32: 0, m33: 1, m34: 0,
+                                                  m41: x, m42: 0, m43: 0, m44: 1)
+        if f > 1 {
+            tapView?.layer.transform = mainView!.layer.transform
+        }
+
         return self
     }
     
@@ -522,7 +531,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                     tapView.bounds = container.bounds
                     tapView.center = topView.center
                     if self.sideMenuManager.menuAnimationTransformScaleFactor > 1 {
-                        tapView.transform = topView.transform
+                        tapView.layer.transform = topView.layer.transform
                     }
                     self.tapView = tapView
                 }
