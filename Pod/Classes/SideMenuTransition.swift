@@ -447,6 +447,18 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             }
             
             hideMenuStart()
+            
+            if #available(iOS 11.0, *), sideMenuManager.menuAnimationTransformScaleFactor != 1.0 {
+                mainViewController?.additionalSafeAreaInsets.top = topView.safeAreaLayoutGuide.layoutFrame.minY
+                if sideMenuManager.menuAnimationTransformScaleFactor < 1.0 {
+                    mainViewController?.additionalSafeAreaInsets.bottom = topView.frame.maxY - topView.safeAreaLayoutGuide.layoutFrame.maxY
+                }
+            }
+        } else {
+            if #available(iOS 11.0, *), sideMenuManager.menuAnimationTransformScaleFactor != 1.0 {
+                mainViewController?.additionalSafeAreaInsets.top = 0
+                mainViewController?.additionalSafeAreaInsets.bottom = 0
+            }
         }
         
         let animate = {
@@ -465,8 +477,23 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                 let viewControllerForPresentedMenu = self.mainViewController
                 
                 if self.presenting {
+                    if #available(iOS 11.0, *), self.sideMenuManager.menuAnimationTransformScaleFactor != 1.0 {
+                        self.mainViewController?.additionalSafeAreaInsets.top = 0
+                        self.mainViewController?.additionalSafeAreaInsets.bottom = 0
+                    }
+                    
                     self.hideMenuComplete()
                 } else {
+                    if #available(iOS 11.0, *), self.sideMenuManager.menuAnimationTransformScaleFactor != 1.0 {
+                        let transform = topView.layer.transform
+                        topView.layer.transform = CATransform3DIdentity
+                        self.mainViewController?.additionalSafeAreaInsets.top = topView.safeAreaLayoutGuide.layoutFrame.minY
+                        if self.sideMenuManager.menuAnimationTransformScaleFactor < 1.0 {
+                            self.mainViewController?.additionalSafeAreaInsets.bottom = topView.frame.maxY - topView.safeAreaLayoutGuide.layoutFrame.maxY
+                        }
+                        topView.layer.transform = transform
+                    }
+                    
                     self.presentMenuComplete()
                 }
                 
