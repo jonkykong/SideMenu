@@ -223,18 +223,20 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     @discardableResult internal func hideMenuStart() -> SideMenuTransition {
-        let menuView = menuViewController?.view
-        let mainView = mainViewController?.view
+        guard let menuView = menuViewController?.view,
+            let mainView = mainViewController?.view else {
+                return self
+        }
       
-        mainView?.transform = .identity
-        mainView?.alpha = 1
-        mainView?.frame.origin = .zero
-        menuView?.transform = .identity
-        menuView?.frame.origin.y = 0
-        menuView?.frame.size.width = menuWidth
-        menuView?.frame.size.height = mainView?.frame.height ?? 0 // in case status bar height changed
+        mainView.transform = .identity
+        mainView.alpha = 1
+        mainView.frame.origin = .zero
+        menuView.transform = .identity
+        menuView.frame.origin.y = 0
+        menuView.frame.size.width = menuWidth
+        menuView.frame.size.height = mainView.frame.height // in case status bar height changed
         var statusBarFrame = UIApplication.shared.statusBarFrame
-        let statusBarOffset = SideMenuManager.appScreenRect.size.height - (mainView?.frame.maxY ?? 0)
+        let statusBarOffset = SideMenuManager.appScreenRect.size.height - mainView.frame.maxY
         // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
         // of view and set height to fill in remaining space.
         if statusBarOffset >= CGFloat.ulpOfOne {
@@ -246,21 +248,17 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         switch sideMenuManager.menuPresentMode {
             
         case .viewSlideOut:
-            menuView?.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
-            menuView?.frame.origin.x = presentDirection == .left ? 0 : (mainView?.frame.width ?? 0) - menuWidth
-            menuView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
+            menuView.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
+            menuView.frame.origin.x = presentDirection == .left ? 0 : mainView.frame.width - menuWidth
+            menuView.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
             
-        case .viewSlideInOut:
-            menuView?.alpha = 1
-            menuView?.frame.origin.x = presentDirection == .left ? -(mainView?.frame.width ?? 0) : (mainView?.frame.width ?? 0)
-            
-        case .menuSlideIn:
-            menuView?.alpha = 1
-            menuView?.frame.origin.x = presentDirection == .left ? -(mainView?.frame.width ?? 0) : (mainView?.frame.width ?? 0)
+        case .viewSlideInOut, .menuSlideIn:
+            menuView.alpha = 1
+            menuView.frame.origin.x = presentDirection == .left ? -menuWidth : mainView.frame.width
             
         case .menuDissolveIn:
-            menuView?.alpha = 0
-            menuView?.frame.origin.x = presentDirection == .left ? 0 : (mainView?.frame.width ?? 0) - menuWidth
+            menuView.alpha = 0
+            menuView.frame.origin.x = presentDirection == .left ? 0 : mainView.frame.width - menuWidth
         }
         
         return self
