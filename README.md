@@ -7,7 +7,7 @@
 [![Monthly Downloads](https://img.shields.io/cocoapods/dm/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
 [![Weekly Downloads](https://img.shields.io/cocoapods/dw/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
 
-### If you like SideMenu, give it a ★ at the top right of this page.
+### If you like SideMenu, give it a ★ at the top right of its [GitHub](https://github.com/jonkykong/SideMenu) page.
 #### Using SideMenu in your app? [Send](mailto:yo@massappeal.co?subject=SideMenu%20in%20action!) me a link to your app in the app store!
 
 > Hi, I'm Jon Kent and I am an iOS designer, developer, and mobile strategist. I love coffee and play the drums.
@@ -36,14 +36,14 @@
 ## Overview
 
 SideMenu is a simple and versatile side menu control written in Swift.
- * **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
- * Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
- * Highly customizable without needing to write tons of custom code.
- * Supports continuous swiping between side menus on boths sides in a single gesture.
- * Global menu configuration. Set-up once and be done for all screens.
- * Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
- * Animations use your view controllers, not snapshots.
- * Properly handles screen rotation and in-call status bar height changes.
+- [x] **It can be implemented in storyboard without a single line of [code](#code-less-storyboard-implementation).**
+- [x] Four standard animation styles to choose from (there's even a parallax effect if you want to get weird).
+- [x] Highly customizable without needing to write tons of custom code.
+- [x] Supports continuous swiping between side menus on boths sides in a single gesture.
+- [x] Global menu configuration. Set-up once and be done for all screens.
+- [x] Menus can be presented and dismissed the same as any other view controller since this control uses [custom transitions](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html).
+- [x] Animations use your view controllers, not snapshots.
+- [x] Properly handles screen rotation and in-call status bar height changes.
 
 Check out the example project to see it in action!
 ### Preview Samples
@@ -52,8 +52,8 @@ Check out the example project to see it in action!
 | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideOut.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/SlideIn.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/Dissolve.gif) | ![](https://raw.githubusercontent.com/jonkykong/SideMenu/master/etc/InOut.gif) |
 
 ## Requirements
-* Xcode 9.
-* iOS 8 or higher.
+- [x] Xcode 9.
+- [x] iOS 9 or higher.
 
 ## Installation
 ### CocoaPods
