@@ -170,10 +170,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             let velocity = pan.velocity(in: pan.view!).x * direction
             view.transform = transform
             if velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5 {
-                // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
-                if ProcessInfo().operatingSystemVersion.majorVersion == 8 && percentComplete > 1 - CGFloat.ulpOfOne {
-                    update(0.9999)
-                }
                 finish()
             } else {
                 cancel()
@@ -205,10 +201,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             interactive = false
             let velocity = pan.velocity(in: pan.view!).x * direction
             if velocity >= 100 || velocity >= -50 && distance >= 0.5 {
-                // bug workaround: animation briefly resets after call to finishInteractiveTransition() but before animateTransition completion is called.
-                if ProcessInfo().operatingSystemVersion.majorVersion == 8 && percentComplete > 1 - CGFloat.ulpOfOne {
-                    update(0.9999)
-                }
                 finish()
                 activeGesture = nil
             } else {
@@ -511,7 +503,7 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         let duration = transitionDuration(using: transitionContext)
         if interactive {
             UIView.animate(withDuration: duration,
-                           delay: duration, // HACK: If zero, the animation briefly flashes in iOS 11. UIViewPropertyAnimators (iOS 10+) may resolve this.
+                           delay: duration, // HACK: If zero, the animation briefly flashes in iOS 11.
                            options: .curveLinear,
                            animations: {
                             animate()
