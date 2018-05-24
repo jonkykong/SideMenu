@@ -291,10 +291,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     @discardableResult internal func presentMenuStart() -> SideMenuTransition { 
-        guard 
-            let menuView = menuViewController?.view,
-            let mainView = mainViewController?.view
-            else { return self }
+        guard let menuView = menuViewController?.view,
+            let mainView = mainViewController?.view else {
+                return self
+        }
         
         menuView.alpha = 1
         menuView.transform = .identity
@@ -325,7 +325,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             mainView.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
             mainView.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = presentDirection == .left ? 1 : -1
-            mainView.frame.origin.x = direction * (menuView.frame.width)
+            mainView.frame.origin.x = direction * menuView.frame.width
             
         case .menuSlideIn, .menuDissolveIn:
             if sideMenuManager.menuBlurEffectStyle == nil {
