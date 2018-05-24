@@ -280,20 +280,22 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         return self
     }
     
-    @discardableResult internal func presentMenuStart() -> SideMenuTransition {
-        let menuView = menuViewController?.view
-        let mainView = mainViewController?.view
+    @discardableResult internal func presentMenuStart() -> SideMenuTransition { 
+        guard let menuView = menuViewController?.view,
+            let mainView = mainViewController?.view else {
+                return self
+        }
         
-        menuView?.alpha = 1
-        menuView?.transform = .identity
-        menuView?.frame.size.width = menuWidth
+        menuView.alpha = 1
+        menuView.transform = .identity
+        menuView.frame.size.width = menuWidth
         let size = SideMenuManager.appScreenRect.size
-        menuView?.frame.origin.x = presentDirection == .left ? 0 : size.width - menuWidth
-        mainView?.transform = .identity
-        mainView?.frame.size.width = size.width
-        let statusBarOffset = size.height - (menuView?.bounds.height ?? 0)
-        mainView?.bounds.size.height = size.height - max(statusBarOffset, 0)
-        mainView?.frame.origin.y = 0
+        menuView.frame.origin.x = presentDirection == .left ? 0 : size.width - menuWidth
+        mainView.transform = .identity
+        mainView.frame.size.width = size.width
+        let statusBarOffset = size.height - menuView.bounds.height
+        mainView.bounds.size.height = size.height - max(statusBarOffset, 0)
+        mainView.frame.origin.y = 0
         var statusBarFrame = UIApplication.shared.statusBarFrame
         // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
         // of view and set height to fill in remaining space.
@@ -301,36 +303,36 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             statusBarFrame.size.height = statusBarOffset
         }
         tapView?.transform = .identity
-        tapView?.bounds = mainView!.bounds
+        tapView?.bounds = mainView.bounds
         statusBarView?.frame = statusBarFrame
         statusBarView?.alpha = 1
         
         switch sideMenuManager.menuPresentMode {
             
         case .viewSlideOut, .viewSlideInOut:
-            mainView?.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
-            mainView?.layer.shadowRadius = sideMenuManager.menuShadowRadius
-            mainView?.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
-            mainView?.layer.shadowOffset = CGSize(width: 0, height: 0)
+            mainView.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
+            mainView.layer.shadowRadius = sideMenuManager.menuShadowRadius
+            mainView.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
+            mainView.layer.shadowOffset = CGSize(width: 0, height: 0)
             let direction:CGFloat = presentDirection == .left ? 1 : -1
-            mainView?.frame.origin.x = direction * (menuView!.frame.width)
+            mainView.frame.origin.x = direction * menuView.frame.width
             
         case .menuSlideIn, .menuDissolveIn:
             if sideMenuManager.menuBlurEffectStyle == nil {
-                menuView?.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
-                menuView?.layer.shadowRadius = sideMenuManager.menuShadowRadius
-                menuView?.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
-                menuView?.layer.shadowOffset = CGSize(width: 0, height: 0)
+                menuView.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
+                menuView.layer.shadowRadius = sideMenuManager.menuShadowRadius
+                menuView.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
+                menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
             }
-            mainView?.frame.origin.x = 0
+            mainView.frame.origin.x = 0
         }
         
         if sideMenuManager.menuPresentMode != .viewSlideOut {
-            mainView?.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
+            mainView.transform = CGAffineTransform(scaleX: sideMenuManager.menuAnimationTransformScaleFactor, y: sideMenuManager.menuAnimationTransformScaleFactor)
             if sideMenuManager.menuAnimationTransformScaleFactor > 1 {
-                tapView?.transform = mainView!.transform
+                tapView?.transform = mainView.transform
             }
-            mainView?.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
+            mainView.alpha = 1 - sideMenuManager.menuAnimationFadeStrength
         }
         
         return self
