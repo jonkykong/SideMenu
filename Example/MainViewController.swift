@@ -16,6 +16,9 @@ class MainViewController: UIViewController {
     @IBOutlet fileprivate weak var screenWidthSlider:UISlider!
     @IBOutlet fileprivate weak var shrinkFactorSlider:UISlider!
     @IBOutlet fileprivate weak var blackOutStatusBar:UISwitch!
+    @IBOutlet fileprivate weak var blurContentView:UISwitch!
+
+    fileprivate let overlayView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,8 @@ class MainViewController: UIViewController {
         
         // Set up a cool background image for demo purposes
         SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func setDefaults() {
@@ -109,5 +114,8 @@ extension MainViewController: UISideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
     }
-    
+
+    func sideMenuOverlay(menu: UISideMenuNavigationController) -> UIView? {
+        return blurContentView.isOn ? overlayView : nil
+    }
 }

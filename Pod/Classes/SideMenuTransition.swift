@@ -14,6 +14,7 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     fileprivate var interactive = false
     fileprivate weak var originalSuperview: UIView?
     fileprivate weak var activeGesture: UIGestureRecognizer?
+
     fileprivate var switchMenus = false {
         didSet {
             if switchMenus {
@@ -30,6 +31,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             return sideMenuManager.menuWidth
         }
     }
+    
+    internal var overlayBlock:(() -> UIView?)?
     internal weak var sideMenuManager: SideMenuManager!
     internal weak var mainViewController: UIViewController?
     internal weak var menuViewController: UISideMenuNavigationController? {
@@ -252,7 +255,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             menuView.alpha = 0
             menuView.frame.origin.x = presentDirection == .left ? 0 : mainView.frame.width - menuWidth
         }
-        
+
+        if let overlayBlock = overlayBlock, let overlayView = overlayBlock() {
+            overlayView.frame = mainView.bounds
+            overlayView.transform = mainView.transform
+        }
+
         return self
     }
     
@@ -273,6 +281,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             let y = originalSuperview.bounds.height - mainView.frame.size.height
             mainView.frame.origin.y = max(y, 0)
         }
+
+        if let overlayBlock = overlayBlock, let overlayView = overlayBlock() {
+            overlayView.removeFromSuperview()
+        }
         
         originalSuperview = nil
         mainViewController = nil
@@ -282,7 +294,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     
     @discardableResult internal func presentMenuStart() -> SideMenuTransition { 
         guard let menuView = menuViewController?.view,
-            let mainView = mainViewController?.view else {
+            let mainView = mainViewController?.view
+        else {
                 return self
         }
         
@@ -438,6 +451,16 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                 container.addSubview(statusBarView)
             }
             
+            if let overlayView = overlayBlock?() {
+                topView.addSubview(overlayView)
+
+                topView.addConstraints([
+                    NSLayoutConstraint(item: overlayView, attribute: .top, relatedBy: .equal, toItem: topView, attribute: .top, multiplier: 1, constant: 0),
+                    NSLayoutConstraint(item: overlayView, attribute: .bottom, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1, constant: 0),
+                    NSLayoutConstraint(item: overlayView, attribute: .leading, relatedBy: .equal, toItem: topView, attribute: .leading, multiplier: 1, constant: 0),
+                    NSLayoutConstraint(item: overlayView, attribute: .trailing, relatedBy: .equal, toItem: topView, attribute: .trailing, multiplier: 1, constant: 0)
+                    ])
+            }
             hideMenuStart()
         }
         
@@ -449,56 +472,60 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             }
         }
         
-        let complete = {
+        let complete = {[weak self] in
+
+            guard let strongSelf = self else { return }
+
             container.isUserInteractionEnabled = true
             
             // tell our transitionContext object that we've finished animating
             if transitionContext.transitionWasCancelled {
-                let viewControllerForPresentedMenu = self.mainViewController
-                
-                if self.presenting {
-                    self.hideMenuComplete()
+                let viewControllerForPresentedMenu = strongSelf.mainViewController
+
+                if strongSelf.presenting {
+                    strongSelf.hideMenuComplete()
                 } else {
-                    self.presentMenuComplete()
+                    strongSelf.presentMenuComplete()
                 }
-                
+
                 transitionContext.completeTransition(false)
-                
-                if self.switchMenus {
-                    self.switchMenus = false
-                    viewControllerForPresentedMenu?.present(self.menuViewController!, animated: true, completion: nil)
+
+                if strongSelf.switchMenus {
+                    strongSelf.switchMenus = false
+                    viewControllerForPresentedMenu?.present(strongSelf.menuViewController!, animated: true, completion: nil)
                 }
-                
+
                 return
             }
-            
-            if self.presenting {
-                self.presentMenuComplete()
+
+            if strongSelf.presenting {
+                strongSelf.presentMenuComplete()
                 transitionContext.completeTransition(true)
-                switch self.sideMenuManager.menuPresentMode {
+                switch strongSelf.sideMenuManager.menuPresentMode {
                 case .viewSlideOut, .viewSlideInOut:
                     container.addSubview(topView)
                 case .menuSlideIn, .menuDissolveIn:
                     container.insertSubview(topView, at: 0)
                 }
-                if !self.sideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
+
+                if !strongSelf.sideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
                     let tapView = UIView()
                     container.insertSubview(tapView, aboveSubview: topView)
                     tapView.bounds = container.bounds
                     tapView.center = topView.center
-                    if self.sideMenuManager.menuAnimationTransformScaleFactor > 1 {
+                    if strongSelf.sideMenuManager.menuAnimationTransformScaleFactor > 1 {
                         tapView.transform = topView.transform
                     }
-                    self.tapView = tapView
+                    strongSelf.tapView = tapView
                 }
-                if let statusBarView = self.statusBarView {
+                if let statusBarView = strongSelf.statusBarView {
                     container.bringSubview(toFront: statusBarView)
                 }
                 
                 return
             }
             
-            self.hideMenuComplete()
+            strongSelf.hideMenuComplete()
             transitionContext.completeTransition(true)
             menuView.removeFromSuperview()
         }
