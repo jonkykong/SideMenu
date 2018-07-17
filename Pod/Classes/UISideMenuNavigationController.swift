@@ -12,6 +12,7 @@ import UIKit
     @objc optional func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuOverlay(menu: UISideMenuNavigationController) -> UIView?
 }
 
 @objcMembers
@@ -120,6 +121,11 @@ open class UISideMenuNavigationController: UINavigationController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+
+        transition.overlayBlock = {[weak self] () -> UIView? in
+            guard let strongSelf = self else { return nil }
+            return strongSelf.activeDelegate?.sideMenuOverlay?(menu: strongSelf)
+        }
         
         if !locked && usingInterfaceBuilder {
             if leftSide {

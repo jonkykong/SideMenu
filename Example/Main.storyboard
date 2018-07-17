@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yAA-s6-Bam">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yAA-s6-Bam">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -184,13 +184,27 @@
                                             <constraint firstItem="Osf-2d-Znm" firstAttribute="top" secondItem="2QC-6F-Xpx" secondAttribute="bottom" constant="8.5" id="w9V-Ww-OfN"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blur content view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZc-bw-sUU">
+                                        <rect key="frame" x="20" y="465" width="132.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="stv-4i-fOR">
+                                        <rect key="frame" x="306" y="460" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </switch>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="DMn-tw-NTB" firstAttribute="leading" secondItem="LFJ-SB-Zp9" secondAttribute="leading" id="BTk-bF-S0d"/>
                                     <constraint firstAttribute="trailing" secondItem="DMn-tw-NTB" secondAttribute="trailing" id="M93-XD-94I"/>
                                     <constraint firstItem="DMn-tw-NTB" firstAttribute="width" secondItem="LFJ-SB-Zp9" secondAttribute="width" id="MCM-o2-30q"/>
                                     <constraint firstItem="DMn-tw-NTB" firstAttribute="top" secondItem="LFJ-SB-Zp9" secondAttribute="top" id="QhZ-ly-cBA"/>
+                                    <constraint firstItem="stv-4i-fOR" firstAttribute="top" secondItem="oFS-2Q-kPB" secondAttribute="bottom" constant="11" id="bMV-dv-Mw5"/>
+                                    <constraint firstItem="BZc-bw-sUU" firstAttribute="leading" secondItem="LFJ-SB-Zp9" secondAttribute="leading" constant="20" id="iCA-hn-Duc"/>
                                     <constraint firstAttribute="bottom" secondItem="DMn-tw-NTB" secondAttribute="bottom" id="sFU-Ot-379"/>
+                                    <constraint firstItem="BZc-bw-sUU" firstAttribute="centerY" secondItem="stv-4i-fOR" secondAttribute="centerY" id="w2O-ro-Ard"/>
+                                    <constraint firstAttribute="trailing" secondItem="stv-4i-fOR" secondAttribute="trailing" constant="20" id="xys-iF-s0z"/>
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="← Swipe Screen Edges in View →" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma4-O6-wOT">
@@ -232,6 +246,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="blackOutStatusBar" destination="oFS-2Q-kPB" id="wrn-ru-xmL"/>
+                        <outlet property="blurContentView" destination="stv-4i-fOR" id="RLB-wm-POd"/>
                         <outlet property="blurSegmentControl" destination="owH-AA-wgw" id="OKW-xQ-7UM"/>
                         <outlet property="darknessSlider" destination="pqT-4M-nw1" id="Bka-VM-Plx"/>
                         <outlet property="presentModeSegmentedControl" destination="KV2-tN-Aff" id="dzq-Bi-3Zp"/>
