@@ -132,7 +132,7 @@ open class SideMenuManager : NSObject {
     open var menuAlwaysAnimate = false
     
     /// Default instance of SideMenuManager.
-    open static let `default` = SideMenuManager()
+    public static let `default` = SideMenuManager()
     
     /// Default instance of SideMenuManager (objective-C).
     open class var defaultManager: SideMenuManager {
@@ -404,7 +404,7 @@ open class SideMenuManager : NSObject {
 extension SideMenuManager {
     
     @available(*, deprecated, renamed: "default.menuPushStyle", message: "SideMenuManager class methods deprecated.")
-    open static var menuPushStyle: MenuPushStyle {
+    public static var menuPushStyle: MenuPushStyle {
         get {
             return `default`.menuPushStyle
         }
@@ -413,7 +413,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuPresentMode", message: "SideMenuManager class methods deprecated.")
-    open static var menuPresentMode: MenuPresentMode {
+    public static var menuPresentMode: MenuPresentMode {
         get {
             return `default`.menuPresentMode
         }
@@ -422,7 +422,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAllowPushOfSameClassTwice", message: "SideMenuManager class methods deprecated.")
-    open static var menuAllowPushOfSameClassTwice: Bool {
+    public static var menuAllowPushOfSameClassTwice: Bool {
         get {
             return `default`.menuAllowPushOfSameClassTwice
         }
@@ -431,7 +431,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuWidth", message: "SideMenuManager class methods deprecated.")
-    open static var menuWidth: CGFloat {
+    public static var menuWidth: CGFloat {
         get {
             return `default`.menuWidth
         }
@@ -440,7 +440,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationPresentDuration", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationPresentDuration: Double {
+    public static var menuAnimationPresentDuration: Double {
         get {
             return `default`.menuAnimationPresentDuration
         }
@@ -449,7 +449,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationDismissDuration", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationDismissDuration: Double {
+    public static var menuAnimationDismissDuration: Double {
         get {
             return `default`.menuAnimationDismissDuration
         }
@@ -458,7 +458,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationCompleteGestureDuration", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationCompleteGestureDuration: Double {
+    public static var menuAnimationCompleteGestureDuration: Double {
         get {
             return `default`.menuAnimationCompleteGestureDuration
         }
@@ -467,7 +467,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationFadeStrength", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationFadeStrength: CGFloat {
+    public static var menuAnimationFadeStrength: CGFloat {
         get {
             return `default`.menuAnimationFadeStrength
         }
@@ -476,7 +476,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationTransformScaleFactor", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationTransformScaleFactor: CGFloat {
+    public static var menuAnimationTransformScaleFactor: CGFloat {
         get {
             return `default`.menuAnimationTransformScaleFactor
         }
@@ -485,7 +485,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationBackgroundColor", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationBackgroundColor: UIColor? {
+    public static var menuAnimationBackgroundColor: UIColor? {
         get {
             return `default`.menuAnimationBackgroundColor
         }
@@ -494,7 +494,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuShadowOpacity", message: "SideMenuManager class methods deprecated.")
-    open static var menuShadowOpacity: Float {
+    public static var menuShadowOpacity: Float {
         get {
             return `default`.menuShadowOpacity
         }
@@ -503,7 +503,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuShadowColor", message: "SideMenuManager class methods deprecated.")
-    open static var menuShadowColor: UIColor {
+    public static var menuShadowColor: UIColor {
         get {
             return `default`.menuShadowColor
         }
@@ -512,7 +512,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuShadowRadius", message: "SideMenuManager class methods deprecated.")
-    open static var menuShadowRadius: CGFloat {
+    public static var menuShadowRadius: CGFloat {
         get {
             return `default`.menuShadowRadius
         }
@@ -521,7 +521,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuPresentingViewControllerUserInteractionEnabled", message: "SideMenuManager class methods deprecated.")
-    open static var menuPresentingViewControllerUserInteractionEnabled: Bool {
+    public static var menuPresentingViewControllerUserInteractionEnabled: Bool {
         get {
             return `default`.menuPresentingViewControllerUserInteractionEnabled
         }
@@ -530,7 +530,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuParallaxStrength", message: "SideMenuManager class methods deprecated.")
-    open static var menuParallaxStrength: Int {
+    public static var menuParallaxStrength: Int {
         get {
             return `default`.menuParallaxStrength
         }
@@ -539,7 +539,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuFadeStatusBar", message: "SideMenuManager class methods deprecated.")
-    open static var menuFadeStatusBar: Bool {
+    public static var menuFadeStatusBar: Bool {
         get {
             return `default`.menuFadeStatusBar
         }
@@ -548,7 +548,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationOptions", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationOptions: UIViewAnimationOptions {
+    public static var menuAnimationOptions: UIViewAnimationOptions {
         get {
             return `default`.menuAnimationOptions
         }
@@ -557,7 +557,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationUsingSpringWithDamping", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationUsingSpringWithDamping: CGFloat {
+    public static var menuAnimationUsingSpringWithDamping: CGFloat {
         get {
             return `default`.menuAnimationUsingSpringWithDamping
         }
@@ -566,7 +566,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuAnimationInitialSpringVelocity", message: "SideMenuManager class methods deprecated.")
-    open static var menuAnimationInitialSpringVelocity: CGFloat {
+    public static var menuAnimationInitialSpringVelocity: CGFloat {
         get {
             return `default`.menuAnimationInitialSpringVelocity
         }
@@ -575,7 +575,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuDismissOnPush", message: "SideMenuManager class methods deprecated.")
-    open static var menuDismissOnPush: Bool {
+    public static var menuDismissOnPush: Bool {
         get {
             return `default`.menuDismissOnPush
         }
@@ -585,7 +585,7 @@ extension SideMenuManager {
     }
     /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
-    open static var menuAllowSubmenus: Bool {
+    public static var menuAllowSubmenus: Bool {
         get {
             return menuPushStyle == .subMenu
         }
@@ -597,7 +597,7 @@ extension SideMenuManager {
     }
     /// -Warning: Deprecated. Use `menuPushStyle = .popWhenPossible` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .popWhenPossible` instead.")
-    open static var menuAllowPopIfPossible: Bool {
+    public static var menuAllowPopIfPossible: Bool {
         get {
             return menuPushStyle == .popWhenPossible
         }
@@ -609,7 +609,7 @@ extension SideMenuManager {
     }
     /// -Warning: Deprecated. Use `menuPushStyle = .replace` instead.
     @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .replace` instead.")
-    open static var menuReplaceOnPush: Bool {
+    public static var menuReplaceOnPush: Bool {
         get {
             return menuPushStyle == .replace
         }
@@ -620,7 +620,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuBlurEffectStyle", message: "SideMenuManager class methods deprecated.")
-    open static var menuBlurEffectStyle: UIBlurEffectStyle? {
+    public static var menuBlurEffectStyle: UIBlurEffectStyle? {
         get {
             return `default`.menuBlurEffectStyle
         }
@@ -629,7 +629,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuLeftNavigationController", message: "SideMenuManager class methods deprecated.")
-    open static var menuLeftNavigationController: UISideMenuNavigationController? {
+    public static var menuLeftNavigationController: UISideMenuNavigationController? {
         get {
             return `default`.menuLeftNavigationController
         }
@@ -638,7 +638,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuRightNavigationController", message: "SideMenuManager class methods deprecated.")
-    open static var menuRightNavigationController: UISideMenuNavigationController? {
+    public static var menuRightNavigationController: UISideMenuNavigationController? {
         get {
             return `default`.menuRightNavigationController
         }
@@ -647,7 +647,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuLeftSwipeToDismissGesture", message: "SideMenuManager class methods deprecated.")
-    open static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer? {
+    public static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer? {
         get {
             return `default`.menuLeftSwipeToDismissGesture
         }
@@ -656,7 +656,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuRightSwipeToDismissGesture", message: "SideMenuManager class methods deprecated.")
-    open static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer? {
+    public static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer? {
         get {
             return `default`.menuRightSwipeToDismissGesture
         }
@@ -665,7 +665,7 @@ extension SideMenuManager {
         }
     }
     @available(*, deprecated, renamed: "default.menuEnableSwipeGestures", message: "SideMenuManager class methods deprecated.")
-    open static var menuEnableSwipeGestures: Bool {
+    public static var menuEnableSwipeGestures: Bool {
         get {
             return `default`.menuEnableSwipeGestures
         }
