@@ -113,6 +113,9 @@ open class SideMenuManager : NSObject {
     
     /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
     open var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
+	
+	///	Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
+	open var menuAnimationCompletionCurve: UIViewAnimationCurve = .easeIn
     
     /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
     open var menuAnimationUsingSpringWithDamping: CGFloat = 1
@@ -556,6 +559,15 @@ extension SideMenuManager {
             `default`.menuAnimationOptions = newValue
         }
     }
+	@available(*, deprecated, renamed: "default.menuAnimationCompletionCurve", message: "SideMenuManager class methods deprecated.")
+	open static var menuAnimationCompletionCurve: UIViewAnimationCurve {
+		get {
+			return `default`.menuAnimationCompletionCurve
+		}
+		set {
+			`default`.menuAnimationCompletionCurve = newValue
+		}
+	}
     @available(*, deprecated, renamed: "default.menuAnimationUsingSpringWithDamping", message: "SideMenuManager class methods deprecated.")
     open static var menuAnimationUsingSpringWithDamping: CGFloat {
         get {

@@ -232,6 +232,9 @@ open var menuFadeStatusBar = true
 /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
 open var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
 
+///	Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
+open var menuAnimationCompletionCurve: UIViewAnimationCurve = .easeIn
+
 /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
 open var menuAnimationUsingSpringWithDamping: CGFloat = 1
 
