@@ -211,6 +211,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     @objc internal func handleHideMenuTap(_ tap: UITapGestureRecognizer) {
+        let animationDuration = 0.5
+        UIView.animate(withDuration: animationDuration) {
+            self.mainViewController?.view.layer.shadowOpacity = 0.0
+            self.menuViewController?.view.layer.shadowOpacity = 0.0
+        }
         menuViewController?.dismiss(animated: true, completion: nil)
     }
     
@@ -540,7 +545,9 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
         guard !switchMenus else {
             return
         }
-        
+        let percent = Float(percentComplete) * sideMenuManager.menuShadowOpacity
+        self.mainViewController?.view.layer.shadowOpacity = sideMenuManager.menuShadowOpacity - percent
+        self.menuViewController?.view.layer.shadowOpacity = sideMenuManager.menuShadowOpacity - percent
         super.update(percentComplete)
     }
     
