@@ -42,7 +42,11 @@ class MainViewController: UIViewController {
         let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
         presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentMode)!
         
+        #if swift(>=4.2)
+        let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
+        #else
         let styles:[UIBlurEffectStyle] = [.dark, .light, .extraLight]
+        #endif
         if let menuBlurEffectStyle = SideMenuManager.default.menuBlurEffectStyle {
             blurSegmentControl.selectedSegmentIndex = styles.index(of: menuBlurEffectStyle) ?? 0
         } else {
@@ -65,7 +69,11 @@ class MainViewController: UIViewController {
             if segmentControl.selectedSegmentIndex == 0 {
                 SideMenuManager.default.menuBlurEffectStyle = nil
             } else {
+                #if swift(>=4.2)
+                let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
+                #else
                 let styles:[UIBlurEffectStyle] = [.dark, .light, .extraLight]
+                #endif
                 SideMenuManager.default.menuBlurEffectStyle = styles[segmentControl.selectedSegmentIndex - 1]
             }
         default: break;

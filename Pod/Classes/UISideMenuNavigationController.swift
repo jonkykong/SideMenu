@@ -239,11 +239,17 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        NotificationCenter.default.removeObserver(self.transition, name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        #if swift(>=4.2)
+        let changeStatusBarFrameNotificationName = UIApplication.willChangeStatusBarFrameNotification
+        #else
+        let changeStatusBarFrameNotificationName = NSNotification.Name.UIApplicationWillChangeStatusBarFrame
+        #endif
+        
+        NotificationCenter.default.removeObserver(self.transition, name: changeStatusBarFrameNotificationName, object: nil)
         coordinator.animate(alongsideTransition: { (context) in
             self.transition.presentMenuStart()
         }) { (context) in
-            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: changeStatusBarFrameNotificationName, object: nil)
         }
     }
     

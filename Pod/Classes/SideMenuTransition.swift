@@ -67,8 +67,16 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     required public init(sideMenuManager: SideMenuManager) {
         super.init()
         
-        NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        #if swift(>=4.2)
+        let didEnterBackgroundNotificationName = UIApplication.didEnterBackgroundNotification
+        let willChangeStatusBarFrameNotificationName = UIApplication.willChangeStatusBarFrameNotification
+        #else
+        let didEnterBackgroundNotificationName = NSNotification.Name.UIApplicationDidEnterBackground
+        let willChangeStatusBarFrameNotificationName = NSNotification.Name.UIApplicationWillChangeStatusBarFrame
+        #endif
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: didEnterBackgroundNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: willChangeStatusBarFrameNotificationName, object: nil)
         self.sideMenuManager = sideMenuManager
     }
     
@@ -373,7 +381,13 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             originalSuperview.addSubview(mainViewController.view)
         }
         
-        if notification.name == NSNotification.Name.UIApplicationDidEnterBackground {
+        #if swift(>=4.2)
+        let didEnterBackgroundNotificationName = UIApplication.didEnterBackgroundNotification
+        #else
+        let didEnterBackgroundNotificationName = NSNotification.Name.UIApplicationDidEnterBackground
+        #endif
+        
+        if notification.name == didEnterBackgroundNotificationName {
             hideMenuStart().hideMenuComplete()
             menuViewController?.dismiss(animated: false, completion: nil)
             return
@@ -492,7 +506,11 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                     self.tapView = tapView
                 }
                 if let statusBarView = self.statusBarView {
+                    #if swift(>=4.2)
+                    container.bringSubviewToFront(statusBarView)
+                    #else
                     container.bringSubview(toFront: statusBarView)
+                    #endif
                 }
                 
                 return

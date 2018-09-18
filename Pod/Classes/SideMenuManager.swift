@@ -111,8 +111,13 @@ open class SideMenuManager : NSObject {
     /// Draws the `menuAnimationBackgroundColor` behind the status bar. Default is true.
     open var menuFadeStatusBar = true
     
+    #if swift(>=4.2)
+    /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
+    open var menuAnimationOptions: UIView.AnimationOptions = .curveEaseInOut
+    #else
     /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
     open var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
+    #endif
     
     /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
     open var menuAnimationUsingSpringWithDamping: CGFloat = 1
@@ -131,8 +136,13 @@ open class SideMenuManager : NSObject {
     /// Forces menus to always animate when appearing or disappearing, regardless of a pushed view controller's animation.
     open var menuAlwaysAnimate = false
     
+    #if swift(>=4.2)
+    /// Default instance of SideMenuManager.
+    public static let `default` = SideMenuManager()
+    #else
     /// Default instance of SideMenuManager.
     open static let `default` = SideMenuManager()
+    #endif
     
     /// Default instance of SideMenuManager (objective-C).
     open class var defaultManager: SideMenuManager {
@@ -153,6 +163,15 @@ open class SideMenuManager : NSObject {
      
      - Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell.
      */
+    #if swift(>=4.2)
+    open var menuBlurEffectStyle: UIBlurEffect.Style? {
+        didSet {
+            if oldValue != menuBlurEffectStyle {
+                updateMenuBlurIfNecessary()
+            }
+        }
+    }
+    #else
     open var menuBlurEffectStyle: UIBlurEffectStyle? {
         didSet {
             if oldValue != menuBlurEffectStyle {
@@ -160,6 +179,7 @@ open class SideMenuManager : NSObject {
             }
         }
     }
+    #endif
     
     /// The left menu.
     open var menuLeftNavigationController: UISideMenuNavigationController? {
@@ -290,10 +310,16 @@ open class SideMenuManager : NSObject {
     fileprivate func setupMenuBlurForMenu(_ forMenu: UISideMenuNavigationController?) {
         removeMenuBlurForMenu(forMenu)
         
+        #if swift(>=4.2)
+        let uiReduceTransparencyEnabled = UIAccessibility.isReduceTransparencyEnabled
+        #else
+        let uiReduceTransparencyEnabled = UIAccessibilityIsReduceTransparencyEnabled()
+        #endif
+        
         guard let forMenu = forMenu,
             let menuBlurEffectStyle = menuBlurEffectStyle,
             let view = forMenu.topViewController?.view,
-            !UIAccessibilityIsReduceTransparencyEnabled() else {
+            !uiReduceTransparencyEnabled else {
                 return
         }
         
@@ -402,7 +428,286 @@ open class SideMenuManager : NSObject {
 
 // Deprecations, to be removed at a future date.
 extension SideMenuManager {
-    
+    #if swift(>=4.2)
+    @available(*, deprecated, renamed: "default.menuPushStyle", message: "SideMenuManager class methods deprecated.")
+    public static var menuPushStyle: MenuPushStyle {
+        get {
+            return `default`.menuPushStyle
+        }
+        set {
+            `default`.menuPushStyle = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuPresentMode", message: "SideMenuManager class methods deprecated.")
+    public static var menuPresentMode: MenuPresentMode {
+        get {
+            return `default`.menuPresentMode
+        }
+        set {
+            `default`.menuPresentMode = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAllowPushOfSameClassTwice", message: "SideMenuManager class methods deprecated.")
+    public static var menuAllowPushOfSameClassTwice: Bool {
+        get {
+            return `default`.menuAllowPushOfSameClassTwice
+        }
+        set {
+            `default`.menuAllowPushOfSameClassTwice = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuWidth", message: "SideMenuManager class methods deprecated.")
+    public static var menuWidth: CGFloat {
+        get {
+            return `default`.menuWidth
+        }
+        set {
+            `default`.menuWidth = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationPresentDuration", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationPresentDuration: Double {
+        get {
+            return `default`.menuAnimationPresentDuration
+        }
+        set {
+            `default`.menuAnimationPresentDuration = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationDismissDuration", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationDismissDuration: Double {
+        get {
+            return `default`.menuAnimationDismissDuration
+        }
+        set {
+            `default`.menuAnimationDismissDuration = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationCompleteGestureDuration", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationCompleteGestureDuration: Double {
+        get {
+            return `default`.menuAnimationCompleteGestureDuration
+        }
+        set {
+            `default`.menuAnimationCompleteGestureDuration = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationFadeStrength", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationFadeStrength: CGFloat {
+        get {
+            return `default`.menuAnimationFadeStrength
+        }
+        set {
+            `default`.menuAnimationFadeStrength = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationTransformScaleFactor", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationTransformScaleFactor: CGFloat {
+        get {
+            return `default`.menuAnimationTransformScaleFactor
+        }
+        set {
+            `default`.menuAnimationTransformScaleFactor = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationBackgroundColor", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationBackgroundColor: UIColor? {
+        get {
+            return `default`.menuAnimationBackgroundColor
+        }
+        set {
+            `default`.menuAnimationBackgroundColor = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuShadowOpacity", message: "SideMenuManager class methods deprecated.")
+    public static var menuShadowOpacity: Float {
+        get {
+            return `default`.menuShadowOpacity
+        }
+        set {
+            `default`.menuShadowOpacity = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuShadowColor", message: "SideMenuManager class methods deprecated.")
+    public static var menuShadowColor: UIColor {
+        get {
+            return `default`.menuShadowColor
+        }
+        set {
+            `default`.menuShadowColor = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuShadowRadius", message: "SideMenuManager class methods deprecated.")
+    public static var menuShadowRadius: CGFloat {
+        get {
+            return `default`.menuShadowRadius
+        }
+        set {
+            `default`.menuShadowRadius = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuPresentingViewControllerUserInteractionEnabled", message: "SideMenuManager class methods deprecated.")
+    public static var menuPresentingViewControllerUserInteractionEnabled: Bool {
+        get {
+            return `default`.menuPresentingViewControllerUserInteractionEnabled
+        }
+        set {
+            `default`.menuPresentingViewControllerUserInteractionEnabled = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuParallaxStrength", message: "SideMenuManager class methods deprecated.")
+    public static var menuParallaxStrength: Int {
+        get {
+            return `default`.menuParallaxStrength
+        }
+        set {
+            `default`.menuParallaxStrength = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuFadeStatusBar", message: "SideMenuManager class methods deprecated.")
+    public static var menuFadeStatusBar: Bool {
+        get {
+            return `default`.menuFadeStatusBar
+        }
+        set {
+            `default`.menuFadeStatusBar = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationOptions", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationOptions: UIView.AnimationOptions {
+        get {
+            return `default`.menuAnimationOptions
+        }
+        set {
+            `default`.menuAnimationOptions = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationUsingSpringWithDamping", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationUsingSpringWithDamping: CGFloat {
+        get {
+            return `default`.menuAnimationUsingSpringWithDamping
+        }
+        set {
+            `default`.menuAnimationUsingSpringWithDamping = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAnimationInitialSpringVelocity", message: "SideMenuManager class methods deprecated.")
+    public static var menuAnimationInitialSpringVelocity: CGFloat {
+        get {
+            return `default`.menuAnimationInitialSpringVelocity
+        }
+        set {
+            `default`.menuAnimationInitialSpringVelocity = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuDismissOnPush", message: "SideMenuManager class methods deprecated.")
+    public static var menuDismissOnPush: Bool {
+        get {
+            return `default`.menuDismissOnPush
+        }
+        set {
+            `default`.menuDismissOnPush = newValue
+        }
+    }
+    /// -Warning: Deprecated. Use `menuPushStyle = .subMenu` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .subMenu` instead.")
+    public static var menuAllowSubmenus: Bool {
+        get {
+            return menuPushStyle == .subMenu
+        }
+        set {
+            if newValue {
+                menuPushStyle = .subMenu
+            }
+        }
+    }
+    /// -Warning: Deprecated. Use `menuPushStyle = .popWhenPossible` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .popWhenPossible` instead.")
+    public static var menuAllowPopIfPossible: Bool {
+        get {
+            return menuPushStyle == .popWhenPossible
+        }
+        set {
+            if newValue {
+                menuPushStyle = .popWhenPossible
+            }
+        }
+    }
+    /// -Warning: Deprecated. Use `menuPushStyle = .replace` instead.
+    @available(*, deprecated, renamed: "menuPushStyle", message: "Use `menuPushStyle = .replace` instead.")
+    public static var menuReplaceOnPush: Bool {
+        get {
+            return menuPushStyle == .replace
+        }
+        set {
+            if newValue {
+                menuPushStyle = .replace
+            }
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuBlurEffectStyle", message: "SideMenuManager class methods deprecated.")
+    public static var menuBlurEffectStyle: UIBlurEffect.Style? {
+        get {
+            return `default`.menuBlurEffectStyle
+        }
+        set {
+            `default`.menuBlurEffectStyle = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuLeftNavigationController", message: "SideMenuManager class methods deprecated.")
+    public static var menuLeftNavigationController: UISideMenuNavigationController? {
+        get {
+            return `default`.menuLeftNavigationController
+        }
+        set {
+            `default`.menuLeftNavigationController = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuRightNavigationController", message: "SideMenuManager class methods deprecated.")
+    public static var menuRightNavigationController: UISideMenuNavigationController? {
+        get {
+            return `default`.menuRightNavigationController
+        }
+        set {
+            `default`.menuRightNavigationController = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuLeftSwipeToDismissGesture", message: "SideMenuManager class methods deprecated.")
+    public static weak var menuLeftSwipeToDismissGesture: UIPanGestureRecognizer? {
+        get {
+            return `default`.menuLeftSwipeToDismissGesture
+        }
+        set {
+            `default`.menuLeftSwipeToDismissGesture = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuRightSwipeToDismissGesture", message: "SideMenuManager class methods deprecated.")
+    public static weak var menuRightSwipeToDismissGesture: UIPanGestureRecognizer? {
+        get {
+            return `default`.menuRightSwipeToDismissGesture
+        }
+        set {
+            `default`.menuRightSwipeToDismissGesture = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuEnableSwipeGestures", message: "SideMenuManager class methods deprecated.")
+    public static var menuEnableSwipeGestures: Bool {
+        get {
+            return `default`.menuEnableSwipeGestures
+        }
+        set {
+            `default`.menuEnableSwipeGestures = newValue
+        }
+    }
+    @available(*, deprecated, renamed: "default.menuAddScreenEdgePanGesturesToPresent", message: "SideMenuManager class methods deprecated.")
+    @discardableResult open class func menuAddScreenEdgePanGesturesToPresent(toView: UIView, forMenu:UIRectEdge? = nil) -> [UIScreenEdgePanGestureRecognizer] {
+        return `default`.menuAddScreenEdgePanGesturesToPresent(toView: toView, forMenu: forMenu)
+    }
+    @available(*, deprecated, renamed: "default.menuAddPanGestureToPresent", message: "SideMenuManager class methods deprecated.")
+    @discardableResult open class func menuAddPanGestureToPresent(toView: UIView) -> UIPanGestureRecognizer {
+        return `default`.menuAddPanGestureToPresent(toView: toView)
+    }
+    #else
     @available(*, deprecated, renamed: "default.menuPushStyle", message: "SideMenuManager class methods deprecated.")
     open static var menuPushStyle: MenuPushStyle {
         get {
@@ -681,4 +986,5 @@ extension SideMenuManager {
     @discardableResult open class func menuAddPanGestureToPresent(toView: UIView) -> UIPanGestureRecognizer {
         return `default`.menuAddPanGestureToPresent(toView: toView)
     }
+    #endif
 }

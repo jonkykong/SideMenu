@@ -13,16 +13,30 @@ open class UITableViewVibrantCell: UITableViewCell {
     fileprivate var vibrancyView:UIVisualEffectView = UIVisualEffectView()
     fileprivate var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()
     fileprivate var defaultSelectedBackgroundView:UIView?
+    #if swift(>=4.2)
+    open var blurEffectStyle: UIBlurEffect.Style? {
+        didSet {
+            updateBlur()
+        }
+    }
+    #else
     open var blurEffectStyle: UIBlurEffectStyle? {
         didSet {
             updateBlur()
         }
     }
+    #endif
     
     // For registering with UITableView without subclassing otherwise dequeuing instance of the cell causes an exception
+    #if swift(>=4.2)
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    #else
     public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+    #endif
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,7 +59,13 @@ open class UITableViewVibrantCell: UITableViewCell {
         // shouldn't be needed but backgroundColor is set to white on iPad:
         backgroundColor = UIColor.clear
         
-        if let blurEffectStyle = blurEffectStyle, !UIAccessibilityIsReduceTransparencyEnabled() {
+        #if swift(>=4.2)
+        let uiTransparencyEnabled = UIAccessibility.isReduceTransparencyEnabled
+        #else
+        let uiTransparencyEnabled = UIAccessibilityIsReduceTransparencyEnabled()
+        #endif
+        
+        if let blurEffectStyle = blurEffectStyle, !uiTransparencyEnabled {
             let blurEffect = UIBlurEffect(style: blurEffectStyle)
             vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect)
             
