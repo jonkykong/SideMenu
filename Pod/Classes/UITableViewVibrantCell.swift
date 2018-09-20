@@ -13,14 +13,14 @@ open class UITableViewVibrantCell: UITableViewCell {
     fileprivate var vibrancyView:UIVisualEffectView = UIVisualEffectView()
     fileprivate var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()
     fileprivate var defaultSelectedBackgroundView:UIView?
-    open var blurEffectStyle: UIBlurEffectStyle? {
+    open var blurEffectStyle: UIBlurEffect.Style? {
         didSet {
             updateBlur()
         }
     }
     
     // For registering with UITableView without subclassing otherwise dequeuing instance of the cell causes an exception
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
@@ -45,7 +45,7 @@ open class UITableViewVibrantCell: UITableViewCell {
         // shouldn't be needed but backgroundColor is set to white on iPad:
         backgroundColor = UIColor.clear
         
-        if let blurEffectStyle = blurEffectStyle, !UIAccessibilityIsReduceTransparencyEnabled() {
+        if let blurEffectStyle = blurEffectStyle, !UIAccessibility.isReduceTransparencyEnabled {
             let blurEffect = UIBlurEffect(style: blurEffectStyle)
             vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect)
             

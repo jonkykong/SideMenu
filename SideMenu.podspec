@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
-  s.version          = "4.0.0"
+  s.version          = "4.0.1"
   s.summary          = "Simple side menu control for iOS in Swift inspired by Facebook. Right and Left sides. No coding required."
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/jonkykong/SideMenu.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'Pod/Classes/**/*'
   # s.resource_bundles = {
