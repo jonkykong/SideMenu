@@ -53,7 +53,7 @@ Check out the example project to see it in action!
 
 ## Requirements
 - [x] Xcode 10.
-- [x] iOS 10.3 or higher.
+- [x] iOS 10.0 or higher.
 
 ## Installation
 ### CocoaPods
@@ -68,7 +68,7 @@ To integrate SideMenu into your Xcode project using CocoaPods, specify it in you
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.3'
+platform :ios, '10.0'
 use_frameworks!
 
 pod 'SideMenu'
