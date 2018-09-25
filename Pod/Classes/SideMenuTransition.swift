@@ -398,7 +398,9 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
     
     // animate a change from one viewcontroller to another
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
+		
+		completionCurve = sideMenuManager.menuAnimationCompletionCurve
+		
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView
         // prevent any other menu gestures from firing
