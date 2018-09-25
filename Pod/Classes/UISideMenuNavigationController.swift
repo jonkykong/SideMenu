@@ -237,7 +237,7 @@ open class UISideMenuNavigationController: UINavigationController {
         coordinator.animate(alongsideTransition: { (context) in
             self.transition.presentMenuStart()
         }) { (context) in
-            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: changeStatusBarFrameNotificationName, object: nil)
+            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: .UIApplicationWillChangeStatusBarFrame, object: nil)
         }
     }
     
