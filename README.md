@@ -53,7 +53,7 @@ Check out the example project to see it in action!
 
 ## Requirements
 - [x] Xcode 10.
-- [x] Swift 4.
+- [x] Swift 4.2.
 - [x] iOS 10 or higher.
 
 ## Installation
@@ -73,6 +73,9 @@ platform :ios, '8.0'
 use_frameworks!
 
 pod 'SideMenu'
+
+# For Swift 4 (no longer maintained), use:
+# pod 'SideMenu', '~> 4.0.0'
 
 # For Swift 3 (no longer maintained), use:
 # pod 'SideMenu', '~> 2.3.4'
