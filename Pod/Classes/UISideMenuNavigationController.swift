@@ -19,13 +19,11 @@ open class UISideMenuNavigationController: UINavigationController {
     
     fileprivate weak var foundDelegate: UISideMenuNavigationControllerDelegate?
     fileprivate weak var activeDelegate: UISideMenuNavigationControllerDelegate? {
-        get {
-            guard !view.isHidden else {
-                return nil
-            }
-            
-            return sideMenuDelegate ?? foundDelegate ?? findDelegate(forViewController: presentingViewController)
+        guard !view.isHidden else {
+            return nil
         }
+        
+        return sideMenuDelegate ?? foundDelegate ?? findDelegate(forViewController: presentingViewController)
     }
     fileprivate func findDelegate(forViewController: UIViewController?) -> UISideMenuNavigationControllerDelegate? {
         if let navigationController = forViewController as? UINavigationController {
@@ -45,9 +43,7 @@ open class UISideMenuNavigationController: UINavigationController {
     internal var locked = false
     internal var originalMenuBackgroundColor: UIColor?
     internal var transition: SideMenuTransition {
-        get {
-            return sideMenuManager.transition
-        }
+        return sideMenuManager.transition
     }
     
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `UISideMenuNavigationController` automatically receives these events.
@@ -85,9 +81,7 @@ open class UISideMenuNavigationController: UINavigationController {
     
     /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
     open var isHidden: Bool {
-        get {
-            return self.presentingViewController == nil
-        }
+        return presentingViewController == nil
     }
     
     #if !STFU_SIDEMENU
@@ -239,11 +233,11 @@ open class UISideMenuNavigationController: UINavigationController {
             return
         }
         
-        NotificationCenter.default.removeObserver(self.transition, name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+        NotificationCenter.default.removeObserver(self.transition, name: .UIApplicationWillChangeStatusBarFrame, object: nil)
         coordinator.animate(alongsideTransition: { (context) in
             self.transition.presentMenuStart()
         }) { (context) in
-            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
+            NotificationCenter.default.addObserver(self.transition, selector:#selector(SideMenuTransition.handleNotification), name: changeStatusBarFrameNotificationName, object: nil)
         }
     }
     

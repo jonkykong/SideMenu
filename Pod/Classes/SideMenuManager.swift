@@ -112,8 +112,8 @@ open class SideMenuManager: NSObject {
     open var menuFadeStatusBar = true
     
     /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
-    open var menuAnimationOptions: UIViewAnimationOptions = .curveEaseInOut
-	
+    open var menuAnimationOptions: UIView.AnimationOptions = .curveEaseInOut
+
 	///	Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
 	open var menuAnimationCompletionCurve: UIViewAnimationCurve = .easeIn
     
@@ -139,9 +139,7 @@ open class SideMenuManager: NSObject {
     
     /// Default instance of SideMenuManager (objective-C).
     open class var defaultManager: SideMenuManager {
-        get {
-            return SideMenuManager.default
-        }
+        return SideMenuManager.default
     }
     
     internal var transition: SideMenuTransition!
@@ -156,7 +154,7 @@ open class SideMenuManager: NSObject {
      
      - Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell.
      */
-    open var menuBlurEffectStyle: UIBlurEffectStyle? {
+    open var menuBlurEffectStyle: UIBlurEffect.Style? {
         didSet {
             if oldValue != menuBlurEffectStyle {
                 updateMenuBlurIfNecessary()
@@ -296,7 +294,7 @@ open class SideMenuManager: NSObject {
         guard let forMenu = forMenu,
             let menuBlurEffectStyle = menuBlurEffectStyle,
             let view = forMenu.topViewController?.view,
-            !UIAccessibilityIsReduceTransparencyEnabled() else {
+            !UIAccessibility.isReduceTransparencyEnabled else {
                 return
         }
         
