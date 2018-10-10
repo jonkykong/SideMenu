@@ -364,7 +364,8 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 return
         }
         
-        if let originalSuperview = originalSuperview, let mainViewController = mainViewController {
+        if let originalSuperview = originalSuperview, let mainViewController = mainViewController,
+						dismissWhenInBackground {
             originalSuperview.addSubview(mainViewController.view)
         }
         
