@@ -373,7 +373,11 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
             menuViewController?.dismiss(animated: false, completion: nil)
             return
         }
-        
+			
+			  if notification.name == UIApplication.didEnterBackgroundNotification && !dismissWhenInBackground {
+					return
+				}
+			
         UIView.animate(withDuration: sideMenuManager.menuAnimationDismissDuration,
                        delay: 0,
                        usingSpringWithDamping: sideMenuManager.menuAnimationUsingSpringWithDamping,
