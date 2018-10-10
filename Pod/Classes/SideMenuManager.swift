@@ -135,9 +135,13 @@ open class SideMenuManager: NSObject {
     open var menuAlwaysAnimate = false
 	
 		/// Automatically dismisses the menu when app goes to the background.
-		open var dismissWhenInBackground: Bool = true {
-			didSet {
-				transition.dismissWhenInBackground = dismissWhenInBackground
+		open var dismissWhenInBackground: Bool {
+			get {
+				return transition.dismissWhenInBackground
+			}
+			
+			set {
+				transition.dismissWhenInBackground = newValue
 			}
 		}
     
