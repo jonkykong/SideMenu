@@ -148,8 +148,9 @@ SideMenuManager.default.menuFadeStatusBar = false
 Then from a button, do something like this:
 ``` swift
 present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
-
-// Similarly, to dismiss a menu programmatically, you would do this:
+```
+To dismiss a menu programmatically, do something like this:
+``` swift
 dismiss(animated: true, completion: nil)
 ```
 That's it.
