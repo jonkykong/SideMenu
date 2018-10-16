@@ -34,7 +34,6 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         return presentDirection == .left ? sideMenuManager.menuLeftNavigationController : sideMenuManager.menuRightNavigationController
     }
     internal var presentDirection: UIRectEdge = .left
-		internal var dismissWhenInBackground = true
     internal weak var tapView: UIView? {
         didSet {
             guard let tapView = tapView else {
@@ -364,20 +363,19 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 return
         }
         
-        if let originalSuperview = originalSuperview, let mainViewController = mainViewController,
-						dismissWhenInBackground {
+        if let originalSuperview = originalSuperview,
+            let mainViewController = mainViewController,
+            sideMenuManager.menuDismissWhenBackgrounded {
             originalSuperview.addSubview(mainViewController.view)
         }
         
-        if notification.name == UIApplication.didEnterBackgroundNotification && dismissWhenInBackground {
-            hideMenuStart().hideMenuComplete()
-            menuViewController?.dismiss(animated: false, completion: nil)
+        if notification.name == UIApplication.didEnterBackgroundNotification {
+            if sideMenuManager.menuDismissWhenBackgrounded {
+                hideMenuStart().hideMenuComplete()
+                menuViewController?.dismiss(animated: false, completion: nil)
+            }
             return
         }
-			
-			  if notification.name == UIApplication.didEnterBackgroundNotification && !dismissWhenInBackground {
-					return
-				}
 			
         UIView.animate(withDuration: sideMenuManager.menuAnimationDismissDuration,
                        delay: 0,
