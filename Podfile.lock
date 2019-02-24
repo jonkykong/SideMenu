@@ -1,5 +1,5 @@
 PODS:
-  - SideMenu (2.0.5)
+  - SideMenu (5.0.3)
 
 DEPENDENCIES:
   - SideMenu (from `.`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  SideMenu: 0ecfd407b24e7d36c57fc50ca7f5d7cedb7c8841
+  SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
 
-PODFILE CHECKSUM: 58fed701dc13a7835ed36507e7cf19fa22035003
+PODFILE CHECKSUM: 863f183ea1ab6f64dc8553590349c586faf8e4a1
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.6.0.beta.2

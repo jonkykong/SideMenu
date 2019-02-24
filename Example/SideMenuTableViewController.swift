@@ -17,7 +17,7 @@ class SideMenuTableViewController: UITableViewController {
         // refresh cell blur effect in case it changed
         tableView.reloadData()
         
-        guard SideMenuManager.default.menuBlurEffectStyle == nil else {
+        guard let menu = navigationController as? UISideMenuNavigationController, menu.blurEffectStyle == nil else {
             return
         }
         
@@ -30,8 +30,10 @@ class SideMenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewVibrantCell
-        
-        cell.blurEffectStyle = SideMenuManager.default.menuBlurEffectStyle
+
+        if let menu = navigationController as? UISideMenuNavigationController {
+            cell.blurEffectStyle = menu.blurEffectStyle
+        }
         
         return cell
     }
