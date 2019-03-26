@@ -40,11 +40,11 @@ class MainViewController: UIViewController {
     
     fileprivate func setDefaults() {
         let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
-        presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentMode)!
+        presentModeSegmentedControl.selectedSegmentIndex = modes.firstIndex(of: SideMenuManager.default.menuPresentMode)!
         
         let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = SideMenuManager.default.menuBlurEffectStyle {
-            blurSegmentControl.selectedSegmentIndex = styles.index(of: menuBlurEffectStyle) ?? 0
+            blurSegmentControl.selectedSegmentIndex = styles.firstIndex(of: menuBlurEffectStyle) ?? 0
         } else {
             blurSegmentControl.selectedSegmentIndex = 0
         }

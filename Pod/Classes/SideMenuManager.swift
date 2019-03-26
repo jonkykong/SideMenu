@@ -230,7 +230,7 @@ open class SideMenuManager: NSObject {
             return
         }
         
-        gesture.addTarget(transition, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
+        gesture.addTarget(transition as Any, action:#selector(SideMenuTransition.handleHideMenuPan(_:)))
     }
     
     fileprivate func setupNavigationController(_ forMenu: UISideMenuNavigationController?, leftSide: Bool) {
@@ -359,7 +359,7 @@ open class SideMenuManager: NSObject {
         
         if forMenu != .right {
             let leftScreenEdgeGestureRecognizer = newScreenEdgeGesture()
-            leftScreenEdgeGestureRecognizer.addTarget(transition, action:#selector(SideMenuTransition.handlePresentMenuLeftScreenEdge(_:)))
+            leftScreenEdgeGestureRecognizer.addTarget(transition as Any, action:#selector(SideMenuTransition.handlePresentMenuLeftScreenEdge(_:)))
             leftScreenEdgeGestureRecognizer.edges = .left
             
             #if !STFU_SIDEMENU
@@ -371,7 +371,7 @@ open class SideMenuManager: NSObject {
         
         if forMenu != .left {
             let rightScreenEdgeGestureRecognizer = newScreenEdgeGesture()
-            rightScreenEdgeGestureRecognizer.addTarget(transition, action:#selector(SideMenuTransition.handlePresentMenuRightScreenEdge(_:)))
+            rightScreenEdgeGestureRecognizer.addTarget(transition as Any, action:#selector(SideMenuTransition.handlePresentMenuRightScreenEdge(_:)))
             rightScreenEdgeGestureRecognizer.edges = .right
             
             #if !STFU_SIDEMENU
@@ -393,7 +393,7 @@ open class SideMenuManager: NSObject {
      */
     @discardableResult open func menuAddPanGestureToPresent(toView: UIView) -> UIPanGestureRecognizer {
         let panGestureRecognizer = UIPanGestureRecognizer()
-        panGestureRecognizer.addTarget(transition, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
+        panGestureRecognizer.addTarget(transition as Any, action:#selector(SideMenuTransition.handlePresentMenuPan(_:)))
         toView.addGestureRecognizer(panGestureRecognizer)
         
         if menuLeftNavigationController ?? menuRightNavigationController == nil {
