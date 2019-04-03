@@ -59,36 +59,36 @@ open class MenuPresentStyle: NSObject, SideMenuPresentationControllerDelegate {
 }
 
 public extension MenuPresentStyle {
-    public static let menuSlideIn = MenuPresentStyle {
+    static let menuSlideIn = MenuPresentStyle {
         $0.menuOnTop = true
         $0.menuTransformTranslateFactor = -1
     }
-    public static let viewSlideOut = MenuPresentStyle {
+    static let viewSlideOut = MenuPresentStyle {
         $0.presentingTransformTranslateFactor = 1
     }
-    public static let viewSlideOutMenuIn = MenuPresentStyle {
+    static let viewSlideOutMenuIn = MenuPresentStyle {
         $0.menuTransformTranslateFactor = -1
         $0.presentingTransformTranslateFactor = 1
     }
     @available(*, deprecated, renamed: "viewSlideOutMenuIn")
-    public static let viewSlideInOut = viewSlideOutMenuIn
-    public static let menuDissolveIn = MenuPresentStyle {
+    static let viewSlideInOut = viewSlideOutMenuIn
+    static let menuDissolveIn = MenuPresentStyle {
         $0.menuFadeStrength = 1
         $0.menuOnTop = true
     }
-    public static let viewSlideOutMenuPartialIn = MenuPresentStyle {
+    static let viewSlideOutMenuPartialIn = MenuPresentStyle {
         $0.menuTransformTranslateFactor = -0.5
         $0.presentingTransformTranslateFactor = 1
     }
-    public static let viewSlideOutMenuOut = MenuPresentStyle {
+    static let viewSlideOutMenuOut = MenuPresentStyle {
         $0.menuTransformTranslateFactor = 1
         $0.presentingTransformTranslateFactor = 1
     }
-    public static let viewSlideOutMenuPartialOut = MenuPresentStyle {
+    static let viewSlideOutMenuPartialOut = MenuPresentStyle {
         $0.menuTransformTranslateFactor = 0.5
         $0.presentingTransformTranslateFactor = 1
     }
-    public static let viewSlideOutMenuZoom = MenuPresentStyle {
+    static let viewSlideOutMenuZoom = MenuPresentStyle {
         $0.presentingTransformTranslateFactor = 1
         $0.menuTransformScaleFactor = 0.95
     }
