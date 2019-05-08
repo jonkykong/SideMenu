@@ -15,8 +15,6 @@
 		6672CE381BB9B1A0D633B5E98E9A412E /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC20F98687A109E1FDAD74BC62911299 /* Print.swift */; };
 		7CFEB3863F8BB185CD0E835E302E229C /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */; };
 		84241FB721D6CB50002D4862 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */; };
-		84241FB921D7FCA2002D4862 /* SideMenuGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84241FB821D7FCA2002D4862 /* SideMenuGestureManager.swift */; };
-		84241FBB21D81885002D4862 /* SideMenuPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84241FBA21D81885002D4862 /* SideMenuPresentable.swift */; };
 		8436EF15220EE97800A8861A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EF14220EE97800A8861A /* Protected.swift */; };
 		8BC8C3FB652840612047B49E8D4B3B44 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6DFF15000AFE2A371BF499E7AFDA808 /* Foundation.framework */; };
 		B912EBCBB29DDE29695D0E58BC145396 /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C67B923116765AC95EC08436448D4 /* SideMenuTransitionController.swift */; };
@@ -49,8 +47,6 @@
 		6928960C76E1B7820688E60500A05DFD /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
 		6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
 		84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
-		84241FB821D7FCA2002D4862 /* SideMenuGestureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuGestureManager.swift; path = Pod/Classes/SideMenuGestureManager.swift; sourceTree = "<group>"; };
-		84241FBA21D81885002D4862 /* SideMenuPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresentable.swift; sourceTree = "<group>"; };
 		8436EF14220EE97800A8861A /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Classes/Protected.swift; sourceTree = "<group>"; };
 		8B22924AF0FECF030E052A8783CA4120 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B278378E8AE995FBE26E513BED2DB8E /* Pods-Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Example-Info.plist"; sourceTree = "<group>"; };
@@ -96,13 +92,11 @@
 				DC20F98687A109E1FDAD74BC62911299 /* Print.swift */,
 				8436EF14220EE97800A8861A /* Protected.swift */,
 				61E50E81F13B12673E4A96C971B6DFC7 /* SideMenuManager.swift */,
-				84241FB821D7FCA2002D4862 /* SideMenuGestureManager.swift */,
 				FECF363D37A4A8B719135B1848C02CD4 /* SideMenuPresentationController.swift */,
 				383C67B923116765AC95EC08436448D4 /* SideMenuTransitionController.swift */,
 				84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */,
 				6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */,
 				A5362C3E90D0411B7A1153811DEFA8E4 /* UITableViewVibrantCell.swift */,
-				84241FBA21D81885002D4862 /* SideMenuPresentable.swift */,
 				8FA2C91F7C098E55AD6C36A44D885E67 /* Pod */,
 				9F412C3C9DC9016F76368C6285235102 /* Support Files */,
 			);
@@ -276,6 +270,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -315,8 +310,6 @@
 				84241FB721D6CB50002D4862 /* SideMenuInteractionController.swift in Sources */,
 				BD3D0DAA6FBD9D2E54C807C55E287223 /* SideMenu-dummy.m in Sources */,
 				8436EF15220EE97800A8861A /* Protected.swift in Sources */,
-				84241FBB21D81885002D4862 /* SideMenuPresentable.swift in Sources */,
-				84241FB921D7FCA2002D4862 /* SideMenuGestureManager.swift in Sources */,
 				D3B1E46DFEE3C36D413C60BA994895F7 /* SideMenuManager.swift in Sources */,
 				5365F93B3E5F4D3D9E1DA2EDCAF7F93B /* SideMenuPresentationController.swift in Sources */,
 				B912EBCBB29DDE29695D0E58BC145396 /* SideMenuTransitionController.swift in Sources */,
@@ -404,7 +397,6 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -503,7 +495,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -536,7 +528,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -597,7 +589,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;

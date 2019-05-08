@@ -7,7 +7,18 @@
 
 import UIKit
 
+internal protocol SideMenuInteractable {
+    func handle(state: SideMenuInteractionController.State)
+}
+
 internal class SideMenuInteractionController: UIPercentDrivenInteractiveTransition {
+
+    internal enum State { case
+        update(progress: CGFloat),
+        switching(progress: CGFloat),
+        finish,
+        cancel
+    }
 
     private(set) var isCancelled: Bool = false
     private(set) var isFinished: Bool = false
@@ -30,5 +41,19 @@ internal class SideMenuInteractionController: UIPercentDrivenInteractiveTransiti
     override func update(_ percentComplete: CGFloat) {
         guard !isCancelled && !isFinished else { return }
         super.update(percentComplete)
+    }
+}
+
+extension SideMenuInteractionController: SideMenuInteractable {
+
+    func handle(state: State) {
+        switch state {
+        case .update(let progress):
+            update(progress)
+        case .finish:
+            finish()
+        case .switching, .cancel:
+            cancel()
+        }
     }
 }

@@ -40,6 +40,10 @@ open class SideMenuManager: NSObject {
         }
     }
 
+    private weak var activeGesture: UIPanGestureRecognizer?
+    private weak var switchToMenu: Menu?
+    private(set) var leftSide: Bool = false
+
     /**
      The push style of the menu.
      
@@ -155,27 +159,7 @@ open class SideMenuManager: NSObject {
         return SideMenuManager.default
     }
 
-    internal lazy var gestureManager: SideMenuGestureManager = {
-        let gestureManager = SideMenuGestureManager()
-        gestureManager.delegate = self
-        return gestureManager
-    }()
 
-    private var rotating: Bool = false
-    private weak var switchToMenu: Menu?
-
-    override init() {
-        super.init()
-        let notificationNames: [NSNotification.Name] = [
-            UIApplication.didEnterBackgroundNotification,
-            UIApplication.willChangeStatusBarOrientationNotification,
-            UIApplication.didChangeStatusBarOrientationNotification,
-            UIApplication.willChangeStatusBarFrameNotification
-        ]
-        notificationNames.forEach {
-            NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: $0, object: nil)
-        }
-    }
 
     /**
      The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
@@ -247,7 +231,7 @@ open class SideMenuManager: NSObject {
         }
 
         let edges: [UIRectEdge] = sides.map { $0.edge }
-        return gestureManager.addPresentScreenEdgePanGestures(to: view, for: edges)
+        return addPresentScreenEdgePanGestures(to: view, for: edges)
     }
     
     /**
@@ -262,7 +246,7 @@ open class SideMenuManager: NSObject {
             Print.warning(.panGestureAdded, arguments: #function, PresentDirection.left.name, PresentDirection.right.name, required: true)
         }
         
-        return gestureManager.addPresentPanGesture(to: view)
+        return addPresentPanGesture(to: view)
     }
 }
 
@@ -270,7 +254,7 @@ extension SideMenuManager: SideMenuTransitionControllerDelegate {
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, animationEnded transitionCompleted: Bool) {
         if transitionController.presenting && transitionCompleted {
-            gestureManager.addDismissGestures(to: transitionController.tapView)
+            addDismissGestures(to: transitionController.tapView)
             return
         }
 
@@ -278,47 +262,6 @@ extension SideMenuManager: SideMenuTransitionControllerDelegate {
             self.switchToMenu = nil
             SideMenuManager.visibleViewController?.present(switchToMenu, animated: true, completion: nil)
         }
-    }
-}
-
-extension SideMenuManager: SideMenuGestureManagerDelegate {
-
-    internal func gestureManager(_ gestureManager: SideMenuGestureManager, changedState state: SideMenuGestureManager.State, presenting: Bool) {
-        guard gestureManager.isTracking else {
-            if presenting {
-                guard let menu = menu(forLeftSide: gestureManager.leftSide) else { return }
-                SideMenuManager.visibleViewController?.present(menu, animated: true, completion: nil)
-            } else {
-                activeMenu?.dismiss(animated: true, completion: nil)
-            }
-            return
-        }
-
-        switch state {
-        case .start(let progress):
-            if presenting {
-                guard let menu = menu(forLeftSide: gestureManager.leftSide) else { return }
-                SideMenuManager.visibleViewController?.present(menu, animated: true, completion: nil)
-            } else {
-                activeMenu?.dismiss(animated: true, completion: nil)
-            }
-            activeMenu?.transitionController?.interactionController?.update(progress)
-        case .update(let progress):
-            activeMenu?.transitionController?.interactionController?.update(progress)
-        case .switching:
-            switchToMenu = menu(forLeftSide: gestureManager.leftSide)
-            activeMenu?.transitionController?.interactionController?.cancel()
-        case .finish:
-            switchToMenu = nil
-            activeMenu?.transitionController?.interactionController?.finish()
-        case .cancel:
-            switchToMenu = nil
-            activeMenu?.transitionController?.interactionController?.cancel()
-        }
-    }
-
-    internal func gestureManagerWidthForMenu(_ gestureManager: SideMenuGestureManager) -> CGFloat? {
-        return menu(forLeftSide: gestureManager.leftSide)?.menuWidth
     }
 }
 
@@ -330,9 +273,134 @@ internal extension SideMenuManager {
         case false: menuRightNavigationController = menu
         }
     }
+
+    var isTracking: Bool {
+        return activeGesture != nil
+    }
+
+    func addPresentScreenEdgePanGestures(to view: UIView, for sides: [UIRectEdge] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
+        return sides.map { edge in
+            let gesture = addScreenEdgeGesture(toView: view, edge: edge)
+            gesture.addTarget(self, action:#selector(handlePresentMenuScreenEdge(_:)))
+            return gesture
+        }
+    }
+
+    @discardableResult func addPresentPanGesture(to view: UIView) -> UIPanGestureRecognizer {
+        let panGestureRecognizer = UIPanGestureRecognizer()
+        panGestureRecognizer.addTarget(self, action:#selector(handlePresentMenuPan(_:)))
+        view.addGestureRecognizer(panGestureRecognizer)
+        return panGestureRecognizer
+    }
+
+    @discardableResult func addDismissPanGesture(to view: UIView) -> UIPanGestureRecognizer {
+        let panGestureRecognizer = UIPanGestureRecognizer()
+        panGestureRecognizer.cancelsTouchesInView = false
+        panGestureRecognizer.addTarget(self, action:#selector(handleDismissMenuPan(_:)))
+        view.addGestureRecognizer(panGestureRecognizer)
+        return panGestureRecognizer
+    }
+
+    func
+        addDismissGestures(to view: UIView?) {
+        guard let view = view else { return }
+
+        addDismissPanGesture(to: view)
+
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.addTarget(self, action: #selector(handleDismissMenuTap(_:)))
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
 }
 
 private extension SideMenuManager {
+
+    func factor(_ presenting: Bool) -> CGFloat {
+        return presenting ? presentFactor : hideFactor
+    }
+
+    var presentFactor: CGFloat {
+        return leftSide ? 1 : -1
+    }
+
+    var hideFactor: CGFloat {
+        return -presentFactor
+    }
+
+    @objc func handlePresentMenuScreenEdge(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        handleMenuPan(gesture, presenting: true)
+    }
+
+    @objc func handlePresentMenuPan(_ gesture: UIPanGestureRecognizer) {
+        handleMenuPan(gesture, presenting: true)
+    }
+
+    @objc func handleDismissMenuTap(_ tap: UITapGestureRecognizer) {
+        activeMenu?.dismiss(animated: true, completion: nil)
+    }
+
+    @objc func handleDismissMenuPan(_ gesture: UIPanGestureRecognizer) {
+        handleMenuPan(gesture, presenting: false)
+    }
+
+    func addScreenEdgeGesture(toView: UIView, edge: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+        let screenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer()
+        screenEdgeGestureRecognizer.cancelsTouchesInView = true
+        screenEdgeGestureRecognizer.edges = edge
+        toView.addGestureRecognizer(screenEdgeGestureRecognizer)
+        return screenEdgeGestureRecognizer
+    }
+
+    func handleMenuPan(_ gesture: UIPanGestureRecognizer, presenting: Bool) {
+        if activeGesture == nil {
+            if presenting {
+                if let gesture = gesture as? UIScreenEdgePanGestureRecognizer {
+                    leftSide = gesture.edges.contains(.left)
+                } else {
+                    // not sure which way the user is swiping yet, so do nothing
+                    if gesture.xTranslation == 0 { return }
+                    leftSide = gesture.xTranslation > 0
+                }
+            }
+
+            activeGesture = gesture
+        } else if gesture != activeGesture {
+            gesture.isEnabled = false
+            gesture.isEnabled = true
+            return
+        }
+
+        let width = menu(forLeftSide: leftSide)?.menuWidth ?? 0
+        let distance = gesture.xTranslation / width
+        let progress = max(min(distance * factor(presenting), 1), 0)
+        switch (gesture.state) {
+        case .began:
+            if presenting {
+                guard let menu = menu(forLeftSide: leftSide) else { return }
+                SideMenuManager.visibleViewController?.present(menu, animated: true, completion: nil)
+            } else {
+                activeMenu?.dismiss(animated: true, completion: nil)
+            }
+            activeMenu?.handle(state: .update(progress: progress))
+        case .changed:
+            if presenting && gesture.canSwitch {
+                let switching = (distance > 0 && !leftSide) || (distance < 0 && leftSide)
+                if switching {
+                    leftSide = !leftSide
+                    switchToMenu = menu(forLeftSide: leftSide)
+                    activeMenu?.handle(state: .switching(progress: progress))
+                    return
+                }
+            }
+            activeMenu?.handle(state: .update(progress: progress))
+        default:
+            switchToMenu = nil
+            activeGesture = nil
+            let velocity = gesture.xVelocity * factor(presenting)
+            let finished = velocity >= 100 || velocity >= -50 && abs(distance) >= 0.5
+            activeMenu?.handle(state: finished ? .finish : .cancel)
+        }
+    }
 
     var activeMenu: Menu? {
         if menuLeftNavigationController?.isHidden == false { return menuLeftNavigationController }
@@ -392,34 +460,12 @@ private extension SideMenuManager {
     }
 
     func setupSwipeGestures() {
-        forEachMenu {
-            if let swipeToDismissGesture = $0.swipeToDismissGesture, !$0.enableSwipeGestures {
+        forEachMenu { menu in
+            if let swipeToDismissGesture = menu.swipeToDismissGesture, !menu.enableSwipeGestures {
                 swipeToDismissGesture.view?.removeGestureRecognizer(swipeToDismissGesture)
-            } else if $0.swipeToDismissGesture == nil && $0.enableSwipeGestures {
-                $0.swipeToDismissGesture = gestureManager.addDismissPanGesture(to: $0.view)
+            } else if menu.swipeToDismissGesture == nil && menu.enableSwipeGestures {
+                menu.swipeToDismissGesture = addDismissPanGesture(to: menu.view)
             }
-        }
-    }
-
-    @objc func handleNotification(notification: NSNotification) {
-        guard let activeMenu = activeMenu, activeMenu.presentedViewController == nil else { return }
-
-        switch notification.name {
-        case UIApplication.didEnterBackgroundNotification:
-            if activeMenu.dismissWhenBackgrounded {
-                activeMenu.transitionController?.interactionController?.cancel()
-                activeMenu.dismiss(animated: false, completion: nil)
-            }
-            return
-        case UIApplication.willChangeStatusBarOrientationNotification:
-            rotating = true
-        case UIApplication.didChangeStatusBarOrientationNotification:
-            rotating = false
-        case UIApplication.willChangeStatusBarFrameNotification:
-            if !rotating {
-                activeMenu.dismiss(animated: true, completion: nil)
-            }
-        default: break
         }
     }
 
@@ -442,6 +488,51 @@ private extension SideMenuManager {
         }
 
         return forViewController
+    }
+}
+
+private extension UIPanGestureRecognizer {
+
+    var canSwitch: Bool {
+        return !(self is UIScreenEdgePanGestureRecognizer)
+    }
+
+    var presentDirection: SideMenuManager.PresentDirection {
+        return xTranslation > 0 ? .left : .right
+    }
+
+    var xTranslation: CGFloat {
+        return view?.untransform {
+            return self.translation(in: view).x
+            } ?? 0
+    }
+
+    var xVelocity: CGFloat {
+        return view?.untransform {
+            return self.velocity(in: view).x
+            } ?? 0
+    }
+}
+
+internal extension UIView {
+
+    @discardableResult func untransform(_ code: () -> CGFloat) -> CGFloat {
+        let transform = self.transform
+        self.transform = .identity
+        let value = code()
+        self.transform = transform
+        return value
+    }
+
+    func untransform(_ code: () -> Void) {
+        untransform { () -> CGFloat in
+            code()
+            return 0
+        }
+    }
+
+    func bringToFront() {
+        self.superview?.bringSubviewToFront(self)
     }
 }
 

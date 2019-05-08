@@ -15,20 +15,15 @@ internal class SideMenuTransitionController: NSObject, UIViewControllerAnimatedT
 
     internal weak var tapView: UIView?
     internal var interactive: Bool = false
-    internal var options: Menu.Options
+    private unowned var menu: Menu
     internal var delegate: SideMenuTransitionControllerDelegate?
-    internal lazy var interactionController: SideMenuInteractionController? = {
-        guard interactive else { return nil }
-        return SideMenuInteractionController(completionCurve: options.completionCurve)
-    }()
-
     private(set) var presenting: Bool = true
     private var transitioning = false
     private weak var containerView: UIView?
     private var presentationController: SideMenuPresentationController!
 
-    init(options: Menu.Options) {
-        self.options = options
+    init(menu: Menu) {
+        self.menu = menu
     }
 
     deinit {
@@ -39,22 +34,20 @@ internal class SideMenuTransitionController: NSObject, UIViewControllerAnimatedT
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
             let toViewController = transitionContext.viewController(forKey: .to),
-            let fromViewController = transitionContext.viewController(forKey: .from),
-            let menu = (toViewController as? Menu) ?? (fromViewController as? Menu)
+            let fromViewController = transitionContext.viewController(forKey: .from)
             else { return }
 
         menu.sideMenuManagerDelegate = self
-        options = menu.options
         let presentingViewController = menu == toViewController ? fromViewController : toViewController
         containerView = transitionContext.containerView
 
         if presenting {
-            presentationController = SideMenuPresentationController(style: options.presentStyle,
+            presentationController = SideMenuPresentationController(style: menu.options.presentStyle,
                                                                     presented: menu,
                                                                     presenting: presentingViewController,
                                                                     containerView: transitionContext.containerView,
-                                                                    presentingUserInteractionEnabled: options.presentingViewControllerUserInteractionEnabled,
-                                                                    presentingViewControllerUseSnapshot: options.presentingViewControllerUseSnapshot)
+                                                                    presentingUserInteractionEnabled: menu.options.presentingViewControllerUserInteractionEnabled,
+                                                                    presentingViewControllerUseSnapshot: menu.options.presentingViewControllerUseSnapshot)
         }
 
         transition(using: transitionContext)
@@ -237,8 +230,8 @@ extension SideMenuTransitionController: UISideMenuNavigationControllerManagerDel
 private extension SideMenuTransitionController {
 
     var duration: Double {
-        if interactive { return options.completeGestureDuration }
-        return presenting ? options.presentDuration : options.dismissDuration
+        if interactive { return menu.options.completeGestureDuration }
+        return presenting ? menu.options.presentDuration : menu.options.dismissDuration
     }
 
     func transition(animated: Bool = true, alongsideTransition: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil, using transitionContext: UIViewControllerContextTransitioning? = nil) {
@@ -296,9 +289,9 @@ private extension SideMenuTransitionController {
             UIView.animate(
                 withDuration: duration,
                 delay: 0,
-                usingSpringWithDamping: options.usingSpringWithDamping,
-                initialSpringVelocity: options.initialSpringVelocity,
-                options: options.animationOptions,
+                usingSpringWithDamping: menu.options.usingSpringWithDamping,
+                initialSpringVelocity: menu.options.initialSpringVelocity,
+                options: menu.options.animationOptions,
                 animations: animations,
                 completion: completion
             )

@@ -45,7 +45,7 @@ internal protocol MenuOptions {
     @objc optional func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool)
 }
 
-internal protocol UISideMenuNavigationControllerManagerDelegate: UISideMenuNavigationControllerDelegate {
+internal protocol UISideMenuNavigationControllerManagerDelegate: class {
     func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool) -> Bool
     func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool) -> Bool
     func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool) -> Bool
@@ -105,15 +105,18 @@ open class UISideMenuNavigationController: UINavigationController {
 
     internal weak var sideMenuManagerDelegate: UISideMenuNavigationControllerManagerDelegate?
     internal var originalBackgroundColor: UIColor?
-    internal var transitionController: SideMenuTransitionController?
 
     private weak var foundDelegate: UISideMenuNavigationControllerDelegate?
+    private weak var interactionController: SideMenuInteractionController?
     private var _options: Options?
     private lazy var _leftSide = Protected(false, if: condition, else: { _ in Menu.elseCondition(.leftSide) } )
+    private var _sideMenuManager: SideMenuManager?
+    private var transitionController: SideMenuTransitionController?
+    private var rotating: Bool = false
 
     open var sideMenuManager: SideMenuManager {
-        get { return transitioningDelegate as? SideMenuManager ?? SideMenuManager.default }
-//        set { transitioningDelegate = newValue }
+        get { return _sideMenuManager ?? SideMenuManager.default }
+        set { _sideMenuManager = newValue }
     }
     
     #if !STFU_SIDEMENU
@@ -125,14 +128,14 @@ open class UISideMenuNavigationController: UINavigationController {
         fatalError("init is not available")
     }
     
-    public override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-    }
-
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
+//    public override init(rootViewController: UIViewController) {
+//        super.init(rootViewController: rootViewController)
+//    }
+//
+//    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//    }
+//
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -155,6 +158,8 @@ open class UISideMenuNavigationController: UINavigationController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        registerForNotifications()
 
         guard sideMenuManagerDelegate?.sideMenuDidAppear(menu: self, animated: animated) == true else { return }
         activeDelegate?.sideMenuDidAppear?(menu: self, animated: animated)
@@ -206,15 +211,15 @@ open class UISideMenuNavigationController: UINavigationController {
 extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate {
 
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let menu = presented as? UISideMenuNavigationController else { return nil }
-        transitionController = SideMenuTransitionController(options: menu.options)
-        transitionController?.interactive = sideMenuManager.gestureManager.isTracking
+        guard let menu = presented as? Menu else { return nil }
+        transitionController = SideMenuTransitionController(menu: menu)
+        transitionController?.interactive = sideMenuManager.isTracking
         transitionController?.delegate = sideMenuManager
         return transitionController
     }
 
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transitionController?.interactive = sideMenuManager.gestureManager.isTracking
+        transitionController?.interactive = sideMenuManager.isTracking
         return transitionController
     }
 
@@ -227,8 +232,19 @@ extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate 
     }
 
     open func interactionController(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        guard sideMenuManager.isTracking else { return nil }
+        let interactionController = SideMenuInteractionController(completionCurve: options.completionCurve)
+        self.interactionController = interactionController
         let transitionController = animator as? SideMenuTransitionController
-        return transitionController?.interactionController
+        transitionController?.interactive = true
+        return interactionController
+    }
+}
+
+extension UISideMenuNavigationController: SideMenuInteractable {
+
+    func handle(state: SideMenuInteractionController.State) {
+        interactionController?.handle(state: state)
     }
 }
 
@@ -378,9 +394,41 @@ internal extension UISideMenuNavigationController {
         guard !view.isHidden else { return nil }
         return sideMenuDelegate ?? foundDelegate ?? findDelegate(forViewController: presentingViewController)
     }
+
+    @objc func handleNotification(notification: NSNotification) {
+        guard presentedViewController == nil else { return }
+
+        switch notification.name {
+        case UIApplication.didEnterBackgroundNotification:
+            if dismissWhenBackgrounded {
+                interactionController?.cancel()
+                dismiss(animated: false, completion: nil)
+            }
+            return
+        case UIApplication.willChangeStatusBarOrientationNotification:
+            rotating = true
+        case UIApplication.didChangeStatusBarOrientationNotification:
+            rotating = false
+        case UIApplication.willChangeStatusBarFrameNotification:
+            if !rotating {
+                dismiss(animated: true, completion: nil)
+            }
+        default: break
+        }
+    }
 }
 
 private extension UISideMenuNavigationController {
+
+    func registerForNotifications() {
+        [UIApplication.didEnterBackgroundNotification,
+         UIApplication.willChangeStatusBarOrientationNotification,
+         UIApplication.didChangeStatusBarOrientationNotification,
+         UIApplication.willChangeStatusBarFrameNotification
+        ].forEach {
+            NotificationCenter.default.addObserver(self, selector:#selector(handleNotification), name: $0, object: nil)
+        }
+    }
 
     func condition() -> Bool {
         return isHidden
@@ -450,5 +498,3 @@ private extension UISideMenuNavigationController {
         }
     }
 }
-
-
