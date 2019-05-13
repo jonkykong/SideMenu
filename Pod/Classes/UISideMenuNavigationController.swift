@@ -135,11 +135,12 @@ open class UISideMenuNavigationController: UINavigationController {
 //    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 //    }
-//
+    #endif
+
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        registerForNotifications()
     }
-    #endif
     
     open override func awakeFromNib() {
         super.awakeFromNib()
@@ -158,8 +159,6 @@ open class UISideMenuNavigationController: UINavigationController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        registerForNotifications()
 
         guard sideMenuManagerDelegate?.sideMenuDidAppear(menu: self, animated: animated) == true else { return }
         activeDelegate?.sideMenuDidAppear?(menu: self, animated: animated)
