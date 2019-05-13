@@ -104,8 +104,8 @@ open class UISideMenuNavigationController: UINavigationController {
     open internal(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
 
     internal weak var sideMenuManagerDelegate: UISideMenuNavigationControllerManagerDelegate?
-    internal var originalBackgroundColor: UIColor?
 
+    private var originalBackgroundColor: UIColor?
     private weak var foundDelegate: UISideMenuNavigationControllerDelegate?
     private weak var interactionController: SideMenuInteractionController?
     private var _options: Options?
@@ -462,9 +462,7 @@ private extension UISideMenuNavigationController {
                 return
         }
 
-        if originalBackgroundColor == nil {
-            originalBackgroundColor = view.backgroundColor
-        }
+        originalBackgroundColor = originalBackgroundColor ?? view.backgroundColor
 
         let blurEffect = UIBlurEffect(style: blurEffectStyle)
         let blurView = UIVisualEffectView(effect: blurEffect)
@@ -486,8 +484,8 @@ private extension UISideMenuNavigationController {
                 return
         }
 
-        view.backgroundColor = originalBackgroundColor
         self.originalBackgroundColor = nil
+        view.backgroundColor = originalBackgroundColor
 
         if let tableViewController = topViewController as? UITableViewController {
             tableViewController.tableView.backgroundView = nil

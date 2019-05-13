@@ -360,3 +360,10 @@ private extension SideMenuPresentationController {
         }
     }
 }
+
+private extension UIView {
+    
+    func bringToFront() {
+        self.superview?.bringSubviewToFront(self)
+    }
+}
