@@ -7,43 +7,55 @@
 
 import Foundation
 
-open class Protected<T: Equatable> {
+final public class Protected<T: Equatable> {
 
-    typealias ConditionBlock = () -> Bool
-    typealias Block = (Protected) -> Void
+    typealias ConditionBlock = (T) -> Bool
+    typealias Block = (T) -> Void
 
     private var _value: T
     private var conditionBlock: ConditionBlock
     private var thenBlock: Block?
     private var elseBlock: Block?
 
-    open var value: T {
+    public var value: T {
         get {
             return _value
         }
         set {
-            guard conditionBlock() else {
-                elseBlock?(self)
-                //Print.warning(.property, arguments: warning, required: true)
+            guard conditionBlock(_value) else {
+                elseBlock?(_value)
                 return
             }
             _value = newValue
-            thenBlock?(self)
+            thenBlock?(_value)
         }
     }
-
-//    func set(_ newValue: T, if condition: ConditionBlock) {
-//        guard condition else {
-//            //Print.warning(.property, arguments: warning, required: true)
-//            return
-//        }
-//        _value = newValue
-//    }
 
     init(_ value: T, if conditionBlock: @escaping ConditionBlock, then thenBlock: Block? = nil, else elseBlock: Block? = nil) {
         self._value = value
         self.conditionBlock = conditionBlock
         self.thenBlock = thenBlock
         self.elseBlock = elseBlock
+    }
+}
+
+// TODO: Move to own file, or torch because it's unused
+final public class Resettable<T: Equatable> {
+
+    public var defaultValue: T
+    private var _value: T?
+
+    public var value: T! {
+        get {
+            return _value ?? defaultValue
+        }
+        set {
+            _value = newValue
+        }
+    }
+
+    init(_ value: T? = nil, default defaultValue: T) {
+        self._value = value
+        self.defaultValue = defaultValue
     }
 }

@@ -8,238 +8,99 @@
 import UIKit
 
 internal protocol SideMenuTransitionControllerDelegate: class {
-    func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, animationEnded transitionCompleted: Bool)
+    func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController)
+    func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController)
 }
 
-internal class SideMenuTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
+internal protocol TransitionModel: PresentationModel {
+    var animationOptions: UIView.AnimationOptions { get }
+    var completeGestureDuration: Double { get }
+    var dismissDuration: Double { get }
+    var initialSpringVelocity: CGFloat { get }
+    var presentDuration: Double { get }
+    var usingSpringWithDamping: CGFloat { get }
+}
 
-    internal weak var tapView: UIView?
-    internal var interactive: Bool = false
-    private unowned var menu: Menu
-    internal var delegate: SideMenuTransitionControllerDelegate?
-    private(set) var presenting: Bool = true
-    private var transitioning = false
+final internal class SideMenuTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
+
+    private unowned var config: TransitionModel
     private weak var containerView: UIView?
     private var presentationController: SideMenuPresentationController!
+    private unowned var presentedViewController: UIViewController?
+    private unowned var presentingViewController: UIViewController?
+    internal weak var delegate: SideMenuTransitionControllerDelegate?
 
-    init(menu: Menu) {
-        self.menu = menu
+    init(config: TransitionModel, delegate: SideMenuTransitionControllerDelegate? = nil) {
+        self.config = config
+        self.delegate = delegate
     }
 
-    deinit {
-        guard !presenting else { return }
-        fatalError("TEMPORARY: Transition controller destroyed without reversing presentation!")
-    }
-
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let toViewController = transitionContext.viewController(forKey: .to),
-            let fromViewController = transitionContext.viewController(forKey: .from)
+            let presentedViewController = transitionContext.presentedViewController,
+            let presentingViewController = transitionContext.presentingViewController
             else { return }
 
-        menu.sideMenuManagerDelegate = self
-        let presentingViewController = menu == toViewController ? fromViewController : toViewController
-        containerView = transitionContext.containerView
-
-        if presenting {
-            presentationController = SideMenuPresentationController(style: menu.options.presentStyle,
-                                                                    presented: menu,
-                                                                    presenting: presentingViewController,
-                                                                    containerView: transitionContext.containerView,
-                                                                    presentingUserInteractionEnabled: menu.options.presentingViewControllerUserInteractionEnabled,
-                                                                    presentingViewControllerUseSnapshot: menu.options.presentingViewControllerUseSnapshot)
+        if transitionContext.isPresenting {
+            self.containerView = transitionContext.containerView
+            self.presentedViewController = presentedViewController
+            self.presentingViewController = presentingViewController
+            self.presentationController = SideMenuPresentationController(
+                config: config,
+                presentedViewController: presentedViewController,
+                presentingViewController: presentingViewController,
+                containerView: transitionContext.containerView
+            )
         }
 
         transition(using: transitionContext)
     }
 
-    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return duration
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        guard let transitionContext = transitionContext else { return 0 }
+        return duration(presenting: transitionContext.isPresenting, interactive: transitionContext.isInteractive)
     }
 
-    open func animationEnded(_ transitionCompleted: Bool) {
-        transitioning = false
-        interactive = false
-        delegate?.sideMenuTransitionController(self, animationEnded: transitionCompleted)
-        if transitionCompleted {
-            presenting = !presenting
+    func animationEnded(_ transitionCompleted: Bool) {
+        guard let presentedViewController = presentedViewController else { return }
+        if presentedViewController.isHidden {
+            delegate?.sideMenuTransitionController(self, didDismiss: presentedViewController)
+        } else {
+            delegate?.sideMenuTransitionController(self, didPresent: presentedViewController)
         }
     }
-}
 
-extension SideMenuTransitionController: UISideMenuNavigationControllerManagerDelegate {
-
-    internal func sideMenuWillAppear(menu: Menu, animated: Bool) -> Bool {
-        // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
-        menu.presentingViewController?.view.endEditing(true)
-        return true
-    }
-
-    internal func sideMenuDidAppear(menu: Menu, animated: Bool) -> Bool {
-        // We had presented a view before, so lets dismiss ourselves as already acted upon
-        if menu.view.isHidden {
-            presentationController.dismissalTransitionDidEnd(true)
-            presenting = true
-            menu.dismiss(animated: false, completion: {
-                menu.view.isHidden = false
-            })
-        } else if menu.topViewController == nil {
-            Print.warning(.emptyMenu)
-        }
-
-        return true
-    }
-
-    internal func sideMenuWillDisappear(menu: Menu, animated: Bool) -> Bool {
-        // When presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
-        // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
-        if menu.dismissOnPresent && !menu.isBeingDismissed  {
-            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-            if let presentingView = menu.presentingViewController?.view, let containerView = presentingView.superview {
-                containerView.addSubview(menu.view)
-            }
-
-            animate(animated: animated, animations: { [weak self] in
-                self?.presentationController.dismissalTransition()
-                menu.activeDelegate?.sideMenuWillDisappear?(menu: menu, animated: animated)
-            }) { completed in
-                menu.activeDelegate?.sideMenuDidDisappear?(menu: menu, animated: animated)
-                menu.view.isHidden = true
-            }
-            return true
-        }
-
-        return true
-    }
-
-    internal func sideMenuDidDisappear(menu: Menu, animated: Bool) -> Bool {
-        // Work-around: if the menu is dismissed without animation the transition logic is never called to restore the
-        // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
-        // view, but dismissing without animation removes the container view before the original hierarchy is restored.
-        // This check corrects that.
-        if let activeDelegate = menu.activeDelegate as? UIViewController, activeDelegate.view.window == nil {
-            presentationController?.dismissalTransition()
-        }
-
-        // Clear selecton on UITableViewControllers when reappearing using custom transitions
-        if let tableViewController = menu.topViewController as? UITableViewController,
-            let tableView = tableViewController.tableView,
-            let indexPaths = tableView.indexPathsForSelectedRows,
-            tableViewController.clearsSelectionOnViewWillAppear {
-            indexPaths.forEach { tableView.deselectRow(at: $0, animated: false) }
-        }
-
-        return true
-    }
-
-    internal func sideMenuShouldPushViewController(menu: Menu, viewController: UIViewController, animated: Bool, completion: ((Bool) -> Void)?) -> Bool {
-        guard menu.viewControllers.count > 0 && menu.pushStyle != .subMenu else {
-            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
-            // so we must perform the normal super method in this case
-            return true
-        }
-
-        let splitViewController = menu.presentingViewController as? UISplitViewController
-        let tabBarController = menu.presentingViewController as? UITabBarController
-        let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? menu.presentingViewController
-        guard let navigationController = potentialNavigationController as? UINavigationController else {
-            Print.warning(.cannotPush, arguments: String(describing: potentialNavigationController.self), required: true)
-            return false
-        }
-
-        // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
-        // is dismissed after showing the appropriate screen
-        CATransaction.begin()
-        defer { CATransaction.commit() }
-        var push = false
-
-        if menu.dismissOnPush {
-            let animated = animated || menu.alwaysAnimate
-
-            CATransaction.setCompletionBlock { [weak self] in
-                menu.activeDelegate?.sideMenuDidDisappear?(menu: menu, animated: animated)
-                self?.presenting = true
-                menu.dismiss(animated: false, completion: nil)
-                completion?(push)
-            }
-
-            if animated {
-                let areAnimationsEnabled = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(true)
-                transition(animated: animated, alongsideTransition: {
-                    menu.activeDelegate?.sideMenuWillDisappear?(menu: menu, animated: animated)
-                })
-                UIView.setAnimationsEnabled(areAnimationsEnabled)
-            }
-        }
-
-        if let lastViewController = navigationController.viewControllers.last,
-            !menu.allowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
-            return false
-        }
-
-        switch menu.pushStyle {
-        case .subMenu: return false // handled earlier
-        case .defaultBehavior:
-            navigationController.pushViewController(viewController, animated: animated)
-            return false
-        case .popWhenPossible:
-            for subViewController in navigationController.viewControllers.reversed() {
-                if type(of: subViewController) == type(of: viewController) {
-                    navigationController.popToViewController(subViewController, animated: animated)
-                    return false
+    func transition(presenting: Bool, animated: Bool = true, interactive: Bool = false, alongsideTransition: (() -> Void)? = nil, complete: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        transitionWillBegin(presenting: presenting)
+        transition(presenting: presenting,
+                   animated: animated,
+                   interactive: interactive,
+                   animations: { [weak self] in
+                    guard let self = self else { return }
+                    self.transition(presenting: presenting)
+                    alongsideTransition?()
+            }, completion: { [weak self] _ in
+                guard let self = self else { return }
+                if complete {
+                    self.transitionDidEnd(presenting: presenting, completed: true)
                 }
-            }
-            push = true
-            return true
-        case .preserve, .preserveAndHideBackButton:
-            var viewControllers = navigationController.viewControllers
-            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
-            if let preservedViewController = filtered.last {
-                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
-                if menu.pushStyle == .preserveAndHideBackButton {
-                    preservedViewController.navigationItem.hidesBackButton = true
-                }
-                viewControllers.append(preservedViewController)
-                navigationController.setViewControllers(viewControllers, animated: animated)
-                return false
-            }
-            if menu.pushStyle == .preserveAndHideBackButton {
-                viewController.navigationItem.hidesBackButton = true
-            }
-
-            push = true
-            return true
-        case .replace:
-            viewController.navigationItem.hidesBackButton = true
-            navigationController.setViewControllers([viewController], animated: animated)
-            return false
-        }
+                completion?(true)
+        })
     }
 
-    internal func sideMenuWillTransition(menu: Menu, to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        // Don't bother resizing if the view isn't visible
-        guard let presentationController = presentationController, !menu.view.isHidden else { return }
-
-        coordinator.animate(alongsideTransition: { (context) in
-            presentationController.presentationTransition()
-        }, completion: nil)
+    func layout() {
+        presentationController.containerViewWillLayoutSubviews()
     }
 }
 
 private extension SideMenuTransitionController {
 
-    var duration: Double {
-        if interactive { return menu.options.completeGestureDuration }
-        return presenting ? menu.options.presentDuration : menu.options.dismissDuration
+    func duration(presenting: Bool, interactive: Bool) -> Double {
+        if interactive { return config.completeGestureDuration }
+        return presenting ? config.presentDuration : config.dismissDuration
     }
 
-    func transition(animated: Bool = true, alongsideTransition: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil, using transitionContext: UIViewControllerContextTransitioning? = nil) {
-        let presentationController: SideMenuPresentationController! = self.presentationController
-        let presenting = self.presenting
-
-        transitioning = true
-
+    func transitionWillBegin(presenting: Bool) {
         // prevent any other menu gestures from firing
         containerView?.isUserInteractionEnabled = false
 
@@ -248,53 +109,85 @@ private extension SideMenuTransitionController {
         } else {
             presentationController.dismissalTransitionWillBegin()
         }
-
-        let animations = {
-            if presenting {
-                presentationController.presentationTransition()
-            } else {
-                presentationController.dismissalTransition()
-            }
-            alongsideTransition?()
-        }
-
-        let completion: (Bool) -> Void = { [weak self] _ in
-            self?.containerView?.isUserInteractionEnabled = true
-            let completed = !(transitionContext?.transitionWasCancelled ?? false)
-            if presenting {
-                presentationController.presentationTransitionDidEnd(completed)
-                self?.tapView = presentationController.tapView
-            } else {
-                presentationController.dismissalTransitionDidEnd(completed)
-            }
-            completion?(completed)
-            transitionContext?.completeTransition(completed)
-        }
-
-        animate(animated: animated, animations: animations, completion: completion)
     }
 
-    func animate(animated: Bool = true, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) {
+    func transition(presenting: Bool) {
+        if presenting {
+            presentationController.presentationTransition()
+        } else {
+            presentationController.dismissalTransition()
+        }
+    }
+
+    func transitionDidEnd(presenting: Bool, completed: Bool) {
+        if presenting {
+            presentationController.presentationTransitionDidEnd(completed)
+        } else {
+            presentationController.dismissalTransitionDidEnd(completed)
+        }
+
+        containerView?.isUserInteractionEnabled = true
+    }
+
+    func transition(using transitionContext: UIViewControllerContextTransitioning) {
+        transitionWillBegin(presenting: transitionContext.isPresenting)
+        transition(presenting: transitionContext.isPresenting,
+                   animated: transitionContext.isAnimated,
+                   interactive: transitionContext.isInteractive,
+                   animations: { [weak self] in
+                    guard let self = self else { return }
+                    self.transition(presenting: transitionContext.isPresenting)
+        }, completion: { [weak self] _ in
+                    guard let self = self else { return }
+                    let completed = !transitionContext.transitionWasCancelled
+                    self.transitionDidEnd(presenting: transitionContext.isPresenting, completed: completed)
+                    transitionContext.completeTransition(completed)
+        })
+    }
+
+    func transition(presenting: Bool, animated: Bool = true, interactive: Bool = false, animations: @escaping (() -> Void) = {}, completion: @escaping ((Bool) -> Void) = { _ in }) {
+        if !animated {
+            animations()
+            completion(true)
+            return
+        }
+
+        let duration = self.duration(presenting: presenting, interactive: interactive)
         if interactive {
-            // IMPORTANT: The non-interactive animation block will not complete if adapted for interactive. The below animation block must be used!
+        // IMPORTANT: The non-interactive animation block will not complete if adapted for interactive. The below animation block must be used!
             UIView.animate(
-                withDuration: self.duration,
-                delay: self.duration, // HACK: If zero, the animation briefly flashes in iOS 11.
+                withDuration: duration,
+                delay: duration, // HACK: If zero, the animation briefly flashes in iOS 11.
                 options: .curveLinear,
                 animations: animations,
                 completion: completion
             )
-        } else {
-            let duration = animated ? self.duration : 0
-            UIView.animate(
-                withDuration: duration,
-                delay: 0,
-                usingSpringWithDamping: menu.options.usingSpringWithDamping,
-                initialSpringVelocity: menu.options.initialSpringVelocity,
-                options: menu.options.animationOptions,
-                animations: animations,
-                completion: completion
-            )
+            return
         }
+
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            usingSpringWithDamping: config.usingSpringWithDamping,
+            initialSpringVelocity: config.initialSpringVelocity,
+            options: config.animationOptions,
+            animations: animations,
+            completion: completion
+        )
+    }
+}
+
+private extension UIViewControllerContextTransitioning {
+
+    var isPresenting: Bool {
+        return viewController(forKey: .from)?.presentedViewController === viewController(forKey: .to)
+    }
+
+    var presentingViewController: UIViewController? {
+        return viewController(forKey: isPresenting ? .from : .to)
+    }
+
+    var presentedViewController: UIViewController? {
+        return viewController(forKey: isPresenting ? .to : .from)
     }
 }
