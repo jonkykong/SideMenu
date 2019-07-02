@@ -8,7 +8,7 @@
 import UIKit
 
 @objcMembers
-open class SideMenuManager: NSObject {
+public final class SideMenuManager: NSObject {
 
     final private class SideMenuPanGestureRecognizer: UIPanGestureRecognizer {}
     final private class SideMenuScreenEdgeGestureRecognizer: UIScreenEdgePanGestureRecognizer {}
@@ -48,18 +48,18 @@ open class SideMenuManager: NSObject {
     public static let `default` = SideMenuManager()
 
     /// Default instance of SideMenuManager (objective-C).
-    open class var defaultManager: SideMenuManager {
+    public class var defaultManager: SideMenuManager {
         return SideMenuManager.default
     }
 
     /// The left menu.
-    open var menuLeftNavigationController: UISideMenuNavigationController? {
+    public var menuLeftNavigationController: UISideMenuNavigationController? {
         get { return _leftMenu.value }
         set(menu) { _leftMenu.value = menu }
     }
     
     /// The right menu.
-    open var menuRightNavigationController: UISideMenuNavigationController? {
+    public var menuRightNavigationController: UISideMenuNavigationController? {
         get { return _rightMenu.value }
         set(menu) { _rightMenu.value = menu }
     }
@@ -72,7 +72,7 @@ open class SideMenuManager: NSObject {
  
      - Returns: The array of screen edge gestures added to `toView`.
      */
-    @discardableResult open func menuAddScreenEdgePanGesturesToPresent(toView view: UIView, forMenu sides: [PresentDirection] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
+    @discardableResult public func menuAddScreenEdgePanGesturesToPresent(toView view: UIView, forMenu sides: [PresentDirection] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
         return sides.map { side in
             if menu(forSide: side) == nil {
                 let methodName = #function // "menuAddScreenEdgePanGesturesToPresent"
@@ -90,7 +90,7 @@ open class SideMenuManager: NSObject {
      
      - Returns: The pan gesture added to `toView`.
      */
-    @discardableResult open func menuAddPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
+    @discardableResult public func menuAddPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
         if menuLeftNavigationController ?? menuRightNavigationController == nil {
             Print.warning(.panGestureAdded, arguments: #function, PresentDirection.left.name, PresentDirection.right.name, required: true)
         }
@@ -172,13 +172,6 @@ private extension SideMenuManager {
         return menu(forSide: leftSide ? .left : .right)
     }
 
-    func forEachMenu(_ execute: (Menu) -> Void) {
-        [menuLeftNavigationController, menuRightNavigationController].forEach { menu in
-            guard let menu = menu else { return }
-            execute(menu)
-        }
-    }
-
     func addScreenEdgeGesture(to view: UIView, edge: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         if let screenEdgeGestureRecognizer = view.gestureRecognizers?.first(where: { $0 is SideMenuScreenEdgeGestureRecognizer }) as? SideMenuScreenEdgeGestureRecognizer,
             screenEdgeGestureRecognizer.edges == edge {
@@ -208,51 +201,10 @@ private extension SideMenuManager {
 
 extension SideMenuManager: UISideMenuNavigationControllerTransitionDelegate {
 
-    func sideMenuTransitionDidDismiss(menu: Menu) {
+    internal func sideMenuTransitionDidDismiss(menu: Menu) {
         defer { switching = false }
         guard switching, let switchToMenu = self.menu(forLeftSide: !menu.leftSide) else { return }
         switchToMenu.presentFrom(activeViewController, interactively: true)
-    }
-
-//    internal func sideMenuTransition(_ menu: Menu, animationEnded transitionCompleted: Bool) {
-//        defer { switching = false }
-//        guard switching, let switchToMenu = self.menu(forLeftSide: !menu.leftSide), !transitionCompleted else { return }
-//        let activeViewController = UIApplication.shared.keyWindow?.rootViewController?.activeViewController
-//        switchToMenu.presentFrom(activeViewController, interactively: true)
-//    }
-}
-
-internal extension UIView {
-
-    @discardableResult func untransformed(_ block: () -> CGFloat) -> CGFloat {
-        let transform = self.transform
-        self.transform = .identity
-        let value = block()
-        self.transform = transform
-        return value
-    }
-
-    func untransform(_ block: () -> Void) {
-        untransformed { () -> CGFloat in
-            block()
-            return 0
-        }
-    }
-}
-
-private extension UIViewController {
-
-    var activeViewController: UIViewController {
-        switch self {
-        case let navigationController as UINavigationController:
-            return navigationController.visibleViewController?.activeViewController ?? self
-        case let tabBarController as UITabBarController:
-            return tabBarController.selectedViewController?.activeViewController ?? self
-        case let splitViewController as UISplitViewController:
-            return splitViewController.viewControllers.last?.activeViewController ?? self
-        default:
-            return presentedViewController?.activeViewController ?? self
-        }
     }
 }
 

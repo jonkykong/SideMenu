@@ -21,17 +21,19 @@ internal protocol TransitionModel: PresentationModel {
     var usingSpringWithDamping: CGFloat { get }
 }
 
-final internal class SideMenuTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
+internal final class SideMenuTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    private unowned var config: TransitionModel
+    private var config: TransitionModel
     private weak var containerView: UIView?
+    private let leftSide: Bool
     private var presentationController: SideMenuPresentationController!
     private unowned var presentedViewController: UIViewController?
     private unowned var presentingViewController: UIViewController?
-    internal weak var delegate: SideMenuTransitionControllerDelegate?
+    weak var delegate: SideMenuTransitionControllerDelegate?
 
-    init(config: TransitionModel, delegate: SideMenuTransitionControllerDelegate? = nil) {
+    init(config: TransitionModel, leftSide: Bool, delegate: SideMenuTransitionControllerDelegate? = nil) {
         self.config = config
+        self.leftSide = leftSide
         self.delegate = delegate
     }
 
@@ -47,6 +49,7 @@ final internal class SideMenuTransitionController: NSObject, UIViewControllerAni
             self.presentingViewController = presentingViewController
             self.presentationController = SideMenuPresentationController(
                 config: config,
+                leftSide: leftSide,
                 presentedViewController: presentedViewController,
                 presentingViewController: presentingViewController,
                 containerView: transitionContext.containerView
@@ -154,7 +157,7 @@ private extension SideMenuTransitionController {
 
         let duration = self.duration(presenting: presenting, interactive: interactive)
         if interactive {
-        // IMPORTANT: The non-interactive animation block will not complete if adapted for interactive. The below animation block must be used!
+            // IMPORTANT: The non-interactive animation block will not complete if adapted for interactive. The below animation block must be used!
             UIView.animate(
                 withDuration: duration,
                 delay: duration, // HACK: If zero, the animation briefly flashes in iOS 11.

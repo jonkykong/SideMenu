@@ -11,9 +11,9 @@ internal protocol SideMenuInteractable {
     func handle(state: SideMenuInteractionController.State)
 }
 
-internal class SideMenuInteractionController: UIPercentDrivenInteractiveTransition {
+internal final class SideMenuInteractionController: UIPercentDrivenInteractiveTransition {
 
-    internal enum State { case
+    enum State { case
         update(progress: CGFloat),
         finish,
         cancel
@@ -26,9 +26,8 @@ internal class SideMenuInteractionController: UIPercentDrivenInteractiveTransiti
         super.init()
         self.completionCurve = completionCurve
 
-        if cancelWhenBackgrounded {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        }
+        guard cancelWhenBackgrounded else { return }
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     override func cancel() {
@@ -56,7 +55,6 @@ private extension SideMenuInteractionController {
         default: break
         }
     }
-
 }
 
 extension SideMenuInteractionController: SideMenuInteractable {

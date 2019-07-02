@@ -8,23 +8,30 @@
 import SideMenu
 
 class MainViewController: UIViewController {
-    
-    @IBOutlet fileprivate weak var presentModeSegmentedControl:UISegmentedControl!
-    @IBOutlet fileprivate weak var blurSegmentControl:UISegmentedControl!
-    @IBOutlet fileprivate weak var darknessSlider:UISlider!
-    @IBOutlet fileprivate weak var shadowOpacitySlider:UISlider!
-    @IBOutlet fileprivate weak var screenWidthSlider:UISlider!
-    @IBOutlet fileprivate weak var shrinkFactorSlider:UISlider!
-    @IBOutlet fileprivate weak var blackOutStatusBar:UISwitch!
-    
+
+    @IBOutlet private weak var blackOutStatusBar: UISwitch!
+    @IBOutlet private weak var blurSegmentControl: UISegmentedControl!
+    @IBOutlet private weak var menuAlphaSlider: UISlider!
+    @IBOutlet private weak var menuScaleFactorSlider: UISlider!
+    @IBOutlet private weak var presentingAlphaSlider: UISlider!
+    @IBOutlet private weak var presentingScaleFactorSlider: UISlider!
+    @IBOutlet private weak var presentModeSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var screenWidthSlider: UISlider!
+    @IBOutlet private weak var shadowOpacitySlider: UISlider!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupSideMenu()
-        setDefaults()
+        updateUI(settings: UISideMenuNavigationController.Settings())
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let sideMenuNavigationController = segue.destination as? UISideMenuNavigationController else { return }
+        sideMenuNavigationController.settings = makeSettings()
     }
     
-    fileprivate func setupSideMenu() {
+    private func setupSideMenu() {
         // Define the menus
         SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
         SideMenuManager.default.menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? UISideMenuNavigationController
@@ -33,60 +40,73 @@ class MainViewController: UIViewController {
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.default.menuAddPanGestureToPresent(toView: navigationController!.navigationBar)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: view)
-        
-        // Set up a cool background image for demo purposes
-//        SideMenuManager.default.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     }
     
-    fileprivate func setDefaults() {
-//        let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
-//        if let menuBlurEffectStyle = SideMenuManager.default.menuBlurEffectStyle {
-//            blurSegmentControl.selectedSegmentIndex = styles.index(of: menuBlurEffectStyle) ?? 0
-//        } else {
-//            blurSegmentControl.selectedSegmentIndex = 0
-//        }
-//
-//        darknessSlider.value = Float(SideMenuManager.default.menuAnimationFadeStrength)
-//        shadowOpacitySlider.value = Float(SideMenuManager.default.menuShadowOpacity)
-//        shrinkFactorSlider.value = Float(SideMenuManager.default.menuAnimationTransformScaleFactor)
-//        screenWidthSlider.value = Float(SideMenuManager.default.menuWidth / view.frame.width)
-//        blackOutStatusBar.isOn = SideMenuManager.default.menuFadeStatusBar
+    private func updateUI(settings: UISideMenuNavigationController.Settings) {
+        let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
+        if let menuBlurEffectStyle = settings.blurEffectStyle {
+            blurSegmentControl.selectedSegmentIndex = styles.firstIndex(of: menuBlurEffectStyle) ?? 0
+        } else {
+            blurSegmentControl.selectedSegmentIndex = 0
+        }
+
+        blackOutStatusBar.isOn = settings.statusBarEndAlpha > 0
+        menuAlphaSlider.value = Float(settings.presentStyle.menuStartAlpha)
+        menuScaleFactorSlider.value = Float(settings.presentStyle.menuScaleFactor)
+        presentingAlphaSlider.value = Float(settings.presentStyle.presentingEndAlpha)
+        presentingScaleFactorSlider.value = Float(settings.presentStyle.presentingScaleFactor)
+        screenWidthSlider.value = Float(settings.menuWidth / view.frame.width)
+        shadowOpacitySlider.value = Float(settings.presentStyle.onTopShadowOpacity)
     }
     
-    @IBAction fileprivate func changeSegment(_ segmentControl: UISegmentedControl) {
-//        switch segmentControl {
-//        case presentModeSegmentedControl:
-//            let modes:[MenuPresentStyle] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
-//            SideMenuManager.default.menuPresentStyle = modes[segmentControl.selectedSegmentIndex]
-//        case blurSegmentControl:
-//            if segmentControl.selectedSegmentIndex == 0 {
-//                SideMenuManager.default.menuBlurEffectStyle = nil
-//            } else {
-//                let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
-//                SideMenuManager.default.menuBlurEffectStyle = styles[segmentControl.selectedSegmentIndex - 1]
-//            }
-//        default: break;
-//        }
+    @IBAction private func changeSegment(_ segmentControl: UISegmentedControl) {
+        if segmentControl == presentModeSegmentedControl {
+            var settings = makeSettings()
+            settings.presentStyle = selectedPresentStyle()
+            updateUI(settings: settings)
+        }
+
+        updateMenus()
     }
     
-    @IBAction fileprivate func changeSlider(_ slider: UISlider) {
-//        switch slider {
-//        case darknessSlider:
-//            SideMenuManager.default.menuAnimationFadeStrength = CGFloat(slider.value)
-//        case shadowOpacitySlider:
-//            SideMenuManager.default.menuShadowOpacity = slider.value
-//        case shrinkFactorSlider:
-//            SideMenuManager.default.menuAnimationTransformScaleFactor = CGFloat(slider.value)
-//        case screenWidthSlider:
-//            SideMenuManager.default.menuWidth = view.frame.width * CGFloat(slider.value)
-//        default: break;
-//        }
+    @IBAction private func changeSlider(_ slider: UISlider) {
+        updateMenus()
     }
     
-    @IBAction fileprivate func changeSwitch(_ switchControl: UISwitch) {
-//        SideMenuManager.default.menuFadeStatusBar = switchControl.isOn
+    @IBAction private func changeSwitch(_ switchControl: UISwitch) {
+        updateMenus()
     }
 
+    private func updateMenus() {
+        let settings = makeSettings()
+        SideMenuManager.default.menuLeftNavigationController?.settings = settings
+        SideMenuManager.default.menuRightNavigationController?.settings = settings
+    }
+
+    private func selectedPresentStyle() -> SideMenuPresentStyle {
+        let modes: [SideMenuPresentStyle] = [.menuSlideIn, .viewSlideOut, .viewSlideOutMenuIn, .menuDissolveIn]
+        return modes[presentModeSegmentedControl.selectedSegmentIndex]
+    }
+
+    private func makeSettings() -> UISideMenuNavigationController.Settings {
+        var settings = UISideMenuNavigationController.Settings()
+
+        var presentStyle = selectedPresentStyle()
+        presentStyle.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        presentStyle.menuStartAlpha = CGFloat(menuAlphaSlider.value)
+        presentStyle.menuScaleFactor = CGFloat(menuScaleFactorSlider.value)
+        presentStyle.onTopShadowOpacity = shadowOpacitySlider.value
+        presentStyle.presentingEndAlpha = CGFloat(presentingAlphaSlider.value)
+        presentStyle.presentingScaleFactor = CGFloat(presentingScaleFactorSlider.value)
+        settings.presentStyle = presentStyle
+
+        settings.menuWidth = view.frame.width * CGFloat(screenWidthSlider.value)
+        let styles:[UIBlurEffect.Style?] = [nil, .dark, .light, .extraLight]
+        settings.blurEffectStyle = styles[blurSegmentControl.selectedSegmentIndex]
+        settings.statusBarEndAlpha = blackOutStatusBar.isOn ? 1 : 0
+
+        return settings
+    }
 }
 
 extension MainViewController: UISideMenuNavigationControllerDelegate {
@@ -106,5 +126,4 @@ extension MainViewController: UISideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
     }
-    
 }

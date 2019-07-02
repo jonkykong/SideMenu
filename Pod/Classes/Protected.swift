@@ -38,24 +38,3 @@ final public class Protected<T: Equatable> {
         self.elseBlock = elseBlock
     }
 }
-
-// TODO: Move to own file, or torch because it's unused
-final public class Resettable<T: Equatable> {
-
-    public var defaultValue: T
-    private var _value: T?
-
-    public var value: T! {
-        get {
-            return _value ?? defaultValue
-        }
-        set {
-            _value = newValue
-        }
-    }
-
-    init(_ value: T? = nil, default defaultValue: T) {
-        self._value = value
-        self.defaultValue = defaultValue
-    }
-}
