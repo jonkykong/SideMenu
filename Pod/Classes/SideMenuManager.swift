@@ -17,6 +17,10 @@ public final class SideMenuManager: NSObject {
         left = 1,
         right = 0
 
+        init(leftSide: Bool) {
+            self.init(rawValue: leftSide ? 1 : 0)!
+        }
+
         var edge: UIRectEdge {
             switch self {
             case .left: return .left

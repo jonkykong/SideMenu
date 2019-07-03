@@ -58,7 +58,7 @@
                                                     <segment title="Dissolve"/>
                                                 </segments>
                                                 <connections>
-                                                    <action selector="changeSegment:" destination="QHN-nZ-kbB" eventType="valueChanged" id="B2a-9p-5O1"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="y76-7g-AuZ"/>
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-iY-a5K">
@@ -82,7 +82,7 @@
                                                     <segment title="ExtraLight"/>
                                                 </segments>
                                                 <connections>
-                                                    <action selector="changeSegment:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Mna-Yh-fHu"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="UkJ-YS-OXg"/>
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svy-p5-tiL">
@@ -101,7 +101,7 @@
                                                 <rect key="frame" x="-2" y="181.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Kcj-yD-lS0"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Rfw-ZT-ziI"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3M-VQ-eCj">
@@ -120,7 +120,7 @@
                                                 <rect key="frame" x="-2" y="260" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="hAP-NU-2d0"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="ah6-OO-Zh9"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjn-LU-15M">
@@ -139,7 +139,7 @@
                                                 <rect key="frame" x="-2" y="338.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="cRR-z8-cmm"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Vw7-lT-kal"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKX-Y9-C8e">
@@ -158,7 +158,7 @@
                                                 <rect key="frame" x="-2" y="417" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="TSE-rt-Run"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="QfP-ZL-gGs"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03z-3b-0TF">
@@ -177,7 +177,7 @@
                                                 <rect key="frame" x="-2" y="495.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="PMM-8h-apN"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="lNd-9Z-lpP"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrH-kR-j43">
@@ -196,7 +196,7 @@
                                                 <rect key="frame" x="-2" y="574" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="changeSlider:" destination="QHN-nZ-kbB" eventType="valueChanged" id="IXr-8N-olD"/>
+                                                    <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="TuI-Au-hWY"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMn-tw-NTB">
@@ -212,7 +212,7 @@
                                                         <rect key="frame" x="286" y="12" width="51" height="31"/>
                                                         <color key="onTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
-                                                            <action selector="changeSwitch:" destination="QHN-nZ-kbB" eventType="valueChanged" id="2wD-Py-Q4n"/>
+                                                            <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="07O-77-z6m"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>

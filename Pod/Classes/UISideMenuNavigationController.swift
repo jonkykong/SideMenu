@@ -7,25 +7,13 @@
 
 import UIKit
 
-@objc public enum MenuPushStyle: Int {
-    case defaultBehavior,
+@objc public enum MenuPushStyle: Int { case
+    `default`,
     popWhenPossible,
-    replace,
     preserve,
     preserveAndHideBackButton,
+    replace,
     subMenu
-}
-
-internal protocol MenuModel: TransitionModel {
-    var allowPushOfSameClassTwice: Bool { get }
-    var alwaysAnimate: Bool { get }
-    var blurEffectStyle: UIBlurEffect.Style? { get }
-    var completionCurve: UIView.AnimationCurve { get }
-    var dismissOnPresent: Bool { get }
-    var dismissOnPush: Bool { get }
-    var dismissWhenBackgrounded: Bool { get }
-    var enableSwipeGestures: Bool { get }
-    var pushStyle: MenuPushStyle { get }
 }
 
 @objc public protocol UISideMenuNavigationControllerDelegate {
@@ -37,6 +25,40 @@ internal protocol MenuModel: TransitionModel {
 
 internal protocol UISideMenuNavigationControllerTransitionDelegate: class {
     func sideMenuTransitionDidDismiss(menu: Menu)
+}
+
+public struct SideMenuSettings: MenuModel {
+    public var allowPushOfSameClassTwice: Bool = true
+    public var alwaysAnimate: Bool = true
+    public var animationOptions: UIView.AnimationOptions = .curveEaseInOut
+    public var blurEffectStyle: UIBlurEffect.Style? = nil
+    public var completeGestureDuration: Double = 0.35
+    public var completionCurve: UIView.AnimationCurve = .easeIn
+    public var dismissDuration: Double = 0.35
+    public var dismissOnPresent: Bool = true
+    public var dismissOnPush: Bool = true
+    public var dismissWhenBackgrounded: Bool = true
+    public var enableSwipeGestures: Bool = true
+    public var statusBarEndAlpha: CGFloat = 1
+    public var initialSpringVelocity: CGFloat = 1
+    public var menuWidth: CGFloat = {
+        let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
+        let minimumSize = min(appScreenRect.width, appScreenRect.height)
+        return min(round(minimumSize * 0.75), 240)
+    }()
+    public var presentingViewControllerUserInteractionEnabled: Bool = false
+    public var presentingViewControllerUseSnapshot: Bool = true
+    public var presentDuration: Double = 0.35
+    public var presentStyle: SideMenuPresentStyle = .viewSlideOut
+    public var pushStyle: MenuPushStyle = .default
+    public var usingSpringWithDamping: CGFloat = 1
+
+    public init() {}
+
+    public init(_ block: (inout SideMenuSettings) -> Void) {
+        self.init()
+        block(&self)
+    }
 }
 
 internal typealias Menu = UISideMenuNavigationController
@@ -51,39 +73,6 @@ open class UISideMenuNavigationController: UINavigationController {
     private lazy var _leftSide = Protected(false,
                                            if: { [weak self] _ in self?.isHidden != false },
                                            else: { _ in Menu.elseCondition(.leftSide) } )
-    public struct Settings: MenuModel {
-        public var allowPushOfSameClassTwice: Bool = true
-        public var alwaysAnimate: Bool = true
-        public var animationOptions: UIView.AnimationOptions = .curveEaseInOut
-        public var blurEffectStyle: UIBlurEffect.Style? = nil
-        public var completeGestureDuration: Double = 0.35
-        public var completionCurve: UIView.AnimationCurve = .easeIn
-        public var dismissDuration: Double = 0.35
-        public var dismissOnPresent: Bool = true
-        public var dismissOnPush: Bool = true
-        public var dismissWhenBackgrounded: Bool = true
-        public var enableSwipeGestures: Bool = true
-        public var statusBarEndAlpha: CGFloat = 1
-        public var initialSpringVelocity: CGFloat = 1
-        public var menuWidth: CGFloat = {
-            let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
-            let minimumSize = min(appScreenRect.width, appScreenRect.height)
-            return min(round(minimumSize * 0.75), 240)
-        }()
-        public var presentingViewControllerUserInteractionEnabled: Bool = false
-        public var presentingViewControllerUseSnapshot: Bool = true
-        public var presentDuration: Double = 0.35
-        public var presentStyle: SideMenuPresentStyle = .viewSlideOut
-        public var pushStyle: MenuPushStyle = .defaultBehavior
-        public var usingSpringWithDamping: CGFloat = 1
-
-        public init() {}
-
-        public init(_ block: (inout Settings) -> Void) {
-            self.init()
-            block(&self)
-        }
-    }
 
     private weak var _sideMenuManager: SideMenuManager?
     private weak var foundDelegate: UISideMenuNavigationControllerDelegate?
@@ -103,11 +92,16 @@ open class UISideMenuNavigationController: UINavigationController {
         get { return _sideMenuManager ?? SideMenuManager.default }
         set {
             newValue.setMenu(self, forLeftSide: leftSide)
+
+            if let sideMenuManager = _sideMenuManager, sideMenuManager !== newValue {
+                let side = SideMenuManager.PresentDirection(leftSide: leftSide)
+                Print.warning(.menuAlreadyAssigned, arguments: String(describing: self.self), side.name, String(describing: newValue))
+            }
             _sideMenuManager = newValue
         }
     }
 
-    open var settings = Settings() {
+    open var settings = SideMenuSettings() {
         didSet {
             setupBlur()
             setupSwipeGestures()
@@ -258,84 +252,68 @@ open class UISideMenuNavigationController: UINavigationController {
 
     override open var transitioningDelegate: UIViewControllerTransitioningDelegate? {
         get { return self }
-        set { print(self) } // TODO: Warning
+        set { Print.warning(.transitioningDelegate, required: true) }
     }
 }
 
 // Interface
 extension UISideMenuNavigationController: MenuModel {
 
-    /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
     @IBInspectable open var allowPushOfSameClassTwice: Bool {
         get { return settings.allowPushOfSameClassTwice }
         set { settings.allowPushOfSameClassTwice = newValue }
     }
 
-    /// Forces menus to always animate when appearing or disappearing, regardless of a pushed view controller's animation.
     @IBInspectable open var alwaysAnimate: Bool {
         get { return settings.alwaysAnimate }
         set { settings.alwaysAnimate = newValue }
     }
 
-    /// The animation options when a menu is displayed. Ignored when displayed with a gesture.
     @IBInspectable open var animationOptions: UIView.AnimationOptions {
         get { return settings.animationOptions }
         set { settings.animationOptions = newValue }
     }
 
-    /**
-     The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
-
-     - Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell.
-     */
     open var blurEffectStyle: UIBlurEffect.Style? {
         get { return settings.blurEffectStyle }
         set { settings.blurEffectStyle = newValue }
     }
 
-    /// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.35 seconds.
     @IBInspectable open var completeGestureDuration: Double {
         get { return settings.completeGestureDuration }
         set { settings.completeGestureDuration = newValue }
     }
 
-    /// Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
     @IBInspectable open var completionCurve: UIView.AnimationCurve {
         get { return settings.completionCurve }
         set { settings.completionCurve = newValue }
     }
 
-    /// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
     @IBInspectable open var dismissDuration: Double {
         get { return settings.dismissDuration }
         set { settings.dismissDuration = newValue }
     }
 
-    /// Automatically dismisses the menu when another view is presented from it.
     @IBInspectable open var dismissOnPresent: Bool {
         get { return settings.dismissOnPresent }
         set { settings.dismissOnPresent = newValue }
     }
 
-    /// Automatically dismisses the menu when another view controller is pushed from it.
     @IBInspectable open var dismissOnPush: Bool {
         get { return settings.dismissOnPush }
         set { settings.dismissOnPush = newValue }
     }
 
-    /// Automatically dismisses the menu when app goes to the background.
     @IBInspectable open var dismissWhenBackgrounded: Bool {
         get { return settings.dismissWhenBackgrounded }
         set { settings.dismissWhenBackgrounded = newValue }
     }
 
-    /// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
     @IBInspectable open var enableSwipeGestures: Bool {
         get { return settings.enableSwipeGestures }
         set { settings.enableSwipeGestures = newValue }
     }
 
-    /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
     @IBInspectable open var initialSpringVelocity: CGFloat {
         get { return settings.initialSpringVelocity }
         set { settings.initialSpringVelocity = newValue }
@@ -347,67 +325,41 @@ extension UISideMenuNavigationController: MenuModel {
         set { _leftSide.value = newValue }
     }
 
-    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
     @IBInspectable open var menuWidth: CGFloat {
         get { return settings.menuWidth }
         set { settings.menuWidth = newValue }
     }
 
-    /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. `presentingViewControllerUseSnapshot` must also set to false. Default is false.
     @IBInspectable open var presentingViewControllerUserInteractionEnabled: Bool {
         get { return settings.presentingViewControllerUserInteractionEnabled }
         set { settings.presentingViewControllerUserInteractionEnabled = newValue }
     }
 
-    /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
     @IBInspectable open var presentingViewControllerUseSnapshot: Bool {
         get { return settings.presentingViewControllerUseSnapshot }
         set { settings.presentingViewControllerUseSnapshot = newValue }
     }
 
-    /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
     @IBInspectable open var presentDuration: Double {
         get { return settings.presentDuration }
         set { settings.presentDuration = newValue }
     }
 
-    /**
-     The presentation stayle of the menu.
-
-     There are four modes in MenuPresentStyle:
-     - menuSlideIn: Menu slides in over of the existing view.
-     - viewSlideOut: The existing view slides out to reveal the menu.
-     - viewSlideInOut: The existing view slides out while the menu slides in.
-     - menuDissolveIn: The menu dissolves in over the existing view controller.
-     */
     open var presentStyle: SideMenuPresentStyle {
         get { return settings.presentStyle }
         set { settings.presentStyle = newValue }
     }
 
-    /**
-     The push style of the menu.
-
-     There are six modes in MenuPushStyle:
-     - defaultBehavior: The view controller is pushed onto the stack.
-     - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
-     - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
-     - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
-     - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
-     - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
-     */
     @IBInspectable open var pushStyle: MenuPushStyle {
         get { return settings.pushStyle }
         set { settings.pushStyle = newValue }
     }
 
-    /// Draws `presentStyle.backgroundColor` behind the status bar. Default is 1.
     @IBInspectable open var statusBarEndAlpha: CGFloat {
         get { return settings.statusBarEndAlpha }
         set { settings.statusBarEndAlpha = newValue }
     }
 
-    /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
     @IBInspectable open var usingSpringWithDamping: CGFloat {
         get { return settings.usingSpringWithDamping }
         set { settings.usingSpringWithDamping = newValue }
@@ -555,7 +507,7 @@ private extension UISideMenuNavigationController {
 
         switch pushStyle {
         case .subMenu: return false // handled earlier
-        case .defaultBehavior:
+        case .default:
             navigationController.pushViewController(viewController, animated: animated)
             return false
         case .popWhenPossible:

@@ -12,15 +12,6 @@ internal protocol SideMenuTransitionControllerDelegate: class {
     func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController)
 }
 
-internal protocol TransitionModel: PresentationModel {
-    var animationOptions: UIView.AnimationOptions { get }
-    var completeGestureDuration: Double { get }
-    var dismissDuration: Double { get }
-    var initialSpringVelocity: CGFloat { get }
-    var presentDuration: Double { get }
-    var usingSpringWithDamping: CGFloat { get }
-}
-
 internal final class SideMenuTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
 
     private var config: TransitionModel

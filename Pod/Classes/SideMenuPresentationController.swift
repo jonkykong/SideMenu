@@ -12,14 +12,6 @@ internal protocol SideMenuPresentationControllerDelegate: class {
     func sideMenuPresentationController(_ presentationController: SideMenuPresentationController, didPanWith gesture: UIPanGestureRecognizer)
 }
 
-internal protocol PresentationModel {
-    var statusBarEndAlpha: CGFloat { get }
-    var presentingViewControllerUserInteractionEnabled: Bool { get }
-    var presentingViewControllerUseSnapshot: Bool { get }
-    var presentStyle: SideMenuPresentStyle { get }
-    var menuWidth: CGFloat { get }
-}
-
 internal final class SideMenuPresentationController {
 
     private let config: PresentationModel
@@ -62,7 +54,6 @@ internal final class SideMenuPresentationController {
         guard !presentedViewController.isHidden else { return }
 
         // Presentations must be reversed to preserve user experience
-        // TODO: Print warning
         dismissalTransitionWillBegin()
         dismissalTransition()
         dismissalTransitionDidEnd(true)

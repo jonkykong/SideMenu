@@ -7,7 +7,7 @@
 
 import Foundation
 
-final public class Protected<T: Equatable> {
+internal final class Protected<T: Equatable> {
 
     typealias ConditionBlock = (T) -> Bool
     typealias Block = (T) -> Void

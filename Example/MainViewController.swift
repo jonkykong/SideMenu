@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         setupSideMenu()
-        updateUI(settings: UISideMenuNavigationController.Settings())
+        updateUI(settings: SideMenuSettings())
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: view)
     }
     
-    private func updateUI(settings: UISideMenuNavigationController.Settings) {
+    private func updateUI(settings: SideMenuSettings) {
         let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = settings.blurEffectStyle {
             blurSegmentControl.selectedSegmentIndex = styles.firstIndex(of: menuBlurEffectStyle) ?? 0
@@ -58,22 +58,14 @@ class MainViewController: UIViewController {
         screenWidthSlider.value = Float(settings.menuWidth / view.frame.width)
         shadowOpacitySlider.value = Float(settings.presentStyle.onTopShadowOpacity)
     }
-    
-    @IBAction private func changeSegment(_ segmentControl: UISegmentedControl) {
-        if segmentControl == presentModeSegmentedControl {
+
+    @IBAction private func changeControl(_ control: UIControl) {
+        if control == presentModeSegmentedControl {
             var settings = makeSettings()
             settings.presentStyle = selectedPresentStyle()
             updateUI(settings: settings)
         }
 
-        updateMenus()
-    }
-    
-    @IBAction private func changeSlider(_ slider: UISlider) {
-        updateMenus()
-    }
-    
-    @IBAction private func changeSwitch(_ switchControl: UISwitch) {
         updateMenus()
     }
 
@@ -88,8 +80,8 @@ class MainViewController: UIViewController {
         return modes[presentModeSegmentedControl.selectedSegmentIndex]
     }
 
-    private func makeSettings() -> UISideMenuNavigationController.Settings {
-        var settings = UISideMenuNavigationController.Settings()
+    private func makeSettings() -> SideMenuSettings {
+        var settings = SideMenuSettings()
 
         var presentStyle = selectedPresentStyle()
         presentStyle.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
