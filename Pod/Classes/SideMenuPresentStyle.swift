@@ -60,8 +60,6 @@ public extension SideMenuPresentStyle {
         $0.menuTranslateFactor = -1
         $0.presentingTranslateFactor = 1
     }
-    @available(*, deprecated, renamed: "viewSlideOutMenuIn")
-    static let viewSlideInOut = viewSlideOutMenuIn
     static let menuDissolveIn = SideMenuPresentStyle {
         $0.menuStartAlpha = 0
         $0.menuOnTop = true

@@ -24,6 +24,8 @@ internal protocol MenuModel: TransitionModel {
     var dismissOnPresent: Bool { get }
     /// Automatically dismisses the menu when another view controller is pushed from it.
     var dismissOnPush: Bool { get }
+    /// Automatically dismisses the menu when the screen is rotated.
+    var dismissOnRotation: Bool { get }
     /// Automatically dismisses the menu when app goes to the background.
     var dismissWhenBackgrounded: Bool { get }
     /// Enable or disable gestures that would swipe to dismiss the menu. Default is true.

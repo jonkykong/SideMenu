@@ -37,6 +37,7 @@ public struct SideMenuSettings: MenuModel {
     public var dismissDuration: Double = 0.35
     public var dismissOnPresent: Bool = true
     public var dismissOnPush: Bool = true
+    public var dismissOnRotation: Bool = true
     public var dismissWhenBackgrounded: Bool = true
     public var enableSwipeGestures: Bool = true
     public var statusBarEndAlpha: CGFloat = 1
@@ -224,16 +225,16 @@ open class UISideMenuNavigationController: UINavigationController {
 
         rotating = true
         
-        let presentingViewControllerUseSnapshot = self.presentingViewControllerUseSnapshot
+        let dismiss = self.presentingViewControllerUseSnapshot || self.dismissOnRotation
         coordinator.animate(alongsideTransition: { _ in
-            if presentingViewControllerUseSnapshot {
+            if dismiss {
                 transitionController.transition(presenting: false, animated: false, complete: false)
             } else {
                 transitionController.layout()
             }
         }) { [weak self] _ in
             guard let self = self else { return }
-            if presentingViewControllerUseSnapshot {
+            if dismiss {
                 self.dismissMenu(animated: false)
             }
             self.rotating = false
@@ -302,6 +303,11 @@ extension UISideMenuNavigationController: MenuModel {
     @IBInspectable open var dismissOnPush: Bool {
         get { return settings.dismissOnPush }
         set { settings.dismissOnPush = newValue }
+    }
+
+    @IBInspectable open var dismissOnRotation: Bool {
+        get { return settings.dismissOnRotation }
+        set { settings.dismissOnRotation = newValue }
     }
 
     @IBInspectable open var dismissWhenBackgrounded: Bool {
