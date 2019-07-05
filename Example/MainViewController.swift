@@ -40,11 +40,11 @@ class MainViewController: UIViewController {
     
     fileprivate func setDefaults() {
         let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .menuDissolveIn]
-        presentModeSegmentedControl.selectedSegmentIndex = modes.index(of: SideMenuManager.default.menuPresentMode)!
+        presentModeSegmentedControl.selectedSegmentIndex = modes.firstIndex(of: SideMenuManager.default.menuPresentMode)!
         
         let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = SideMenuManager.default.menuBlurEffectStyle {
-            blurSegmentControl.selectedSegmentIndex = styles.index(of: menuBlurEffectStyle) ?? 0
+            blurSegmentControl.selectedSegmentIndex = styles.firstIndex(of: menuBlurEffectStyle) ?? 0
         } else {
             blurSegmentControl.selectedSegmentIndex = 0
         }
@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
     @IBAction fileprivate func changeSegment(_ segmentControl: UISegmentedControl) {
         switch segmentControl {
         case presentModeSegmentedControl:
-            let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn]
+            let modes:[SideMenuManager.MenuPresentMode] = [.menuSlideIn, .viewSlideOut, .viewSlideInOut, .menuDissolveIn, .menuFromTop]
             SideMenuManager.default.menuPresentMode = modes[segmentControl.selectedSegmentIndex]
         case blurSegmentControl:
             if segmentControl.selectedSegmentIndex == 0 {

@@ -26,13 +26,15 @@ open class SideMenuManager: NSObject {
         preserve,
         preserveAndHideBackButton,
         subMenu
+        
     }
     
     @objc public enum MenuPresentMode: Int {
         case menuSlideIn,
         viewSlideOut,
         viewSlideInOut,
-        menuDissolveIn
+        menuDissolveIn,
+        menuFromTop//*** ChangeByDarshanJ
     }
     
     // Bounds which has been allocated for the app on the whole device screen

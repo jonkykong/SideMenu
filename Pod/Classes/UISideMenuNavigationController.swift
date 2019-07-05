@@ -176,6 +176,13 @@ open class UISideMenuNavigationController: UINavigationController {
                     } else {
                         mainView.superview?.insertSubview(view, aboveSubview: mainView)
                     }
+                //*** ChangeByDarshanJ
+                case .menuFromTop:
+                    if let tapView = transition.tapView {
+                        mainView.superview?.insertSubview(view, aboveSubview: tapView)
+                    } else {
+                        mainView.superview?.insertSubview(view, aboveSubview: mainView)
+                    }
                 }
             }
             

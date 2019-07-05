@@ -172,6 +172,12 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
     }
     
     @objc internal func handleHideMenuPan(_ pan: UIPanGestureRecognizer) {
+        //*** ChangeByDarshanJ
+        guard let menuView = menuViewController?.view,
+            let mainView = mainViewController?.view else {
+                return
+        }
+        
         if activeGesture == nil {
             activeGesture = pan
         } else if pan != activeGesture {
@@ -181,8 +187,16 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         }
         
         let translation = pan.translation(in: pan.view!)
-        let direction:CGFloat = presentDirection == .left ? -1 : 1
-        let distance = translation.x / menuWidth * direction
+        
+        //*** ChangeByDarshanJ
+        var direction:CGFloat = presentDirection == .left ? -1 : 1
+        var distance = translation.x / menuWidth * direction
+        
+        //*** ChangeByDarshanJ
+        if sideMenuManager.menuPresentMode == .menuFromTop {
+            direction = presentDirection == .top ? 1 : -1
+            distance = translation.y / (menuView.frame.size.height) * direction
+        }
         
         switch (pan.state) {
             
@@ -241,6 +255,14 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         case .viewSlideInOut, .menuSlideIn:
             menuView.alpha = 1
             menuView.frame.origin.x = presentDirection == .left ? -menuWidth : mainView.frame.width
+            
+        case .menuFromTop: //***ChangeByDarshanJ
+            menuView.alpha = 1
+            
+            menuView.frame.origin.x = 0//presentDirection == .left ? -menuWidth : mainView.frame.width
+            
+            //menuView.frame.origin.y = presentDirection == .left ? -(mainView.frame.height) : mainView.frame.height
+            menuView.frame.origin.y = -(mainView.frame.height)
             
         case .menuDissolveIn:
             menuView.alpha = 0
@@ -319,6 +341,17 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
             }
             mainView.frame.origin.x = 0
+            
+        //*** ChangeByDarshanJ
+        case .menuFromTop:
+            if sideMenuManager.menuBlurEffectStyle == nil {
+                menuView.layer.shadowColor = sideMenuManager.menuShadowColor.cgColor
+                menuView.layer.shadowRadius = sideMenuManager.menuShadowRadius
+                menuView.layer.shadowOpacity = sideMenuManager.menuShadowOpacity
+                menuView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            }
+            mainView.frame.origin.x = 0
+            menuView.frame.origin.y = 0
         }
         
         if sideMenuManager.menuPresentMode != .viewSlideOut {
@@ -349,6 +382,10 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
                 mainView.addMotionEffect(group)
             }
         case .viewSlideOut: break;
+        
+        //*** ChangeByDarshanJ
+        case .menuFromTop:
+        break;
         }
         if let topNavigationController = mainViewController as? UINavigationController {
             topNavigationController.interactivePopGestureRecognizer!.isEnabled = false
@@ -430,6 +467,10 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
             case .menuSlideIn, .menuDissolveIn:
                 container.addSubview(topView)
                 container.addSubview(menuView)
+            //*** ChangeByDarshanJ
+            case .menuFromTop:
+                container.addSubview(topView)
+                container.addSubview(menuView)
             }
 
             if sideMenuManager.menuFadeStatusBar {
@@ -479,6 +520,10 @@ extension SideMenuTransition: UIViewControllerAnimatedTransitioning {
                 case .viewSlideOut, .viewSlideInOut:
                     container.addSubview(topView)
                 case .menuSlideIn, .menuDissolveIn:
+                    container.insertSubview(topView, at: 0)
+                
+                //*** ChangeByDarshanJ
+                case .menuFromTop:
                     container.insertSubview(topView, at: 0)
                 }
                 if !self.sideMenuManager.menuPresentingViewControllerUserInteractionEnabled {
