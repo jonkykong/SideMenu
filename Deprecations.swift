@@ -172,6 +172,16 @@ extension SideMenuManager {
 
     @available(*, deprecated, renamed: "SideMenuPresentStyle")
     public typealias MenuPresentMode = SideMenuPresentStyle
+
+    @available(*, deprecated, renamed: "addScreenEdgePanGesturesToPresent")
+    @discardableResult public func menuAddScreenEdgePanGesturesToPresent(toView view: UIView, forMenu sides: [PresentDirection] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
+        return []
+    }
+
+    @available(*, deprecated, renamed: "addPanGestureToPresent")
+    @discardableResult public func menuAddPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
+        return UIPanGestureRecognizer()
+    }
 }
 
 extension SideMenuPresentStyle {

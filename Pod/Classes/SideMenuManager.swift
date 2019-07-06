@@ -13,7 +13,7 @@ public final class SideMenuManager: NSObject {
     final private class SideMenuPanGestureRecognizer: UIPanGestureRecognizer {}
     final private class SideMenuScreenEdgeGestureRecognizer: UIScreenEdgePanGestureRecognizer {}
 
-    public enum PresentDirection: Int { case
+    @objc public enum PresentDirection: Int { case
         left = 1,
         right = 0
 
@@ -69,22 +69,34 @@ public final class SideMenuManager: NSObject {
     }
 
     /**
+     Adds screen edge gestures for both left and right sides to a view to present a menu.
+
+     - Parameter toView: The view to add gestures to.
+
+     - Returns: The array of screen edge gestures added to `toView`.
+     */
+    @discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView) -> [UIScreenEdgePanGestureRecognizer] {
+        return [
+            addScreenEdgePanGesturesToPresent(toView: view, forMenu: .left),
+            addScreenEdgePanGesturesToPresent(toView: view, forMenu: .right)
+        ]
+    }
+
+    /**
      Adds screen edge gestures to a view to present a menu.
      
      - Parameter toView: The view to add gestures to.
-     - Parameter forMenu: The menu (left or right) you want to add a gesture for. If unspecified, gestures will be added for both sides.
+     - Parameter forMenu: The menu (left or right) you want to add a gesture for.
  
-     - Returns: The array of screen edge gestures added to `toView`.
+     - Returns: The screen edge gestures added to `toView`.
      */
-    @discardableResult public func menuAddScreenEdgePanGesturesToPresent(toView view: UIView, forMenu sides: [PresentDirection] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
-        return sides.map { side in
-            if menu(forSide: side) == nil {
-                let methodName = #function // "menuAddScreenEdgePanGesturesToPresent"
-                let suggestedMethodName = "menuAddScreenEdgePanGesturesToPresent(toView:forMenu:)"
-                Print.warning(.screenGestureAdded, arguments: methodName, side.name, suggestedMethodName)
-            }
-            return self.addScreenEdgeGesture(to: view, edge: side.edge)
+    @discardableResult @objc public func addScreenEdgePanGesturesToPresent(toView view: UIView, forMenu side: PresentDirection) -> UIScreenEdgePanGestureRecognizer {
+        if menu(forSide: side) == nil {
+            let methodName = #function // "addScreenEdgePanGesturesToPresent"
+            let suggestedMethodName = "addScreenEdgePanGesturesToPresent(toView:forMenu:))"
+            Print.warning(.screenGestureAdded, arguments: methodName, side.name, suggestedMethodName)
         }
+        return self.addScreenEdgeGesture(to: view, edge: side.edge)
     }
     
     /**
@@ -94,7 +106,7 @@ public final class SideMenuManager: NSObject {
      
      - Returns: The pan gesture added to `toView`.
      */
-    @discardableResult public func menuAddPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
+    @discardableResult public func addPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
         if menuLeftNavigationController ?? menuRightNavigationController == nil {
             Print.warning(.panGestureAdded, arguments: #function, PresentDirection.left.name, PresentDirection.right.name, required: true)
         }
