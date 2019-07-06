@@ -155,6 +155,39 @@ menuRightNavigationController.settings = menuLeftNavigationController.settings
 ```
 That's it.
 ### Customization
+#### SideMenuManager
+`SideMenuManager` supports the following customizations and properties:
+``` swift
+/// The left menu.
+open var menuLeftNavigationController: UISideMenuNavigationController?
+/// The right menu.
+public var menuRightNavigationController: UISideMenuNavigationController?
+/**
+ Adds screen edge gestures for both left and right sides to a view to present a menu.
+
+ - Parameter toView: The view to add gestures to.
+
+ - Returns: The array of screen edge gestures added to `toView`.
+ */
+@discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView) -> [UIScreenEdgePanGestureRecognizer]
+/**
+ Adds screen edge gestures to a view to present a menu.
+
+ - Parameter toView: The view to add gestures to.
+ - Parameter forMenu: The menu (left or right) you want to add a gesture for.
+
+ - Returns: The screen edge gestures added to `toView`.
+ */
+@discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView, forMenu side: PresentDirection) -> UIScreenEdgePanGestureRecognizer
+/**
+ Adds a pan edge gesture to a view to present menus.
+
+ - Parameter toView: The view to add a pan gesture to.
+
+ - Returns: The pan gesture added to `toView`.
+ */
+@discardableResult public func addPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer
+```
 #### UISideMenuNavigationController
 Just type ` SideMenuManager.default.menu...` and code completion will show you everything you can customize (for Objective-C, use `SideMenuManager.defaultManager.menu...`). Defaults values are shown below for reference:
 ``` swift
@@ -226,39 +259,6 @@ var menuWidth: CGFloat = 240
 var leftSide: Bool = false
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
 var isHidden: Bool
-```
-#### SideMenuManager
-`SideMenuManager` supports the following customizations and properties:
-``` swift
-/// The left menu.
-open var menuLeftNavigationController: UISideMenuNavigationController?
-/// The right menu.
-public var menuRightNavigationController: UISideMenuNavigationController?
-/**
- Adds screen edge gestures for both left and right sides to a view to present a menu.
-
- - Parameter toView: The view to add gestures to.
-
- - Returns: The array of screen edge gestures added to `toView`.
- */
-@discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView) -> [UIScreenEdgePanGestureRecognizer]
-/**
- Adds screen edge gestures to a view to present a menu.
-
- - Parameter toView: The view to add gestures to.
- - Parameter forMenu: The menu (left or right) you want to add a gesture for.
-
- - Returns: The screen edge gestures added to `toView`.
- */
-@discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView, forMenu side: PresentDirection) -> UIScreenEdgePanGestureRecognizer
-/**
- Adds a pan edge gesture to a view to present menus.
-
- - Parameter toView: The view to add a pan gesture to.
-
- - Returns: The pan gesture added to `toView`.
- */
-@discardableResult public func addPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer
 ```
 #### UISideMenuNavigationControllerDelegate
 To receive notifications when a menu is displayed from a view controller, have it adhere to the  `UISideMenuNavigationControllerDelegate` protocol:
