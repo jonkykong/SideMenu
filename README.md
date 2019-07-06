@@ -314,7 +314,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 ```
 *Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` instead.*
 ## Known Issues
-* Issue [#258](https://github.com/jonkykong/SideMenu/issues/258). Using snapshots can help preserve the experience.
+* Issue [#258](https://github.com/jonkykong/SideMenu/issues/258). Using `presentingViewControllerUseSnapshot` can help preserve the experience.
 
 ## Thank You
 A special thank you to everyone that has [contributed](https://github.com/jonkykong/SideMenu/graphs/contributors) to this library to make it better. Your support is appreciated!
