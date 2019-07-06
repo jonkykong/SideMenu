@@ -156,7 +156,7 @@ menuRightNavigationController.settings = menuLeftNavigationController.settings
 That's it.
 ### Customization
 #### SideMenuManager
-`SideMenuManager` supports the following customizations and properties:
+`SideMenuManager` supports the following:
 ``` swift
 /// The left menu.
 open var menuLeftNavigationController: UISideMenuNavigationController?
@@ -189,7 +189,7 @@ public var menuRightNavigationController: UISideMenuNavigationController?
 @discardableResult public func addPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer
 ```
 #### UISideMenuNavigationController
-Just type ` SideMenuManager.default.menu...` and code completion will show you everything you can customize (for Objective-C, use `SideMenuManager.defaultManager.menu...`). Defaults values are shown below for reference:
+`UISideMenuNavigationController` supports the following:
 ``` swift
 /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
 var allowPushOfSameClassTwice: Bool = true
