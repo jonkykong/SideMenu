@@ -3,9 +3,6 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
 [![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
-[![Total Downloads](https://img.shields.io/cocoapods/dt/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
-[![Monthly Downloads](https://img.shields.io/cocoapods/dm/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
-[![Weekly Downloads](https://img.shields.io/cocoapods/dw/SideMenu.svg?style=social)](http://cocoapods.org/pods/SideMenu)
 
 ### If you like SideMenu, give it a ★ at the top right of this page.
 #### Using SideMenu in your app? [Send](mailto:yo@massappeal.co?subject=SideMenu%20in%20action!) me a link to your app in the app store!
@@ -74,11 +71,11 @@ use_frameworks!
 
 pod 'SideMenu'
 
-# For Swift 4 (no longer maintained), use:
-# pod 'SideMenu', '~> 4.0.0'
+# For Swift 5 use:
+# pod 'SideMenu', '~> 5.0.0'
 
-# For Swift 3 (no longer maintained), use:
-# pod 'SideMenu', '~> 2.3.4'
+# For Swift 4 (no longer maintained) use:
+# pod 'SideMenu', '~> 4.0.0'
 ```
 
 Then, run the following command:
@@ -122,36 +119,39 @@ First:
 import SideMenu
 ```
 
-In your view controller's `viewDidLoad` event, do something like this (**IMPORTANT: If you're seeing a black menu when you use gestures, read this section carefully!**):
+From a button, do something like this:
 ``` swift
-// Define the menus
-let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
+// Define the menu
+let menu = UISideMenuNavigationController(rootViewController: YourViewController)
 // UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration 
 // of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
-// let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
-SideMenuManager.default.menuLeftNavigationController = menuLeftNavigationController
-
-let menuRightNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
-// UISideMenuNavigationController is a subclass of UINavigationController, so do any additional configuration
-// of it here like setting its viewControllers. If you're using storyboards, you'll want to do something like:
-// let menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as! UISideMenuNavigationController
-SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
-
-// (Optional) Enable gestures. The left and/or right menus must be set up above for these to work.
-// Note that these continue to work on the Navigation Controller independent of the view controller it displays!
-SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
-SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-
-// (Optional) Prevent status bar area from turning black when menu appears:
-SideMenuManager.default.menuFadeStatusBar = false
+// let menu = storyboard!.instantiateViewController(withIdentifier: "RightMenu") as! UISideMenuNavigationController
+present(menu, animated: true, completion: nil)
 ```
-Then from a button, do something like this:
-``` swift
-present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
-```
+
 To dismiss a menu programmatically, do something like this:
 ``` swift
 dismiss(animated: true, completion: nil)
+```
+
+To use gestures you have to use the `SideMenuManager`. In your `AppDelegate` do something like this:
+``` swift
+// Define the menus
+let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
+SideMenuManager.default.menuLeftNavigationController = menuLeftNavigationController
+
+let menuRightNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
+SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
+
+// Setup gestures: the left and/or right menus must be set up (above) for these to work.
+// Note that these continue to work on the Navigation Controller independent of the view controller it displays!
+SideMenuManager.default.addPanGestureToPresent(toView: self.navigationController!.navigationBar)
+SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+
+// (Optional) Prevent status bar area from turning black when menu appears:
+menuLeftNavigationController.statusBarEndAlpha = 0
+// Copy all settings to the other menu
+menuRightNavigationController.settings = menuLeftNavigationController.settings
 ```
 That's it.
 ### Customization
