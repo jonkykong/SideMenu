@@ -195,14 +195,20 @@ public var menuRightNavigationController: UISideMenuNavigationController?
 var allowPushOfSameClassTwice: Bool = true
 /// Forces menus to always animate when appearing or disappearing, regardless of a pushed view controller's animation.
 var alwaysAnimate: Bool = true
+/// The animation options when a menu is displayed. Ignored when displayed with a gesture.
+var animationOptions: UIView.AnimationOptions = .curveEaseInOut
 /**
  The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
 
  - Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell.
  */
 var blurEffectStyle: UIBlurEffect.Style? = nil
+/// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.35 seconds.
+var completeGestureDuration: Double = 0.35
 /// Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
 var completionCurve: UIView.AnimationCurve = .curveEaseInOut
+/// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
+var dismissDuration: Double = 0.35
 /// Automatically dismisses the menu when another view is presented from it.
 var dismissOnPresent: Bool = true
 /// Automatically dismisses the menu when another view controller is pushed from it.
@@ -213,32 +219,14 @@ var dismissOnRotation: Bool = true
 var dismissWhenBackgrounded: Bool = true
 /// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
 var enableSwipeGestures: Bool = true
-/**
- The push style of the menu.
-
- There are six modes in MenuPushStyle:
- - defaultBehavior: The view controller is pushed onto the stack.
- - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
- - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
- - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
- - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
- - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
- */
-var pushStyle: MenuPushStyle = .default
-/// The animation options when a menu is displayed. Ignored when displayed with a gesture.
-var animationOptions: UIView.AnimationOptions = .curveEaseInOut
-/// Duration of the remaining animation when the menu is partially dismissed with gestures. Default is 0.35 seconds.
-var completeGestureDuration: Double = 0.35
-/// Duration of the animation when the menu is dismissed without gestures. Default is 0.35 seconds.
-var dismissDuration: Double = 0.35
 /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
 var initialSpringVelocity: CGFloat = 1
+/// Whether the menu appears on the right or left side of the screen. Right is the default. This property cannot be changed after the menu has loaded.
+var leftSide: Bool = false
+/// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
+var menuWidth: CGFloat = 240
 /// Duration of the animation when the menu is presented without gestures. Default is 0.35 seconds.
 var presentDuration: Double = 0.35
-/// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
-var usingSpringWithDamping: CGFloat = 1
-/// Draws `presentStyle.backgroundColor` behind the status bar. Default is 1.
-var statusBarEndAlpha: CGFloat = 1
 /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. `presentingViewControllerUseSnapshot` must also set to false. Default is false.
 var presentingViewControllerUserInteractionEnabled: Bool = false
 /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
@@ -253,10 +241,22 @@ var presentingViewControllerUseSnapshot: Bool = false
  - menuDissolveIn: The menu dissolves in over the existing view controller.
  */
 var presentStyle: SideMenuPresentStyle = .viewSlideOut
-/// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
-var menuWidth: CGFloat = 240
-/// Whether the menu appears on the right or left side of the screen. Right is the default. This property cannot be changed after the menu has loaded.
-var leftSide: Bool = false
+/**
+ The push style of the menu.
+
+ There are six modes in MenuPushStyle:
+ - defaultBehavior: The view controller is pushed onto the stack.
+ - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
+ - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
+ - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
+ - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
+ - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
+ */
+var pushStyle: MenuPushStyle = .default
+/// Draws `presentStyle.backgroundColor` behind the status bar. Default is 1.
+var statusBarEndAlpha: CGFloat = 1
+/// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
+var usingSpringWithDamping: CGFloat = 1
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
 var isHidden: Bool
 ```
