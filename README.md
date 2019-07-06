@@ -280,7 +280,6 @@ extension MyViewController: UISideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
     }
-
 }
 ```
 *Note: setting the  `sideMenuDelegate` property on `UISideMenuNavigationController` is optional. If your view controller adheres to the protocol then the methods will be called automatically.*
