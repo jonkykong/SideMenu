@@ -66,15 +66,7 @@ internal protocol PresentationModel {
     var presentingViewControllerUserInteractionEnabled: Bool { get }
     /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
     var presentingViewControllerUseSnapshot: Bool { get }
-    /**
-     The presentation stayle of the menu.
-
-     There are four modes in MenuPresentStyle:
-     - menuSlideIn: Menu slides in over of the existing view.
-     - viewSlideOut: The existing view slides out to reveal the menu.
-     - viewSlideInOut: The existing view slides out while the menu slides in.
-     - menuDissolveIn: The menu dissolves in over the existing view controller.
-     */
+    /// The presentation stayle of the menu.
     var presentStyle: SideMenuPresentStyle { get }
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
     var menuWidth: CGFloat { get }

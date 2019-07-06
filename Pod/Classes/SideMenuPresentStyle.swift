@@ -49,35 +49,44 @@ public struct SideMenuPresentStyle: SideMenuPresentStyleDelegate {
 }
 
 public extension SideMenuPresentStyle {
+    /// Menu slides in over the existing view.
     static let menuSlideIn = SideMenuPresentStyle {
         $0.menuOnTop = true
         $0.menuTranslateFactor = -1
     }
+    /// The existing view slides out to reveal the menu underneath.
     static let viewSlideOut = SideMenuPresentStyle {
         $0.presentingTranslateFactor = 1
     }
+    /// The existing view slides out while the menu slides in.
     static let viewSlideOutMenuIn = SideMenuPresentStyle {
         $0.menuTranslateFactor = -1
         $0.presentingTranslateFactor = 1
     }
+    /// The menu dissolves in over the existing view.
     static let menuDissolveIn = SideMenuPresentStyle {
         $0.menuStartAlpha = 0
         $0.menuOnTop = true
     }
+    /// The existing view slides out while the menu partially slides in.
     static let viewSlideOutMenuPartialIn = SideMenuPresentStyle {
         $0.menuTranslateFactor = -0.5
         $0.presentingTranslateFactor = 1
     }
+    /// The existing view slides out while the menu slides out from under it.
     static let viewSlideOutMenuOut = SideMenuPresentStyle {
         $0.menuTranslateFactor = 1
         $0.presentingTranslateFactor = 1
     }
+    /// The existing view slides out while the menu partially slides out from under it.
     static let viewSlideOutMenuPartialOut = SideMenuPresentStyle {
         $0.menuTranslateFactor = 0.5
         $0.presentingTranslateFactor = 1
     }
+    /// The existing view slides out and shrinks to reveal the menu underneath.
     static let viewSlideOutMenuZoom = SideMenuPresentStyle {
         $0.presentingTranslateFactor = 1
         $0.menuScaleFactor = 0.95
+        $0.menuOnTop = true
     }
 }
