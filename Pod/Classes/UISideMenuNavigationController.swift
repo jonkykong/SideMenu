@@ -102,6 +102,7 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
 
+    /// The menu settings.
     open var settings = SideMenuSettings() {
         didSet {
             setupBlur()
@@ -126,6 +127,11 @@ open class UISideMenuNavigationController: UINavigationController {
     }
 
     #endif
+
+    public init(rootViewController: UIViewController, settings: SideMenuSettings) {
+        super.init(rootViewController: rootViewController)
+        self.settings = settings
+    }
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
