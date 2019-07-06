@@ -8,7 +8,7 @@
 import UIKit
 
 @objcMembers
-public final class SideMenuManager: NSObject {
+public class SideMenuManager: NSObject {
 
     final private class SideMenuPanGestureRecognizer: UIPanGestureRecognizer {}
     final private class SideMenuScreenEdgeGestureRecognizer: UIScreenEdgePanGestureRecognizer {}
@@ -57,13 +57,13 @@ public final class SideMenuManager: NSObject {
     }
 
     /// The left menu.
-    public var menuLeftNavigationController: UISideMenuNavigationController? {
+    open var menuLeftNavigationController: UISideMenuNavigationController? {
         get { return _leftMenu.value }
         set(menu) { _leftMenu.value = menu }
     }
     
     /// The right menu.
-    public var menuRightNavigationController: UISideMenuNavigationController? {
+    open var menuRightNavigationController: UISideMenuNavigationController? {
         get { return _rightMenu.value }
         set(menu) { _rightMenu.value = menu }
     }
@@ -90,7 +90,7 @@ public final class SideMenuManager: NSObject {
  
      - Returns: The screen edge gestures added to `toView`.
      */
-    @discardableResult @objc public func addScreenEdgePanGesturesToPresent(toView view: UIView, forMenu side: PresentDirection) -> UIScreenEdgePanGestureRecognizer {
+    @discardableResult public func addScreenEdgePanGesturesToPresent(toView view: UIView, forMenu side: PresentDirection) -> UIScreenEdgePanGestureRecognizer {
         if menu(forSide: side) == nil {
             let methodName = #function // "addScreenEdgePanGesturesToPresent"
             let suggestedMethodName = "addScreenEdgePanGesturesToPresent(toView:forMenu:))"

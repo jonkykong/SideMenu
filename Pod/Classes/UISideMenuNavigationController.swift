@@ -40,7 +40,6 @@ public struct SideMenuSettings: MenuModel {
     public var dismissOnRotation: Bool = true
     public var dismissWhenBackgrounded: Bool = true
     public var enableSwipeGestures: Bool = true
-    public var statusBarEndAlpha: CGFloat = 1
     public var initialSpringVelocity: CGFloat = 1
     public var menuWidth: CGFloat = {
         let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
@@ -48,10 +47,11 @@ public struct SideMenuSettings: MenuModel {
         return min(round(minimumSize * 0.75), 240)
     }()
     public var presentingViewControllerUserInteractionEnabled: Bool = false
-    public var presentingViewControllerUseSnapshot: Bool = true
+    public var presentingViewControllerUseSnapshot: Bool = false
     public var presentDuration: Double = 0.35
     public var presentStyle: SideMenuPresentStyle = .viewSlideOut
     public var pushStyle: MenuPushStyle = .default
+    public var statusBarEndAlpha: CGFloat = 1
     public var usingSpringWithDamping: CGFloat = 1
 
     public init() {}
