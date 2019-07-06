@@ -231,15 +231,7 @@ var presentDuration: Double = 0.35
 var presentingViewControllerUserInteractionEnabled: Bool = false
 /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
 var presentingViewControllerUseSnapshot: Bool = false
-/**
- The presentation stayle of the menu.
-
- There are four modes in MenuPresentStyle:
- - menuSlideIn: Menu slides in over of the existing view.
- - viewSlideOut: The existing view slides out to reveal the menu.
- - viewSlideInOut: The existing view slides out while the menu slides in.
- - menuDissolveIn: The menu dissolves in over the existing view controller.
- */
+/// The presentation style of the menu.
 var presentStyle: SideMenuPresentStyle = .viewSlideOut
 /**
  The push style of the menu.
@@ -259,6 +251,26 @@ var statusBarEndAlpha: CGFloat = 1
 var usingSpringWithDamping: CGFloat = 1
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
 var isHidden: Bool
+```
+#### SideMenuPresentStyle
+There are 8 pre-defined `SideMenuPresentStyle` options:
+``` swift
+/// Menu slides in over the existing view.
+static let menuSlideIn = SideMenuPresentStyle
+/// The existing view slides out to reveal the menu underneath.
+static let viewSlideOut = SideMenuPresentStyle
+/// The existing view slides out while the menu slides in.
+static let viewSlideOutMenuIn = SideMenuPresentStyle
+/// The menu dissolves in over the existing view.
+static let menuDissolveIn = SideMenuPresentStyle
+/// The existing view slides out while the menu partially slides in.
+static let viewSlideOutMenuPartialIn = SideMenuPresentStyle
+/// The existing view slides out while the menu slides out from under it.
+static let viewSlideOutMenuOut = SideMenuPresentStyle
+/// The existing view slides out while the menu partially slides out from under it.
+static let viewSlideOutMenuPartialOut = SideMenuPresentStyle
+/// The existing view slides out and shrinks to reveal the menu underneath.
+static let viewSlideOutMenuZoom = SideMenuPresentStyle
 ```
 #### UISideMenuNavigationControllerDelegate
 To receive notifications when a menu is displayed from a view controller, have it adhere to the  `UISideMenuNavigationControllerDelegate` protocol:
@@ -284,6 +296,9 @@ extension MyViewController: UISideMenuNavigationControllerDelegate {
 ```
 *Note: setting the  `sideMenuDelegate` property on `UISideMenuNavigationController` is optional. If your view controller adheres to the protocol then the methods will be called automatically.*
 ### Advanced
+<details>
+<summary>Click for Details</summary>
+
 For simplicity, `SideMenuManager.default` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu, such as from a modal view controller presented from a previous SideMenu, do the following:
 1. Declare a variable containing your custom `SideMenuManager` instance. You may want it to define it globally and configure it in your app delegate if menus will be used on multiple screens.
 ``` swift
@@ -301,7 +316,6 @@ class MySideMenuNavigationController: UISideMenuNavigationController {
 
         sideMenuManager = customSideMenuManager
     }
-
 }
 ```
 Alternatively, you can set  `sideMenuManager` from the view controller that segues to your UISideMenuNavigationController:
@@ -313,6 +327,8 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 }
 ```
 *Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` instead.*
+</details>
+
 ## Known Issues
 * Issue [#258](https://github.com/jonkykong/SideMenu/issues/258). Using `presentingViewControllerUseSnapshot` can help preserve the experience.
 
