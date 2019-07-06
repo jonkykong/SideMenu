@@ -50,7 +50,7 @@ Check out the example project to see it in action!
 
 ## Requirements
 - [x] Xcode 10.
-- [x] Swift 4.2.
+- [x] Swift 5.
 - [x] iOS 10 or higher.
 
 ## Installation
