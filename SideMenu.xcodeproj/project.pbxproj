@@ -77,6 +77,8 @@
 		65FF1B391DE31DA3007B0845 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				7B48A0E11DCB2487002990A1 /* Info.plist */,
+				7B48A0DC1DCB2487002990A1 /* Assets.xcassets */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -102,8 +104,6 @@
 				7B48A0F41DCB2518002990A1 /* PresentedViewController.swift */,
 				7B552D5C1DCC65830010301C /* Launch Screen.storyboard */,
 				7B5FA9B51DCB269700278DF6 /* Main.storyboard */,
-				7B48A0DC1DCB2487002990A1 /* Assets.xcassets */,
-				7B48A0E11DCB2487002990A1 /* Info.plist */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -236,7 +236,7 @@
 					7B48A0D21DCB2487002990A1 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = QTJ767UH3L;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					7B9DC9031DC6E8C1000D4007 = {

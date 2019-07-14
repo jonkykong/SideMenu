@@ -8,7 +8,6 @@
 import SideMenu
 
 class MainViewController: UIViewController {
-
     @IBOutlet private weak var blackOutStatusBar: UISwitch!
     @IBOutlet private weak var blurSegmentControl: UISegmentedControl!
     @IBOutlet private weak var menuAlphaSlider: UISlider!
@@ -21,7 +20,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupSideMenu()
         updateUI(settings: SideMenuSettings())
     }
@@ -33,8 +31,8 @@ class MainViewController: UIViewController {
     
     private func setupSideMenu() {
         // Define the menus
-        SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
-        SideMenuManager.default.menuRightNavigationController = storyboard!.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? UISideMenuNavigationController
+        SideMenuManager.default.leftMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
+        SideMenuManager.default.rightMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? UISideMenuNavigationController
         
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
@@ -51,47 +49,45 @@ class MainViewController: UIViewController {
         }
 
         blackOutStatusBar.isOn = settings.statusBarEndAlpha > 0
-        menuAlphaSlider.value = Float(settings.presentStyle.menuStartAlpha)
-        menuScaleFactorSlider.value = Float(settings.presentStyle.menuScaleFactor)
-        presentingAlphaSlider.value = Float(settings.presentStyle.presentingEndAlpha)
-        presentingScaleFactorSlider.value = Float(settings.presentStyle.presentingScaleFactor)
+        menuAlphaSlider.value = Float(settings.presentationStyle.menuStartAlpha)
+        menuScaleFactorSlider.value = Float(settings.presentationStyle.menuScaleFactor)
+        presentingAlphaSlider.value = Float(settings.presentationStyle.presentingEndAlpha)
+        presentingScaleFactorSlider.value = Float(settings.presentationStyle.presentingScaleFactor)
         screenWidthSlider.value = Float(settings.menuWidth / view.frame.width)
-        shadowOpacitySlider.value = Float(settings.presentStyle.onTopShadowOpacity)
+        shadowOpacitySlider.value = Float(settings.presentationStyle.onTopShadowOpacity)
     }
 
     @IBAction private func changeControl(_ control: UIControl) {
         if control == presentModeSegmentedControl {
             var settings = makeSettings()
-            settings.presentStyle = selectedPresentStyle()
+            settings.presentationStyle = selectedPresentationStyle()
             updateUI(settings: settings)
         }
-
         updateMenus()
     }
 
     private func updateMenus() {
         let settings = makeSettings()
-        SideMenuManager.default.menuLeftNavigationController?.settings = settings
-        SideMenuManager.default.menuRightNavigationController?.settings = settings
+        SideMenuManager.default.leftMenuNavigationController?.settings = settings
+        SideMenuManager.default.rightMenuNavigationController?.settings = settings
     }
 
-    private func selectedPresentStyle() -> SideMenuPresentStyle {
-        let modes: [SideMenuPresentStyle] = [.menuSlideIn, .viewSlideOut, .viewSlideOutMenuIn, .menuDissolveIn]
+    private func selectedPresentationStyle() -> SideMenuPresentationStyle {
+        let modes: [SideMenuPresentationStyle] = [.menuSlideIn, .viewSlideOut, .viewSlideOutMenuIn, .menuDissolveIn]
         return modes[presentModeSegmentedControl.selectedSegmentIndex]
     }
 
     private func makeSettings() -> SideMenuSettings {
+        let presentationStyle = selectedPresentationStyle()
+        presentationStyle.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "saturn"))
+        presentationStyle.menuStartAlpha = CGFloat(menuAlphaSlider.value)
+        presentationStyle.menuScaleFactor = CGFloat(menuScaleFactorSlider.value)
+        presentationStyle.onTopShadowOpacity = shadowOpacitySlider.value
+        presentationStyle.presentingEndAlpha = CGFloat(presentingAlphaSlider.value)
+        presentationStyle.presentingScaleFactor = CGFloat(presentingScaleFactorSlider.value)
+
         var settings = SideMenuSettings()
-
-        var presentStyle = selectedPresentStyle()
-        presentStyle.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
-        presentStyle.menuStartAlpha = CGFloat(menuAlphaSlider.value)
-        presentStyle.menuScaleFactor = CGFloat(menuScaleFactorSlider.value)
-        presentStyle.onTopShadowOpacity = shadowOpacitySlider.value
-        presentStyle.presentingEndAlpha = CGFloat(presentingAlphaSlider.value)
-        presentStyle.presentingScaleFactor = CGFloat(presentingScaleFactorSlider.value)
-        settings.presentStyle = presentStyle
-
+        settings.presentationStyle = presentationStyle
         settings.menuWidth = view.frame.width * CGFloat(screenWidthSlider.value)
         let styles:[UIBlurEffect.Style?] = [nil, .dark, .light, .extraLight]
         settings.blurEffectStyle = styles[blurSegmentControl.selectedSegmentIndex]

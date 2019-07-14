@@ -7,9 +7,21 @@
 
 // Deprecations; to be removed at a future date.
 extension SideMenuManager {
-    
+
+    @available(*, deprecated, renamed: "leftMenuNavigationController")
+    open var menuLeftNavigationController: UISideMenuNavigationController? {
+        get { return nil }
+        set {}
+    }
+
+    @available(*, deprecated, renamed: "rightMenuNavigationController")
+    open var menuRightNavigationController: UISideMenuNavigationController? {
+        get { return nil }
+        set {}
+    }
+
     @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
-    public var menuPresentMode: SideMenuPresentStyle {
+    public var menuPresentMode: SideMenuPresentationStyle {
         get { return .viewSlideOut }
         set {}
     }
@@ -171,7 +183,7 @@ extension SideMenuManager {
     }
 
     @available(*, deprecated, renamed: "SideMenuPresentStyle")
-    public typealias MenuPresentMode = SideMenuPresentStyle
+    public typealias MenuPresentMode = SideMenuPresentationStyle
 
     @available(*, deprecated, renamed: "addScreenEdgePanGesturesToPresent")
     @discardableResult public func menuAddScreenEdgePanGesturesToPresent(toView view: UIView, forMenu sides: [PresentDirection] = [.left, .right]) -> [UIScreenEdgePanGestureRecognizer] {
@@ -184,7 +196,7 @@ extension SideMenuManager {
     }
 }
 
-extension SideMenuPresentStyle {
+extension SideMenuPresentationStyle {
     @available(*, deprecated, renamed: "viewSlideOutMenuIn")
-    public static let viewSlideInOut = viewSlideOutMenuIn
+    public static var viewSlideInOut: SideMenuPresentationStyle { return viewSlideOutMenuIn }
 }

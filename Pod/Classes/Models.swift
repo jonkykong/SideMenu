@@ -66,8 +66,8 @@ internal protocol PresentationModel {
     var presentingViewControllerUserInteractionEnabled: Bool { get }
     /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
     var presentingViewControllerUseSnapshot: Bool { get }
-    /// The presentation stayle of the menu.
-    var presentStyle: SideMenuPresentStyle { get }
+    /// The presentation style of the menu.
+    var presentationStyle: SideMenuPresentationStyle { get }
     /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
     var menuWidth: CGFloat { get }
 }

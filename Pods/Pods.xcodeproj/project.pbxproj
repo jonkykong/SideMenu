@@ -16,7 +16,7 @@
 		7CFEB3863F8BB185CD0E835E302E229C /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */; };
 		84226FCD22CB466900DACB20 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FCA22CB466900DACB20 /* Extensions.swift */; };
 		84226FCE22CB466900DACB20 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FCB22CB466900DACB20 /* Initializable.swift */; };
-		84226FCF22CB466900DACB20 /* SideMenuPresentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FCC22CB466900DACB20 /* SideMenuPresentStyle.swift */; };
+		84226FCF22CB466900DACB20 /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FCC22CB466900DACB20 /* SideMenuPresentationStyle.swift */; };
 		84226FD322CC906300DACB20 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FD222CC906300DACB20 /* Models.swift */; };
 		84226FD522CC987100DACB20 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84226FD422CC987100DACB20 /* Deprecations.swift */; };
 		84241FB721D6CB50002D4862 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */; };
@@ -53,7 +53,7 @@
 		6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
 		84226FCA22CB466900DACB20 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
 		84226FCB22CB466900DACB20 /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Classes/Initializable.swift; sourceTree = "<group>"; };
-		84226FCC22CB466900DACB20 /* SideMenuPresentStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentStyle.swift; path = Pod/Classes/SideMenuPresentStyle.swift; sourceTree = "<group>"; };
+		84226FCC22CB466900DACB20 /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/Classes/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
 		84226FD222CC906300DACB20 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Pod/Classes/Models.swift; sourceTree = "<group>"; };
 		84226FD422CC987100DACB20 /* Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
 		84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				84241FB621D6CB50002D4862 /* SideMenuInteractionController.swift */,
 				61E50E81F13B12673E4A96C971B6DFC7 /* SideMenuManager.swift */,
 				FECF363D37A4A8B719135B1848C02CD4 /* SideMenuPresentationController.swift */,
-				84226FCC22CB466900DACB20 /* SideMenuPresentStyle.swift */,
+				84226FCC22CB466900DACB20 /* SideMenuPresentationStyle.swift */,
 				383C67B923116765AC95EC08436448D4 /* SideMenuTransitionController.swift */,
 				6E69DF5906E981028F065B72E0F0C227 /* UISideMenuNavigationController.swift */,
 				A5362C3E90D0411B7A1153811DEFA8E4 /* UITableViewVibrantCell.swift */,
@@ -337,7 +337,7 @@
 				5365F93B3E5F4D3D9E1DA2EDCAF7F93B /* SideMenuPresentationController.swift in Sources */,
 				B912EBCBB29DDE29695D0E58BC145396 /* SideMenuTransitionController.swift in Sources */,
 				7CFEB3863F8BB185CD0E835E302E229C /* UISideMenuNavigationController.swift in Sources */,
-				84226FCF22CB466900DACB20 /* SideMenuPresentStyle.swift in Sources */,
+				84226FCF22CB466900DACB20 /* SideMenuPresentationStyle.swift in Sources */,
 				40D0942A4F043C8F32E46B87F2567931 /* UITableViewVibrantCell.swift in Sources */,
 				84226FCE22CB466900DACB20 /* Initializable.swift in Sources */,
 			);

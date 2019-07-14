@@ -36,7 +36,7 @@ internal final class SideMenuPresentationController {
         guard config.statusBarEndAlpha != 0 else { return nil }
 
         return UIView {
-            $0.backgroundColor = config.presentStyle.backgroundColor
+            $0.backgroundColor = config.presentationStyle.backgroundColor
             $0.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             $0.isUserInteractionEnabled = false
         }
@@ -94,7 +94,7 @@ internal final class SideMenuPresentationController {
         }
 
         presentingViewController.view.isUserInteractionEnabled = config.presentingViewControllerUserInteractionEnabled
-        containerView.backgroundColor = config.presentStyle.backgroundColor
+        containerView.backgroundColor = config.presentationStyle.backgroundColor
 
         originalSuperview = presentingViewController.view.superview
         containerView.addSubview(presentingViewController.view)
@@ -107,20 +107,20 @@ internal final class SideMenuPresentationController {
         }
         
         dismissalTransition()
-        config.presentStyle.presentationTransitionWillBegin()
+        config.presentationStyle.presentationTransitionWillBegin(to: presentedViewController, from: presentingViewController)
     }
 
     func presentationTransition() {
         transition(
             to: presentedViewController,
             from: presentingViewController,
-            alpha: config.presentStyle.presentingEndAlpha,
+            alpha: config.presentationStyle.presentingEndAlpha,
             statusBarAlpha: config.statusBarEndAlpha,
-            scale: config.presentStyle.presentingScaleFactor,
-            translate: config.presentStyle.presentingTranslateFactor
+            scale: config.presentationStyle.presentingScaleFactor,
+            translate: config.presentationStyle.presentingTranslateFactor
         )
 
-        config.presentStyle.presentationTransition()
+        config.presentationStyle.presentationTransition(to: presentedViewController, from: presentingViewController)
     }
     
     func presentationTransitionDidEnd(_ completed: Bool) {
@@ -138,26 +138,26 @@ internal final class SideMenuPresentationController {
         }
 
         containerViewWillLayoutSubviews()
-        config.presentStyle.presentationTransitionDidEnd(completed)
+        config.presentationStyle.presentationTransitionDidEnd(to: presentedViewController, from: presentingViewController, completed)
     }
 
     func dismissalTransitionWillBegin() {
         snapshotView?.removeFromSuperview()
         presentationTransition()
-        config.presentStyle.dismissalTransitionWillBegin()
+        config.presentationStyle.dismissalTransitionWillBegin(to: presentedViewController, from: presentingViewController)
     }
 
     func dismissalTransition() {
         transition(
             to: presentingViewController,
             from: presentedViewController,
-            alpha: config.presentStyle.menuStartAlpha,
+            alpha: config.presentationStyle.menuStartAlpha,
             statusBarAlpha: 0,
-            scale: config.presentStyle.menuScaleFactor,
-            translate: config.presentStyle.menuTranslateFactor
+            scale: config.presentationStyle.menuScaleFactor,
+            translate: config.presentationStyle.menuTranslateFactor
         )
 
-        config.presentStyle.dismissalTransition()
+        config.presentationStyle.dismissalTransition(to: presentedViewController, from: presentingViewController)
     }
 
     func dismissalTransitionDidEnd(_ completed: Bool) {
@@ -183,7 +183,7 @@ internal final class SideMenuPresentationController {
 
         originalSuperview?.addSubview(presentingViewController.view)
         presentingViewController.view.isUserInteractionEnabled = true
-        config.presentStyle.dismissalTransitionDidEnd(completed)
+        config.presentationStyle.dismissalTransitionDidEnd(to: presentedViewController, from: presentingViewController, completed)
     }
 }
 
@@ -195,16 +195,12 @@ private extension SideMenuPresentationController {
         to.view.transform = .identity
         to.view.alpha = 1
 
+        let x = (leftSide ? 1 : -1) * config.menuWidth * translate
         from.view.alpha = alpha
-        from.view.transform = CGAffineTransform.identity
-            .scaledBy(
-                x: scale,
-                y: scale
-            )
-            .translatedBy(
-                x: (leftSide ? 1 : -1) * config.menuWidth * translate,
-                y: 0
-        )
+        from.view.transform = CGAffineTransform
+            .identity
+            .translatedBy(x: x, y: 0)
+            .scaledBy(x: scale, y: scale)
 
         statusBarView?.alpha = statusBarAlpha
     }
@@ -212,7 +208,7 @@ private extension SideMenuPresentationController {
     func layerViews() {
         statusBarView?.layer.zPosition = 2
 
-        if config.presentStyle.menuOnTop {
+        if config.presentationStyle.menuOnTop {
             addShadow(to: presentedViewController.view)
             presentedViewController.view.layer.zPosition = 1
             presentingViewController.view.layer.zPosition = 0
@@ -224,16 +220,16 @@ private extension SideMenuPresentationController {
     }
 
     func addShadow(to view: UIView) {
-        view.layer.shadowColor = config.presentStyle.onTopShadowColor.cgColor
-        view.layer.shadowRadius = config.presentStyle.onTopShadowRadius
-        view.layer.shadowOpacity = config.presentStyle.onTopShadowOpacity
+        view.layer.shadowColor = config.presentationStyle.onTopShadowColor.cgColor
+        view.layer.shadowRadius = config.presentationStyle.onTopShadowRadius
+        view.layer.shadowOpacity = config.presentationStyle.onTopShadowOpacity
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 
     func addParallax(to view: UIView) {
         var effects: [UIInterpolatingMotionEffect] = []
 
-        let x = config.presentStyle.presentingParallaxStrength.width
+        let x = config.presentationStyle.presentingParallaxStrength.width
         if x > 0 {
             let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
             horizontal.minimumRelativeValue = -x
@@ -241,7 +237,7 @@ private extension SideMenuPresentationController {
             effects.append(horizontal)
         }
 
-        let y = config.presentStyle.presentingParallaxStrength.height
+        let y = config.presentationStyle.presentingParallaxStrength.height
         if y > 0 {
             let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
             vertical.minimumRelativeValue = -y

@@ -47,9 +47,9 @@ public struct SideMenuSettings: MenuModel {
         return min(round(minimumSize * 0.75), 240)
     }()
     public var presentingViewControllerUserInteractionEnabled: Bool = false
-    public var presentingViewControllerUseSnapshot: Bool = false
+    public var presentingViewControllerUseSnapshot: Bool = true
     public var presentDuration: Double = 0.35
-    public var presentStyle: SideMenuPresentStyle = .viewSlideOut
+    public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
     public var pushStyle: MenuPushStyle = .default
     public var statusBarEndAlpha: CGFloat = 1
     public var usingSpringWithDamping: CGFloat = 1
@@ -357,9 +357,9 @@ extension UISideMenuNavigationController: MenuModel {
         set { settings.presentDuration = newValue }
     }
 
-    open var presentStyle: SideMenuPresentStyle {
-        get { return settings.presentStyle }
-        set { settings.presentStyle = newValue }
+    open var presentationStyle: SideMenuPresentationStyle {
+        get { return settings.presentationStyle }
+        set { settings.presentationStyle = newValue }
     }
 
     @IBInspectable open var pushStyle: MenuPushStyle {

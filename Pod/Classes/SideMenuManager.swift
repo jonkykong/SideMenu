@@ -57,13 +57,13 @@ public class SideMenuManager: NSObject {
     }
 
     /// The left menu.
-    open var menuLeftNavigationController: UISideMenuNavigationController? {
+    open var leftMenuNavigationController: UISideMenuNavigationController? {
         get { return _leftMenu.value }
         set(menu) { _leftMenu.value = menu }
     }
     
     /// The right menu.
-    open var menuRightNavigationController: UISideMenuNavigationController? {
+    open var rightMenuNavigationController: UISideMenuNavigationController? {
         get { return _rightMenu.value }
         set(menu) { _rightMenu.value = menu }
     }
@@ -107,7 +107,7 @@ public class SideMenuManager: NSObject {
      - Returns: The pan gesture added to `toView`.
      */
     @discardableResult public func addPanGestureToPresent(toView view: UIView) -> UIPanGestureRecognizer {
-        if menuLeftNavigationController ?? menuRightNavigationController == nil {
+        if leftMenuNavigationController ?? rightMenuNavigationController == nil {
             Print.warning(.panGestureAdded, arguments: #function, PresentDirection.left.name, PresentDirection.right.name, required: true)
         }
         
@@ -119,8 +119,8 @@ internal extension SideMenuManager {
 
     func setMenu(_ menu: Menu?, forLeftSide leftSide: Bool) {
         switch leftSide {
-        case true: menuLeftNavigationController = menu
-        case false: menuRightNavigationController = menu
+        case true: leftMenuNavigationController = menu
+        case false: rightMenuNavigationController = menu
         }
     }
 }
@@ -172,15 +172,15 @@ private extension SideMenuManager {
     }
 
     var activeMenu: Menu? {
-        if menuLeftNavigationController?.isHidden == false { return menuLeftNavigationController }
-        if menuRightNavigationController?.isHidden == false { return menuRightNavigationController }
+        if leftMenuNavigationController?.isHidden == false { return leftMenuNavigationController }
+        if rightMenuNavigationController?.isHidden == false { return rightMenuNavigationController }
         return nil
     }
 
     func menu(forSide: PresentDirection) -> Menu? {
         switch forSide {
-        case .left: return menuLeftNavigationController
-        case .right: return menuRightNavigationController
+        case .left: return leftMenuNavigationController
+        case .right: return rightMenuNavigationController
         }
     }
 
