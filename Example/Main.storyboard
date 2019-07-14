@@ -43,7 +43,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iBe-qv-i0y">
                                         <rect key="frame" x="20" y="20" width="335" height="675"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Present Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efp-5L-qft">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Presentation Style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efp-5L-qft">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -277,7 +277,7 @@
                         <outlet property="blurSegmentControl" destination="owH-AA-wgw" id="OKW-xQ-7UM"/>
                         <outlet property="menuAlphaSlider" destination="pqT-4M-nw1" id="X32-tm-KBc"/>
                         <outlet property="menuScaleFactorSlider" destination="Xp9-C5-Td1" id="gyq-PL-JO7"/>
-                        <outlet property="presentModeSegmentedControl" destination="KV2-tN-Aff" id="dzq-Bi-3Zp"/>
+                        <outlet property="presentationStyleSegmentedControl" destination="KV2-tN-Aff" id="dzq-Bi-3Zp"/>
                         <outlet property="presentingAlphaSlider" destination="xlA-NK-mN4" id="Dg9-nd-07P"/>
                         <outlet property="presentingScaleFactorSlider" destination="Oso-tQ-0MO" id="TVy-sK-3NK"/>
                         <outlet property="screenWidthSlider" destination="Cor-r1-osR" id="pOL-9d-Weh"/>

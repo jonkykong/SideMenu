@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var menuScaleFactorSlider: UISlider!
     @IBOutlet private weak var presentingAlphaSlider: UISlider!
     @IBOutlet private weak var presentingScaleFactorSlider: UISlider!
-    @IBOutlet private weak var presentModeSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var presentationStyleSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var screenWidthSlider: UISlider!
     @IBOutlet private weak var shadowOpacitySlider: UISlider!
 
@@ -58,7 +58,7 @@ class MainViewController: UIViewController {
     }
 
     @IBAction private func changeControl(_ control: UIControl) {
-        if control == presentModeSegmentedControl {
+        if control == presentationStyleSegmentedControl {
             var settings = makeSettings()
             settings.presentationStyle = selectedPresentationStyle()
             updateUI(settings: settings)
@@ -74,12 +74,12 @@ class MainViewController: UIViewController {
 
     private func selectedPresentationStyle() -> SideMenuPresentationStyle {
         let modes: [SideMenuPresentationStyle] = [.menuSlideIn, .viewSlideOut, .viewSlideOutMenuIn, .menuDissolveIn]
-        return modes[presentModeSegmentedControl.selectedSegmentIndex]
+        return modes[presentationStyleSegmentedControl.selectedSegmentIndex]
     }
 
     private func makeSettings() -> SideMenuSettings {
         let presentationStyle = selectedPresentationStyle()
-        presentationStyle.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "saturn"))
+        presentationStyle.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
         presentationStyle.menuStartAlpha = CGFloat(menuAlphaSlider.value)
         presentationStyle.menuScaleFactor = CGFloat(menuScaleFactorSlider.value)
         presentationStyle.onTopShadowOpacity = shadowOpacitySlider.value

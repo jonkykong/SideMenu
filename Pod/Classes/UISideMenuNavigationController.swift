@@ -47,7 +47,7 @@ public struct SideMenuSettings: MenuModel {
         return min(round(minimumSize * 0.75), 240)
     }()
     public var presentingViewControllerUserInteractionEnabled: Bool = false
-    public var presentingViewControllerUseSnapshot: Bool = true
+    public var presentingViewControllerUseSnapshot: Bool = false
     public var presentDuration: Double = 0.35
     public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
     public var pushStyle: MenuPushStyle = .default
@@ -202,7 +202,7 @@ open class UISideMenuNavigationController: UINavigationController {
         // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
         // view, but dismissing without animation removes the container view before the original hierarchy is restored.
         // This check corrects that.
-        if let activeDelegate = activeDelegate as? UIViewController, activeDelegate.view.window == nil {
+        if presentedViewController == nil && view.window == nil {
             transitionController?.transition(presenting: false, animated: false)
         }
 
@@ -581,7 +581,7 @@ private extension UISideMenuNavigationController {
     }
 
     func setup() {
-        modalPresentationStyle = .custom
+        modalPresentationStyle = .overFullScreen
 
         setupBlur()
         setupSwipeGestures()
