@@ -326,7 +326,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }
 ```
-*Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` instead.*
+*Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` to display multi-level menus instead.*
 </details>
 
 ## Known Issues
