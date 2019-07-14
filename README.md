@@ -10,7 +10,7 @@
 > Hi, I'm Jon Kent and I am an iOS designer, developer, and mobile strategist. I love coffee and play the drums.
 > * [**Hire me**](mailto:yo@massappeal.co?subject=Let's%20build%20something%20amazing) to help you make cool stuff. *Note: If you're having a problem with SideMenu, please open an [issue](https://github.com/jonkykong/SideMenu/issues/new) and do not email me.*
 > * Check out my [website](http://massappeal.co) to see some of my other projects.
-> * Building and maintaining this **free** library takes a lot of my time and **saves you time**. Please consider paying it forward by supporting me with a small amount to my [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted). (only **4** people have donated since 12/23/15 😕 but **thank you** to those who have!)
+> * Building and maintaining this **free** library takes a lot of my time and **saves you time**. Please consider paying it forward by supporting me with a small amount to my [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=contact%40jonkent%2eme&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted). (only **13** people have donated since 12/23/15 but **thank you** to those who have!)
 
 * **[Overview](#overview)**
   * [Preview Samples](#preview-samples) 
@@ -231,16 +231,8 @@ var presentDuration: Double = 0.35
 var presentingViewControllerUserInteractionEnabled: Bool = false
 /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
 var presentingViewControllerUseSnapshot: Bool = false
-/**
- The presentation stayle of the menu.
-
- There are four modes in MenuPresentStyle:
- - menuSlideIn: Menu slides in over of the existing view.
- - viewSlideOut: The existing view slides out to reveal the menu.
- - viewSlideInOut: The existing view slides out while the menu slides in.
- - menuDissolveIn: The menu dissolves in over the existing view controller.
- */
-var presentStyle: SideMenuPresentStyle = .viewSlideOut
+/// The presentation style of the menu.
+var presentationStyle: SideMenuPresentStyle = .viewSlideOut
 /**
  The push style of the menu.
 
@@ -253,12 +245,32 @@ var presentStyle: SideMenuPresentStyle = .viewSlideOut
  - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
  */
 var pushStyle: MenuPushStyle = .default
-/// Draws `presentStyle.backgroundColor` behind the status bar. Default is 1.
+/// Draws `presentationStyle.backgroundColor` behind the status bar. Default is 1.
 var statusBarEndAlpha: CGFloat = 1
 /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
 var usingSpringWithDamping: CGFloat = 1
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
 var isHidden: Bool
+```
+#### SideMenuPresentStyle
+There are 8 pre-defined `SideMenuPresentStyle` options:
+``` swift
+/// Menu slides in over the existing view.
+static let menuSlideIn = SideMenuPresentStyle
+/// The existing view slides out to reveal the menu underneath.
+static let viewSlideOut = SideMenuPresentStyle
+/// The existing view slides out while the menu slides in.
+static let viewSlideOutMenuIn = SideMenuPresentStyle
+/// The menu dissolves in over the existing view.
+static let menuDissolveIn = SideMenuPresentStyle
+/// The existing view slides out while the menu partially slides in.
+static let viewSlideOutMenuPartialIn = SideMenuPresentStyle
+/// The existing view slides out while the menu slides out from under it.
+static let viewSlideOutMenuOut = SideMenuPresentStyle
+/// The existing view slides out while the menu partially slides out from under it.
+static let viewSlideOutMenuPartialOut = SideMenuPresentStyle
+/// The existing view slides out and shrinks to reveal the menu underneath.
+static let viewSlideOutMenuZoom = SideMenuPresentStyle
 ```
 #### UISideMenuNavigationControllerDelegate
 To receive notifications when a menu is displayed from a view controller, have it adhere to the  `UISideMenuNavigationControllerDelegate` protocol:
@@ -284,7 +296,11 @@ extension MyViewController: UISideMenuNavigationControllerDelegate {
 ```
 *Note: setting the  `sideMenuDelegate` property on `UISideMenuNavigationController` is optional. If your view controller adheres to the protocol then the methods will be called automatically.*
 ### Advanced
-For simplicity, `SideMenuManager.default` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu, such as from a modal view controller presented from a previous SideMenu, do the following:
+<details>
+<summary>Click for Details</summary>
+
+#### Multiple SideMenuManagers
+For simplicity, `SideMenuManager.default` serves as the primary instance as most projects will only need one menu across all screens. If you need to show a different SideMenu using gestures, such as from a modal view controller presented from a previous SideMenu, do the following:
 1. Declare a variable containing your custom `SideMenuManager` instance. You may want it to define it globally and configure it in your app delegate if menus will be used on multiple screens.
 ``` swift
 let customSideMenuManager = SideMenuManager()
@@ -301,7 +317,6 @@ class MySideMenuNavigationController: UISideMenuNavigationController {
 
         sideMenuManager = customSideMenuManager
     }
-
 }
 ```
 Alternatively, you can set  `sideMenuManager` from the view controller that segues to your UISideMenuNavigationController:
@@ -312,7 +327,59 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }
 ```
-*Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` instead.*
+*Important: displaying SideMenu instances directly over each other is not supported. Use `menuPushStyle = .subMenu` to display multi-level menus instead.*
+
+### SideMenuPresentationStyle
+If you want to create your own custom presentation style, create a subclass of `SideMenuPresentationStyle` and set your menu's `presentationStyle` to it:
+```swift
+class MyPresentStyle: SideMenuPresentationStyle {
+
+    override init() {
+        super.init()
+        /// Background color behind the views and status bar color
+        backgroundColor = .black
+        /// The starting alpha value of the menu before it appears
+        menuStartAlpha = 1
+        /// Whether or not the menu is on top. If false, the presenting view is on top. Shadows are applied to the view on top.
+        menuOnTop = false
+        /// The amount the menu is translated along the x-axis. Zero is stationary, negative values are off-screen, positive values are on screen.
+        menuTranslateFactor = 0
+        /// The amount the menu is scaled. Less than one shrinks the view, larger than one grows the view.
+        menuScaleFactor = 1
+        /// The color of the shadow applied to the top most view.
+        onTopShadowColor = .black
+        /// The radius of the shadow applied to the top most view.
+        onTopShadowRadius = 5
+        /// The opacity of the shadow applied to the top most view.
+        onTopShadowOpacity = 0
+        /// The offset of the shadow applied to the top most view.
+        onTopShadowOffset = .zero
+        /// The ending alpha of the presenting view when the menu is fully displayed.
+        presentingEndAlpha = 1
+        /// The amount the presenting view is translated along the x-axis. Zero is stationary, negative values are off-screen, positive values are on screen.
+        presentingTranslateFactor = 0
+        /// The amount the presenting view is scaled. Less than one shrinks the view, larger than one grows the view.
+        presentingScaleFactor = 1
+        /// The strength of the parallax effect on the presenting view once the menu is displayed.
+        presentingParallaxStrength = .zero
+    }
+
+    /// This method is called just before the presentation transition begins. Use this to setup any animations. The super method does not need to be called.
+    override func presentationTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    /// This method is called during the presentation animation. Use this to animate anything alongside the menu animation. The super method does not need to be called.
+    override func presentationTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    /// This method is called when the presentation transition ends. Use this to finish any animations. The super method does not need to be called.
+    override func presentationTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
+    /// This method is called just before the dismissal transition begins. Use this to setup any animations. The super method does not need to be called.
+    override func dismissalTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    /// This method is called during the dismissal animation. Use this to animate anything alongside the menu animation. The super method does not need to be called.
+    override func dismissalTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    /// This method is called when the dismissal transition ends. Use this to finish any animations. The super method does not need to be called.
+    override func dismissalTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
+}
+```
+</details>
+
 ## Known Issues
 * Issue [#258](https://github.com/jonkykong/SideMenu/issues/258). Using `presentingViewControllerUseSnapshot` can help preserve the experience.
 
