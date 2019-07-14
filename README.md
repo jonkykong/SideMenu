@@ -72,7 +72,7 @@ use_frameworks!
 pod 'SideMenu'
 
 # For Swift 5 use:
-# pod 'SideMenu', '~> 5.0.0'
+# pod 'SideMenu', '~> 6.0.0'
 
 # For Swift 4 (no longer maintained) use:
 # pod 'SideMenu', '~> 4.0.0'
