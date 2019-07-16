@@ -110,25 +110,16 @@ open class UISideMenuNavigationController: UINavigationController {
         }
     }
 
-    #if !STFU_SIDEMENU
-    // This override prevents newbie developers from creating black/blank menus and opening newbie issues.
-    // If you would like to remove this override, define STFU_SIDEMENU in the Active Compilation Conditions of your .plist file.
-    // Sorry for the inconvenience experienced developers :(
-    @available(*, unavailable, renamed: "init(rootViewController:)")
-    init() {
-        fatalError("init is not available")
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    #else
-
-    public init(_ block: (UISideMenuNavigationController) -> Void) {
+    public convenience init(_ block: (UISideMenuNavigationController) -> Void) {
         self.init()
         block(self)
     }
 
-    #endif
-
-    public init(rootViewController: UIViewController, settings: SideMenuSettings) {
+    public init(rootViewController: UIViewController, settings: SideMenuSettings = SideMenuSettings()) {
         super.init(rootViewController: rootViewController)
         self.settings = settings
     }
