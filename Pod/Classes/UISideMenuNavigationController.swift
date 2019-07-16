@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc public enum MenuPushStyle: Int { case
+@objc public enum SideMenuPushStyle: Int { case
     `default`,
     popWhenPossible,
     preserve,
@@ -50,7 +50,7 @@ public struct SideMenuSettings: MenuModel {
     public var presentingViewControllerUseSnapshot: Bool = false
     public var presentDuration: Double = 0.35
     public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
-    public var pushStyle: MenuPushStyle = .default
+    public var pushStyle: SideMenuPushStyle = .default
     public var statusBarEndAlpha: CGFloat = 1
     public var usingSpringWithDamping: CGFloat = 1
 
@@ -362,7 +362,7 @@ extension UISideMenuNavigationController: MenuModel {
         set { settings.presentationStyle = newValue }
     }
 
-    @IBInspectable open var pushStyle: MenuPushStyle {
+    @IBInspectable open var pushStyle: SideMenuPushStyle {
         get { return settings.pushStyle }
         set { settings.pushStyle = newValue }
     }
