@@ -16,6 +16,15 @@
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
 		84276D8A2282929A0095B7C5 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84276D892282929A0095B7C5 /* SideMenuManager.swift */; };
+		842820EF22DDD1BC00C6F2D8 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820EE22DDD1BC00C6F2D8 /* Protected.swift */; };
+		842820F622DDD1E800C6F2D8 /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F022DDD1E800C6F2D8 /* SideMenuPresentationController.swift */; };
+		842820F722DDD1E800C6F2D8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F122DDD1E800C6F2D8 /* Models.swift */; };
+		842820F822DDD1E800C6F2D8 /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F222DDD1E800C6F2D8 /* SideMenuTransitionController.swift */; };
+		842820F922DDD1E800C6F2D8 /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F322DDD1E800C6F2D8 /* Print.swift */; };
+		842820FA22DDD1E800C6F2D8 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F422DDD1E800C6F2D8 /* Initializable.swift */; };
+		842820FB22DDD1E800C6F2D8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820F522DDD1E800C6F2D8 /* Extensions.swift */; };
+		842820FD22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820FC22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift */; };
+		842820FF22DDD24200C6F2D8 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820FE22DDD24200C6F2D8 /* SideMenuInteractionController.swift */; };
 		8461A2D51E145A08001DA4F8 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */; };
 		8461A2D61E145A08001DA4F8 /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
@@ -43,6 +52,15 @@
 		7B5FA9B51DCB269700278DF6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7B9DC9041DC6E8C1000D4007 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84276D892282929A0095B7C5 /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
+		842820EE22DDD1BC00C6F2D8 /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Classes/Protected.swift; sourceTree = "<group>"; };
+		842820F022DDD1E800C6F2D8 /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/Classes/SideMenuPresentationController.swift; sourceTree = "<group>"; };
+		842820F122DDD1E800C6F2D8 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Pod/Classes/Models.swift; sourceTree = "<group>"; };
+		842820F222DDD1E800C6F2D8 /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/Classes/SideMenuTransitionController.swift; sourceTree = "<group>"; };
+		842820F322DDD1E800C6F2D8 /* Print.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Classes/Print.swift; sourceTree = "<group>"; };
+		842820F422DDD1E800C6F2D8 /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Classes/Initializable.swift; sourceTree = "<group>"; };
+		842820F522DDD1E800C6F2D8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
+		842820FC22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/Classes/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
+		842820FE22DDD24200C6F2D8 /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
 		8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
 		8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
 		84B489B21DD469B000D6CB43 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -86,10 +104,19 @@
 		65FF1B3F1DE33097007B0845 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				842820F522DDD1E800C6F2D8 /* Extensions.swift */,
+				842820F422DDD1E800C6F2D8 /* Initializable.swift */,
+				842820F122DDD1E800C6F2D8 /* Models.swift */,
+				842820F322DDD1E800C6F2D8 /* Print.swift */,
+				842820EE22DDD1BC00C6F2D8 /* Protected.swift */,
+				65FF1B3D1DE321D8007B0845 /* SideMenu.h */,
+				842820FE22DDD24200C6F2D8 /* SideMenuInteractionController.swift */,
 				84276D892282929A0095B7C5 /* SideMenuManager.swift */,
+				842820F022DDD1E800C6F2D8 /* SideMenuPresentationController.swift */,
+				842820FC22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift */,
+				842820F222DDD1E800C6F2D8 /* SideMenuTransitionController.swift */,
 				8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */,
 				8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */,
-				65FF1B3D1DE321D8007B0845 /* SideMenu.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -344,8 +371,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842820EF22DDD1BC00C6F2D8 /* Protected.swift in Sources */,
 				8461A2D51E145A08001DA4F8 /* UISideMenuNavigationController.swift in Sources */,
+				842820FD22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift in Sources */,
+				842820F822DDD1E800C6F2D8 /* SideMenuTransitionController.swift in Sources */,
+				842820FF22DDD24200C6F2D8 /* SideMenuInteractionController.swift in Sources */,
+				842820F922DDD1E800C6F2D8 /* Print.swift in Sources */,
 				84276D8A2282929A0095B7C5 /* SideMenuManager.swift in Sources */,
+				842820FB22DDD1E800C6F2D8 /* Extensions.swift in Sources */,
+				842820F722DDD1E800C6F2D8 /* Models.swift in Sources */,
+				842820F622DDD1E800C6F2D8 /* SideMenuPresentationController.swift in Sources */,
+				842820FA22DDD1E800C6F2D8 /* Initializable.swift in Sources */,
 				8461A2D61E145A08001DA4F8 /* UITableViewVibrantCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
