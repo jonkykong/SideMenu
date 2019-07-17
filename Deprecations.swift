@@ -62,37 +62,37 @@ extension SideMenuManager {
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuAnimationFadeStrength: CGFloat {
         get { return 0 }
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuAnimationTransformScaleFactor: CGFloat {
         get { return 1 }
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuAnimationBackgroundColor: UIColor? {
         get { return nil }
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuShadowOpacity: Float {
         get { return 0.5 }
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuShadowColor: UIColor {
         get { return .black }
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuShadowRadius: CGFloat {
         get { return 5 }
         set {}
@@ -104,7 +104,7 @@ extension SideMenuManager {
         set {}
     }
 
-    @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
+    @available(*, deprecated, message: "This property has been moved to the SideMenuPresentationStyle class.")
     public var menuParallaxStrength: Int {
         get { return 0 }
         set {}
@@ -182,7 +182,7 @@ extension SideMenuManager {
         set {}
     }
 
-    @available(*, deprecated, renamed: "SideMenuPresentStyle")
+    @available(*, deprecated, renamed: "SideMenuPresentationStyle")
     public typealias MenuPresentMode = SideMenuPresentationStyle
 
     @available(*, deprecated, renamed: "addScreenEdgePanGesturesToPresent")
