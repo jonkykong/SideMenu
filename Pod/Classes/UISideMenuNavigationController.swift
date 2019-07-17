@@ -76,7 +76,7 @@ open class UISideMenuNavigationController: UINavigationController {
                                            else: { _ in Menu.elseCondition(.leftSide) } )
 
     private weak var _sideMenuManager: SideMenuManager?
-    private weak var foundDelegate: UISideMenuNavigationControllerDelegate?
+    private weak var foundViewController: UIViewController?
     private weak var interactionController: SideMenuInteractionController?
     private var interactive: Bool = false
     private var originalBackgroundColor: UIColor?
@@ -141,7 +141,7 @@ open class UISideMenuNavigationController: UINavigationController {
         // Dismiss keyboard to prevent weird keyboard animations from occurring during transition
         presentingViewController?.view.endEditing(true)
 
-        foundDelegate = nil
+        foundViewController = nil
         activeDelegate?.sideMenuWillAppear?(menu: self, animated: animated)
     }
     
@@ -190,7 +190,7 @@ open class UISideMenuNavigationController: UINavigationController {
         // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
         // view, but dismissing without animation removes the container view before the original hierarchy is restored.
         // This check corrects that.
-        if presentedViewController == nil && view.window == nil {
+        if let foundViewController = self.visibleViewController(from: presentingViewController), foundViewController.view.window == nil {
             transitionController?.transition(presenting: false, animated: false)
         }
 
@@ -238,7 +238,7 @@ open class UISideMenuNavigationController: UINavigationController {
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         let push = shouldPushViewController(viewController: viewController, animated: animated) { [weak self] _ in
-            self?.foundDelegate = nil
+            self?.foundViewController = nil
         }
         
         if push {
@@ -551,22 +551,28 @@ private extension UISideMenuNavigationController {
 
     weak var activeDelegate: UISideMenuNavigationControllerDelegate? {
         guard !view.isHidden else { return nil }
-        return sideMenuDelegate ?? foundDelegate ?? findDelegate(forViewController: presentingViewController)
+        if let sideMenuDelegate = sideMenuDelegate {
+            return sideMenuDelegate
+        }
+        return visibleViewController(from: presentingViewController) as? UISideMenuNavigationControllerDelegate
     }
 
-    func findDelegate(forViewController: UIViewController?) -> UISideMenuNavigationControllerDelegate? {
-        if let navigationController = forViewController as? UINavigationController {
-            return findDelegate(forViewController: navigationController.topViewController)
+    func visibleViewController(from: UIViewController?) -> UIViewController? {
+        if let foundDelegate = foundViewController {
+            return foundDelegate
         }
-        if let tabBarController = forViewController as? UITabBarController {
-            return findDelegate(forViewController: tabBarController.selectedViewController)
+        if let navigationController = from as? UINavigationController {
+            return visibleViewController(from: navigationController.topViewController)
         }
-        if let splitViewController = forViewController as? UISplitViewController {
-            return findDelegate(forViewController: splitViewController.viewControllers.last)
+        if let tabBarController = from as? UITabBarController {
+            return visibleViewController(from: tabBarController.selectedViewController)
+        }
+        if let splitViewController = from as? UISplitViewController {
+            return visibleViewController(from: splitViewController.viewControllers.last)
         }
 
-        foundDelegate = forViewController as? UISideMenuNavigationControllerDelegate
-        return foundDelegate
+        foundViewController = from
+        return from
     }
 
     func setup() {
