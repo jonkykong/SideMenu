@@ -208,6 +208,7 @@ open class UISideMenuNavigationController: UINavigationController {
             view.isHidden = true
         } else {
             transitionController = nil
+            interactive = false
         }
     }
     
