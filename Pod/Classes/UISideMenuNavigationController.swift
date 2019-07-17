@@ -112,16 +112,13 @@ open class UISideMenuNavigationController: UINavigationController {
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
-    public convenience init(_ block: (UISideMenuNavigationController) -> Void) {
-        self.init()
-        block(self)
+        setup()
     }
 
     public init(rootViewController: UIViewController, settings: SideMenuSettings = SideMenuSettings()) {
         super.init(rootViewController: rootViewController)
         self.settings = settings
+        setup()
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -392,7 +389,7 @@ extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate 
         return interactionController(using: animator)
     }
 
-    open func interactionController(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    private func interactionController(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         guard interactive else { return nil }
         let interactionController = SideMenuInteractionController(cancelWhenBackgrounded: dismissWhenBackgrounded, completionCurve: completionCurve)
         self.interactionController = interactionController
