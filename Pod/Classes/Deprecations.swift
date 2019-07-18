@@ -27,7 +27,7 @@ extension SideMenuManager {
     }
 
     @available(*, deprecated, message: "This property has been moved to the UISideMenuNavigationController class.")
-    public var menuPushStyle: MenuPushStyle {
+    public var menuPushStyle: SideMenuPushStyle {
         get { return .default }
         set {}
     }
