@@ -8,7 +8,7 @@
 import Foundation
 
 @objcMembers
-public class SideMenuPresentationStyle {
+open class SideMenuPresentationStyle {
     /// Background color behind the views and status bar color
     public var backgroundColor: UIColor = .black
     /// The starting alpha value of the menu before it appears

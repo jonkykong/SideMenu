@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SideMenu"
-  s.version          = "6.0.5"
+  s.version          = "6.0.6"
   s.summary          = "Simple side menu control for iOS in Swift inspired by Facebook. Right and Left sides. No coding required."
 
 # This description is used to generate tags and improve search results.
