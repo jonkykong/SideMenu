@@ -106,7 +106,9 @@ open class UISideMenuNavigationController: UINavigationController {
     open var settings = SideMenuSettings() {
         didSet {
             setupBlur()
-            setupSwipeGestures()
+            if !enableSwipeGestures {
+                removeSwipeGesture()
+            }
         }
     }
 
@@ -405,12 +407,8 @@ extension UISideMenuNavigationController: SideMenuTransitionControllerDelegate {
     }
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController) {
-        guard !presentingViewControllerUserInteractionEnabled else { return }
-
-        let panGesture = UIPanGestureRecognizer()
-        panGesture.cancelsTouchesInView = false
-        panGesture.addTarget(self, action: #selector(handleDismissMenuPan(_:)))
-        view.superview?.addGestureRecognizer(panGesture)
+        removeSwipeGesture()
+        swipeToDismissGesture = addDismissPanGesture(to: view.superview)
 
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.addTarget(self, action: #selector(handleDismissMenuTap(_:)))
@@ -579,7 +577,6 @@ private extension UISideMenuNavigationController {
         modalPresentationStyle = .overFullScreen
 
         setupBlur()
-        setupSwipeGestures()
         registerForNotifications()
     }
 
@@ -626,12 +623,9 @@ private extension UISideMenuNavigationController {
         }
     }
 
-    func setupSwipeGestures() {
+    func removeSwipeGesture() {
         if let swipeToDismissGesture = swipeToDismissGesture {
             swipeToDismissGesture.view?.removeGestureRecognizer(swipeToDismissGesture)
-        }
-        if enableSwipeGestures {
-            swipeToDismissGesture = addDismissPanGesture(to: view)
         }
     }
 
@@ -661,7 +655,8 @@ private extension UISideMenuNavigationController {
         }
     }
 
-    @discardableResult func addDismissPanGesture(to view: UIView) -> UIPanGestureRecognizer {
+    @discardableResult func addDismissPanGesture(to view: UIView?) -> UIPanGestureRecognizer? {
+        guard enableSwipeGestures, let view = view else { return nil }
         return UIPanGestureRecognizer {
             $0.cancelsTouchesInView = false
             $0.addTarget(self, action: #selector(handleDismissMenuPan(_:)))
