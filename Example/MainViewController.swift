@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupSideMenu()
         updateUI(settings: SideMenuSettings())
+        updateMenus()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
