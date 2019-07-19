@@ -211,11 +211,9 @@ private extension SideMenuPresentationController {
         if config.presentationStyle.menuOnTop {
             addShadow(to: presentedViewController.view)
             presentedViewController.view.layer.zPosition = 1
-            presentingViewController.view.layer.zPosition = 0
         } else {
             addShadow(to: presentingViewController.view)
-            presentingViewController.view.layer.zPosition = 1
-            presentedViewController.view.layer.zPosition = 0
+            presentedViewController.view.layer.zPosition = -1
         }
     }
 
