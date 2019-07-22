@@ -138,10 +138,10 @@ To use gestures you have to use the `SideMenuManager`. In your `AppDelegate` do 
 ``` swift
 // Define the menus
 let menuLeftNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
-SideMenuManager.default.menuLeftNavigationController = menuLeftNavigationController
+SideMenuManager.default.leftMenuNavigationController = menuLeftNavigationController
 
 let menuRightNavigationController = UISideMenuNavigationController(rootViewController: YourViewController)
-SideMenuManager.default.menuRightNavigationController = menuRightNavigationController
+SideMenuManager.default.rightMenuNavigationController = menuRightNavigationController
 
 // Setup gestures: the left and/or right menus must be set up (above) for these to work.
 // Note that these continue to work on the Navigation Controller independent of the view controller it displays!
