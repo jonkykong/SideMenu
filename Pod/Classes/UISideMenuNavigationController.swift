@@ -237,6 +237,11 @@ open class UISideMenuNavigationController: UINavigationController {
             self.rotating = false
         }
     }
+
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        transitionController?.layout()
+    }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
         let push = shouldPushViewController(viewController: viewController, animated: animated) { [weak self] _ in
