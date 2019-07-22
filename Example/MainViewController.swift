@@ -89,7 +89,7 @@ class MainViewController: UIViewController {
 
         var settings = SideMenuSettings()
         settings.presentationStyle = presentationStyle
-        settings.menuWidth = view.frame.width * CGFloat(screenWidthSlider.value)
+        settings.menuWidth = min(view.frame.width, view.frame.height) * CGFloat(screenWidthSlider.value)
         let styles:[UIBlurEffect.Style?] = [nil, .dark, .light, .extraLight]
         settings.blurEffectStyle = styles[blurSegmentControl.selectedSegmentIndex]
         settings.statusBarEndAlpha = blackOutStatusBar.isOn ? 1 : 0
