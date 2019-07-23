@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
         menuScaleFactorSlider.value = Float(settings.presentationStyle.menuScaleFactor)
         presentingAlphaSlider.value = Float(settings.presentationStyle.presentingEndAlpha)
         presentingScaleFactorSlider.value = Float(settings.presentationStyle.presentingScaleFactor)
-        screenWidthSlider.value = Float(settings.menuWidth / view.frame.width)
+        screenWidthSlider.value = Float(settings.menuWidth / min(view.frame.width, view.frame.height))
         shadowOpacitySlider.value = Float(settings.presentationStyle.onTopShadowOpacity)
     }
 
