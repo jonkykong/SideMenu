@@ -67,13 +67,14 @@ internal typealias Menu = UISideMenuNavigationController
 @objcMembers
 open class UISideMenuNavigationController: UINavigationController {
 
-    private enum PropertyName: String { case
-        leftSide
+    private lazy var _leftSide =
+        Protected(false) { [weak self] oldValue, newValue in
+            guard self?.isHidden != false else {
+                Print.warning(.property, arguments: Print.PropertyName.leftSide.rawValue, required: true)
+                return oldValue
+            }
+            return newValue
     }
-
-    private lazy var _leftSide = Protected(false,
-                                           if: { [weak self] _ in self?.isHidden != false },
-                                           else: { _ in Menu.elseCondition(.leftSide) } )
 
     private weak var _sideMenuManager: SideMenuManager?
     private weak var foundViewController: UIViewController?
@@ -548,10 +549,6 @@ private extension UISideMenuNavigationController {
             navigationController.setViewControllers([viewController], animated: animated)
             return false
         }
-    }
-
-    private class func elseCondition(_ propertyName: PropertyName) {
-        Print.warning(.property, arguments: propertyName.rawValue, required: true)
     }
 
     weak var activeDelegate: UISideMenuNavigationControllerDelegate? {

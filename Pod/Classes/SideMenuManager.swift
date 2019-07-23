@@ -36,15 +36,8 @@ public class SideMenuManager: NSObject {
         }
     }
 
-    private var _leftMenu: Protected<Menu?> =
-        Protected(nil,
-                  if: { $0?.isHidden != false },
-                  else: { _ in Print.warning(.menuInUse, arguments: PresentDirection.left.name, required: true) } )
-
-    private var _rightMenu: Protected<Menu?> =
-        Protected(nil,
-                  if: { $0?.isHidden != false },
-                  else: { _ in Print.warning(.menuInUse, arguments: PresentDirection.right.name, required: true) } )
+    private var _leftMenu: Protected<Menu?> = Protected(nil) { SideMenuManager.setMenu(fromMenu: $0, toMenu: $1) }
+    private var _rightMenu: Protected<Menu?> = Protected(nil) { SideMenuManager.setMenu(fromMenu: $0, toMenu: $1) }
 
     private var switching: Bool = false
 
@@ -122,6 +115,14 @@ internal extension SideMenuManager {
         case true: leftMenuNavigationController = menu
         case false: rightMenuNavigationController = menu
         }
+    }
+
+    private class func setMenu(fromMenu: Menu?, toMenu: Menu?) -> Menu? {
+        if fromMenu?.isHidden == false {
+            Print.warning(.menuInUse, arguments: PresentDirection.left.name, required: true)
+            return fromMenu
+        }
+        return toMenu
     }
 }
 
@@ -210,7 +211,7 @@ private extension SideMenuManager {
         }
     }
 
-    private var activeViewController: UIViewController? {
+    var activeViewController: UIViewController? {
         return UIApplication.shared.keyWindow?.rootViewController?.activeViewController
     }
 }

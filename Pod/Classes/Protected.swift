@@ -9,32 +9,18 @@ import Foundation
 
 internal final class Protected<T: Equatable> {
 
-    typealias ConditionBlock = (T) -> Bool
-    typealias Block = (T) -> Void
+    typealias ConditionBlock = (_ oldValue: T, T) -> T
 
     private var _value: T
-    private var conditionBlock: ConditionBlock
-    private var thenBlock: Block?
-    private var elseBlock: Block?
+    private var condition: ConditionBlock
 
     public var value: T {
-        get {
-            return _value
-        }
-        set {
-            guard conditionBlock(_value) else {
-                elseBlock?(_value)
-                return
-            }
-            _value = newValue
-            thenBlock?(_value)
-        }
+        get { return _value }
+        set { _value = condition(_value, newValue) }
     }
 
-    init(_ value: T, if conditionBlock: @escaping ConditionBlock, then thenBlock: Block? = nil, else elseBlock: Block? = nil) {
+    init(_ value: T, when condition: @escaping ConditionBlock) {
         self._value = value
-        self.conditionBlock = conditionBlock
-        self.thenBlock = thenBlock
-        self.elseBlock = elseBlock
+        self.condition = condition
     }
 }
