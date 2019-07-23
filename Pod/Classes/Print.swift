@@ -13,22 +13,30 @@ internal enum Print: String { case
     menuAlreadyAssigned = "%@ was already assigned to the %@ of %@. When using multiple SideMenuManagers you may want to use new instances of UISideMenuNavigationController instead of existing instances to avoid crashes if the menu is presented more than once.",
     menuInUse = "%@ cannot be modified while it's presented.",
     panGestureAdded = "%@ was called before %@ or %@ was set. Gestures will not work without a menu.",
-    property = "a menu's %@ property can only be changed when it is hidden.",
+    property = "A menu's %@ property can only be changed when it is hidden.",
     screenGestureAdded = "%@ was called before %@ was set. The gesture will not work without a menu. Use %@ to add gestures for only one menu.",
     transitioningDelegate = "SideMenu requires use of the transitioningDelegate. It cannot be modified."
 
-    internal static func warning(_ print: Print, arguments: CVarArg..., required: Bool = false) {
-        warning(String(format: print.rawValue, arguments), required: required)
+    enum PropertyName: String { case
+        leftSide
     }
 
-    internal static func warning(_ print: Print, required: Bool = false) {
+    static func warning(_ print: Print, arguments: CVarArg..., required: Bool = false) {
+        warning(String(format: print.rawValue, arguments: arguments), required: required)
+    }
+
+    static func warning(_ print: Print, arguments: PropertyName..., required: Bool = false) {
+        warning(String(format: print.rawValue, arguments: arguments.map { $0.rawValue }), required: required)
+    }
+
+    static func warning(_ print: Print, required: Bool = false) {
         warning(print.rawValue, required: required)
     }
 }
 
 private extension Print {
 
-    private static func warning(_ message: String, required: Bool = false) {
+    static func warning(_ message: String, required: Bool = false) {
         let message = "SideMenu Warning: \(message)"
 
         if required {

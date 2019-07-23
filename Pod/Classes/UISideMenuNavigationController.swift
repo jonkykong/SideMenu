@@ -70,7 +70,7 @@ open class UISideMenuNavigationController: UINavigationController {
     private lazy var _leftSide =
         Protected(false) { [weak self] oldValue, newValue in
             guard self?.isHidden != false else {
-                Print.warning(.property, arguments: Print.PropertyName.leftSide.rawValue, required: true)
+                Print.warning(.property, arguments: .leftSide, required: true)
                 return oldValue
             }
             return newValue
