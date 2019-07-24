@@ -256,21 +256,21 @@ var isHidden: Bool
 There are 8 pre-defined `SideMenuPresentStyle` options:
 ``` swift
 /// Menu slides in over the existing view.
-static let menuSlideIn = SideMenuPresentStyle
+static let menuSlideIn: SideMenuPresentStyle
 /// The existing view slides out to reveal the menu underneath.
-static let viewSlideOut = SideMenuPresentStyle
+static let viewSlideOut: SideMenuPresentStyle
 /// The existing view slides out while the menu slides in.
-static let viewSlideOutMenuIn = SideMenuPresentStyle
+static let viewSlideOutMenuIn: SideMenuPresentStyle
 /// The menu dissolves in over the existing view.
-static let menuDissolveIn = SideMenuPresentStyle
+static let menuDissolveIn: SideMenuPresentStyle
 /// The existing view slides out while the menu partially slides in.
-static let viewSlideOutMenuPartialIn = SideMenuPresentStyle
+static let viewSlideOutMenuPartialIn: SideMenuPresentStyle
 /// The existing view slides out while the menu slides out from under it.
-static let viewSlideOutMenuOut = SideMenuPresentStyle
+static let viewSlideOutMenuOut: SideMenuPresentStyle
 /// The existing view slides out while the menu partially slides out from under it.
-static let viewSlideOutMenuPartialOut = SideMenuPresentStyle
+static let viewSlideOutMenuPartialOut: SideMenuPresentStyle
 /// The existing view slides out and shrinks to reveal the menu underneath.
-static let viewSlideOutMenuZoom = SideMenuPresentStyle
+static let viewSlideOutMenuZoom: SideMenuPresentStyle
 ```
 #### UISideMenuNavigationControllerDelegate
 To receive notifications when a menu is displayed from a view controller, have it adhere to the  `UISideMenuNavigationControllerDelegate` protocol:
