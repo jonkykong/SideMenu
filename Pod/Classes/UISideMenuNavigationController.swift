@@ -669,7 +669,7 @@ private extension UISideMenuNavigationController {
     }
 
     @objc func handleDismissMenuTap(_ tap: UITapGestureRecognizer) {
-        guard view.window?.hitTest(tap.location(in: nil), with: nil) == view.superview else { return }
+        guard !view.bounds.contains(tap.location(in: view)) else { return }
         dismissMenu()
     }
 
