@@ -30,8 +30,8 @@ public class SideMenuManager: NSObject {
 
         var name: String {
             switch self {
-            case .left: return "menuLeftNavigationController"
-            case .right: return "menuRightNavigationController"
+            case .left: return "leftMenuNavigationController"
+            case .right: return "rightMenuNavigationController"
             }
         }
     }
