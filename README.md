@@ -149,9 +149,9 @@ SideMenuManager.default.addPanGestureToPresent(toView: self.navigationController
 SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
 
 // (Optional) Prevent status bar area from turning black when menu appears:
-menuLeftNavigationController.statusBarEndAlpha = 0
+leftMenuNavigationController.statusBarEndAlpha = 0
 // Copy all settings to the other menu
-menuRightNavigationController.settings = menuLeftNavigationController.settings
+rightMenuNavigationController.settings = leftMenuNavigationController.settings
 ```
 That's it.
 ### Customization
@@ -159,9 +159,9 @@ That's it.
 `SideMenuManager` supports the following:
 ``` swift
 /// The left menu.
-open var menuLeftNavigationController: UISideMenuNavigationController?
+open var leftMenuNavigationController: UISideMenuNavigationController?
 /// The right menu.
-public var menuRightNavigationController: UISideMenuNavigationController?
+public var rightMenuNavigationController: UISideMenuNavigationController?
 /**
  Adds screen edge gestures for both left and right sides to a view to present a menu.
 
