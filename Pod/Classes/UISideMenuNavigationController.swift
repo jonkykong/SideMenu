@@ -165,26 +165,27 @@ open class UISideMenuNavigationController: UINavigationController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if !isBeingDismissed {
-            // When presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
-            // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
-            if let presentingView = presentingViewController?.view, let containerView = presentingView.superview {
-                containerView.addSubview(view)
-            }
+        if isBeingDismissed {
+            activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
+            return
+        }
 
-            if dismissOnPresent {
-                // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
-                transitionController?.transition(presenting: false, animated: animated, alongsideTransition: { [weak self] in
+        // When presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
+        // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
+        if let presentingView = presentingViewController?.view, let containerView = presentingView.superview {
+            containerView.addSubview(view)
+        }
+
+        if dismissOnPresent {
+            // We're presenting a view controller from the menu, so we need to hide the menu so it isn't showing when the presented view is dismissed.
+            transitionController?.transition(presenting: false, animated: animated, alongsideTransition: { [weak self] in
+                guard let self = self else { return }
+                self.activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
+                }, complete: false, completion: { [weak self] _ in
                     guard let self = self else { return }
-                    self.activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
-                    }, complete: false, completion: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
-                        self.view.isHidden = true
-                })
-            } else {
-                activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
-            }
+                    self.activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
+                    self.view.isHidden = true
+            })
         }
     }
 
