@@ -44,7 +44,7 @@ class MainViewController: UIViewController {
     private func updateUI(settings: SideMenuSettings) {
         let styles:[UIBlurEffect.Style] = [.dark, .light, .extraLight]
         if let menuBlurEffectStyle = settings.blurEffectStyle {
-            blurSegmentControl.selectedSegmentIndex = styles.firstIndex(of: menuBlurEffectStyle) ?? 0
+            blurSegmentControl.selectedSegmentIndex = (styles.firstIndex(of: menuBlurEffectStyle) ?? 0) + 1
         } else {
             blurSegmentControl.selectedSegmentIndex = 0
         }
