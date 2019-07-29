@@ -182,6 +182,12 @@ extension SideMenuManager {
         set {}
     }
 
+    @available(*, deprecated, renamed: "enableSwipeToDismissGesture")
+    public var enableSwipeGestures: Bool {
+        get { return true }
+        set {}
+    }
+
     @available(*, deprecated, renamed: "SideMenuPresentationStyle")
     public typealias MenuPresentMode = SideMenuPresentationStyle
 

@@ -217,8 +217,10 @@ var dismissOnPush: Bool = true
 var dismissOnRotation: Bool = true
 /// Automatically dismisses the menu when app goes to the background.
 var dismissWhenBackgrounded: Bool = true
-/// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
-var enableSwipeGestures: Bool = true
+/// Enable or disable a swipe gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+var enableSwipeToDismissGesture: Bool = true
+/// Enable or disable a tap gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+var enableTapToDismissGesture: Bool = true
 /// The animation initial spring velocity when a menu is displayed. Ignored when displayed with a gesture.
 var initialSpringVelocity: CGFloat = 1
 /// Whether the menu appears on the right or left side of the screen. Right is the default. This property cannot be changed after the menu has loaded.
