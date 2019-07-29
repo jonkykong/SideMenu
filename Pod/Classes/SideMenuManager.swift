@@ -204,10 +204,8 @@ private extension SideMenuManager {
             screenEdgeGestureRecognizer.edges == edge {
             view.removeGestureRecognizer(screenEdgeGestureRecognizer)
         }
-        return SideMenuScreenEdgeGestureRecognizer {
+        return SideMenuScreenEdgeGestureRecognizer(addTo: view, target: self, action: #selector(handlePresentMenuScreenEdge(_:))).with {
             $0.edges = edge
-            $0.addTarget(self, action: #selector(handlePresentMenuScreenEdge(_:)))
-            view.addGestureRecognizer($0)
         }
     }
 
@@ -215,10 +213,7 @@ private extension SideMenuManager {
         if let panGestureRecognizer = view.gestureRecognizers?.first(where: { $0 is SideMenuPanGestureRecognizer }) as? SideMenuPanGestureRecognizer {
             return panGestureRecognizer
         }
-        return SideMenuPanGestureRecognizer {
-            $0.addTarget(self, action: #selector(handlePresentMenuPan(_:)))
-            view.addGestureRecognizer($0)
-        }
+        return SideMenuPanGestureRecognizer(addTo: view, target: self, action: #selector(handlePresentMenuPan(_:)))
     }
 
     var activeViewController: UIViewController? {

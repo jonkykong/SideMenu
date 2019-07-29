@@ -28,8 +28,10 @@ internal protocol MenuModel: TransitionModel {
     var dismissOnRotation: Bool { get }
     /// Automatically dismisses the menu when app goes to the background.
     var dismissWhenBackgrounded: Bool { get }
-    /// Enable or disable gestures that would swipe to dismiss the menu. Default is true.
-    var enableSwipeGestures: Bool { get }
+    /// Enable or disable a swipe gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+    var enableSwipeToDismissGesture: Bool { get }
+    /// Enable or disable a tap gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+    var enableTapToDismissGesture: Bool { get }
     /**
      The push style of the menu.
 

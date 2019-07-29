@@ -52,6 +52,20 @@ internal extension UIViewController {
     }
 }
 
+internal extension UIGestureRecognizer {
+
+    convenience init(addTo view: UIView, target: Any, action: Selector) {
+        self.init()
+        addTarget(target, action: action)
+        view.addGestureRecognizer(self)
+    }
+
+    convenience init?(addTo view: UIView?, target: Any, action: Selector) {
+        guard let view = view else { return nil }
+        self.init(addTo: view, target: target, action: action)
+    }
+}
+
 internal extension UIPanGestureRecognizer {
 
     var canSwitch: Bool {

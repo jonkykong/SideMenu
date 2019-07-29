@@ -39,7 +39,8 @@ public struct SideMenuSettings: MenuModel {
     public var dismissOnPush: Bool = true
     public var dismissOnRotation: Bool = true
     public var dismissWhenBackgrounded: Bool = true
-    public var enableSwipeGestures: Bool = true
+    public var enableSwipeToDismissGesture: Bool = true
+    public var enableTapToDismissGesture: Bool = true
     public var initialSpringVelocity: CGFloat = 1
     public var menuWidth: CGFloat = {
         let appScreenRect = UIApplication.shared.keyWindow?.bounds ?? UIWindow().bounds
@@ -67,13 +68,12 @@ internal typealias Menu = UISideMenuNavigationController
 @objcMembers
 open class UISideMenuNavigationController: UINavigationController {
 
-    private lazy var _leftSide =
-        Protected(false) { [weak self] oldValue, newValue in
-            guard self?.isHidden != false else {
-                Print.warning(.property, arguments: .leftSide, required: true)
-                return oldValue
-            }
-            return newValue
+    private lazy var _leftSide = Protected(false) { [weak self] oldValue, newValue in
+        guard self?.isHidden != false else {
+            Print.warning(.property, arguments: .leftSide, required: true)
+            return oldValue
+        }
+        return newValue
     }
 
     private weak var _sideMenuManager: SideMenuManager?
@@ -88,7 +88,9 @@ open class UISideMenuNavigationController: UINavigationController {
     internal weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
 
     /// The swipe to dismiss gesture.
-    private(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
+    open private(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
+    /// The tap to dismiss gesture.
+    open private(set) weak var tapToDismissGesture: UITapGestureRecognizer? = nil
 
     open var sideMenuManager: SideMenuManager {
         get { return _sideMenuManager ?? SideMenuManager.default }
@@ -107,8 +109,11 @@ open class UISideMenuNavigationController: UINavigationController {
     open var settings = SideMenuSettings() {
         didSet {
             setupBlur()
-            if !enableSwipeGestures {
+            if !enableSwipeToDismissGesture {
                 removeSwipeGesture()
+            }
+            if !enableTapToDismissGesture {
+                removeTapGesture()
             }
         }
     }
@@ -321,9 +326,14 @@ extension UISideMenuNavigationController: MenuModel {
         set { settings.dismissWhenBackgrounded = newValue }
     }
 
-    @IBInspectable open var enableSwipeGestures: Bool {
-        get { return settings.enableSwipeGestures }
-        set { settings.enableSwipeGestures = newValue }
+    @IBInspectable open var enableSwipeToDismissGesture: Bool {
+        get { return settings.enableSwipeToDismissGesture }
+        set { settings.enableSwipeToDismissGesture = newValue }
+    }
+
+    @IBInspectable open var enableTapToDismissGesture: Bool {
+        get { return settings.enableTapToDismissGesture }
+        set { settings.enableTapToDismissGesture = newValue }
     }
 
     @IBInspectable open var initialSpringVelocity: CGFloat {
@@ -417,12 +427,8 @@ extension UISideMenuNavigationController: SideMenuTransitionControllerDelegate {
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController) {
         removeSwipeGesture()
-        swipeToDismissGesture = addDismissPanGesture(to: view.superview)
-
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.addTarget(self, action: #selector(handleDismissMenuTap(_:)))
-        tapGestureRecognizer.cancelsTouchesInView = false
-        view.superview?.addGestureRecognizer(tapGestureRecognizer)
+        swipeToDismissGesture = addSwipeToDismissGesture(to: view.superview)
+        tapToDismissGesture = addTapToDismissGesture(to: view.superview)
     }
 }
 
@@ -634,6 +640,12 @@ private extension UISideMenuNavigationController {
         }
     }
 
+    func removeTapGesture() {
+        if let tapToDismissGesture = tapToDismissGesture {
+            tapToDismissGesture.view?.removeGestureRecognizer(tapToDismissGesture)
+        }
+    }
+
     func registerForNotifications() {
         NotificationCenter.default.removeObserver(self)
 
@@ -660,12 +672,17 @@ private extension UISideMenuNavigationController {
         }
     }
 
-    @discardableResult func addDismissPanGesture(to view: UIView?) -> UIPanGestureRecognizer? {
-        guard enableSwipeGestures, let view = view else { return nil }
-        return UIPanGestureRecognizer {
+    @discardableResult func addSwipeToDismissGesture(to view: UIView?) -> UIPanGestureRecognizer? {
+        guard enableSwipeToDismissGesture else { return nil }
+        return UIPanGestureRecognizer(addTo: view, target: self, action: #selector(handleDismissMenuPan(_:)))?.with {
             $0.cancelsTouchesInView = false
-            $0.addTarget(self, action: #selector(handleDismissMenuPan(_:)))
-            view.addGestureRecognizer($0)
+        }
+    }
+
+    @discardableResult func addTapToDismissGesture(to view: UIView?) -> UITapGestureRecognizer? {
+        guard enableTapToDismissGesture else { return nil }
+        return UITapGestureRecognizer(addTo: view, target: self, action: #selector(handleDismissMenuTap(_:)))?.with {
+            $0.cancelsTouchesInView = false
         }
     }
 
