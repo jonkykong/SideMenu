@@ -172,7 +172,7 @@ open class UISideMenuNavigationController: UINavigationController {
 
         // When presenting a view controller from the menu, the menu view gets moved into another transition view above our transition container
         // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
-        if let presentingView = presentingViewController?.view, let containerView = presentingView.superview {
+        if !isBeingDismissed, let presentingView = presentingViewController?.view, let containerView = presentingView.superview {
             containerView.addSubview(view)
         }
 
