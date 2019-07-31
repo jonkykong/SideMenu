@@ -218,7 +218,6 @@ open class UISideMenuNavigationController: UINavigationController {
 
         if isBeingDismissed {
             transitionController = nil
-            interactive = false
         } else if dismissOnPresent {
             view.isHidden = true
         }
@@ -423,10 +422,12 @@ extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate 
 extension UISideMenuNavigationController: SideMenuTransitionControllerDelegate {
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController) {
+        interactive = false
         sideMenuManager.sideMenuTransitionDidDismiss(menu: self)
     }
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController) {
+        interactive = false
         removeSwipeGesture()
         swipeToDismissGesture = addSwipeToDismissGesture(to: view.superview)
         tapToDismissGesture = addTapToDismissGesture(to: view.superview)
