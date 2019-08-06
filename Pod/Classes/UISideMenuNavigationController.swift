@@ -341,6 +341,11 @@ extension UISideMenuNavigationController: MenuModel {
         get { return _leftSide.value }
         set { _leftSide.value = newValue }
     }
+  
+    /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
+    public override var isHidden: Bool {
+        return super.isHidden
+    }
 
     @IBInspectable open var menuWidth: CGFloat {
         get { return settings.menuWidth }
