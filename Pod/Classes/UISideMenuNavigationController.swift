@@ -248,13 +248,77 @@ open class UISideMenuNavigationController: UINavigationController {
     }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        let push = shouldPushViewController(viewController: viewController, animated: animated) { [weak self] _ in
-            self?.foundViewController = nil
+        guard viewControllers.count > 0 && pushStyle != .subMenu else {
+            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
+            // so we must perform the normal super method in this case
+            return super.pushViewController(viewController, animated: animated)
         }
-        
-        if push {
-            super.pushViewController(viewController, animated: animated)
+
+        let splitViewController = presentingViewController as? UISplitViewController
+        let tabBarController = presentingViewController as? UITabBarController
+        let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? presentingViewController
+        guard let navigationController = potentialNavigationController as? UINavigationController else {
+            return Print.warning(.cannotPush, arguments: String(describing: potentialNavigationController.self), required: true)
         }
+
+        // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
+        // is dismissed after showing the appropriate screen
+        CATransaction.begin()
+        defer { CATransaction.commit() }
+
+        if dismissOnPush {
+            let animated = animated || alwaysAnimate
+            if animated {
+                let areAnimationsEnabled = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(true)
+                transitionController?.transition(presenting: false, animated: animated, alongsideTransition: { [weak self] in
+                    guard let self = self else { return }
+                    self.activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
+                    }, completion: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
+                        self.dismiss(animated: false, completion: nil)
+                        self.foundViewController = nil
+                })
+                UIView.setAnimationsEnabled(areAnimationsEnabled)
+            }
+        }
+
+        if let lastViewController = navigationController.viewControllers.last,
+            !allowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
+            return
+        }
+
+        switch pushStyle {
+        case .subMenu: return // handled earlier
+        case .default: break
+        case .popWhenPossible:
+            for subViewController in navigationController.viewControllers.reversed() {
+                if type(of: subViewController) == type(of: viewController) {
+                    navigationController.popToViewController(subViewController, animated: animated)
+                    return
+                }
+            }
+        case .preserve, .preserveAndHideBackButton:
+            var viewControllers = navigationController.viewControllers
+            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
+            if let preservedViewController = filtered.last {
+                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
+                if pushStyle == .preserveAndHideBackButton {
+                    preservedViewController.navigationItem.hidesBackButton = true
+                }
+                viewControllers.append(preservedViewController)
+                return navigationController.setViewControllers(viewControllers, animated: animated)
+            }
+            if pushStyle == .preserveAndHideBackButton {
+                viewController.navigationItem.hidesBackButton = true
+            }
+        case .replace:
+            viewController.navigationItem.hidesBackButton = true
+            return navigationController.setViewControllers([viewController], animated: animated)
+        }
+
+        navigationController.pushViewController(viewController, animated: animated)
     }
 
     override open var transitioningDelegate: UIViewControllerTransitioningDelegate? {
@@ -471,89 +535,6 @@ internal extension UISideMenuNavigationController {
 }
 
 private extension UISideMenuNavigationController {
-
-    func shouldPushViewController(viewController: UIViewController, animated: Bool, completion: ((Bool) -> Void)?) -> Bool {
-        guard viewControllers.count > 0 && pushStyle != .subMenu else {
-            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
-            // so we must perform the normal super method in this case
-            return true
-        }
-
-        let splitViewController = presentingViewController as? UISplitViewController
-        let tabBarController = presentingViewController as? UITabBarController
-        let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? presentingViewController
-        guard let navigationController = potentialNavigationController as? UINavigationController else {
-            Print.warning(.cannotPush, arguments: String(describing: potentialNavigationController.self), required: true)
-            return false
-        }
-
-        // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
-        // is dismissed after showing the appropriate screen
-        CATransaction.begin()
-        defer { CATransaction.commit() }
-        var push = false
-
-        if dismissOnPush {
-            let animated = animated || alwaysAnimate
-            if animated {
-                let areAnimationsEnabled = UIView.areAnimationsEnabled
-                UIView.setAnimationsEnabled(true)
-                transitionController?.transition(presenting: false, animated: animated, alongsideTransition: { [weak self] in
-                    guard let self = self else { return }
-                    self.activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
-                    }, completion: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.activeDelegate?.sideMenuDidDisappear?(menu: self, animated: animated)
-                        self.dismiss(animated: false, completion: nil)
-                        completion?(push)
-                })
-                UIView.setAnimationsEnabled(areAnimationsEnabled)
-            }
-        }
-
-        if let lastViewController = navigationController.viewControllers.last,
-            !allowPushOfSameClassTwice && type(of: lastViewController) == type(of: viewController) {
-            return false
-        }
-
-        switch pushStyle {
-        case .subMenu: return false // handled earlier
-        case .default:
-            navigationController.pushViewController(viewController, animated: animated)
-            return false
-        case .popWhenPossible:
-            for subViewController in navigationController.viewControllers.reversed() {
-                if type(of: subViewController) == type(of: viewController) {
-                    navigationController.popToViewController(subViewController, animated: animated)
-                    return false
-                }
-            }
-            push = true
-            return true
-        case .preserve, .preserveAndHideBackButton:
-            var viewControllers = navigationController.viewControllers
-            let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: viewController) }
-            if let preservedViewController = filtered.last {
-                viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
-                if pushStyle == .preserveAndHideBackButton {
-                    preservedViewController.navigationItem.hidesBackButton = true
-                }
-                viewControllers.append(preservedViewController)
-                navigationController.setViewControllers(viewControllers, animated: animated)
-                return false
-            }
-            if pushStyle == .preserveAndHideBackButton {
-                viewController.navigationItem.hidesBackButton = true
-            }
-
-            push = true
-            return true
-        case .replace:
-            viewController.navigationItem.hidesBackButton = true
-            navigationController.setViewControllers([viewController], animated: animated)
-            return false
-        }
-    }
 
     weak var activeDelegate: UISideMenuNavigationControllerDelegate? {
         guard !view.isHidden else { return nil }
