@@ -343,7 +343,7 @@ extension UISideMenuNavigationController: MenuModel {
     }
   
     /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
-    public override var isHidden: Bool {
+    open override var isHidden: Bool {
         return super.isHidden
     }
 

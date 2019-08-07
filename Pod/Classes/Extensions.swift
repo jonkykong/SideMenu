@@ -46,7 +46,6 @@ internal extension UIViewController {
         }
     }
 
-    // Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.
     @objc var isHidden: Bool {
         return presentingViewController == nil
     }
