@@ -1,4 +1,5 @@
 # ▤ SideMenu
+[![CircleCI](https://circleci.com/gh/jonkykong/SideMenu.svg?style=svg)](https://circleci.com/gh/jonkykong/SideMenu)
 [![Version](https://img.shields.io/cocoapods/v/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat-square)](http://cocoapods.org/pods/SideMenu)
