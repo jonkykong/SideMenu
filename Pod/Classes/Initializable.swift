@@ -7,12 +7,11 @@
 
 import Foundation
 
-public protocol InitializableClass: class {
+internal protocol InitializableClass: class {
     init()
 }
 
-public extension InitializableClass {
-
+extension InitializableClass {
     init(_ block: (Self) -> Void) {
         self.init()
         block(self)
