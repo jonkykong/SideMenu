@@ -221,7 +221,7 @@ private extension SideMenuManager {
     }
 }
 
-extension SideMenuManager: UISideMenuNavigationControllerTransitionDelegate {
+extension SideMenuManager: SideMenuNavigationControllerTransitionDelegate {
 
     internal func sideMenuTransitionDidDismiss(menu: Menu) {
         defer { switching = false }

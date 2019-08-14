@@ -98,7 +98,7 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UISideMenuNavigationControllerDelegate {
+extension MainViewController: SideMenuNavigationControllerDelegate {
     
     func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool) {
         print("SideMenu Appearing! (animated: \(animated))")

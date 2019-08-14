@@ -1,5 +1,5 @@
 //
-//  UISideMenuNavigationController.swift
+//  SideMenuNavigationController.swift
 //
 //  Created by Jon Kent on 1/14/16.
 //  Copyright © 2016 Jon Kent. All rights reserved.
@@ -16,14 +16,14 @@ import UIKit
     subMenu
 }
 
-@objc public protocol UISideMenuNavigationControllerDelegate {
+@objc public protocol SideMenuNavigationControllerDelegate {
     @objc optional func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuDidAppear(menu: SideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool)
 }
 
-internal protocol UISideMenuNavigationControllerTransitionDelegate: class {
+internal protocol SideMenuNavigationControllerTransitionDelegate: class {
     func sideMenuTransitionDidDismiss(menu: Menu)
 }
 
@@ -79,8 +79,8 @@ open class SideMenuNavigationController: UINavigationController {
     private var rotating: Bool = false
     private var transitionController: SideMenuTransitionController?
 
-    /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `UISideMenuNavigationController` automatically receives these events.
-    internal weak var sideMenuDelegate: UISideMenuNavigationControllerDelegate?
+    /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `SideMenuNavigationController` automatically receives these events.
+    internal weak var sideMenuDelegate: SideMenuNavigationControllerDelegate?
 
     /// The swipe to dismiss gesture.
     open private(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
@@ -540,12 +540,12 @@ internal extension SideMenuNavigationController {
 
 private extension SideMenuNavigationController {
 
-    weak var activeDelegate: UISideMenuNavigationControllerDelegate? {
+    weak var activeDelegate: SideMenuNavigationControllerDelegate? {
         guard !view.isHidden else { return nil }
         if let sideMenuDelegate = sideMenuDelegate {
             return sideMenuDelegate
         }
-        return visibleViewController(from: presentingViewController) as? UISideMenuNavigationControllerDelegate
+        return visibleViewController(from: presentingViewController) as? SideMenuNavigationControllerDelegate
     }
 
     func visibleViewController(from: UIViewController?) -> UIViewController? {
