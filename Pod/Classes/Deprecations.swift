@@ -9,13 +9,13 @@
 extension SideMenuManager {
 
     @available(*, deprecated, renamed: "leftMenuNavigationController")
-    open var menuLeftNavigationController: UISideMenuNavigationController? {
+    open var menuLeftNavigationController: SideMenuNavigationController? {
         get { return nil }
         set {}
     }
 
     @available(*, deprecated, renamed: "rightMenuNavigationController")
-    open var menuRightNavigationController: UISideMenuNavigationController? {
+    open var menuRightNavigationController: SideMenuNavigationController? {
         get { return nil }
         set {}
     }
@@ -206,3 +206,6 @@ extension SideMenuPresentationStyle {
     @available(*, deprecated, renamed: "viewSlideOutMenuIn")
     public static var viewSlideInOut: SideMenuPresentationStyle { return viewSlideOutMenuIn }
 }
+
+@available(*, deprecated, renamed: "SideMenuNavigationController")
+public typealias UISideMenuNavigationController = SideMenuNavigationController

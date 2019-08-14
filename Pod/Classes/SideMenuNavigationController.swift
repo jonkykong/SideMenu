@@ -17,10 +17,10 @@ import UIKit
 }
 
 @objc public protocol UISideMenuNavigationControllerDelegate {
-    @objc optional func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool)
-    @objc optional func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool)
-    @objc optional func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool)
-    @objc optional func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuDidAppear(menu: SideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuWillDisappear(menu: SideMenuNavigationController, animated: Bool)
+    @objc optional func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool)
 }
 
 internal protocol UISideMenuNavigationControllerTransitionDelegate: class {
@@ -58,10 +58,10 @@ public struct SideMenuSettings: MenuModel, InitializableStruct {
     public init() {}
 }
 
-internal typealias Menu = UISideMenuNavigationController
+internal typealias Menu = SideMenuNavigationController
 
 @objcMembers
-open class UISideMenuNavigationController: UINavigationController {
+open class SideMenuNavigationController: UINavigationController {
 
     private lazy var _leftSide = Protected(false) { [weak self] oldValue, newValue in
         guard self?.isHidden != false else {
@@ -328,7 +328,7 @@ open class UISideMenuNavigationController: UINavigationController {
 }
 
 // Interface
-extension UISideMenuNavigationController: MenuModel {
+extension SideMenuNavigationController: MenuModel {
 
     @IBInspectable open var allowPushOfSameClassTwice: Bool {
         get { return settings.allowPushOfSameClassTwice }
@@ -453,7 +453,7 @@ extension UISideMenuNavigationController: MenuModel {
 }
 
 // IMPORTANT: These methods must be declared open or they will not be called.
-extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate {
+extension SideMenuNavigationController: UIViewControllerTransitioningDelegate {
 
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transitionController = SideMenuTransitionController(
@@ -484,7 +484,7 @@ extension UISideMenuNavigationController: UIViewControllerTransitioningDelegate 
     }
 }
 
-extension UISideMenuNavigationController: SideMenuTransitionControllerDelegate {
+extension SideMenuNavigationController: SideMenuTransitionControllerDelegate {
 
     internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController) {
         sideMenuManager.sideMenuTransitionDidDismiss(menu: self)
@@ -497,7 +497,7 @@ extension UISideMenuNavigationController: SideMenuTransitionControllerDelegate {
     }
 }
 
-internal extension UISideMenuNavigationController {
+internal extension SideMenuNavigationController {
 
     func handleMenuPan(_ gesture: UIPanGestureRecognizer, _ presenting: Bool) {
         let width = menuWidth
@@ -538,7 +538,7 @@ internal extension UISideMenuNavigationController {
     }
 }
 
-private extension UISideMenuNavigationController {
+private extension SideMenuNavigationController {
 
     weak var activeDelegate: UISideMenuNavigationControllerDelegate? {
         guard !view.isHidden else { return nil }

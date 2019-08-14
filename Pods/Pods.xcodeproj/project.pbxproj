@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		032FEB01E4C88E7C87032FCF9780FC7C /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B09C72B577EFDB20A3EFF4F0C668A /* UISideMenuNavigationController.swift */; };
+		032FEB01E4C88E7C87032FCF9780FC7C /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B09C72B577EFDB20A3EFF4F0C668A /* SideMenuNavigationController.swift */; };
 		0D2D410A6087D4E0A54642165913EF30 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F10B146FA49E99D07F0FA0E38ABE8F /* Models.swift */; };
 		0F9F3CABB81269CF711A73BAD21E7976 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		287FA1360FD3EF72D700C54856C685C1 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE7B8C8447DD35D435B2AF4A23E221C /* SideMenuManager.swift */; };
@@ -59,7 +59,7 @@
 		61AFB3209BCB97295281AC6437FB346B /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/Classes/SideMenuPresentationController.swift; sourceTree = "<group>"; };
 		7825A90E082A1582EB16256B0E722B3F /* Pods-Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Example-umbrella.h"; sourceTree = "<group>"; };
 		8428210022E0448700C6F2D8 /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Classes/Deprecations.swift; sourceTree = "<group>"; };
-		8F8B09C72B577EFDB20A3EFF4F0C668A /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
+		8F8B09C72B577EFDB20A3EFF4F0C668A /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/Classes/SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		9CF977D7FB42D367F2810037EBA59B7D /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		AB64592703EA9A196B5C0F07BA1A918A /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				61AFB3209BCB97295281AC6437FB346B /* SideMenuPresentationController.swift */,
 				D154DB98A04C7BD96E4EFBBD3FE0008A /* SideMenuPresentationStyle.swift */,
 				30C3188EE68841BE36716860BE079AF8 /* SideMenuTransitionController.swift */,
-				8F8B09C72B577EFDB20A3EFF4F0C668A /* UISideMenuNavigationController.swift */,
+				8F8B09C72B577EFDB20A3EFF4F0C668A /* SideMenuNavigationController.swift */,
 				3ACA278071ED85D04DA83677D6C60528 /* UITableViewVibrantCell.swift */,
 			);
 			name = SideMenu;
@@ -337,7 +337,7 @@
 				614FC39555CB129D97FC24B2D953A427 /* SideMenuPresentationController.swift in Sources */,
 				D0B45D0F0E7B359807CAFB744FB80CE4 /* SideMenuPresentationStyle.swift in Sources */,
 				FCBFE25630B6309DF3213AE0F6F34D1A /* SideMenuTransitionController.swift in Sources */,
-				032FEB01E4C88E7C87032FCF9780FC7C /* UISideMenuNavigationController.swift in Sources */,
+				032FEB01E4C88E7C87032FCF9780FC7C /* SideMenuNavigationController.swift in Sources */,
 				45A647715262A70BB9F2F4E7C1439C58 /* UITableViewVibrantCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

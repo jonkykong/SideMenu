@@ -27,7 +27,7 @@
 		842820FF22DDD24200C6F2D8 /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842820FE22DDD24200C6F2D8 /* SideMenuInteractionController.swift */; };
 		8428210322E0449300C6F2D8 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428210222E0449300C6F2D8 /* Deprecations.swift */; };
 		8432CC0422FFBCF5003D2BBD /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */; };
-		8461A2D51E145A08001DA4F8 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */; };
+		8461A2D51E145A08001DA4F8 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461A2D11E145A08001DA4F8 /* SideMenuNavigationController.swift */; };
 		8461A2D61E145A08001DA4F8 /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
 		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
@@ -75,7 +75,7 @@
 		8432CC0122FFBCF4003D2BBD /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		8432CC0522FFBCF5003D2BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
+		8461A2D11E145A08001DA4F8 /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/Classes/SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
 		84B489B21DD469B000D6CB43 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84B489B41DD469B000D6CB43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				842820F022DDD1E800C6F2D8 /* SideMenuPresentationController.swift */,
 				842820FC22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift */,
 				842820F222DDD1E800C6F2D8 /* SideMenuTransitionController.swift */,
-				8461A2D11E145A08001DA4F8 /* UISideMenuNavigationController.swift */,
+				8461A2D11E145A08001DA4F8 /* SideMenuNavigationController.swift */,
 				8461A2D21E145A08001DA4F8 /* UITableViewVibrantCell.swift */,
 			);
 			name = Source;
@@ -427,7 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				842820EF22DDD1BC00C6F2D8 /* Protected.swift in Sources */,
-				8461A2D51E145A08001DA4F8 /* UISideMenuNavigationController.swift in Sources */,
+				8461A2D51E145A08001DA4F8 /* SideMenuNavigationController.swift in Sources */,
 				842820FD22DDD21100C6F2D8 /* SideMenuPresentationStyle.swift in Sources */,
 				842820F822DDD1E800C6F2D8 /* SideMenuTransitionController.swift in Sources */,
 				842820FF22DDD24200C6F2D8 /* SideMenuInteractionController.swift in Sources */,
