@@ -80,7 +80,7 @@ open class SideMenuNavigationController: UINavigationController {
     private var transitionController: SideMenuTransitionController?
 
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `SideMenuNavigationController` automatically receives these events.
-    internal weak var sideMenuDelegate: SideMenuNavigationControllerDelegate?
+    public weak var sideMenuDelegate: SideMenuNavigationControllerDelegate?
 
     /// The swipe to dismiss gesture.
     open private(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
