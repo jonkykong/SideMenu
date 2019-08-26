@@ -221,7 +221,7 @@ private extension SideMenuPresentationController {
         view.layer.shadowColor = config.presentationStyle.onTopShadowColor.cgColor
         view.layer.shadowRadius = config.presentationStyle.onTopShadowRadius
         view.layer.shadowOpacity = config.presentationStyle.onTopShadowOpacity
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOffset = config.presentationStyle.onTopShadowOffset
     }
 
     func addParallax(to view: UIView) {
