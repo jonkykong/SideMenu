@@ -7,6 +7,19 @@
 
 import UIKit
 
+internal protocol PresentationModel {
+    /// Draws `presentStyle.backgroundColor` behind the status bar. Default is 1.
+    var statusBarEndAlpha: CGFloat { get }
+    /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. `presentingViewControllerUseSnapshot` must also set to false. Default is false.
+    var presentingViewControllerUserInteractionEnabled: Bool { get }
+    /// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
+    var presentingViewControllerUseSnapshot: Bool { get }
+    /// The presentation style of the menu.
+    var presentationStyle: SideMenuPresentationStyle { get }
+    /// Width of the menu when presented on screen, showing the existing view controller in the remaining space. Default is zero.
+    var menuWidth: CGFloat { get }
+}
+
 internal protocol SideMenuPresentationControllerDelegate: class {
     func sideMenuPresentationControllerDidTap(_ presentationController: SideMenuPresentationController)
     func sideMenuPresentationController(_ presentationController: SideMenuPresentationController, didPanWith gesture: UIPanGestureRecognizer)

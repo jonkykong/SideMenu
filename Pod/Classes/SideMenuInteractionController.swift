@@ -7,10 +7,6 @@
 
 import UIKit
 
-internal protocol SideMenuInteractable {
-    func handle(state: SideMenuInteractionController.State)
-}
-
 internal final class SideMenuInteractionController: UIPercentDrivenInteractiveTransition {
 
     enum State { case
@@ -44,20 +40,6 @@ internal final class SideMenuInteractionController: UIPercentDrivenInteractiveTr
         guard !isCancelled && !isFinished else { return }
         super.update(percentComplete)
     }
-}
-
-private extension SideMenuInteractionController {
-
-    @objc func handleNotification(notification: NSNotification) {
-        switch notification.name {
-        case UIApplication.didEnterBackgroundNotification:
-            cancel()
-        default: break
-        }
-    }
-}
-
-extension SideMenuInteractionController: SideMenuInteractable {
 
     func handle(state: State) {
         switch state {
@@ -67,6 +49,17 @@ extension SideMenuInteractionController: SideMenuInteractable {
             finish()
         case .cancel:
             cancel()
+        }
+    }
+}
+
+private extension SideMenuInteractionController {
+
+    @objc func handleNotification(notification: NSNotification) {
+        switch notification.name {
+        case UIApplication.didEnterBackgroundNotification:
+            cancel()
+        default: break
         }
     }
 }

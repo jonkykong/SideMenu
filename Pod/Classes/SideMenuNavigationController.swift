@@ -16,6 +16,45 @@ import UIKit
     subMenu
 }
 
+internal protocol MenuModel {
+    /// Prevents the same view controller (or a view controller of the same class) from being pushed more than once. Defaults to true.
+    var allowPushOfSameClassTwice: Bool { get }
+    /// Forces menus to always animate when appearing or disappearing, regardless of a pushed view controller's animation.
+    var alwaysAnimate: Bool { get }
+    /**
+     The blur effect style of the menu if the menu's root view controller is a UITableViewController or UICollectionViewController.
+
+     - Note: If you want cells in a UITableViewController menu to show vibrancy, make them a subclass of UITableViewVibrantCell.
+     */
+    var blurEffectStyle: UIBlurEffect.Style? { get }
+    /// Animation curve of the remaining animation when the menu is partially dismissed with gestures. Default is .easeIn.
+    var completionCurve: UIView.AnimationCurve { get }
+    /// Automatically dismisses the menu when another view is presented from it.
+    var dismissOnPresent: Bool { get }
+    /// Automatically dismisses the menu when another view controller is pushed from it.
+    var dismissOnPush: Bool { get }
+    /// Automatically dismisses the menu when the screen is rotated.
+    var dismissOnRotation: Bool { get }
+    /// Automatically dismisses the menu when app goes to the background.
+    var dismissWhenBackgrounded: Bool { get }
+    /// Enable or disable a swipe gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+    var enableSwipeToDismissGesture: Bool { get }
+    /// Enable or disable a tap gesture that dismisses the menu. Will not be triggered when `presentingViewControllerUserInteractionEnabled` is set to true. Default is true.
+    var enableTapToDismissGesture: Bool { get }
+    /**
+     The push style of the menu.
+
+     There are six modes in MenuPushStyle:
+     - defaultBehavior: The view controller is pushed onto the stack.
+     - popWhenPossible: If a view controller already in the stack is of the same class as the pushed view controller, the stack is instead popped back to the existing view controller. This behavior can help users from getting lost in a deep navigation stack.
+     - preserve: If a view controller already in the stack is of the same class as the pushed view controller, the existing view controller is pushed to the end of the stack. This behavior is similar to a UITabBarController.
+     - preserveAndHideBackButton: Same as .preserve and back buttons are automatically hidden.
+     - replace: Any existing view controllers are released from the stack and replaced with the pushed view controller. Back buttons are automatically hidden. This behavior is ideal if view controllers require a lot of memory or their state doesn't need to be preserved..
+     - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
+     */
+    var pushStyle: SideMenuPushStyle { get }
+}
+
 @objc public protocol SideMenuNavigationControllerDelegate {
     @objc optional func sideMenuWillAppear(menu: SideMenuNavigationController, animated: Bool)
     @objc optional func sideMenuDidAppear(menu: SideMenuNavigationController, animated: Bool)
@@ -27,7 +66,7 @@ internal protocol SideMenuNavigationControllerTransitionDelegate: class {
     func sideMenuTransitionDidDismiss(menu: Menu)
 }
 
-public struct SideMenuSettings: MenuModel, InitializableStruct {
+public struct SideMenuSettings: MenuModel & PresentationModel & AnimationModel, InitializableStruct {
     public var allowPushOfSameClassTwice: Bool = true
     public var alwaysAnimate: Bool = true
     public var animationOptions: UIView.AnimationOptions = .curveEaseInOut
@@ -73,8 +112,6 @@ open class SideMenuNavigationController: UINavigationController {
 
     private weak var _sideMenuManager: SideMenuManager?
     private weak var foundViewController: UIViewController?
-    private weak var interactionController: SideMenuInteractionController?
-    private var interactive: Bool = false
     private var originalBackgroundColor: UIColor?
     private var rotating: Bool = false
     private var transitionController: SideMenuTransitionController?
@@ -105,10 +142,10 @@ open class SideMenuNavigationController: UINavigationController {
         didSet {
             setupBlur()
             if !enableSwipeToDismissGesture {
-                removeSwipeGesture()
+                swipeToDismissGesture?.remove()
             }
             if !enableTapToDismissGesture {
-                removeTapGesture()
+                tapToDismissGesture?.remove()
             }
         }
     }
@@ -322,7 +359,11 @@ open class SideMenuNavigationController: UINavigationController {
     }
 
     override open var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-        get { return self }
+        get {
+            transitionController = transitionController ?? SideMenuTransitionController(leftSide: leftSide, config: settings)
+            transitionController?.delegate = self
+            return transitionController
+        }
         set { Print.warning(.transitioningDelegate, required: true) }
     }
 }
@@ -452,46 +493,14 @@ extension SideMenuNavigationController: MenuModel {
     }
 }
 
-// IMPORTANT: These methods must be declared open or they will not be called.
-extension SideMenuNavigationController: UIViewControllerTransitioningDelegate {
-
-    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transitionController = SideMenuTransitionController(
-            config: self,
-            leftSide: leftSide,
-            delegate: self)
-        return transitionController
-    }
-
-    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return transitionController
-    }
-
-    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController(using: animator)
-    }
-
-    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController(using: animator)
-    }
-
-    private func interactionController(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        guard interactive else { return nil }
-        interactive = false
-        let interactionController = SideMenuInteractionController(cancelWhenBackgrounded: dismissWhenBackgrounded, completionCurve: completionCurve)
-        self.interactionController = interactionController
-        return interactionController
-    }
-}
-
 extension SideMenuNavigationController: SideMenuTransitionControllerDelegate {
 
-    internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController) {
+    func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController) {
         sideMenuManager.sideMenuTransitionDidDismiss(menu: self)
     }
 
-    internal func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController) {
-        removeSwipeGesture()
+    func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController) {
+        swipeToDismissGesture?.remove()
         swipeToDismissGesture = addSwipeToDismissGesture(to: view.superview)
         tapToDismissGesture = addTapToDismissGesture(to: view.superview)
     }
@@ -508,32 +517,32 @@ internal extension SideMenuNavigationController {
             if !presenting {
                 dismissMenu(interactively: true)
             }
-            interactionController?.handle(state: .update(progress: progress))
+            transitionController?.handle(state: .update(progress: progress))
         case .changed:
-            interactionController?.handle(state: .update(progress: progress))
+            transitionController?.handle(state: .update(progress: progress))
         case .ended:
             let velocity = gesture.xVelocity * factor(presenting)
             let finished = velocity >= 100 || velocity >= -50 && abs(progress) >= 0.5
-            interactionController?.handle(state: finished ? .finish : .cancel)
+            transitionController?.handle(state: finished ? .finish : .cancel)
         default:
-            interactionController?.handle(state: .cancel)
+            transitionController?.handle(state: .cancel)
         }
     }
 
     func cancelMenuPan(_ gesture: UIPanGestureRecognizer) {
-        interactionController?.handle(state: .cancel)
+        transitionController?.handle(state: .cancel)
     }
 
     func dismissMenu(animated flag: Bool = true, interactively interactive: Bool = false, completion: (() -> Void)? = nil) {
         guard !isHidden else { return }
-        self.interactive = interactive
+        transitionController?.interactive = interactive
         dismiss(animated: flag, completion: completion)
     }
 
     // Note: although this method is syntactically reversed it allows the interactive property to scoped privately
     func presentFrom(_ viewControllerToPresentFrom: UIViewController?, interactively interactive: Bool, completion: (() -> Void)? = nil) {
-        guard let viewControllerToPresentFrom = viewControllerToPresentFrom else { return }
-        self.interactive = interactive
+        guard let viewControllerToPresentFrom = viewControllerToPresentFrom, transitioningDelegate != nil else { return }
+        transitionController?.interactive = interactive
         viewControllerToPresentFrom.present(self, animated: true, completion: completion)
     }
 }
@@ -613,18 +622,6 @@ private extension SideMenuNavigationController {
             tableViewController.tableView.reloadData()
         } else if let blurView = view.subviews.first as? UIVisualEffectView {
             blurView.removeFromSuperview()
-        }
-    }
-
-    func removeSwipeGesture() {
-        if let swipeToDismissGesture = swipeToDismissGesture {
-            swipeToDismissGesture.view?.removeGestureRecognizer(swipeToDismissGesture)
-        }
-    }
-
-    func removeTapGesture() {
-        if let tapToDismissGesture = tapToDismissGesture {
-            tapToDismissGesture.view?.removeGestureRecognizer(tapToDismissGesture)
         }
     }
 

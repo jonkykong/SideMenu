@@ -63,6 +63,10 @@ internal extension UIGestureRecognizer {
         guard let view = view else { return nil }
         self.init(addTo: view, target: target, action: action)
     }
+
+    func remove() {
+        view?.removeGestureRecognizer(self)
+    }
 }
 
 internal extension UIPanGestureRecognizer {

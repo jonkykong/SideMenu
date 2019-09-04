@@ -202,7 +202,7 @@ private extension SideMenuManager {
     func addScreenEdgeGesture(to view: UIView, edge: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         if let screenEdgeGestureRecognizer = view.gestureRecognizers?.first(where: { $0 is SideMenuScreenEdgeGestureRecognizer }) as? SideMenuScreenEdgeGestureRecognizer,
             screenEdgeGestureRecognizer.edges == edge {
-            view.removeGestureRecognizer(screenEdgeGestureRecognizer)
+            screenEdgeGestureRecognizer.remove()
         }
         return SideMenuScreenEdgeGestureRecognizer(addTo: view, target: self, action: #selector(handlePresentMenuScreenEdge(_:))).with {
             $0.edges = edge
