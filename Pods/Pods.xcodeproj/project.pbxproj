@@ -22,11 +22,12 @@
 		849F7B032320DF3A005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF52320DF3A005DEB6A /* SideMenuTransitionController.swift */; };
 		849F7B042320DF3A005DEB6A /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF62320DF3A005DEB6A /* SideMenuNavigationController.swift */; };
 		849F7B052320DF3A005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF72320DF3A005DEB6A /* UITableViewVibrantCell.swift */; };
+		849F7B5B2320FCC6005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B562320F3A4005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		849F7B5E2320FD67005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B562320F3A4005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2CFA98A07964FBD2D7775FF5FB98D /* Pods-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D7C498FA339E02BD53ECB8916CEA8E /* Pods-Example-dummy.m */; };
 		D2B33F4F3B11BCDC08F79A4BDBF93A31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		D7BD58D0FF7BF7E887B6D70D4651D70B /* Pods-Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7825A90E082A1582EB16256B0E722B3F /* Pods-Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D7BD58D0FF7BF7E887B6D70D4651D70B /* Pods-Example.h in Headers */ = {isa = PBXBuildFile; fileRef = 7825A90E082A1582EB16256B0E722B3F /* Pods-Example.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6F2CD13BC297BF5E7707DEDE9C7F271 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9702572C0E4370367755578F2ECE7 /* SideMenu-dummy.m */; };
-		F60079E38558DFA921C6D10B86361EC2 /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D28822A7F5ECB50748CF6A106C1ED24 /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,9 +50,8 @@
 		441854E35F81731E63E53DC7E4EEAD9D /* Pods-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4DF9702572C0E4370367755578F2ECE7 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
 		5B30AFEB50A77ED133026BBB542D4DC2 /* SideMenu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SideMenu-Info.plist"; sourceTree = "<group>"; };
-		5D28822A7F5ECB50748CF6A106C1ED24 /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
 		5F375DA230E88A457A5F6021E054F56D /* SideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.xcconfig; sourceTree = "<group>"; };
-		7825A90E082A1582EB16256B0E722B3F /* Pods-Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Example-umbrella.h"; sourceTree = "<group>"; };
+		7825A90E082A1582EB16256B0E722B3F /* Pods-Example.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Example.h"; sourceTree = "<group>"; };
 		849F7AEA2320DF3A005DEB6A /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Deprecations.swift; sourceTree = "<group>"; };
 		849F7AEB2320DF3A005DEB6A /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Initializable.swift; sourceTree = "<group>"; };
 		849F7AEC2320DF3A005DEB6A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Extensions.swift; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 		849F7AF52320DF3A005DEB6A /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/SideMenuTransitionController.swift; sourceTree = "<group>"; };
 		849F7AF62320DF3A005DEB6A /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		849F7AF72320DF3A005DEB6A /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
+		849F7B562320F3A4005DEB6A /* SideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenu.h; sourceTree = "<group>"; };
 		863A19DF8C4FEFD1D2DFF3C6C85F3013 /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		89DDCB61CB91FEE47235E0C0915F9F88 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9A5090CE306074592C68F6FB7ADF43FA /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SideMenu.modulemap; sourceTree = "<group>"; };
@@ -162,7 +163,7 @@
 				D6D7C498FA339E02BD53ECB8916CEA8E /* Pods-Example-dummy.m */,
 				AFECBC24E09D0D25F822C27BD944AFD4 /* Pods-Example-frameworks.sh */,
 				31C1D37707DFAA5E6A164BCC07834264 /* Pods-Example-Info.plist */,
-				7825A90E082A1582EB16256B0E722B3F /* Pods-Example-umbrella.h */,
+				7825A90E082A1582EB16256B0E722B3F /* Pods-Example.h */,
 				B45138496B85A072654D1D0F8EBBEDE5 /* Pods-Example.debug.xcconfig */,
 				243410B9535472556EA4BB6DBC133A0D /* Pods-Example.release.xcconfig */,
 			);
@@ -225,7 +226,7 @@
 				4DF9702572C0E4370367755578F2ECE7 /* SideMenu-dummy.m */,
 				5B30AFEB50A77ED133026BBB542D4DC2 /* SideMenu-Info.plist */,
 				863A19DF8C4FEFD1D2DFF3C6C85F3013 /* SideMenu-prefix.pch */,
-				5D28822A7F5ECB50748CF6A106C1ED24 /* SideMenu-umbrella.h */,
+				849F7B562320F3A4005DEB6A /* SideMenu.h */,
 			);
 			name = "Support Files";
 			path = "Pods/Target Support Files/SideMenu";
@@ -238,7 +239,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7BD58D0FF7BF7E887B6D70D4651D70B /* Pods-Example-umbrella.h in Headers */,
+				D7BD58D0FF7BF7E887B6D70D4651D70B /* Pods-Example.h in Headers */,
+				849F7B5B2320FCC6005DEB6A /* SideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +248,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F60079E38558DFA921C6D10B86361EC2 /* SideMenu-umbrella.h in Headers */,
+				849F7B5E2320FD67005DEB6A /* SideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

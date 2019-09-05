@@ -15,20 +15,21 @@
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
 		8432CC0422FFBCF5003D2BBD /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */; };
-		849F7B242320E26F005DEB6A /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0E2320DF84005DEB6A /* Deprecations.swift */; };
-		849F7B252320E26F005DEB6A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B142320DF85005DEB6A /* Extensions.swift */; };
-		849F7B262320E26F005DEB6A /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0D2320DF84005DEB6A /* Initializable.swift */; };
-		849F7B272320E26F005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0F2320DF85005DEB6A /* Print.swift */; };
-		849F7B282320E26F005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B152320DF85005DEB6A /* Protected.swift */; };
-		849F7B292320E26F005DEB6A /* PushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B102320DF85005DEB6A /* PushCoordinator.swift */; };
-		849F7B2A2320E26F005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */; };
-		849F7B2B2320E26F005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */; };
-		849F7B2C2320E26F005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */; };
-		849F7B2D2320E26F005DEB6A /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */; };
-		849F7B2E2320E26F005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */; };
-		849F7B2F2320E26F005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */; };
-		849F7B302320E26F005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */; };
-		849F7B312320E26F005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */; };
+		849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0E2320DF84005DEB6A /* Deprecations.swift */; };
+		849F7B452320EA60005DEB6A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B142320DF85005DEB6A /* Extensions.swift */; };
+		849F7B462320EA60005DEB6A /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0D2320DF84005DEB6A /* Initializable.swift */; };
+		849F7B472320EA60005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0F2320DF85005DEB6A /* Print.swift */; };
+		849F7B482320EA60005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B152320DF85005DEB6A /* Protected.swift */; };
+		849F7B492320EA60005DEB6A /* PushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B102320DF85005DEB6A /* PushCoordinator.swift */; };
+		849F7B4A2320EA60005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */; };
+		849F7B4B2320EA60005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */; };
+		849F7B4C2320EA60005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */; };
+		849F7B4D2320EA60005DEB6A /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */; };
+		849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */; };
+		849F7B4F2320EA60005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */; };
+		849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */; };
+		849F7B522320EA8D005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */; };
+		849F7B68232104BD005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B67232104BD005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
 		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
 		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
@@ -77,6 +78,7 @@
 		849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/SideMenuAnimationController.swift; sourceTree = "<group>"; };
 		849F7B142320DF85005DEB6A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Extensions.swift; sourceTree = "<group>"; };
 		849F7B152320DF85005DEB6A /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Protected.swift; sourceTree = "<group>"; };
+		849F7B67232104BD005DEB6A /* SideMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideMenu.h; path = "Pods/Target Support Files/SideMenu/SideMenu.h"; sourceTree = "<group>"; };
 		84B489B21DD469B000D6CB43 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84B489B41DD469B000D6CB43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		84B489B91DD469DA00D6CB43 /* SideMenu.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SideMenu.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -125,6 +127,7 @@
 		65FF1B3F1DE33097007B0845 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				849F7B67232104BD005DEB6A /* SideMenu.h */,
 				849F7B0E2320DF84005DEB6A /* Deprecations.swift */,
 				849F7B142320DF85005DEB6A /* Extensions.swift */,
 				849F7B0D2320DF84005DEB6A /* Initializable.swift */,
@@ -229,6 +232,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849F7B68232104BD005DEB6A /* SideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +420,7 @@
 			files = (
 				7B48A0F81DCB2518002990A1 /* SideMenuTableViewController.swift in Sources */,
 				7B48A0F61DCB2518002990A1 /* MainViewController.swift in Sources */,
+				849F7B522320EA8D005DEB6A /* UITableViewVibrantCell.swift in Sources */,
 				7B48A0F71DCB2518002990A1 /* PresentedViewController.swift in Sources */,
 				7B48A0D61DCB2487002990A1 /* AppDelegate.swift in Sources */,
 			);
@@ -425,20 +430,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849F7B2E2320E26F005DEB6A /* SideMenuPresentationController.swift in Sources */,
-				849F7B302320E26F005DEB6A /* SideMenuTransitionController.swift in Sources */,
-				849F7B312320E26F005DEB6A /* UITableViewVibrantCell.swift in Sources */,
-				849F7B292320E26F005DEB6A /* PushCoordinator.swift in Sources */,
-				849F7B282320E26F005DEB6A /* Protected.swift in Sources */,
-				849F7B242320E26F005DEB6A /* Deprecations.swift in Sources */,
-				849F7B2D2320E26F005DEB6A /* SideMenuNavigationController.swift in Sources */,
-				849F7B2F2320E26F005DEB6A /* SideMenuPresentationStyle.swift in Sources */,
-				849F7B262320E26F005DEB6A /* Initializable.swift in Sources */,
-				849F7B2B2320E26F005DEB6A /* SideMenuInteractionController.swift in Sources */,
-				849F7B252320E26F005DEB6A /* Extensions.swift in Sources */,
-				849F7B2A2320E26F005DEB6A /* SideMenuAnimationController.swift in Sources */,
-				849F7B2C2320E26F005DEB6A /* SideMenuManager.swift in Sources */,
-				849F7B272320E26F005DEB6A /* Print.swift in Sources */,
+				849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */,
+				849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */,
+				849F7B492320EA60005DEB6A /* PushCoordinator.swift in Sources */,
+				849F7B482320EA60005DEB6A /* Protected.swift in Sources */,
+				849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */,
+				849F7B4D2320EA60005DEB6A /* SideMenuNavigationController.swift in Sources */,
+				849F7B4F2320EA60005DEB6A /* SideMenuPresentationStyle.swift in Sources */,
+				849F7B462320EA60005DEB6A /* Initializable.swift in Sources */,
+				849F7B4B2320EA60005DEB6A /* SideMenuInteractionController.swift in Sources */,
+				849F7B452320EA60005DEB6A /* Extensions.swift in Sources */,
+				849F7B4A2320EA60005DEB6A /* SideMenuAnimationController.swift in Sources */,
+				849F7B4C2320EA60005DEB6A /* SideMenuManager.swift in Sources */,
+				849F7B472320EA60005DEB6A /* Print.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
