@@ -28,8 +28,8 @@
 		849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */; };
 		849F7B4F2320EA60005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */; };
 		849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */; };
-		849F7B522320EA8D005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */; };
 		849F7B68232104BD005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B67232104BD005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		849F7B69232108D5005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
 		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
 		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
@@ -404,7 +404,6 @@
 			files = (
 				7B48A0F81DCB2518002990A1 /* SideMenuTableViewController.swift in Sources */,
 				7B48A0F61DCB2518002990A1 /* MainViewController.swift in Sources */,
-				849F7B522320EA8D005DEB6A /* UITableViewVibrantCell.swift in Sources */,
 				7B48A0F71DCB2518002990A1 /* PresentedViewController.swift in Sources */,
 				7B48A0D61DCB2487002990A1 /* AppDelegate.swift in Sources */,
 			);
@@ -416,6 +415,7 @@
 			files = (
 				849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */,
 				849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */,
+				849F7B69232108D5005DEB6A /* UITableViewVibrantCell.swift in Sources */,
 				849F7B492320EA60005DEB6A /* PushCoordinator.swift in Sources */,
 				849F7B482320EA60005DEB6A /* Protected.swift in Sources */,
 				849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */,

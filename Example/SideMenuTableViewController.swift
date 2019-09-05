@@ -6,7 +6,6 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
-import Foundation
 import SideMenu
 
 class SideMenuTableViewController: UITableViewController {
