@@ -10,9 +10,9 @@ import UIKit
 
 open class UITableViewVibrantCell: UITableViewCell {
     
-    private var vibrancyView:UIVisualEffectView = UIVisualEffectView()
-    private var vibrancySelectedBackgroundView:UIVisualEffectView = UIVisualEffectView()
-    private var defaultSelectedBackgroundView:UIView?
+    private var vibrancyView: UIVisualEffectView = UIVisualEffectView()
+    private var vibrancySelectedBackgroundView: UIVisualEffectView = UIVisualEffectView()
+    private var defaultSelectedBackgroundView: UIView?
     open var blurEffectStyle: UIBlurEffect.Style? {
         didSet {
             updateBlur()
