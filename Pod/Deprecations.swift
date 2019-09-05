@@ -5,6 +5,8 @@
 //  Created by Jon Kent on 7/3/19.
 //
 
+import UIKit
+
 // Deprecations; to be removed at a future date.
 extension SideMenuManager {
 

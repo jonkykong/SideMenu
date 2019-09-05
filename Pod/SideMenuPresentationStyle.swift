@@ -5,7 +5,7 @@
 //  Created by Jon Kent on 7/2/19.
 //
 
-import Foundation
+import UIKit
 
 @objcMembers
 open class SideMenuPresentationStyle: InitializableClass {

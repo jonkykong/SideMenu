@@ -5,7 +5,7 @@
 //  Created by Jon Kent on 7/1/19.
 //
 
-import Foundation
+import UIKit
 
 extension NSObject: InitializableClass {}
 
@@ -28,6 +28,13 @@ internal extension UIView {
             block()
             return 0
         }
+    }
+
+    static func animationsEnabled(_ block: () -> Void) {
+        let areAnimationsEnabled = UIView.areAnimationsEnabled
+        UIView.setAnimationsEnabled(true)
+        block()
+        UIView.setAnimationsEnabled(areAnimationsEnabled)
     }
 }
 

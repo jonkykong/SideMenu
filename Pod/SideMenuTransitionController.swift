@@ -6,7 +6,7 @@
 //  Copyright © 2019 jonkykong. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 internal protocol SideMenuTransitionControllerDelegate: class {
     func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController)
