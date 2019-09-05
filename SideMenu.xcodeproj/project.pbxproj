@@ -15,21 +15,21 @@
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
 		8432CC0422FFBCF5003D2BBD /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */; };
-		849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0E2320DF84005DEB6A /* Deprecations.swift */; };
-		849F7B452320EA60005DEB6A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B142320DF85005DEB6A /* Extensions.swift */; };
-		849F7B462320EA60005DEB6A /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0D2320DF84005DEB6A /* Initializable.swift */; };
-		849F7B472320EA60005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0F2320DF85005DEB6A /* Print.swift */; };
-		849F7B482320EA60005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B152320DF85005DEB6A /* Protected.swift */; };
-		849F7B492320EA60005DEB6A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */; };
-		849F7B4A2320EA60005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */; };
-		849F7B4B2320EA60005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */; };
-		849F7B4C2320EA60005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */; };
-		849F7B4D2320EA60005DEB6A /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */; };
-		849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */; };
-		849F7B4F2320EA60005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */; };
-		849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */; };
 		849F7B68232104BD005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B67232104BD005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		849F7B69232108D5005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */; };
+		849F7B9623210C9A005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8823210C9A005DEB6A /* UITableViewVibrantCell.swift */; };
+		849F7B9723210C9A005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8923210C9A005DEB6A /* SideMenuTransitionController.swift */; };
+		849F7B9823210C9A005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8A23210C9A005DEB6A /* SideMenuAnimationController.swift */; };
+		849F7B9923210C9A005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8B23210C9A005DEB6A /* SideMenuInteractionController.swift */; };
+		849F7B9A23210C9A005DEB6A /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8C23210C9A005DEB6A /* Initializable.swift */; };
+		849F7B9B23210C9A005DEB6A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8D23210C9A005DEB6A /* Extensions.swift */; };
+		849F7B9C23210C9A005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8E23210C9A005DEB6A /* SideMenuPresentationStyle.swift */; };
+		849F7B9D23210C9A005DEB6A /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8F23210C9A005DEB6A /* SideMenuNavigationController.swift */; };
+		849F7B9E23210C9A005DEB6A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9023210C9A005DEB6A /* SideMenuPushCoordinator.swift */; };
+		849F7B9F23210C9A005DEB6A /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9123210C9A005DEB6A /* Deprecations.swift */; };
+		849F7BA023210C9A005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9223210C9A005DEB6A /* Print.swift */; };
+		849F7BA123210C9A005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9323210C9A005DEB6A /* SideMenuPresentationController.swift */; };
+		849F7BA223210C9A005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9423210C9A005DEB6A /* SideMenuManager.swift */; };
+		849F7BA323210C9A005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9523210C9A005DEB6A /* Protected.swift */; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
 		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
 		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
@@ -61,21 +61,21 @@
 		8432CC0122FFBCF4003D2BBD /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		8432CC0522FFBCF5003D2BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/SideMenuInteractionController.swift; sourceTree = "<group>"; };
-		849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
-		849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/SideMenuManager.swift; sourceTree = "<group>"; };
-		849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
-		849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/SideMenuTransitionController.swift; sourceTree = "<group>"; };
-		849F7B0D2320DF84005DEB6A /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Initializable.swift; sourceTree = "<group>"; };
-		849F7B0E2320DF84005DEB6A /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Deprecations.swift; sourceTree = "<group>"; };
-		849F7B0F2320DF85005DEB6A /* Print.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Print.swift; sourceTree = "<group>"; };
-		849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
-		849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/SideMenuPresentationController.swift; sourceTree = "<group>"; };
-		849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/SideMenuNavigationController.swift; sourceTree = "<group>"; };
-		849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/SideMenuAnimationController.swift; sourceTree = "<group>"; };
-		849F7B142320DF85005DEB6A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Extensions.swift; sourceTree = "<group>"; };
-		849F7B152320DF85005DEB6A /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Protected.swift; sourceTree = "<group>"; };
 		849F7B67232104BD005DEB6A /* SideMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideMenu.h; path = "Pods/Target Support Files/SideMenu/SideMenu.h"; sourceTree = "<group>"; };
+		849F7B8823210C9A005DEB6A /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
+		849F7B8923210C9A005DEB6A /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/Classes/SideMenuTransitionController.swift; sourceTree = "<group>"; };
+		849F7B8A23210C9A005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/Classes/SideMenuAnimationController.swift; sourceTree = "<group>"; };
+		849F7B8B23210C9A005DEB6A /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/Classes/SideMenuInteractionController.swift; sourceTree = "<group>"; };
+		849F7B8C23210C9A005DEB6A /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Classes/Initializable.swift; sourceTree = "<group>"; };
+		849F7B8D23210C9A005DEB6A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Pod/Classes/Extensions.swift; sourceTree = "<group>"; };
+		849F7B8E23210C9A005DEB6A /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/Classes/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
+		849F7B8F23210C9A005DEB6A /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/Classes/SideMenuNavigationController.swift; sourceTree = "<group>"; };
+		849F7B9023210C9A005DEB6A /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/Classes/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
+		849F7B9123210C9A005DEB6A /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Classes/Deprecations.swift; sourceTree = "<group>"; };
+		849F7B9223210C9A005DEB6A /* Print.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Classes/Print.swift; sourceTree = "<group>"; };
+		849F7B9323210C9A005DEB6A /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/Classes/SideMenuPresentationController.swift; sourceTree = "<group>"; };
+		849F7B9423210C9A005DEB6A /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
+		849F7B9523210C9A005DEB6A /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Classes/Protected.swift; sourceTree = "<group>"; };
 		84B489B21DD469B000D6CB43 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84B489B41DD469B000D6CB43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		84B489B91DD469DA00D6CB43 /* SideMenu.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SideMenu.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -123,20 +123,20 @@
 			isa = PBXGroup;
 			children = (
 				849F7B67232104BD005DEB6A /* SideMenu.h */,
-				849F7B0E2320DF84005DEB6A /* Deprecations.swift */,
-				849F7B142320DF85005DEB6A /* Extensions.swift */,
-				849F7B0D2320DF84005DEB6A /* Initializable.swift */,
-				849F7B0F2320DF85005DEB6A /* Print.swift */,
-				849F7B152320DF85005DEB6A /* Protected.swift */,
-				849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */,
-				849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */,
-				849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */,
-				849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */,
-				849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */,
-				849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */,
-				849F7B0B2320DF84005DEB6A /* SideMenuPresentationStyle.swift */,
-				849F7B0C2320DF84005DEB6A /* SideMenuTransitionController.swift */,
-				849F7B092320DF84005DEB6A /* UITableViewVibrantCell.swift */,
+				849F7B9123210C9A005DEB6A /* Deprecations.swift */,
+				849F7B8D23210C9A005DEB6A /* Extensions.swift */,
+				849F7B8C23210C9A005DEB6A /* Initializable.swift */,
+				849F7B9223210C9A005DEB6A /* Print.swift */,
+				849F7B9523210C9A005DEB6A /* Protected.swift */,
+				849F7B8A23210C9A005DEB6A /* SideMenuAnimationController.swift */,
+				849F7B8B23210C9A005DEB6A /* SideMenuInteractionController.swift */,
+				849F7B9423210C9A005DEB6A /* SideMenuManager.swift */,
+				849F7B8F23210C9A005DEB6A /* SideMenuNavigationController.swift */,
+				849F7B9323210C9A005DEB6A /* SideMenuPresentationController.swift */,
+				849F7B8E23210C9A005DEB6A /* SideMenuPresentationStyle.swift */,
+				849F7B9023210C9A005DEB6A /* SideMenuPushCoordinator.swift */,
+				849F7B8923210C9A005DEB6A /* SideMenuTransitionController.swift */,
+				849F7B8823210C9A005DEB6A /* UITableViewVibrantCell.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 					};
 					7B9DC9031DC6E8C1000D4007 = {
 						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 					};
 					8432CC0022FFBCF4003D2BBD = {
@@ -413,20 +413,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */,
-				849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */,
-				849F7B69232108D5005DEB6A /* UITableViewVibrantCell.swift in Sources */,
-				849F7B492320EA60005DEB6A /* SideMenuPushCoordinator.swift in Sources */,
-				849F7B482320EA60005DEB6A /* Protected.swift in Sources */,
-				849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */,
-				849F7B4D2320EA60005DEB6A /* SideMenuNavigationController.swift in Sources */,
-				849F7B4F2320EA60005DEB6A /* SideMenuPresentationStyle.swift in Sources */,
-				849F7B462320EA60005DEB6A /* Initializable.swift in Sources */,
-				849F7B4B2320EA60005DEB6A /* SideMenuInteractionController.swift in Sources */,
-				849F7B452320EA60005DEB6A /* Extensions.swift in Sources */,
-				849F7B4A2320EA60005DEB6A /* SideMenuAnimationController.swift in Sources */,
-				849F7B4C2320EA60005DEB6A /* SideMenuManager.swift in Sources */,
-				849F7B472320EA60005DEB6A /* Print.swift in Sources */,
+				849F7B9923210C9A005DEB6A /* SideMenuInteractionController.swift in Sources */,
+				849F7B9B23210C9A005DEB6A /* Extensions.swift in Sources */,
+				849F7BA323210C9A005DEB6A /* Protected.swift in Sources */,
+				849F7B9F23210C9A005DEB6A /* Deprecations.swift in Sources */,
+				849F7B9A23210C9A005DEB6A /* Initializable.swift in Sources */,
+				849F7BA223210C9A005DEB6A /* SideMenuManager.swift in Sources */,
+				849F7B9E23210C9A005DEB6A /* SideMenuPushCoordinator.swift in Sources */,
+				849F7BA123210C9A005DEB6A /* SideMenuPresentationController.swift in Sources */,
+				849F7B9C23210C9A005DEB6A /* SideMenuPresentationStyle.swift in Sources */,
+				849F7B9823210C9A005DEB6A /* SideMenuAnimationController.swift in Sources */,
+				849F7BA023210C9A005DEB6A /* Print.swift in Sources */,
+				849F7B9723210C9A005DEB6A /* SideMenuTransitionController.swift in Sources */,
+				849F7B9623210C9A005DEB6A /* UITableViewVibrantCell.swift in Sources */,
+				849F7B9D23210C9A005DEB6A /* SideMenuNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
