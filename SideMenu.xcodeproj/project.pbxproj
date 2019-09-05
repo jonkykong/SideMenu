@@ -20,7 +20,7 @@
 		849F7B462320EA60005DEB6A /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0D2320DF84005DEB6A /* Initializable.swift */; };
 		849F7B472320EA60005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0F2320DF85005DEB6A /* Print.swift */; };
 		849F7B482320EA60005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B152320DF85005DEB6A /* Protected.swift */; };
-		849F7B492320EA60005DEB6A /* PushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B102320DF85005DEB6A /* PushCoordinator.swift */; };
+		849F7B492320EA60005DEB6A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */; };
 		849F7B4A2320EA60005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */; };
 		849F7B4B2320EA60005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */; };
 		849F7B4C2320EA60005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */; };
@@ -69,7 +69,7 @@
 		849F7B0D2320DF84005DEB6A /* Initializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Initializable.swift; path = Pod/Initializable.swift; sourceTree = "<group>"; };
 		849F7B0E2320DF84005DEB6A /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Pod/Deprecations.swift; sourceTree = "<group>"; };
 		849F7B0F2320DF85005DEB6A /* Print.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Print.swift; sourceTree = "<group>"; };
-		849F7B102320DF85005DEB6A /* PushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushCoordinator.swift; path = Pod/PushCoordinator.swift; sourceTree = "<group>"; };
+		849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
 		849F7B112320DF85005DEB6A /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationController.swift; path = Pod/SideMenuPresentationController.swift; sourceTree = "<group>"; };
 		849F7B122320DF85005DEB6A /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuNavigationController.swift; path = Pod/SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/SideMenuAnimationController.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 				849F7B0D2320DF84005DEB6A /* Initializable.swift */,
 				849F7B0F2320DF85005DEB6A /* Print.swift */,
 				849F7B152320DF85005DEB6A /* Protected.swift */,
-				849F7B102320DF85005DEB6A /* PushCoordinator.swift */,
+				849F7B102320DF85005DEB6A /* SideMenuPushCoordinator.swift */,
 				849F7B132320DF85005DEB6A /* SideMenuAnimationController.swift */,
 				849F7B082320DF84005DEB6A /* SideMenuInteractionController.swift */,
 				849F7B0A2320DF84005DEB6A /* SideMenuManager.swift */,
@@ -416,7 +416,7 @@
 				849F7B4E2320EA60005DEB6A /* SideMenuPresentationController.swift in Sources */,
 				849F7B502320EA60005DEB6A /* SideMenuTransitionController.swift in Sources */,
 				849F7B69232108D5005DEB6A /* UITableViewVibrantCell.swift in Sources */,
-				849F7B492320EA60005DEB6A /* PushCoordinator.swift in Sources */,
+				849F7B492320EA60005DEB6A /* SideMenuPushCoordinator.swift in Sources */,
 				849F7B482320EA60005DEB6A /* Protected.swift in Sources */,
 				849F7B442320EA60005DEB6A /* Deprecations.swift in Sources */,
 				849F7B4D2320EA60005DEB6A /* SideMenuNavigationController.swift in Sources */,

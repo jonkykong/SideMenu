@@ -13,7 +13,7 @@
 		849F7AFB2320DF3A005DEB6A /* SideMenuInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AED2320DF3A005DEB6A /* SideMenuInteractionController.swift */; };
 		849F7AFC2320DF3A005DEB6A /* SideMenuPresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AEE2320DF3A005DEB6A /* SideMenuPresentationStyle.swift */; };
 		849F7AFD2320DF3A005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AEF2320DF3A005DEB6A /* Protected.swift */; };
-		849F7AFE2320DF3A005DEB6A /* PushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF02320DF3A005DEB6A /* PushCoordinator.swift */; };
+		849F7AFE2320DF3A005DEB6A /* SideMenuPushCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF02320DF3A005DEB6A /* SideMenuPushCoordinator.swift */; };
 		849F7AFF2320DF3A005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF12320DF3A005DEB6A /* SideMenuAnimationController.swift */; };
 		849F7B002320DF3A005DEB6A /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF22320DF3A005DEB6A /* Print.swift */; };
 		849F7B012320DF3A005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7AF32320DF3A005DEB6A /* SideMenuManager.swift */; };
@@ -55,7 +55,7 @@
 		849F7AED2320DF3A005DEB6A /* SideMenuInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuInteractionController.swift; path = Pod/SideMenuInteractionController.swift; sourceTree = "<group>"; };
 		849F7AEE2320DF3A005DEB6A /* SideMenuPresentationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPresentationStyle.swift; path = Pod/SideMenuPresentationStyle.swift; sourceTree = "<group>"; };
 		849F7AEF2320DF3A005DEB6A /* Protected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Pod/Protected.swift; sourceTree = "<group>"; };
-		849F7AF02320DF3A005DEB6A /* PushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushCoordinator.swift; path = Pod/PushCoordinator.swift; sourceTree = "<group>"; };
+		849F7AF02320DF3A005DEB6A /* SideMenuPushCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuPushCoordinator.swift; path = Pod/SideMenuPushCoordinator.swift; sourceTree = "<group>"; };
 		849F7AF12320DF3A005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/SideMenuAnimationController.swift; sourceTree = "<group>"; };
 		849F7AF22320DF3A005DEB6A /* Print.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Print.swift; path = Pod/Print.swift; sourceTree = "<group>"; };
 		849F7AF32320DF3A005DEB6A /* SideMenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/SideMenuManager.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		849F7B062320DF40005DEB6A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				849F7AF02320DF3A005DEB6A /* PushCoordinator.swift */,
+				849F7AF02320DF3A005DEB6A /* SideMenuPushCoordinator.swift */,
 				849F7AF12320DF3A005DEB6A /* SideMenuAnimationController.swift */,
 				849F7AED2320DF3A005DEB6A /* SideMenuInteractionController.swift */,
 				849F7AF32320DF3A005DEB6A /* SideMenuManager.swift */,
@@ -333,7 +333,7 @@
 				849F7B042320DF3A005DEB6A /* SideMenuNavigationController.swift in Sources */,
 				E6F2CD13BC297BF5E7707DEDE9C7F271 /* SideMenu-dummy.m in Sources */,
 				849F7B022320DF3A005DEB6A /* SideMenuPresentationController.swift in Sources */,
-				849F7AFE2320DF3A005DEB6A /* PushCoordinator.swift in Sources */,
+				849F7AFE2320DF3A005DEB6A /* SideMenuPushCoordinator.swift in Sources */,
 				849F7B012320DF3A005DEB6A /* SideMenuManager.swift in Sources */,
 				849F7AFA2320DF3A005DEB6A /* Extensions.swift in Sources */,
 				849F7B002320DF3A005DEB6A /* Print.swift in Sources */,

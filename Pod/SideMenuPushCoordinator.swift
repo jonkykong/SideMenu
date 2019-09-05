@@ -8,6 +8,9 @@
 import UIKit
 
 protocol Coordinator {
+    associatedtype Model: CoordinatorModel
+
+    init(config: Model)
     func start()
 }
 
@@ -17,13 +20,7 @@ protocol CoordinatorModel {
     var toViewController: UIViewController { get }
 }
 
-protocol PushCoordinator: Coordinator {
-    associatedtype Model: CoordinatorModel
-
-    init(config: Model)
-}
-
-internal final class SideMenuPushCoordinator: PushCoordinator {
+internal final class SideMenuPushCoordinator: Coordinator {
 
     struct Model: CoordinatorModel {
         var allowPushOfSameClassTwice: Bool
