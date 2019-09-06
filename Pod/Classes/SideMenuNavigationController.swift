@@ -308,7 +308,7 @@ open class SideMenuNavigationController: UINavigationController {
             }
         }
 
-        SideMenuPushCoordinator(config:
+        let pushed = SideMenuPushCoordinator(config:
             .init(
                 allowPushOfSameClassTwice: allowPushOfSameClassTwice,
                 alongsideTransition: alongsideTransition,
@@ -318,6 +318,10 @@ open class SideMenuNavigationController: UINavigationController {
                 toViewController: viewController
             )
             ).start()
+
+        if !pushed {
+            super.pushViewController(viewController, animated: animated)
+        }
     }
 
     override open var transitioningDelegate: UIViewControllerTransitioningDelegate? {

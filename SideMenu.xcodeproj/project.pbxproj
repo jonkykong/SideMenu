@@ -15,7 +15,6 @@
 		7B552D5D1DCC65830010301C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B552D5C1DCC65830010301C /* Launch Screen.storyboard */; };
 		7B5FA9B61DCB269700278DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9B51DCB269700278DF6 /* Main.storyboard */; };
 		8432CC0422FFBCF5003D2BBD /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */; };
-		849F7B68232104BD005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B67232104BD005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		849F7B9623210C9A005DEB6A /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8823210C9A005DEB6A /* UITableViewVibrantCell.swift */; };
 		849F7B9723210C9A005DEB6A /* SideMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8923210C9A005DEB6A /* SideMenuTransitionController.swift */; };
 		849F7B9823210C9A005DEB6A /* SideMenuAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B8A23210C9A005DEB6A /* SideMenuAnimationController.swift */; };
@@ -30,6 +29,7 @@
 		849F7BA123210C9A005DEB6A /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9323210C9A005DEB6A /* SideMenuPresentationController.swift */; };
 		849F7BA223210C9A005DEB6A /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9423210C9A005DEB6A /* SideMenuManager.swift */; };
 		849F7BA323210C9A005DEB6A /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F7B9523210C9A005DEB6A /* Protected.swift */; };
+		849F7BA423225F7F005DEB6A /* SideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 849F7B67232104BD005DEB6A /* SideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B489B51DD469B000D6CB43 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B21DD469B000D6CB43 /* LICENSE */; };
 		84B489B71DD469B000D6CB43 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B41DD469B000D6CB43 /* README.md */; };
 		84B489BA1DD469DA00D6CB43 /* SideMenu.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 84B489B91DD469DA00D6CB43 /* SideMenu.podspec */; };
@@ -216,7 +216,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849F7B68232104BD005DEB6A /* SideMenu.h in Headers */,
+				849F7BA423225F7F005DEB6A /* SideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

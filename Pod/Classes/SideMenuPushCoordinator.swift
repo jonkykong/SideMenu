@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol Coordinator {
-    associatedtype Model: CoordinatorModel
-
-    init(config: Model)
-    func start()
-}
-
 protocol CoordinatorModel {
     var animated: Bool { get }
     var fromViewController: UIViewController { get }
     var toViewController: UIViewController { get }
+}
+
+protocol Coordinator {
+    associatedtype Model: CoordinatorModel
+
+    init(config: Model)
+    @discardableResult func start() -> Bool
 }
 
 internal final class SideMenuPushCoordinator: Coordinator {
@@ -37,15 +37,19 @@ internal final class SideMenuPushCoordinator: Coordinator {
         self.config = config
     }
 
-    func start() {
-        guard let fromNavigationController = config.fromViewController as? UINavigationController else { return }
+    @discardableResult func start() -> Bool {
+        guard config.pushStyle != .subMenu,
+            let fromNavigationController = config.fromViewController as? UINavigationController else {
+                return false
+        }
         let toViewController = config.toViewController
         let presentingViewController = fromNavigationController.presentingViewController
         let splitViewController = presentingViewController as? UISplitViewController
         let tabBarController = presentingViewController as? UITabBarController
         let potentialNavigationController = (splitViewController?.viewControllers.first ?? tabBarController?.selectedViewController) ?? presentingViewController
-        guard var navigationController = potentialNavigationController as? UINavigationController else {
-            return Print.warning(.cannotPush, arguments: String(describing: potentialNavigationController.self), required: true)
+        guard let navigationController = potentialNavigationController as? UINavigationController else {
+            Print.warning(.cannotPush, arguments: String(describing: potentialNavigationController.self), required: true)
+            return false
         }
 
         // To avoid overlapping dismiss & pop/push calls, create a transaction block where the menu
@@ -58,7 +62,7 @@ internal final class SideMenuPushCoordinator: Coordinator {
 
         if let lastViewController = navigationController.viewControllers.last,
             !config.allowPushOfSameClassTwice && type(of: lastViewController) == type(of: toViewController) {
-            return
+            return false
         }
 
         toViewController.navigationItem.hidesBackButton = config.pushStyle.hidesBackButton
@@ -66,32 +70,38 @@ internal final class SideMenuPushCoordinator: Coordinator {
         switch config.pushStyle {
 
         case .default:
-            break
+            navigationController.pushViewController(toViewController, animated: config.animated)
+            return true
 
+        // subMenu handled earlier
         case .subMenu:
-            navigationController = fromNavigationController
-            break
+            return false
 
         case .popWhenPossible:
             for subViewController in navigationController.viewControllers.reversed() {
                 if type(of: subViewController) == type(of: toViewController) {
                     navigationController.popToViewController(subViewController, animated: config.animated)
-                    return
+                    return true
                 }
             }
+            navigationController.pushViewController(toViewController, animated: config.animated)
+            return true
 
         case .preserve, .preserveAndHideBackButton:
             var viewControllers = navigationController.viewControllers
             let filtered = viewControllers.filter { preservedViewController in type(of: preservedViewController) == type(of: toViewController) }
-            guard let preservedViewController = filtered.last else { break }
+            guard let preservedViewController = filtered.last else {
+                navigationController.pushViewController(toViewController, animated: config.animated)
+                return true
+            }
             viewControllers = viewControllers.filter { subViewController in subViewController !== preservedViewController }
             viewControllers.append(preservedViewController)
-            return navigationController.setViewControllers(viewControllers, animated: config.animated)
+            navigationController.setViewControllers(viewControllers, animated: config.animated)
+            return true
 
         case .replace:
-            return navigationController.setViewControllers([toViewController], animated: config.animated)
+            navigationController.setViewControllers([toViewController], animated: config.animated)
+            return true
         }
-
-        navigationController.pushViewController(toViewController, animated: config.animated)
     }
 }
