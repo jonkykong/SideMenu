@@ -40,12 +40,6 @@ internal final class SideMenuPushCoordinator: Coordinator {
     func start() {
         guard let fromNavigationController = config.fromViewController as? UINavigationController else { return }
         let toViewController = config.toViewController
-        guard fromNavigationController.viewControllers.count > 0 else {
-            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
-            // so we must perform the normal super method in this case
-            return fromNavigationController.pushViewController(toViewController, animated: config.animated)
-        }
-
         let presentingViewController = fromNavigationController.presentingViewController
         let splitViewController = presentingViewController as? UISplitViewController
         let tabBarController = presentingViewController as? UITabBarController

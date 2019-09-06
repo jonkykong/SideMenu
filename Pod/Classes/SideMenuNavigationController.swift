@@ -294,6 +294,12 @@ open class SideMenuNavigationController: UINavigationController {
     }
     
     override open func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        guard viewControllers.count > 0 else {
+            // NOTE: pushViewController is called by init(rootViewController: UIViewController)
+            // so we must perform the normal super method in this case
+            return super.pushViewController(toViewController, animated: config.animated)
+        }
+
         var alongsideTransition: (() -> Void)? = nil
         if dismissOnPush {
             alongsideTransition = { [weak self] in
