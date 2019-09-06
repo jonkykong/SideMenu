@@ -20,7 +20,7 @@ internal extension UIView {
     }
 
     func bringToFront() {
-        self.superview?.bringSubviewToFront(self)
+        self.superview?.bringSubview(toFront: self)
     }
 
     func untransform(_ block: () -> Void) {
