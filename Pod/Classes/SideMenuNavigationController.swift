@@ -297,7 +297,7 @@ open class SideMenuNavigationController: UINavigationController {
         guard viewControllers.count > 0 else {
             // NOTE: pushViewController is called by init(rootViewController: UIViewController)
             // so we must perform the normal super method in this case
-            return super.pushViewController(toViewController, animated: config.animated)
+            return super.pushViewController(viewController, animated: animated)
         }
 
         var alongsideTransition: (() -> Void)? = nil
