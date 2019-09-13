@@ -12,15 +12,15 @@ extension NSObject: InitializableClass {}
 internal extension UIView {
 
     @discardableResult func untransformed(_ block: () -> CGFloat) -> CGFloat {
-        let transform = self.transform
-        self.transform = .identity
+        let t = self.transform
+        transform = .identity
         let value = block()
-        self.transform = transform
+        transform = t
         return value
     }
 
     func bringToFront() {
-        self.superview?.bringSubview(toFront: self)
+        superview?.bringSubviewToFront(self)
     }
 
     func untransform(_ block: () -> Void) {
@@ -31,10 +31,10 @@ internal extension UIView {
     }
 
     static func animationsEnabled(_ block: () -> Void) {
-        let areAnimationsEnabled = UIView.areAnimationsEnabled
-        UIView.setAnimationsEnabled(true)
+        let a = areAnimationsEnabled
+        setAnimationsEnabled(true)
         block()
-        UIView.setAnimationsEnabled(areAnimationsEnabled)
+        setAnimationsEnabled(a)
     }
 }
 
