@@ -111,7 +111,7 @@ Once you have your Swift package set up, adding SideMenu as a dependency is as e
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "6.0.0")
+    .package(url: "https://github.com/jonkykong/SideMenu.git", from: "6.0.0")
 ]
 ```
 
