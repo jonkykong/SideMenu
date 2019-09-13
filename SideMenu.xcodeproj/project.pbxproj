@@ -61,7 +61,7 @@
 		8432CC0122FFBCF4003D2BBD /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		8432CC0522FFBCF5003D2BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		849F7B67232104BD005DEB6A /* SideMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideMenu.h; path = "Pods/Target Support Files/SideMenu/SideMenu.h"; sourceTree = "<group>"; };
+		849F7B67232104BD005DEB6A /* SideMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideMenu.h; path = SideMenu/SideMenu.h; sourceTree = "<group>"; };
 		849F7B8823210C9A005DEB6A /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
 		849F7B8923210C9A005DEB6A /* SideMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuTransitionController.swift; path = Pod/Classes/SideMenuTransitionController.swift; sourceTree = "<group>"; };
 		849F7B8A23210C9A005DEB6A /* SideMenuAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuAnimationController.swift; path = Pod/Classes/SideMenuAnimationController.swift; sourceTree = "<group>"; };
