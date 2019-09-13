@@ -23,7 +23,7 @@ internal final class SideMenuInteractionController: UIPercentDrivenInteractiveTr
         self.completionCurve = completionCurve
 
         guard cancelWhenBackgrounded else { return }
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     override func cancel() {
@@ -57,7 +57,7 @@ private extension SideMenuInteractionController {
 
     @objc func handleNotification(notification: NSNotification) {
         switch notification.name {
-        case .UIApplicationDidEnterBackground:
+        case UIApplication.didEnterBackgroundNotification:
             cancel()
         default: break
         }

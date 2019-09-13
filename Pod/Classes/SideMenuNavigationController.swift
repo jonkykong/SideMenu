@@ -606,8 +606,8 @@ private extension SideMenuNavigationController {
     func registerForNotifications() {
         NotificationCenter.default.removeObserver(self)
 
-        [.UIApplicationWillChangeStatusBarFrame,
-         .UIApplicationDidEnterBackground].forEach {
+        [UIApplication.willChangeStatusBarFrameNotification,
+         UIApplication.didEnterBackgroundNotification].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: $0, object: nil)
         }
     }
@@ -616,12 +616,12 @@ private extension SideMenuNavigationController {
         guard isHidden else { return }
 
         switch notification.name {
-        case .UIApplicationWillChangeStatusBarFrame:
+        case UIApplication.willChangeStatusBarFrameNotification:
             // Dismiss for in-call status bar changes but not rotation
             if !rotating {
                 dismissMenu()
             }
-        case .UIApplicationDidEnterBackground:
+        case UIApplication.didEnterBackgroundNotification:
             if dismissWhenBackgrounded {
                 dismissMenu()
             }
