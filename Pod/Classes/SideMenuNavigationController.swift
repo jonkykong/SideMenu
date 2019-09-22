@@ -506,9 +506,9 @@ internal extension SideMenuNavigationController {
     }
 
     // Note: although this method is syntactically reversed it allows the interactive property to scoped privately
-    func presentFrom(_ viewControllerToPresentFrom: UIViewController?, interactively interactive: Bool, completion: (() -> Void)? = nil) {
+    func present(_ viewControllerToPresentFrom: UIViewController?, interactively: Bool, completion: (() -> Void)? = nil) {
         guard let viewControllerToPresentFrom = viewControllerToPresentFrom, transitioningDelegate != nil else { return }
-        transitionController?.interactive = interactive
+        transitionController?.interactive = interactively
         viewControllerToPresentFrom.present(self, animated: true, completion: completion)
     }
 }

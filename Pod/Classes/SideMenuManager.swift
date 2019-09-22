@@ -176,7 +176,7 @@ private extension SideMenuManager {
             }
 
             guard let menu = menu(forLeftSide: leftSide) else { return }
-            menu.presentFrom(activeViewController, interactively: true)
+            menu.present(activeViewController, interactively: true)
         }
 
         activeMenu?.handleMenuPan(gesture, true)
@@ -226,6 +226,6 @@ extension SideMenuManager: SideMenuNavigationControllerTransitionDelegate {
     internal func sideMenuTransitionDidDismiss(menu: Menu) {
         defer { switching = false }
         guard switching, let switchToMenu = self.menu(forLeftSide: !menu.leftSide) else { return }
-        switchToMenu.presentFrom(activeViewController, interactively: true)
+        switchToMenu.present(activeViewController, interactively: true)
     }
 }
