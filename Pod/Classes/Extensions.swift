@@ -40,17 +40,24 @@ internal extension UIView {
 
 internal extension UIViewController {
 
+    // View controller actively displayed in that layer. It may not be visible if it's presenting another view controller.
     var activeViewController: UIViewController {
         switch self {
         case let navigationController as UINavigationController:
-            return navigationController.visibleViewController?.activeViewController ?? self
+            return navigationController.topViewController?.activeViewController ?? self
         case let tabBarController as UITabBarController:
             return tabBarController.selectedViewController?.activeViewController ?? self
         case let splitViewController as UISplitViewController:
             return splitViewController.viewControllers.last?.activeViewController ?? self
         default:
-            return presentedViewController?.activeViewController ?? self
+            return self
         }
+    }
+
+    // View controller being displayed on screen to the user.
+    var topMostViewController: UIViewController {
+        let activeViewController = self.activeViewController
+        return activeViewController.presentingViewController?.topMostViewController ?? activeViewController
     }
 
     @objc var isHidden: Bool {

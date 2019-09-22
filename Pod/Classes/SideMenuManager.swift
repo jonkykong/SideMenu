@@ -176,7 +176,7 @@ private extension SideMenuManager {
             }
 
             guard let menu = menu(forLeftSide: leftSide) else { return }
-            menu.present(activeViewController, interactively: true)
+            menu.present(topMostViewController, interactively: true)
         }
 
         activeMenu?.handleMenuPan(gesture, true)
@@ -216,8 +216,8 @@ private extension SideMenuManager {
         return SideMenuPanGestureRecognizer(addTo: view, target: self, action: #selector(handlePresentMenuPan(_:)))
     }
 
-    var activeViewController: UIViewController? {
-        return UIApplication.shared.keyWindow?.rootViewController?.activeViewController
+    var topMostViewController: UIViewController? {
+        return UIApplication.shared.keyWindow?.rootViewController?.topMostViewController
     }
 }
 
@@ -226,6 +226,6 @@ extension SideMenuManager: SideMenuNavigationControllerTransitionDelegate {
     internal func sideMenuTransitionDidDismiss(menu: Menu) {
         defer { switching = false }
         guard switching, let switchToMenu = self.menu(forLeftSide: !menu.leftSide) else { return }
-        switchToMenu.present(activeViewController, interactively: true)
+        switchToMenu.present(topMostViewController, interactively: true)
     }
 }

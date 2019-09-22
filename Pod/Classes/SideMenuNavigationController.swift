@@ -243,7 +243,7 @@ open class SideMenuNavigationController: UINavigationController {
         // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
         // view, but dismissing without animation removes the container view before the original hierarchy is restored.
         // This check corrects that.
-        if let foundViewController = self.visibleViewController(from: presentingViewController), foundViewController.view.window == nil {
+        if let foundViewController = findViewController, foundViewController.view.window == nil {
             transitionController?.transition(presenting: false, animated: false)
         }
 
@@ -517,28 +517,13 @@ private extension SideMenuNavigationController {
 
     weak var activeDelegate: SideMenuNavigationControllerDelegate? {
         guard !view.isHidden else { return nil }
-        if let sideMenuDelegate = sideMenuDelegate {
-            return sideMenuDelegate
-        }
-        return visibleViewController(from: presentingViewController) as? SideMenuNavigationControllerDelegate
+        if let sideMenuDelegate = sideMenuDelegate { return sideMenuDelegate }
+        return findViewController as? SideMenuNavigationControllerDelegate
     }
 
-    func visibleViewController(from: UIViewController?) -> UIViewController? {
-        if let foundDelegate = foundViewController {
-            return foundDelegate
-        }
-        if let navigationController = from as? UINavigationController {
-            return visibleViewController(from: navigationController.topViewController)
-        }
-        if let tabBarController = from as? UITabBarController {
-            return visibleViewController(from: tabBarController.selectedViewController)
-        }
-        if let splitViewController = from as? UISplitViewController {
-            return visibleViewController(from: splitViewController.viewControllers.last)
-        }
-
-        foundViewController = from
-        return from
+    var findViewController: UIViewController? {
+        foundViewController = foundViewController ?? presentingViewController?.activeViewController
+        return foundViewController
     }
 
     func dismissAnimation(animated: Bool) {
