@@ -12,7 +12,7 @@ extension NSObject: InitializableClass {}
 internal extension UIView {
 
     @discardableResult func untransformed(_ block: () -> CGFloat) -> CGFloat {
-        let t = self.transform
+        let t = transform
         transform = .identity
         let value = block()
         transform = t
