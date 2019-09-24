@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yAA-s6-Bam">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yAA-s6-Bam">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
             <objects>
                 <navigationController id="yAA-s6-Bam" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Bue-4e-bCJ">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <gestureRecognizers/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -38,10 +36,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFJ-SB-Zp9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="571"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="591"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iBe-qv-i0y">
-                                        <rect key="frame" x="20" y="20" width="335" height="675"/>
+                                        <rect key="frame" x="20" y="20" width="335" height="681"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Presentation Style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efp-5L-qft">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
@@ -50,7 +48,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="KV2-tN-Aff">
-                                                <rect key="frame" x="0.0" y="28.5" width="335" height="29"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="335" height="32"/>
                                                 <segments>
                                                     <segment title="Slide In"/>
                                                     <segment title="Slide Out"/>
@@ -62,19 +60,19 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-iY-a5K">
-                                                <rect key="frame" x="0.0" y="64.5" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="67.5" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="oRw-Gi-ezT"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Blur Style" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHe-SA-S0e">
-                                                <rect key="frame" x="0.0" y="76.5" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="79.5" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="owH-AA-wgw">
-                                                <rect key="frame" x="0.0" y="105" width="335" height="29"/>
+                                                <rect key="frame" x="0.0" y="108" width="335" height="32"/>
                                                 <segments>
                                                     <segment title="None"/>
                                                     <segment title="Dark"/>
@@ -86,121 +84,121 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svy-p5-tiL">
-                                                <rect key="frame" x="0.0" y="141" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="147" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="wra-S3-qWU"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Start Alpha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRs-iN-9Ht">
-                                                <rect key="frame" x="0.0" y="153" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="159" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="pqT-4M-nw1">
-                                                <rect key="frame" x="-2" y="181.5" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="187.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Rfw-ZT-ziI"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3M-VQ-eCj">
-                                                <rect key="frame" x="0.0" y="219.5" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="225.5" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="RvV-Fo-ext"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Presenting End Alpha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmN-uG-ABp">
-                                                <rect key="frame" x="0.0" y="231.5" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="237.5" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="xlA-NK-mN4">
-                                                <rect key="frame" x="-2" y="260" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="266" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="ah6-OO-Zh9"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjn-LU-15M">
-                                                <rect key="frame" x="0.0" y="298" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="304" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="jLL-oP-eBj"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Shadow Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QC-6F-Xpx">
-                                                <rect key="frame" x="0.0" y="310" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="316" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Osf-2d-Znm">
-                                                <rect key="frame" x="-2" y="338.5" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="344.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="Vw7-lT-kal"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKX-Y9-C8e">
-                                                <rect key="frame" x="0.0" y="376.5" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="382.5" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="6m5-zX-BY6"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Screen Width" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snj-Mg-6ww">
-                                                <rect key="frame" x="0.0" y="388.5" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="394.5" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-r1-osR">
-                                                <rect key="frame" x="-2" y="417" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="423" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="QfP-ZL-gGs"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03z-3b-0TF">
-                                                <rect key="frame" x="0.0" y="455" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="461" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="Kf2-9J-fIV"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Scale Factor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-30-YHs">
-                                                <rect key="frame" x="0.0" y="467" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="473" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.001" minValue="0.001" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="Xp9-C5-Td1">
-                                                <rect key="frame" x="-2" y="495.5" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="501.5" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="lNd-9Z-lpP"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrH-kR-j43">
-                                                <rect key="frame" x="0.0" y="533.5" width="335" height="4"/>
+                                                <rect key="frame" x="0.0" y="539.5" width="335" height="4"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="4" id="9kG-hd-eZS"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Presenting Scale Factor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7p-7c-wlI">
-                                                <rect key="frame" x="0.0" y="545.5" width="335" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="551.5" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.001" minValue="0.001" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="Oso-tQ-0MO">
-                                                <rect key="frame" x="-2" y="574" width="339" height="31"/>
+                                                <rect key="frame" x="-2" y="580" width="339" height="31"/>
                                                 <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="changeControl:" destination="QHN-nZ-kbB" eventType="valueChanged" id="TuI-Au-hWY"/>
                                                 </connections>
                                             </slider>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMn-tw-NTB">
-                                                <rect key="frame" x="0.0" y="612" width="335" height="63"/>
+                                                <rect key="frame" x="0.0" y="618" width="335" height="63"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Fade Status Bar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtc-KE-FIO">
                                                         <rect key="frame" x="0.0" y="17.5" width="168.5" height="20.5"/>
@@ -236,7 +234,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="← Swipe Screen Edges in View →" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma4-O6-wOT">
-                                <rect key="frame" x="87.5" y="643" width="200.5" height="16"/>
+                                <rect key="frame" x="87" y="643" width="201.5" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -294,6 +292,7 @@
                 <navigationController storyboardIdentifier="LeftMenuNavigationController" navigationBarHidden="YES" id="DuX-EW-0mP" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ipz-Lx-Wgf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="35F-wh-r6h">
+                        <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
@@ -312,13 +311,13 @@
             <objects>
                 <tableViewController id="V6g-oO-Tbm" customClass="SideMenuTableViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dqh-bs-m2M">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="8" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="vVB-ag-TnU">
-                            <rect key="frame" x="0.0" y="132" width="375" height="0.0"/>
+                            <rect key="frame" x="0.0" y="188" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -326,14 +325,14 @@
                             <tableViewSection id="gP8-eA-dcW">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4WI-Ed-3Gr" style="IBUITableViewCellStyleDefault" id="7tx-O6-zAs" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7tx-O6-zAs" id="K0u-J2-Ab7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Push View Controller 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4WI-Ed-3Gr">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -347,14 +346,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="DpJ-hV-lmw" style="IBUITableViewCellStyleDefault" id="f9Q-QP-TZ6" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f9Q-QP-TZ6" id="i3p-Ya-AvO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Push View Controller 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DpJ-hV-lmw">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -368,14 +367,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="mAf-mx-C48" style="IBUITableViewCellStyleDefault" id="dc6-l8-0cu" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dc6-l8-0cu" id="gyo-JQ-fx5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Push View Controller 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mAf-mx-C48">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -407,7 +406,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="tWG-DO-ZIZ"/>
@@ -425,6 +424,7 @@
             <objects>
                 <navigationController storyboardIdentifier="RightMenuNavigationController" navigationBarHidden="YES" id="z7k-fk-pfc" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qOd-yQ-2i8">
+                        <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -440,12 +440,12 @@
             <objects>
                 <tableViewController id="Ol4-YR-KUL" customClass="SideMenuTableViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="49z-eA-JB7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="UXT-t2-k90">
-                            <rect key="frame" x="0.0" y="132" width="375" height="0.0"/>
+                            <rect key="frame" x="0.0" y="188" width="375" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -453,14 +453,14 @@
                             <tableViewSection id="xTE-WH-UeX">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="NLA-8t-ufi" style="IBUITableViewCellStyleDefault" id="8Ng-b4-4hH" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ng-b4-4hH" id="U5K-l9-XWv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Present View Controller 1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NLA-8t-ufi">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -474,14 +474,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IdU-2D-zHb" style="IBUITableViewCellStyleDefault" id="Eok-gX-LwQ" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eok-gX-LwQ" id="IOJ-bC-bNt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Present View Controller 2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IdU-2D-zHb">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -495,14 +495,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="6x7-O7-DkG" style="IBUITableViewCellStyleDefault" id="41i-KK-YM3" customClass="UITableViewVibrantCell" customModule="SideMenu">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="41i-KK-YM3" id="629-G3-Agl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Present View Controller 3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6x7-O7-DkG">
-                                                    <rect key="frame" x="15" y="0.0" width="344" height="43.5"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -534,11 +534,11 @@
             <objects>
                 <viewController id="uMV-sw-TbB" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="087-P6-J9s">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJh-vs-sd4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <state key="normal" title="Dismiss">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -573,11 +573,11 @@
             <objects>
                 <viewController id="Upx-FH-Mbv" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="efR-Hd-Gxy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKk-fD-whk">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <state key="normal" title="Dismiss">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -612,11 +612,11 @@
             <objects>
                 <viewController id="EG7-2X-5hP" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vac-ts-bf9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a17-pq-WAQ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <state key="normal" title="Dismiss">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -651,7 +651,7 @@
             <objects>
                 <viewController id="u7M-mb-V6o" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Dr-7n-COJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="hUi-v8-7VE"/>
@@ -669,7 +669,7 @@
             <objects>
                 <viewController id="b5t-IX-0yu" customClass="PresentedViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ias-bH-Sau">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="bHF-BB-8F0"/>

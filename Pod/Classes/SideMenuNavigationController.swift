@@ -542,7 +542,9 @@ private extension SideMenuNavigationController {
         modalPresentationStyle = .overFullScreen
 
         setupBlur()
-        registerForNotifications()
+        if #available(iOS 13.0, *) {} else {
+            registerForNotifications()
+        }
     }
 
     func setupBlur() {
@@ -588,6 +590,7 @@ private extension SideMenuNavigationController {
         }
     }
 
+    @available(iOS, deprecated: 13.0)
     func registerForNotifications() {
         NotificationCenter.default.removeObserver(self)
 
@@ -597,6 +600,7 @@ private extension SideMenuNavigationController {
         }
     }
 
+    @available(iOS, deprecated: 13.0)
     @objc func handleNotification(notification: NSNotification) {
         guard isHidden else { return }
 
