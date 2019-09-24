@@ -165,8 +165,9 @@ open class SideMenuNavigationController: UINavigationController {
     }
 
     public init(rootViewController: UIViewController, settings: SideMenuSettings = SideMenuSettings()) {
-        super.init(rootViewController: rootViewController)
         self.settings = settings
+        super.init(rootViewController: rootViewController)
+
         setup()
     }
 
