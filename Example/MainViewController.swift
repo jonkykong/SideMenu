@@ -34,7 +34,10 @@ class MainViewController: UIViewController {
         // Define the menus
         SideMenuManager.default.leftMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? SideMenuNavigationController
         SideMenuManager.default.rightMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "RightMenuNavigationController") as? SideMenuNavigationController
-        
+
+        SideMenuManager.default.leftMenuNavigationController?.sideMenuInteractionDelegate = self
+        SideMenuManager.default.rightMenuNavigationController?.sideMenuInteractionDelegate = self
+
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.default.addPanGestureToPresent(toView: navigationController!.navigationBar)
@@ -114,5 +117,24 @@ extension MainViewController: SideMenuNavigationControllerDelegate {
     
     func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
         print("SideMenu Disappeared! (animated: \(animated))")
+    }
+}
+
+extension MainViewController: SideMenuInteractionControllerDelegate {
+
+    func sideMenuDidBeginInteraction(menu: SideMenuNavigationController) {
+        print("SideMenu Began Interacting")
+    }
+
+    func sideMenuDidUpdateInteraction(menu: SideMenuNavigationController, progress: CGFloat) {
+        print("SideMenu Updated Interacting. Progress: \(progress)")
+    }
+
+    func sideMenuDidFinishInteraction(menu: SideMenuNavigationController) {
+        print("SideMenu Finished Interacting")
+    }
+
+    func sideMenuDidCancelInteraction(menu: SideMenuNavigationController) {
+        print("SideMenu Cancelled Interacting")
     }
 }

@@ -69,6 +69,13 @@ internal protocol MenuModel {
     @objc optional func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool)
 }
 
+@objc public protocol SideMenuInteractionControllerDelegate {
+    @objc optional func sideMenuDidBeginInteraction(menu: SideMenuNavigationController)
+    @objc optional func sideMenuDidFinishInteraction(menu: SideMenuNavigationController)
+    @objc optional func sideMenuDidCancelInteraction(menu: SideMenuNavigationController)
+    @objc optional func sideMenuDidUpdateInteraction(menu: SideMenuNavigationController, progress: CGFloat)
+}
+
 internal protocol SideMenuNavigationControllerTransitionDelegate: class {
     func sideMenuTransitionDidDismiss(menu: Menu)
 }
@@ -127,6 +134,7 @@ open class SideMenuNavigationController: UINavigationController {
 
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `SideMenuNavigationController` automatically receives these events.
     public weak var sideMenuDelegate: SideMenuNavigationControllerDelegate?
+    public weak var sideMenuInteractionDelegate: SideMenuInteractionControllerDelegate?
 
     /// The swipe to dismiss gesture.
     open private(set) weak var swipeToDismissGesture: UIPanGestureRecognizer? = nil
@@ -480,23 +488,34 @@ internal extension SideMenuNavigationController {
         let progress = max(min(distance * factor(presenting), 1), 0)
         switch (gesture.state) {
         case .began:
+            sideMenuInteractionDelegate?.sideMenuDidBeginInteraction?(menu: self)
             if !presenting {
                 dismissMenu(interactively: true)
             }
             transitionController?.handle(state: .update(progress: progress))
+            sideMenuInteractionDelegate?.sideMenuDidUpdateInteraction?(menu: self, progress: progress)
         case .changed:
             transitionController?.handle(state: .update(progress: progress))
+            sideMenuInteractionDelegate?.sideMenuDidUpdateInteraction?(menu: self, progress: progress)
         case .ended:
             let velocity = gesture.xVelocity * factor(presenting)
             let finished = velocity >= 100 || velocity >= -50 && abs(progress) >= 0.5
             transitionController?.handle(state: finished ? .finish : .cancel)
+            if finished {
+              sideMenuInteractionDelegate?.sideMenuDidFinishInteraction?(menu: self)
+            }
+            else {
+              sideMenuInteractionDelegate?.sideMenuDidCancelInteraction?(menu: self)
+            }
         default:
             transitionController?.handle(state: .cancel)
+            sideMenuInteractionDelegate?.sideMenuDidCancelInteraction?(menu: self)
         }
     }
 
     func cancelMenuPan(_ gesture: UIPanGestureRecognizer) {
         transitionController?.handle(state: .cancel)
+        sideMenuInteractionDelegate?.sideMenuDidCancelInteraction?(menu: self)
     }
 
     func dismissMenu(animated flag: Bool = true, interactively interactive: Bool = false, completion: (() -> Void)? = nil) {
