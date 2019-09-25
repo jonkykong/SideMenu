@@ -30,6 +30,7 @@ internal final class SideMenuPresentationController {
     private let config: PresentationModel
     private unowned var containerView: UIView
     private var interactivePopGestureRecognizerEnabled: Bool?
+    private var clipsToBounds: Bool?
     private let leftSide: Bool
     private weak var originalSuperview: UIView?
     private unowned var presentedViewController: UIViewController
@@ -190,9 +191,7 @@ internal final class SideMenuPresentationController {
         statusBarView?.removeFromSuperview()
         presentedViewController.view.removeFromSuperview()
 
-        presentingViewController.view.motionEffects.removeAll()
-        presentingViewController.view.layer.shadowOpacity = 0
-        presentedViewController.view.layer.shadowOpacity = 0
+        removeStyles(from: presentingViewController.containerViewController.view)
         
         if let interactivePopGestureRecognizerEnabled = interactivePopGestureRecognizerEnabled,
             let topNavigationController = presentingViewController as? UINavigationController {
@@ -240,6 +239,8 @@ private extension SideMenuPresentationController {
         view.layer.shadowRadius = config.presentationStyle.onTopShadowRadius
         view.layer.shadowOpacity = config.presentationStyle.onTopShadowOpacity
         view.layer.shadowOffset = config.presentationStyle.onTopShadowOffset
+        clipsToBounds = clipsToBounds ?? view.clipsToBounds
+        view.clipsToBounds = false
     }
 
     func addParallax(to view: UIView) {
@@ -267,5 +268,13 @@ private extension SideMenuPresentationController {
             view.motionEffects.removeAll()
             view.addMotionEffect(group)
         }
+    }
+
+    func removeStyles(from view: UIView) {
+        view.motionEffects.removeAll()
+        view.layer.shadowOpacity = 0
+        view.layer.shadowOpacity = 0
+        view.clipsToBounds = clipsToBounds ?? true
+        clipsToBounds = false
     }
 }

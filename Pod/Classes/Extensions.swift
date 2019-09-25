@@ -60,6 +60,13 @@ internal extension UIViewController {
         return activeViewController.presentingViewController?.topMostViewController ?? activeViewController
     }
 
+    var containerViewController: UIViewController {
+        return navigationController?.containerViewController ??
+            tabBarController?.containerViewController ??
+            splitViewController?.containerViewController ??
+            self
+    }
+
     @objc var isHidden: Bool {
         return presentingViewController == nil
     }
