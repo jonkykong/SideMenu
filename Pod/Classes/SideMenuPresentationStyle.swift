@@ -10,46 +10,46 @@ import UIKit
 @objcMembers
 open class SideMenuPresentationStyle: InitializableClass {
     /// Background color behind the views and status bar color
-    public var backgroundColor: UIColor = .black
+    open var backgroundColor: UIColor = .black
     /// The starting alpha value of the menu before it appears
-    public var menuStartAlpha: CGFloat = 1
+    open var menuStartAlpha: CGFloat = 1
     /// Whether or not the menu is on top. If false, the presenting view is on top. Shadows are applied to the view on top.
-    public var menuOnTop: Bool = false
+    open var menuOnTop: Bool = false
     /// The amount the menu is translated along the x-axis. Zero is stationary, negative values are off-screen, positive values are on screen.
-    public var menuTranslateFactor: CGFloat = 0
+    open var menuTranslateFactor: CGFloat = 0
     /// The amount the menu is scaled. Less than one shrinks the view, larger than one grows the view.
-    public var menuScaleFactor: CGFloat = 1
+    open var menuScaleFactor: CGFloat = 1
     /// The color of the shadow applied to the top most view.
-    public var onTopShadowColor: UIColor = .black
+    open var onTopShadowColor: UIColor = .black
     /// The radius of the shadow applied to the top most view.
-    public var onTopShadowRadius: CGFloat = 5
+    open var onTopShadowRadius: CGFloat = 5
     /// The opacity of the shadow applied to the top most view.
-    public var onTopShadowOpacity: Float = 0
+    open var onTopShadowOpacity: Float = 0
     /// The offset of the shadow applied to the top most view.
-    public var onTopShadowOffset: CGSize = .zero
+    open var onTopShadowOffset: CGSize = .zero
     /// The ending alpha of the presenting view when the menu is fully displayed.
-    public var presentingEndAlpha: CGFloat = 1
+    open var presentingEndAlpha: CGFloat = 1
     /// The amount the presenting view is translated along the x-axis. Zero is stationary, negative values are off-screen, positive values are on screen.
-    public var presentingTranslateFactor: CGFloat = 0
+    open var presentingTranslateFactor: CGFloat = 0
     /// The amount the presenting view is scaled. Less than one shrinks the view, larger than one grows the view.
-    public var presentingScaleFactor: CGFloat = 1
+    open var presentingScaleFactor: CGFloat = 1
     /// The strength of the parallax effect on the presenting view once the menu is displayed.
-    public var presentingParallaxStrength: CGSize = .zero
+    open var presentingParallaxStrength: CGSize = .zero
 
     required public init() {}
 
     /// This method is called just before the presentation transition begins. Use this to setup any animations. The super method does not need to be called.
-    func presentationTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    open func presentationTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
     /// This method is called during the presentation animation. Use this to animate anything alongside the menu animation. The super method does not need to be called.
-    func presentationTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    open func presentationTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
     /// This method is called when the presentation transition ends. Use this to finish any animations. The super method does not need to be called.
-    func presentationTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
+    open func presentationTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
     /// This method is called just before the dismissal transition begins. Use this to setup any animations. The super method does not need to be called.
-    func dismissalTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    open func dismissalTransitionWillBegin(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
     /// This method is called during the dismissal animation. Use this to animate anything alongside the menu animation. The super method does not need to be called.
-    func dismissalTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
+    open func dismissalTransition(to presentedViewController: UIViewController, from presentingViewController: UIViewController) {}
     /// This method is called when the dismissal transition ends. Use this to finish any animations. The super method does not need to be called.
-    func dismissalTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
+    open func dismissalTransitionDidEnd(to presentedViewController: UIViewController, from presentingViewController: UIViewController, _ completed: Bool) {}
 }
 
 public extension SideMenuPresentationStyle {
