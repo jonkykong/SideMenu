@@ -57,7 +57,7 @@ internal extension UIViewController {
     // View controller being displayed on screen to the user.
     var topMostViewController: UIViewController {
         let activeViewController = self.activeViewController
-        return activeViewController.presentingViewController?.topMostViewController ?? activeViewController
+        return activeViewController.presentedViewController?.topMostViewController ?? activeViewController
     }
 
     var containerViewController: UIViewController {
