@@ -17,9 +17,6 @@ class ExampleTests: XCTestCase {
     private var mainViewController: XCUIElement {
         return app.navigationBars[swipeHere]
     }
-    private var mainViewControllerNavigation: XCUIElement {
-        return mainViewController.otherElements[swipeHere]
-    }
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -55,19 +52,18 @@ class ExampleTests: XCTestCase {
             mainViewController.buttons["Right Menu"].tap()
             app.tables/*@START_MENU_TOKEN@*/.staticTexts["Present View Controller 1"]/*[[".cells.staticTexts[\"Present View Controller 1\"]",".staticTexts[\"Present View Controller 1\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
             app.buttons["Dismiss"].tap()
+            mainViewController.tap()
             validate()
         }
     }
 
     func testSwiping() {
-        mainViewControllerNavigation.swipeRight()
-        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element
-        element.swipeLeft()
+        mainViewController.swipeRight()
+        mainViewController.swipeLeft()
         validate()
 
-        element.swipeLeft()
-        mainViewControllerNavigation.swipeLeft()
-        element.swipeRight()
+        mainViewController.swipeLeft()
+        mainViewController.swipeRight()
         validate()
     }
 
