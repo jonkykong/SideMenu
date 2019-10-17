@@ -97,6 +97,7 @@ internal final class SideMenuPresentationController {
         } else {
             statusBarFrame = UIApplication.shared.statusBarFrame
         }
+        var statusBarFrame: CGRect = self.statusBarFrame
 
         // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
         // of view and set height to fill in remaining space.
@@ -205,6 +206,14 @@ internal final class SideMenuPresentationController {
 }
 
 private extension SideMenuPresentationController {
+
+    var statusBarFrame: CGRect {
+        if #available(iOS 13.0, *) {
+            return containerView.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+        } else {
+            return UIApplication.shared.statusBarFrame
+        }
+    }
 
     func transition(to: UIViewController, from: UIViewController, alpha: CGFloat, statusBarAlpha: CGFloat, scale: CGFloat, translate: CGFloat) {
         containerViewWillLayoutSubviews()

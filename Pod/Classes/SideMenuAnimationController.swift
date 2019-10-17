@@ -83,13 +83,14 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
 
     func transition(presenting: Bool, animated: Bool = true, interactive: Bool = false, alongsideTransition: (() -> Void)? = nil, complete: Bool = true, completion: ((Bool) -> Void)? = nil) {
         transitionWillBegin(presenting: presenting)
-        transition(presenting: presenting,
-                   animated: animated,
-                   interactive: interactive,
-                   animations: { [weak self] in
-                    guard let self = self else { return }
-                    self.transition(presenting: presenting)
-                    alongsideTransition?()
+        transition(
+            presenting: presenting,
+            animated: animated,
+            interactive: interactive,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.transition(presenting: presenting)
+                alongsideTransition?()
             }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 if complete {
@@ -136,23 +137,23 @@ private extension SideMenuAnimationController {
         } else {
             presentationController.dismissalTransitionDidEnd(completed)
         }
-
         containerView?.isUserInteractionEnabled = true
     }
 
     func transition(using transitionContext: UIViewControllerContextTransitioning) {
         transitionWillBegin(presenting: transitionContext.isPresenting)
-        transition(presenting: transitionContext.isPresenting,
-                   animated: transitionContext.isAnimated,
-                   interactive: transitionContext.isInteractive,
-                   animations: { [weak self] in
-                    guard let self = self else { return }
-                    self.transition(presenting: transitionContext.isPresenting)
+        transition(
+            presenting: transitionContext.isPresenting,
+            animated: transitionContext.isAnimated,
+            interactive: transitionContext.isInteractive,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.transition(presenting: transitionContext.isPresenting)
         }, completion: { [weak self] _ in
-                    guard let self = self else { return }
-                    let completed = !transitionContext.transitionWasCancelled
-                    self.transitionDidEnd(presenting: transitionContext.isPresenting, completed: completed)
-                    transitionContext.completeTransition(completed)
+            guard let self = self else { return }
+            let completed = !transitionContext.transitionWasCancelled
+            self.transitionDidEnd(presenting: transitionContext.isPresenting, completed: completed)
+            transitionContext.completeTransition(completed)
         })
     }
 
