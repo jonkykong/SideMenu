@@ -1,5 +1,5 @@
 framework module Pods_Example {
-  umbrella header "Pods-Example.h"
+  umbrella header "Pods-Example-umbrella.h"
 
   export *
   module * { export * }

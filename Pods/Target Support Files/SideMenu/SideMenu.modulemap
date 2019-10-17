@@ -1,5 +1,5 @@
 framework module SideMenu {
-  umbrella header "SideMenu.h"
+  umbrella header "SideMenu-umbrella.h"
 
   export *
   module * { export * }
