@@ -151,7 +151,6 @@ private extension SideMenuManager {
             let width = activeMenu.menuWidth
             let distance = gesture.xTranslation / width
             switch (gesture.state) {
-            case .began: break
             case .changed:
                 if gesture.canSwitch {
                     switching = (distance > 0 && !activeMenu.leftSide) || (distance < 0 && activeMenu.leftSide)
