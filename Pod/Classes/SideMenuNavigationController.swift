@@ -124,6 +124,7 @@ open class SideMenuNavigationController: UINavigationController {
     private var originalBackgroundColor: UIColor?
     private var rotating: Bool = false
     private var transitionController: SideMenuTransitionController?
+    private var transitionInteractive: Bool = false
 
     /// Delegate for receiving appear and disappear related events. If `nil` the visible view controller that displays a `SideMenuNavigationController` automatically receives these events.
     public weak var sideMenuDelegate: SideMenuNavigationControllerDelegate?
@@ -211,9 +212,7 @@ open class SideMenuNavigationController: UINavigationController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        defer {
-            activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated)
-        }
+        defer { activeDelegate?.sideMenuWillDisappear?(menu: self, animated: animated) }
 
         guard !isBeingDismissed else { return }
 
@@ -243,7 +242,7 @@ open class SideMenuNavigationController: UINavigationController {
         // the view hierarchy leaving the screen black/empty. This is because the transition moves views within a container
         // view, but dismissing without animation removes the container view before the original hierarchy is restored.
         // This check corrects that.
-        if let foundViewController = findViewController, foundViewController.view.window == nil {
+        if isBeingDismissed {
             transitionController?.transition(presenting: false, animated: false)
         }
 
@@ -328,6 +327,8 @@ open class SideMenuNavigationController: UINavigationController {
         get {
             transitionController = transitionController ?? SideMenuTransitionController(leftSide: leftSide, config: settings)
             transitionController?.delegate = self
+            transitionController?.interactive = transitionInteractive
+            transitionInteractive = false
             return transitionController
         }
         set { Print.warning(.transitioningDelegate, required: true) }
@@ -499,17 +500,17 @@ internal extension SideMenuNavigationController {
         transitionController?.handle(state: .cancel)
     }
 
-    func dismissMenu(animated flag: Bool = true, interactively interactive: Bool = false, completion: (() -> Void)? = nil) {
+    func dismissMenu(animated flag: Bool = true, interactively: Bool = false, completion: (() -> Void)? = nil) {
         guard !isHidden else { return }
-        transitionController?.interactive = interactive
+        transitionInteractive = interactively
         dismiss(animated: flag, completion: completion)
     }
 
     // Note: although this method is syntactically reversed it allows the interactive property to scoped privately
-    func present(_ viewControllerToPresentFrom: UIViewController?, interactively: Bool, completion: (() -> Void)? = nil) {
-        guard let viewControllerToPresentFrom = viewControllerToPresentFrom, transitioningDelegate != nil else { return }
-        transitionController?.interactive = interactively
-        viewControllerToPresentFrom.present(self, animated: true, completion: completion)
+    func present(from viewController: UIViewController?, interactively: Bool, completion: (() -> Void)? = nil) {
+        guard let viewController = viewController else { return }
+        transitionInteractive = interactively
+        viewController.present(self, animated: true, completion: completion)
     }
 }
 

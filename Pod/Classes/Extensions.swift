@@ -30,9 +30,9 @@ internal extension UIView {
         }
     }
 
-    static func animationsEnabled(_ block: () -> Void) {
+    static func animationsEnabled(_ enabled: Bool = true, _ block: () -> Void) {
         let a = areAnimationsEnabled
-        setAnimationsEnabled(true)
+        setAnimationsEnabled(enabled)
         block()
         setAnimationsEnabled(a)
     }
