@@ -72,32 +72,19 @@ internal final class SideMenuPresentationController {
         dismissalTransitionDidEnd(true)
     }
     
-    var frameOfPresentedViewInContainerView: CGRect {
-        var rect = containerView.frame
-        rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
-        rect.size.width = config.menuWidth
-        return rect
-    }
-    
     func containerViewWillLayoutSubviews() {
         presentedViewController.view.untransform {
             presentedViewController.view.frame = frameOfPresentedViewInContainerView
         }
         presentingViewController.view.untransform {
-            presentingViewController.view.frame = containerView.frame
-            snapshotView?.frame = containerView.frame
+            presentingViewController.view.frame = frameOfPresentingViewInContainerView
+            snapshotView?.frame = presentingViewController.view.bounds
         }
 
         guard let statusBarView = statusBarView else { return }
-        let statusBarOffset = containerView.frame.size.height - presentedViewController.view.bounds.height
+
         var statusBarFrame: CGRect = self.statusBarFrame
-
-        // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
-        // of view and set height to fill in remaining space.
-        if statusBarOffset >= CGFloat.ulpOfOne {
-            statusBarFrame.size.height = statusBarOffset
-        }
-
+        statusBarFrame.size.height -= containerView.frame.minY
         statusBarView.frame = statusBarFrame
     }
     
@@ -200,6 +187,23 @@ private extension SideMenuPresentationController {
         } else {
             return UIApplication.shared.statusBarFrame
         }
+    }
+
+    var frameOfPresentedViewInContainerView: CGRect {
+        var rect = containerView.bounds
+        rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
+        rect.size.width = config.menuWidth
+        return rect
+    }
+
+    var frameOfPresentingViewInContainerView: CGRect {
+        var rect = containerView.frame
+        if containerView.superview != nil, containerView.frame.minY > .ulpOfOne {
+            let statusBarOffset = statusBarFrame.height - rect.minY
+            rect.origin.y = statusBarOffset
+            rect.size.height -= statusBarOffset
+        }
+        return rect
     }
 
     func transition(to: UIViewController, from: UIViewController, alpha: CGFloat, statusBarAlpha: CGFloat, scale: CGFloat, translate: CGFloat) {
