@@ -32,7 +32,6 @@ internal final class SideMenuPresentationController {
     private var interactivePopGestureRecognizerEnabled: Bool?
     private var clipsToBounds: Bool?
     private let leftSide: Bool
-    private weak var originalSuperview: UIView?
     private unowned var presentedViewController: UIViewController
     private unowned var presentingViewController: UIViewController
 
@@ -109,10 +108,6 @@ internal final class SideMenuPresentationController {
 
         presentingViewController.view.isUserInteractionEnabled = config.presentingViewControllerUserInteractionEnabled
         containerView.backgroundColor = config.presentationStyle.backgroundColor
-
-        originalSuperview = presentingViewController.view.superview
-        containerView.addSubview(presentingViewController.view)
-        containerView.addSubview(presentedViewController.view)
         
         layerViews()
 
@@ -184,7 +179,6 @@ internal final class SideMenuPresentationController {
         }
 
         statusBarView?.removeFromSuperview()
-        presentedViewController.view.removeFromSuperview()
 
         removeStyles(from: presentingViewController.containerViewController.view)
         
@@ -193,7 +187,6 @@ internal final class SideMenuPresentationController {
             topNavigationController.interactivePopGestureRecognizer?.isEnabled = interactivePopGestureRecognizerEnabled
         }
 
-        originalSuperview?.addSubview(presentingViewController.view)
         presentingViewController.view.isUserInteractionEnabled = true
         config.presentationStyle.dismissalTransitionDidEnd(to: presentedViewController, from: presentingViewController, completed)
     }

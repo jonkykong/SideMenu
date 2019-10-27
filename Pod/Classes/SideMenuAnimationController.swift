@@ -34,6 +34,7 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
     private var config: Model
     private weak var containerView: UIView?
     private let leftSide: Bool
+    private weak var originalSuperview: UIView?
     private var presentationController: SideMenuPresentationController!
     private unowned var presentedViewController: UIViewController?
     private unowned var presentingViewController: UIViewController?
@@ -82,6 +83,7 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
     }
 
     func transition(presenting: Bool, animated: Bool = true, interactive: Bool = false, alongsideTransition: (() -> Void)? = nil, complete: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        prepare(presenting: presenting)
         transitionWillBegin(presenting: presenting)
         transition(
             presenting: presenting,
@@ -95,6 +97,7 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
                 guard let self = self else { return }
                 if complete {
                     self.transitionDidEnd(presenting: presenting, completed: true)
+                    self.finish(presenting: presenting, completed: true)
                 }
                 completion?(true)
         })
@@ -112,10 +115,21 @@ private extension SideMenuAnimationController {
         return presenting ? config.presentDuration : config.dismissDuration
     }
 
+    func prepare(presenting: Bool) {
+        guard
+            presenting,
+            let presentingViewController = presentingViewController,
+            let presentedViewController = presentedViewController
+            else { return }
+
+        originalSuperview = presentingViewController.view.superview
+        containerView?.addSubview(presentingViewController.view)
+        containerView?.addSubview(presentedViewController.view)
+    }
+
     func transitionWillBegin(presenting: Bool) {
         // prevent any other menu gestures from firing
         containerView?.isUserInteractionEnabled = false
-
         if presenting {
             presentationController.presentationTransitionWillBegin()
         } else {
@@ -140,7 +154,17 @@ private extension SideMenuAnimationController {
         containerView?.isUserInteractionEnabled = true
     }
 
+    func finish(presenting: Bool, completed: Bool) {
+        guard
+            presenting != completed,
+            let presentingViewController = self.presentingViewController
+            else { return }
+        presentedViewController?.view.removeFromSuperview()
+        originalSuperview?.addSubview(presentingViewController.view)
+    }
+
     func transition(using transitionContext: UIViewControllerContextTransitioning) {
+        prepare(presenting: transitionContext.isPresenting)
         transitionWillBegin(presenting: transitionContext.isPresenting)
         transition(
             presenting: transitionContext.isPresenting,
@@ -153,6 +177,9 @@ private extension SideMenuAnimationController {
             guard let self = self else { return }
             let completed = !transitionContext.transitionWasCancelled
             self.transitionDidEnd(presenting: transitionContext.isPresenting, completed: completed)
+            self.finish(presenting: transitionContext.isPresenting, completed: completed)
+
+            // Called last. This causes the transition container to be removed and animationEnded() to be called.
             transitionContext.completeTransition(completed)
         })
     }
