@@ -484,7 +484,7 @@ internal extension SideMenuNavigationController {
             if !presenting {
                 dismissMenu(interactively: true)
             }
-            transitionController?.handle(state: .update(progress: progress))
+            fallthrough
         case .changed:
             transitionController?.handle(state: .update(progress: progress))
         case .ended:
