@@ -325,7 +325,8 @@ open class SideMenuNavigationController: UINavigationController {
 
     override open var transitioningDelegate: UIViewControllerTransitioningDelegate? {
         get {
-            transitionController = transitionController ?? SideMenuTransitionController(leftSide: leftSide, config: settings)
+            guard transitionController == nil else { return transitionController }
+            transitionController = SideMenuTransitionController(leftSide: leftSide, config: settings)
             transitionController?.delegate = self
             transitionController?.interactive = transitionInteractive
             transitionInteractive = false
@@ -502,7 +503,7 @@ internal extension SideMenuNavigationController {
 
     func dismissMenu(animated flag: Bool = true, interactively: Bool = false, completion: (() -> Void)? = nil) {
         guard !isHidden else { return }
-        transitionInteractive = interactively
+        transitionController?.interactive = interactively
         dismiss(animated: flag, completion: completion)
     }
 
