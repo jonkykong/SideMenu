@@ -200,7 +200,6 @@ open class SideMenuNavigationController: UINavigationController {
 
         // We had presented a view before, so lets dismiss ourselves as already acted upon
         if view.isHidden {
-            transitionController?.transition(presenting: false, animated: false)
             dismiss(animated: false, completion: { [weak self] in
                 self?.view.isHidden = false
             })
