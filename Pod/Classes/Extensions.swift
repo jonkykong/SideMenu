@@ -75,8 +75,7 @@ internal extension UIViewController {
 internal extension UIGestureRecognizer {
 
     convenience init(addTo view: UIView, target: Any, action: Selector) {
-        self.init()
-        addTarget(target, action: action)
+        self.init(target: target, action: action)
         view.addGestureRecognizer(self)
     }
 
