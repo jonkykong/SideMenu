@@ -147,7 +147,7 @@ internal final class SideMenuPresentationController {
         addParallax(to: presentingViewController.view)
         
         if let topNavigationController = presentingViewController as? UINavigationController {
-            interactivePopGestureRecognizerEnabled = topNavigationController.interactivePopGestureRecognizer?.isEnabled
+            interactivePopGestureRecognizerEnabled = interactivePopGestureRecognizerEnabled ?? topNavigationController.interactivePopGestureRecognizer?.isEnabled
             topNavigationController.interactivePopGestureRecognizer?.isEnabled = false
         }
 
