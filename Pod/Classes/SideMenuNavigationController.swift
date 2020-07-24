@@ -98,7 +98,7 @@ public struct SideMenuSettings: Model, InitializableStruct {
     public var presentDuration: Double = 0.35
     public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
     public var pushStyle: SideMenuPushStyle = .default
-    public var statusBarEndAlpha: CGFloat = 1
+    public var statusBarEndAlpha: CGFloat = 0
     public var usingSpringWithDamping: CGFloat = 1
 
     public init() {}

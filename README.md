@@ -261,8 +261,8 @@ var presentationStyle: SideMenuPresentStyle = .viewSlideOut
  - subMenu: Unlike all other behaviors that push using the menu's presentingViewController, this behavior pushes view controllers within the menu.  Use this behavior if you want to display a sub menu.
  */
 var pushStyle: MenuPushStyle = .default
-/// Draws `presentationStyle.backgroundColor` behind the status bar. Default is 1.
-var statusBarEndAlpha: CGFloat = 1
+/// Draws `presentationStyle.backgroundColor` behind the status bar. Default is 0.
+var statusBarEndAlpha: CGFloat = 0
 /// The animation spring damping when a menu is displayed. Ignored when displayed with a gesture.
 var usingSpringWithDamping: CGFloat = 1
 /// Indicates if the menu is anywhere in the view hierarchy, even if covered by another view controller.

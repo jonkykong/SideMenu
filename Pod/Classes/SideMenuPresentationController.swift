@@ -46,7 +46,7 @@ internal final class SideMenuPresentationController {
     }()
 
     private lazy var statusBarView: UIView? = {
-        guard config.statusBarEndAlpha != 0 else { return nil }
+        guard config.statusBarEndAlpha > .leastNonzeroMagnitude else { return nil }
 
         return UIView {
             $0.backgroundColor = config.presentationStyle.backgroundColor
