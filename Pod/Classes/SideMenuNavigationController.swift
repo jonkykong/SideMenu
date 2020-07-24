@@ -244,7 +244,7 @@ open class SideMenuNavigationController: UINavigationController {
             transitionController?.transition(presenting: false, animated: false)
         }
 
-        // Clear selecton on UITableViewControllers when reappearing using custom transitions
+        // Clear selection on UITableViewControllers when reappearing using custom transitions
         if let tableViewController = topViewController as? UITableViewController,
             let tableView = tableViewController.tableView,
             let indexPaths = tableView.indexPathsForSelectedRows,
