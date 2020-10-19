@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7B48A0D21DCB2487002990A1"
-               BuildableName = "Example.app"
-               BlueprintName = "Example"
+               BuildableName = "Example (UIKit).app"
+               BlueprintName = "Example (UIKit)"
                ReferencedContainer = "container:SideMenu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7B48A0D21DCB2487002990A1"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BuildableName = "Example (UIKit).app"
+            BlueprintName = "Example (UIKit)"
             ReferencedContainer = "container:SideMenu.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8432CC0022FFBCF4003D2BBD"
-               BuildableName = "ExampleTests.xctest"
-               BlueprintName = "ExampleTests"
+               BuildableName = "Example (UIKit) Tests.xctest"
+               BlueprintName = "Example (UIKit) Tests"
                ReferencedContainer = "container:SideMenu.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -78,8 +78,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7B48A0D21DCB2487002990A1"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BuildableName = "Example (UIKit).app"
+            BlueprintName = "Example (UIKit)"
             ReferencedContainer = "container:SideMenu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -95,8 +95,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7B48A0D21DCB2487002990A1"
-            BuildableName = "Example.app"
-            BlueprintName = "Example"
+            BuildableName = "Example (UIKit).app"
+            BlueprintName = "Example (UIKit)"
             ReferencedContainer = "container:SideMenu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
