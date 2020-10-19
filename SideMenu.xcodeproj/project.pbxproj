@@ -207,7 +207,7 @@
 			name = Source;
 			sourceTree = "<group>";
 		};
-		7B48A0D41DCB2487002990A1 /* Example */ = {
+		7B48A0D41DCB2487002990A1 /* SideMenu (UIKit) */ = {
 			isa = PBXGroup;
 			children = (
 				65FF1B391DE31DA3007B0845 /* SupportingFiles */,
@@ -218,7 +218,7 @@
 				7B552D5C1DCC65830010301C /* Launch Screen.storyboard */,
 				7B5FA9B51DCB269700278DF6 /* Main.storyboard */,
 			);
-			path = Example;
+			path = "SideMenu (UIKit)";
 			sourceTree = "<group>";
 		};
 		7B9DC8FA1DC6E8C1000D4007 = {
@@ -226,11 +226,11 @@
 			children = (
 				65FF1B3F1DE33097007B0845 /* Source */,
 				84B489B81DD469B900D6CB43 /* Podspec Metadata */,
-				7B48A0D41DCB2487002990A1 /* Example */,
-				8432CC0222FFBCF5003D2BBD /* ExampleTests */,
+				7B48A0D41DCB2487002990A1 /* SideMenu (UIKit) */,
+				8432CC0222FFBCF5003D2BBD /* SideMenu (UIKit) UITests */,
 				84C6120B253E24FB00C0E38E /* SideMenu (SwiftUI) */,
-				84C6121D253E24FE00C0E38E /* SideMenu (SwiftUI)Tests */,
-				84C61228253E24FE00C0E38E /* SideMenu (SwiftUI)UITests */,
+				84C6121D253E24FE00C0E38E /* SideMenu (SwiftUI) Tests */,
+				84C61228253E24FE00C0E38E /* SideMenu (SwiftUI) UITests */,
 				7B9DC9051DC6E8C1000D4007 /* Products */,
 				9FB98148377EAEC00E35AC14 /* Pods */,
 				84FFB98323556BD900E241DA /* Frameworks */,
@@ -250,13 +250,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8432CC0222FFBCF5003D2BBD /* ExampleTests */ = {
+		8432CC0222FFBCF5003D2BBD /* SideMenu (UIKit) UITests */ = {
 			isa = PBXGroup;
 			children = (
 				8432CC0322FFBCF5003D2BBD /* ExampleTests.swift */,
 				8432CC0522FFBCF5003D2BBD /* Info.plist */,
 			);
-			path = ExampleTests;
+			path = "SideMenu (UIKit) UITests";
 			sourceTree = "<group>";
 		};
 		84B489B81DD469B900D6CB43 /* Podspec Metadata */ = {
@@ -289,22 +289,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		84C6121D253E24FE00C0E38E /* SideMenu (SwiftUI)Tests */ = {
+		84C6121D253E24FE00C0E38E /* SideMenu (SwiftUI) Tests */ = {
 			isa = PBXGroup;
 			children = (
 				84C6121E253E24FE00C0E38E /* SideMenu__SwiftUI_Tests.swift */,
 				84C61220253E24FE00C0E38E /* Info.plist */,
 			);
-			path = "SideMenu (SwiftUI)Tests";
+			path = "SideMenu (SwiftUI) Tests";
 			sourceTree = "<group>";
 		};
-		84C61228253E24FE00C0E38E /* SideMenu (SwiftUI)UITests */ = {
+		84C61228253E24FE00C0E38E /* SideMenu (SwiftUI) UITests */ = {
 			isa = PBXGroup;
 			children = (
 				84C61229253E24FE00C0E38E /* SideMenu__SwiftUI_UITests.swift */,
 				84C6122B253E24FE00C0E38E /* Info.plist */,
 			);
-			path = "SideMenu (SwiftUI)UITests";
+			path = "SideMenu (SwiftUI) UITests";
 			sourceTree = "<group>";
 		};
 		84FFB98323556BD900E241DA /* Frameworks */ = {
@@ -713,7 +713,7 @@
 			baseConfigurationReference = 1F17B9D56ADA958C611FAA83 /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = "SideMenu (UIKit)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.Example.UIKit;
@@ -727,7 +727,7 @@
 			baseConfigurationReference = C7DA85E73FE6228663AD9236 /* Pods-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Example/Info.plist;
+				INFOPLIST_FILE = "SideMenu (UIKit)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonkykong.Example.UIKit;
