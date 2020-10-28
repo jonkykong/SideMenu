@@ -245,7 +245,7 @@ var menuWidth: CGFloat = 240
 var presentDuration: Double = 0.35
 /// Enable or disable interaction with the presenting view controller while the menu is displayed. Enabling may make it difficult to dismiss the menu or cause exceptions if the user tries to present and already presented menu. `presentingViewControllerUseSnapshot` must also set to false. Default is false.
 var presentingViewControllerUserInteractionEnabled: Bool = false
-/// Use a snapshot for the presenting vierw controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
+/// Use a snapshot for the presenting view controller while the menu is displayed. Useful when layout changes occur during transitions. Not recommended for apps that support rotation. Default is false.
 var presentingViewControllerUseSnapshot: Bool = false
 /// The presentation style of the menu.
 var presentationStyle: SideMenuPresentStyle = .viewSlideOut
