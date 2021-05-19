@@ -22,7 +22,7 @@ internal protocol AnimationModel {
     var usingSpringWithDamping: CGFloat { get }
 }
 
-internal protocol SideMenuAnimationControllerDelegate: class {
+internal protocol SideMenuAnimationControllerDelegate: AnyObject {
     func sideMenuAnimationController(_ animationController: SideMenuAnimationController, didDismiss viewController: UIViewController)
     func sideMenuAnimationController(_ animationController: SideMenuAnimationController, didPresent viewController: UIViewController)
 }
