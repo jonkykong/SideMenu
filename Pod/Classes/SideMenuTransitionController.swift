@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol SideMenuTransitionControllerDelegate: class {
+internal protocol SideMenuTransitionControllerDelegate: AnyObject {
     func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didDismiss viewController: UIViewController)
     func sideMenuTransitionController(_ transitionController: SideMenuTransitionController, didPresent viewController: UIViewController)
 }

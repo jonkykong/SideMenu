@@ -20,7 +20,7 @@ internal protocol PresentationModel {
     var menuWidth: CGFloat { get }
 }
 
-internal protocol SideMenuPresentationControllerDelegate: class {
+internal protocol SideMenuPresentationControllerDelegate: AnyObject {
     func sideMenuPresentationControllerDidTap(_ presentationController: SideMenuPresentationController)
     func sideMenuPresentationController(_ presentationController: SideMenuPresentationController, didPanWith gesture: UIPanGestureRecognizer)
 }
