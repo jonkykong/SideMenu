@@ -542,7 +542,7 @@ private extension SideMenuNavigationController {
         if #available(iOS 13.0, *) {
             modalPresentationStyle = .automatic
         } else {
-            modalPresentationStyle = .overFullScreen
+            modalPresentationStyle = .overCurrentContext
         }
         
         setupBlur()
