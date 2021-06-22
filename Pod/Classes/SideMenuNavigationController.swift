@@ -539,7 +539,7 @@ private extension SideMenuNavigationController {
     }
 
     func setup() {
-        modalPresentationStyle = .overCurrentContext
+        modalPresentationStyle = .fullScreen
         
         setupBlur()
         if #available(iOS 13.0, *) {} else {
