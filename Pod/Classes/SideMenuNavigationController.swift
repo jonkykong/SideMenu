@@ -537,13 +537,9 @@ private extension SideMenuNavigationController {
                 self.foundViewController = nil
         })
     }
-
+    
     func setup() {
-        if #available(iOS 13.0, *) {
-            modalPresentationStyle = .automatic
-        } else {
-            modalPresentationStyle = .overCurrentContext
-        }
+        modalPresentationStyle = isiPad ? .overCurrentContext : .overFullScreen
         
         setupBlur()
         if #available(iOS 13.0, *) {} else {
@@ -656,5 +652,13 @@ private extension SideMenuNavigationController {
 
     var hideFactor: CGFloat {
         return -presentFactor
+    }
+}
+
+extension UIResponder {
+    var isiPad: Bool {
+        get {
+            (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad)
+        }
     }
 }
