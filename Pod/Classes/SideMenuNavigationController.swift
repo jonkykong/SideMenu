@@ -537,9 +537,13 @@ private extension SideMenuNavigationController {
                 self.foundViewController = nil
         })
     }
-    
+
     func setup() {
-        modalPresentationStyle = isiPad ? .overCurrentContext : .overFullScreen
+        if #available(iOS 13.0, *) {
+            modalPresentationStyle = isiPad ? .automatic : .overFullScreen
+        } else {
+            modalPresentationStyle = isiPad ? .overCurrentContext : .overFullScreen
+        }
         
         setupBlur()
         if #available(iOS 13.0, *) {} else {
