@@ -69,7 +69,7 @@ internal protocol MenuModel {
     @objc optional func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool)
 }
 
-internal protocol SideMenuNavigationControllerTransitionDelegate: class {
+internal protocol SideMenuNavigationControllerTransitionDelegate: AnyObject {
     func sideMenuTransitionDidDismiss(menu: Menu)
 }
 
