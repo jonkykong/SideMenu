@@ -35,7 +35,7 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
     private weak var containerView: UIView?
     private let leftSide: Bool
     private weak var originalSuperview: UIView?
-    private var presentationController: SideMenuPresentationController?
+    private var presentationController: SideMenuPresentationController!
     private unowned var presentedViewController: UIViewController?
     private unowned var presentingViewController: UIViewController?
     weak var delegate: SideMenuAnimationControllerDelegate?
@@ -104,7 +104,8 @@ internal final class SideMenuAnimationController: NSObject, UIViewControllerAnim
     }
 
     func layout() {
-        presentationController?.containerViewWillLayoutSubviews()
+        guard presentationController != nil else { fatalError("presentationController not initialized") }
+        presentationController.containerViewWillLayoutSubviews()
     }
 }
 
@@ -128,28 +129,30 @@ private extension SideMenuAnimationController {
     }
 
     func transitionWillBegin(presenting: Bool) {
+        guard presentationController != nil else { fatalError("presentationController not initialized") }
+
         // prevent any other menu gestures from firing
         containerView?.isUserInteractionEnabled = false
         if presenting {
-            presentationController?.presentationTransitionWillBegin()
+            presentationController.presentationTransitionWillBegin()
         } else {
-            presentationController?.dismissalTransitionWillBegin()
+            presentationController.dismissalTransitionWillBegin()
         }
     }
 
     func transition(presenting: Bool) {
         if presenting {
-            presentationController?.presentationTransition()
+            presentationController.presentationTransition()
         } else {
-            presentationController?.dismissalTransition()
+            presentationController.dismissalTransition()
         }
     }
 
     func transitionDidEnd(presenting: Bool, completed: Bool) {
         if presenting {
-            presentationController?.presentationTransitionDidEnd(completed)
+            presentationController.presentationTransitionDidEnd(completed)
         } else {
-            presentationController?.dismissalTransitionDidEnd(completed)
+            presentationController.dismissalTransitionDidEnd(completed)
         }
         containerView?.isUserInteractionEnabled = true
     }

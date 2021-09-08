@@ -265,7 +265,9 @@ open class SideMenuNavigationController: UINavigationController {
         super.viewWillTransition(to: size, with: coordinator)
         
         // Don't bother resizing if the view isn't visible
-        guard let transitionController = transitionController, !view.isHidden else { return }
+        guard let transitionController = transitionController, !view.isHidden,
+              UIApplication.shared.applicationState != UIApplication.State.background,
+              UIApplication.shared.applicationState != UIApplication.State.inactive else { return }
 
         rotating = true
         
@@ -539,7 +541,11 @@ private extension SideMenuNavigationController {
     }
 
     func setup() {
-        modalPresentationStyle = .overFullScreen
+        if #available(iOS 13.0, *) {
+            modalPresentationStyle = isiPad ? .automatic : .overFullScreen
+        } else {
+            modalPresentationStyle = isiPad ? .overCurrentContext : .overFullScreen
+        }
 
         setupBlur()
         if #available(iOS 13.0, *) {} else {
@@ -652,5 +658,13 @@ private extension SideMenuNavigationController {
 
     var hideFactor: CGFloat {
         return -presentFactor
+    }
+}
+
+extension UIResponder {
+    var isiPad: Bool {
+        get {
+            (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad)
+        }
     }
 }

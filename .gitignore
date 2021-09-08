@@ -31,3 +31,6 @@ Carthage
 # `pod install` in .travis.yml
 #
 # Pods/
+
+#build
+.build/
