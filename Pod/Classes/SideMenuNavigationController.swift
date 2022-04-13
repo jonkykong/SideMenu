@@ -662,7 +662,7 @@ private extension SideMenuNavigationController {
 extension UIResponder {
     var isiPad: Bool {
         get {
-            (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad)
+            UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         }
     }
 }
