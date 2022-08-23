@@ -222,6 +222,8 @@ private extension SideMenuPresentationController {
     var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         var rect = containerView.bounds
+        let window = UIApplication.shared.windows.filter(\.isKeyWindow).first
+        rect.size.height -= (49 + (window?.safeAreaInsets.bottom ?? 0))
         rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
         rect.size.width = config.menuWidth
         return rect
