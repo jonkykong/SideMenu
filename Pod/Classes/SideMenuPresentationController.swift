@@ -223,7 +223,17 @@ private extension SideMenuPresentationController {
         guard let containerView = containerView else { return .zero }
         var rect = containerView.bounds
         let window = UIApplication.shared.windows.filter(\.isKeyWindow).first
-        rect.size.height -= (49 + (window?.safeAreaInsets.bottom ?? 0))
+        let tabBarHeight: CGFloat = 49.0
+        var tabBarVisible: Bool = true
+
+        if let tabBarController = presentingViewController as? UITabBarController, tabBarController.tabBar.isHidden {
+            tabBarVisible = false
+        }
+
+        if tabBarVisible {
+            rect.size.height -= (bottomBarHeight + (window?.safeAreaInsets.bottom ?? 0))
+        }
+
         rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
         rect.size.width = config.menuWidth
         return rect
